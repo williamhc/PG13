@@ -10,12 +10,14 @@ client will do just fine.
 and click "Clone in [OS]". This should prompt you to start up the Github client
 and will then clone the repo. You now have a copy of our *code* on your computer.
 
+2.5. Install SWT: Help -> Install New Software -> choose all available sites in the dropdown -> search for SWT -> open General Purpose Tools -> install SWT Designer
+
 3. Now lets go and create a project in Eclipse with this folder:
-  1. File > New > Java Project > [Fill out stuff]
+  1. File > New > Project -> SWT/jFace Project -> [Do your stuff]
   2. Next > Link additional Source > [Find your cloned repo]
   3. Finish > Finish
 
-4. That's it. You're done. You will probably have to get SWT for your platform now though.
+4. That's it. You're almost done. Now you have to solve the issue of the org.eclipse.wb.swt.SWTResourceManager problem
 
 Using Git
 =================

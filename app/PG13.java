@@ -11,8 +11,11 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+<<<<<<< HEAD
 
 //this is a test - ERIC
+=======
+>>>>>>> 099564732b22e6e8e041691db09ffc2a7dae2e0e
 public class PG13 {
 
 	protected Shell shlPg;

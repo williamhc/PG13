@@ -17,7 +17,7 @@ and will then clone the repo. You now have a copy of our *code* on your computer
   2. Next > Link additional Source > [Find your cloned repo]
   3. Finish > Finish
 
-4. That's it. You're almost done. Now you have to solve the issue of the org.eclipse.wb.swt.SWTResourceManager problem
+4. That's it. You should be done.
 
 Using Git
 =================

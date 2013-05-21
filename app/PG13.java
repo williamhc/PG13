@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 
-//this is a test - Lauren Slusky
+//this is a test - Lauren
 public class PG13 {
 
 	protected Shell shlPg;

@@ -1,4 +1,4 @@
-package models;
+package pg13.models;
 
 /**
  * This interface should be implemented by anything that can be played. Games are a good example of things that can be played.

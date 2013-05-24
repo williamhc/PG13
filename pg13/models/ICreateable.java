@@ -1,4 +1,4 @@
-package models;
+package pg13.models;
 
 /**
  * This interface should be implemented all objects that can be created. For instance, a word search can be created while a game of scrabble

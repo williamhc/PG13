@@ -6,7 +6,7 @@ import java.util.Date;
  *  @author Lauren Slusky
  *  @date May 26 2013
  *  @title Cryptogram Class
- *  @description Class defining puzzle type Cryptogram
+ *  @description Class defining 
  */
 public class Cryptogram extends Puzzle
 {
@@ -81,5 +81,18 @@ public class Cryptogram extends Puzzle
 	 */
 	public void setPlainText(String plainText) {
 		this.plainText = plainText;
+	}
+
+	
+	/*
+	 *  @author Lauren Slusky
+	 *  @date May 26 2013
+	 *  @title setPlainText
+	 *  @return true if ciphertext and plaintext are the same (solution for cryptogram found)
+	 *   and false if there are not yet the same
+	 */	
+	public boolean isCompleted()
+	{
+		return this.cipherText.equals(this.plainText);
 	}
 }

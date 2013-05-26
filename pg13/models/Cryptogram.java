@@ -1,12 +1,16 @@
 package pg13.models;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Vector;
 
 /*
  *  @author Lauren Slusky
  *  @date May 26 2013
- *  @title Cryptogram Class
- *  @description Class defining 
+ *  @title Cryptogram
+ *  @description Class defining cryptograms
  */
 public class Cryptogram extends Puzzle
 {
@@ -33,14 +37,13 @@ public class Cryptogram extends Puzzle
 	 *  @param String author - whoever designed the cryptogram
 	 *  @param String title - name of cryptogram
 	 *  @param Date dateCreated - date of creation of puzzle
-	 *  @param String ct - ciphertext for given plaintext
 	 *  @param String pt - plaintext given by the user for the puzzle
 	 */ 
-	public Cryptogram(String author, String title, Date dateCreated, String ct, String pt)
+	public Cryptogram(String author, String title, Date dateCreated, String pt)
 	{
 		super(author, title, dateCreated);
-		this.setCipherText(ct);
-		this.setPlainText(pt);
+		this.cipherText = generateCipherText(pt);
+		this.plainText = pt;
 	}
 
 	/*
@@ -83,7 +86,6 @@ public class Cryptogram extends Puzzle
 		this.plainText = plainText;
 	}
 
-	
 	/*
 	 *  @author Lauren Slusky
 	 *  @date May 26 2013
@@ -93,6 +95,108 @@ public class Cryptogram extends Puzzle
 	 */	
 	public boolean isCompleted()
 	{
-		return this.cipherText.equals(this.plainText);
+		return this.cipherText.equalsIgnoreCase(this.plainText);
+	}
+
+	/*
+	 *  @author Lauren Slusky
+	 *  @date May 26 2013
+	 *  @title generateCipherText
+	 *  @return generates random ciphertext based on plain text
+	 */	
+	private String generateCipherText(String plain)
+	{
+		char temp;
+		String ciphertext = "";;
+		HashMap<Character, Character> mapping = generateMappingKeys();
+		
+		if(plain != null && plain.length() > 0)
+		{
+			plain = plain.toUpperCase();
+			for(int i = 0; i < plain.length(); i++)
+			{
+				temp = plain.charAt(i);	
+				
+				// if the character is between A - Z, concat it's mapping on to the ciphertext
+				if(temp >= 'A' && temp <= 'Z')
+				{
+					ciphertext += mapping.get(temp);
+				}
+				//else it is punctuation or a number so we want to map it to itself
+				else
+				{
+					ciphertext += temp;
+				}
+			}
+		}
+		return ciphertext;
+	}
+
+	/*
+	 *  @author Lauren Slusky
+	 *  @date May 26 2013
+	 *  @title generateAlphabet
+	 *  @return generates an arraylist with the alphabet in it 
+	 */	
+	private ArrayList<Character> generateAlphabet() {
+		ArrayList <Character> key =  new ArrayList<Character> ();
+		
+		key.add('A');
+		key.add('B');
+		key.add('C');
+		key.add('D');
+		key.add('E');
+		key.add('F');
+		key.add('G');
+		key.add('H');
+		key.add('I');
+		key.add('J');
+		key.add('K');
+		key.add('L');
+		key.add('M');
+		key.add('N');
+		key.add('O');
+		key.add('P');
+		key.add('Q');
+		key.add('R');
+		key.add('S');
+		key.add('T');
+		key.add('U');
+		key.add('V');
+		key.add('W');
+		key.add('X');
+		key.add('Y');
+		key.add('Z');
+		
+		return key;
+	}
+
+	/*
+	 *  @author Lauren Slusky
+	 *  @date May 26 2013
+	 *  @title generated
+	 *  @return randomized one-to-one mapping each time it is called of letters
+	 */	
+	private HashMap<Character, Character> generateMappingKeys() {
+		
+		int alphabetIndex = 0;
+		ArrayList<Character> toMap = generateAlphabet();
+		ArrayList<Character> keys = generateAlphabet();
+		HashMap<Character, Character> mapping = new HashMap<Character, Character> ();
+		
+		for(int i = 0; i < keys.size(); i++)
+		{
+			//Generate a random number that is between 0 - toMap size
+			alphabetIndex = (int) (Math.random() * toMap.size());
+			
+			//Put a mapping between the next alphabet letter and the random one from toMap
+			mapping.put(keys.get(i), toMap.get(alphabetIndex));
+		
+			//Delete that letter as an option from toMap
+			toMap.remove(alphabetIndex);
+		}
+				
+	
+		return mapping;
 	}
 }

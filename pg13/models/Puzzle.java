@@ -7,6 +7,22 @@ public abstract class Puzzle implements IFindable, ICreateable, IPlayable{
 	Date dateCreated;
 	boolean isCompleted;
 
+	protected Puzzle()
+	{
+		this.author = null;
+		this.isCompleted = false;
+		this.title = null;
+		this.dateCreated = null;
+	}
+	
+	protected Puzzle(String author, String title, Date dateCreated)
+	{
+		this();
+		this.author = author;
+		this.title = title;
+		this.dateCreated = dateCreated;
+	}
+	
 	@Override
 	public boolean getIsCompleted() {
 		return this.isCompleted;
@@ -69,21 +85,5 @@ public abstract class Puzzle implements IFindable, ICreateable, IPlayable{
 	public void validate() {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	protected Puzzle()
-	{
-		this.author = null;
-		this.isCompleted = false;
-		this.title = null;
-		this.dateCreated = null;
-	}
-	
-	protected Puzzle(String author, String title, Date dateCreated)
-	{
-		this();
-		this.author = author;
-		this.title = title;
-		this.dateCreated = dateCreated;
 	}
 }

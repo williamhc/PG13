@@ -10,7 +10,7 @@ public interface IPlayable {
 	 * Get the completion state of the object (either it's completed or not)
 	 * @return The state of puzzle (whether it's completed or not)
 	 */
-	public boolean getIsCompleted();
+	public boolean isCompleted();
 	
 	/**
 	 * Set the completion state of the object (either it's completed or not)

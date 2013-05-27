@@ -43,10 +43,9 @@ import pg13.models.Cryptogram;
 
 			System.out.println("\nStarting testCipherTextWorks1");		
 			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", new Date(), "This is a test");
-			assertEquals("This is a test", cryptogram.getPlainText());
-			assertNotSame("This is a test", cryptogram.getCipherText());
-			System.out.println(cryptogram.getPlainText());
-			System.out.println(cryptogram.getCipherText());
+			assertEquals("This is a test", cryptogram.getPlaintext());
+			assertNotSame("This is a test", cryptogram.getCiphertext());
+			assertTrue((cryptogram.decrypt()).equalsIgnoreCase("This is a test"));
 			
 			System.out.println("Finished testCipherTextWorks1");
 			
@@ -58,10 +57,9 @@ import pg13.models.Cryptogram;
 
 			System.out.println("\nStarting testCipherTextWorks2");		
 			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", new Date(), "This. is, a! test%");
-			assertEquals("This. is, a! test%", cryptogram.getPlainText());
-			assertNotSame("This is a test", cryptogram.getCipherText());
-			System.out.println(cryptogram.getPlainText());
-			System.out.println(cryptogram.getCipherText());
+			assertEquals("This. is, a! test%", cryptogram.getPlaintext());
+			assertNotSame("This. is, a! test%", cryptogram.getCiphertext());
+			assertTrue((cryptogram.decrypt()).equalsIgnoreCase("This. is, a! test%"));
 			
 			System.out.println("Finished testCipherTextWorks2");
 			
@@ -73,10 +71,9 @@ import pg13.models.Cryptogram;
 
 			System.out.println("\nStarting testCryptogramEmptyPlainText");		
 			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", new Date(), "");
-			assertEquals("", cryptogram.getPlainText());
-			assertEquals("", cryptogram.getCipherText());
-			System.out.println(cryptogram.getPlainText());
-			System.out.println(cryptogram.getCipherText());
+			assertEquals("", cryptogram.getPlaintext());
+			assertEquals("", cryptogram.getCiphertext());
+			assertEquals("", cryptogram.decrypt());
 			
 			System.out.println("Finished testCryptogramEmptyPlainText");
 			

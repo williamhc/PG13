@@ -1,10 +1,8 @@
 package pg13.models;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Vector;
 
 /*
  *  @author Lauren Slusky
@@ -14,8 +12,9 @@ import java.util.Vector;
  */
 public class Cryptogram extends Puzzle
 {
-	private String cipherText;	// Coded string
-	private String plainText;	// the original user string
+	private String ciphertext;	// Coded string
+	private String plaintext;	// the original user string
+	private HashMap<Character, Character> decryptMap;
 	
 	
 	/*
@@ -26,8 +25,9 @@ public class Cryptogram extends Puzzle
 	public Cryptogram()
 	{
 		super();
-		this.setCipherText("");
-		this.setPlainText("");
+		this.ciphertext = "";
+		this.plaintext = "";
+		this.decryptMap = new HashMap<Character, Character> ();
 	}
 	
 	/*
@@ -39,11 +39,12 @@ public class Cryptogram extends Puzzle
 	 *  @param Date dateCreated - date of creation of puzzle
 	 *  @param String pt - plaintext given by the user for the puzzle
 	 */ 
-	public Cryptogram(String author, String title, Date dateCreated, String pt)
+	public Cryptogram(String author, String title, Date dateCreated, String plaintext)
 	{
 		super(author, title, dateCreated);
-		this.cipherText = generateCipherText(pt);
-		this.plainText = pt;
+		this.decryptMap = new HashMap<Character, Character> ();
+		this.ciphertext = encrypt(plaintext);
+		this.plaintext = plaintext;	
 	}
 
 	/*
@@ -52,8 +53,8 @@ public class Cryptogram extends Puzzle
 	 *  @title getCipherText
 	 *  @return String cipherText
 	 */
-	public String getCipherText() {
-		return cipherText;
+	public String getCiphertext() {
+		return ciphertext;
 	}
 
 	/*
@@ -62,8 +63,8 @@ public class Cryptogram extends Puzzle
 	 *  @title setCipherText
 	 *  @param String cipherText to set for a given puzzle
 	 */
-	public void setCipherText(String cipherText) {
-		this.cipherText = cipherText;
+	public void setCiphertext(String ciphertext) {
+		this.ciphertext = ciphertext;
 	}
 
 	/*
@@ -72,8 +73,8 @@ public class Cryptogram extends Puzzle
 	 *  @title getPlainText
 	 *  @return plaintext for a puzzle
 	 */
-	public String getPlainText() {
-		return plainText;
+	public String getPlaintext() {
+		return plaintext;
 	}
 
 	/*
@@ -82,8 +83,8 @@ public class Cryptogram extends Puzzle
 	 *  @title setPlainText
 	 *  @return sets plaintext for a puzzle
 	 */
-	public void setPlainText(String plainText) {
-		this.plainText = plainText;
+	public void setPlaintext(String plaintext) {
+		this.plaintext = plaintext;
 	}
 
 	/*
@@ -95,16 +96,16 @@ public class Cryptogram extends Puzzle
 	 */	
 	public boolean isCompleted()
 	{
-		return this.cipherText.equalsIgnoreCase(this.plainText);
+		return this.ciphertext.equalsIgnoreCase(this.plaintext);
 	}
 
 	/*
 	 *  @author Lauren Slusky
 	 *  @date May 26 2013
-	 *  @title generateCipherText
+	 *  @title encrypt
 	 *  @return generates random ciphertext based on plain text
 	 */	
-	private String generateCipherText(String plain)
+	private String encrypt(String plain)
 	{
 		char temp;
 		String ciphertext = "";;
@@ -127,6 +128,7 @@ public class Cryptogram extends Puzzle
 				{
 					ciphertext += temp;
 				}
+				
 			}
 		}
 		return ciphertext;
@@ -182,21 +184,59 @@ public class Cryptogram extends Puzzle
 		int alphabetIndex = 0;
 		ArrayList<Character> toMap = generateAlphabet();
 		ArrayList<Character> keys = generateAlphabet();
-		HashMap<Character, Character> mapping = new HashMap<Character, Character> ();
+		HashMap<Character, Character> map = new HashMap<Character, Character> ();
 		
 		for(int i = 0; i < keys.size(); i++)
 		{
 			//Generate a random number that is between 0 - toMap size
 			alphabetIndex = (int) (Math.random() * toMap.size());
 			
-			//Put a mapping between the next alphabet letter and the random one from toMap
-			mapping.put(keys.get(i), toMap.get(alphabetIndex));
-		
-			//Delete that letter as an option from toMap
-			toMap.remove(alphabetIndex);
+			if(keys.get(i) != toMap.get(alphabetIndex))
+			{
+				//Put a mapping between the next alphabet letter and the random one from toMap
+				map.put(keys.get(i), toMap.get(alphabetIndex));
+				
+				// Make sure we store the mapping we used to encrypt so 
+				// this can be decrypted properly later
+				// this is why we store the Code char as the key not the value in the
+				// class version but reverse the for the above instance version
+				this.decryptMap.put(toMap.get(alphabetIndex), keys.get(i));
+				
+				//Delete that letter as an option from toMap
+				toMap.remove(alphabetIndex);
+			}
 		}
 				
 	
-		return mapping;
+		return map;
+	}
+
+	/*
+	 *  @author Lauren Slusky
+	 *  @date May 26 2013
+	 *  @title decrypt
+	 *  @return decodes messages based on mapping and cipher text
+	 */	
+	public String decrypt() {
+		String result = "";
+		char temp;
+
+		for(int i = 0; i < this.ciphertext.length(); i++)
+		{
+			temp = this.ciphertext.charAt(i);	
+			
+			// if the character is between A - Z, concat it's mapping on to the ciphertext
+			if(temp >= 'A' && temp <= 'Z')
+			{
+				result += this.decryptMap.get(temp);
+			}
+			//else it is punctuation or a number so we want to map it to itself
+			else
+			{
+				result += temp;
+			}
+			
+		}
+		return result;
 	}
 }

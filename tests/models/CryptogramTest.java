@@ -10,6 +10,13 @@ import pg13.models.CryptogramPair;
 
 	public class CryptogramTest extends TestCase
 	{
+		private final String DEFAULT_TITLE = "Practice Cryptogram";
+		private final String DEFAULT_AUTHOR = "Lauren Slusky";
+		private final Date DEFAULT_DATE = new Date();
+		private final String DEFAULT_PLAINTEXT = "This is a test.";
+		
+		private Cryptogram cryptogram;
+		
 		public CryptogramTest(String arg0)
 		{
 			super(arg0);
@@ -40,85 +47,91 @@ import pg13.models.CryptogramPair;
 		
 		public void testEmptyCryptogram()
 		{
-			Cryptogram cryptogram;
-
 			cryptogram = new Cryptogram();
 			assertNotNull(cryptogram);
 		}
 		
 		public void testCryptogramGeneralData()
 		{
-			Cryptogram cryptogram;
-			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", new Date(), "This is a test");
+			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_DATE, DEFAULT_PLAINTEXT);
 			assertNotNull(cryptogram);
-			assertEquals("Lauren Slusky", cryptogram.getAuthor());
-			assertEquals("Practice Cryptogram", cryptogram.getTitle());
+			assertEquals(DEFAULT_AUTHOR, cryptogram.getAuthor());
+			assertEquals(DEFAULT_TITLE, cryptogram.getTitle());
+			assertEquals(DEFAULT_DATE, cryptogram.getDateCreated());
+			assertEquals(DEFAULT_PLAINTEXT, cryptogram.getPlaintext());
 		}
 
 		public void testCryptogramEmptyAuthor()
 		{
-			Cryptogram cryptogram;	
-			cryptogram = new Cryptogram("", "Practice Cryptogram", new Date(), "");
-			assertEquals("", cryptogram.getAuthor());						
+			cryptogram = new Cryptogram("", DEFAULT_TITLE, DEFAULT_DATE, "");
+			assertEquals("", cryptogram.getAuthor());
+			assertEquals(DEFAULT_TITLE, cryptogram.getTitle());
+			assertEquals(DEFAULT_DATE, cryptogram.getDateCreated());
+			assertEquals("", cryptogram.getPlaintext());
 		}
 		
 		public void testCryptogramEmptyTitle()
 		{
-			Cryptogram cryptogram;	
-			cryptogram = new Cryptogram("Lauren Slusky", "", new Date(), "");
-			assertEquals("", cryptogram.getTitle());			
+			cryptogram = new Cryptogram(DEFAULT_AUTHOR, "", DEFAULT_DATE, "");
+			assertEquals("", cryptogram.getTitle());		
+			assertEquals(DEFAULT_AUTHOR, cryptogram.getAuthor());
+			assertEquals(DEFAULT_DATE, cryptogram.getDateCreated());
+			assertEquals("", cryptogram.getPlaintext());
 		}
 		
 		public void testCryptogramEmptyDate()
 		{
-			Cryptogram cryptogram;	
-			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", null, "");
-			assertEquals(null, cryptogram.getDateCreated());			
+			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, null, "");
+			assertEquals(null, cryptogram.getDateCreated());
+			assertEquals(DEFAULT_AUTHOR, cryptogram.getAuthor());
+			assertEquals(DEFAULT_TITLE, cryptogram.getTitle());
+			assertEquals("", cryptogram.getPlaintext());
 		}
 		
 		public void testCipherTextWorksNoPunctuation()
 		{
-			Cryptogram cryptogram;
-	
-			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", new Date(), "This is a test");
-			assertEquals("This is a test", cryptogram.getPlaintext());
-			assertNotSame("This is a test", cryptogram.getCiphertext());
-			assertTrue((cryptogram.decrypt()).equalsIgnoreCase("This is a test"));
+			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_DATE, DEFAULT_PLAINTEXT);
+			assertEquals(DEFAULT_PLAINTEXT, cryptogram.getPlaintext());
+			assertNotSame(DEFAULT_PLAINTEXT, cryptogram.getCiphertext());
+			assertFalse(DEFAULT_PLAINTEXT.equals(cryptogram.getCiphertext())); //for some reason there isn't assertNotEquals in JUnit
+			assertTrue((cryptogram.decrypt()).equalsIgnoreCase(DEFAULT_PLAINTEXT));
 		}
 		
 		public void testCipherTextWorksPunctuation()
 		{
-			Cryptogram cryptogram;
-			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", new Date(), "This. is, a! test%");
-			assertEquals("This. is, a! test%", cryptogram.getPlaintext());
-			assertNotSame("This. is, a! test%", cryptogram.getCiphertext());
-			assertTrue((cryptogram.decrypt()).equalsIgnoreCase("This. is, a! test%"));		
+			String plaintext =  "This. is, a! test%";
+			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_DATE, plaintext);
+			assertEquals(plaintext, cryptogram.getPlaintext());
+			assertNotSame(plaintext, cryptogram.getCiphertext());
+			assertTrue((cryptogram.decrypt()).equalsIgnoreCase(plaintext));
+			assertEquals(DEFAULT_AUTHOR, cryptogram.getAuthor());
+			assertEquals(DEFAULT_TITLE, cryptogram.getTitle());
+			assertEquals(DEFAULT_DATE, cryptogram.getDateCreated());
 		}
 		
 		public void testCryptogramEmptyPlainText()
 		{
-			Cryptogram cryptogram;
-	
-			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", new Date(), "");
+			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_DATE, "");
 			assertEquals("", cryptogram.getPlaintext());
 			assertEquals("", cryptogram.getCiphertext());
 			assertEquals("", cryptogram.decrypt());
+			assertEquals(DEFAULT_AUTHOR, cryptogram.getAuthor());
+			assertEquals(DEFAULT_TITLE, cryptogram.getTitle());
+			assertEquals(DEFAULT_DATE, cryptogram.getDateCreated());
 		}
 
 		public void testCryptogramAllPuncatuationPlainText()
-		{
-			Cryptogram cryptogram;
-	
-			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", new Date(), "!!!!!!!!!!!!!!!!!!!!!&!!!!!!!!!!");
-			assertEquals("!!!!!!!!!!!!!!!!!!!!!&!!!!!!!!!!", cryptogram.getPlaintext());
-			assertEquals("!!!!!!!!!!!!!!!!!!!!!&!!!!!!!!!!", cryptogram.getCiphertext());
-			assertEquals("!!!!!!!!!!!!!!!!!!!!!&!!!!!!!!!!", cryptogram.decrypt());
+		{	
+			String plaintext = "!!!!!!!!!!!!!!!!!!!!!&!!!!!!!!!!";
+			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_DATE, plaintext);
+			assertEquals(plaintext, cryptogram.getPlaintext());
+			assertEquals(plaintext, cryptogram.getCiphertext());
+			assertEquals(plaintext, cryptogram.decrypt());
 		}
 		
 		public void testCryptogramCryptogramCompletion()
 		{
-			Cryptogram cryptogram;
-			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", new Date(), "This is a test.");
+			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_DATE, "This is a test.");
 			assertTrue(cryptogram.isCompleted("This is a test."));
 			assertTrue(cryptogram.isCompleted("ThIs iS A tESt."));
 			assertTrue(cryptogram.isCompleted(cryptogram.decrypt()));
@@ -138,8 +151,7 @@ import pg13.models.CryptogramPair;
 		
 		public void testCryptogramUserUses()
 		{
-			Cryptogram cryptogram;
-			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", new Date(), "This is a test.");
+			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_DATE, "This is a test.");
 			cryptogram.setUserPlaintextForCiphertext('h', 'X');
 			assertEquals(cryptogram.getUserPlaintextFromCiphertext('X'), 'H');
 			assertEquals(cryptogram.getUserCiphertextFromPlaintext('h'), 'X');

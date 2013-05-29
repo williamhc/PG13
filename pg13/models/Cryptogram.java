@@ -123,6 +123,10 @@ public class Cryptogram extends Puzzle
 	 */	
 	public boolean isCompleted(String userString)
 	{		
+		if(userString == null)
+		{
+			throw new IllegalArgumentException();
+		}
 		return userString.equalsIgnoreCase(this.plaintext);
 	}
 	
@@ -269,7 +273,6 @@ public class Cryptogram extends Puzzle
 	 *  @return an array of plaintext characters that are in the position of it's paired cipher text
 	 *  	i.e if A plaintext maps to Z ciphertext then A is in spot 25 of this array
 	 */	
-	//TODO COMMENT
 	private char[] reOrderCharMappingByDecrypt() 
 	{
 		char[] reorder = new char[ALPHABET_SIZE];

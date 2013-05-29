@@ -31,6 +31,27 @@ import pg13.models.Cryptogram;
 			assertEquals("Practice Cryptogram", cryptogram.getTitle());
 		}
 
+		public void testCryptogramEmptyAuthor()
+		{
+			Cryptogram cryptogram;	
+			cryptogram = new Cryptogram("", "Practice Cryptogram", new Date(), "");
+			assertEquals("", cryptogram.getAuthor());						
+		}
+		
+		public void testCryptogramEmptyTitle()
+		{
+			Cryptogram cryptogram;	
+			cryptogram = new Cryptogram("Lauren Slusky", "", new Date(), "");
+			assertEquals("", cryptogram.getTitle());			
+		}
+		
+		public void testCryptogramEmptyDate()
+		{
+			Cryptogram cryptogram;	
+			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", null, "");
+			assertEquals(null, cryptogram.getDateCreated());			
+		}
+		
 		public void testCipherTextWorksNoPunctuation()
 		{
 			Cryptogram cryptogram;
@@ -58,27 +79,36 @@ import pg13.models.Cryptogram;
 			assertEquals("", cryptogram.getPlaintext());
 			assertEquals("", cryptogram.getCiphertext());
 			assertEquals("", cryptogram.decrypt());
-			
+		}
+
+		public void testCryptogramAllPuncatuationPlainText()
+		{
+			Cryptogram cryptogram;
+	
+			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", new Date(), "!!!!!!!!!!!!!!!!!!!!!&!!!!!!!!!!");
+			assertEquals("!!!!!!!!!!!!!!!!!!!!!&!!!!!!!!!!", cryptogram.getPlaintext());
+			assertEquals("!!!!!!!!!!!!!!!!!!!!!&!!!!!!!!!!", cryptogram.getCiphertext());
+			assertEquals("!!!!!!!!!!!!!!!!!!!!!&!!!!!!!!!!", cryptogram.decrypt());
 		}
 		
-		public void testCryptogramEmptyAuthor()
+		public void testCryptogramIsCompletedMethod()
 		{
-			Cryptogram cryptogram;	
-			cryptogram = new Cryptogram("", "Practice Cryptogram", new Date(), "");
-			assertEquals("", cryptogram.getAuthor());						
-		}
-		
-		public void testCryptogramEmptyTitle()
-		{
-			Cryptogram cryptogram;	
-			cryptogram = new Cryptogram("Lauren Slusky", "", new Date(), "");
-			assertEquals("", cryptogram.getTitle());			
-		}
-		
-		public void testCryptogramEmptyDate()
-		{
-			Cryptogram cryptogram;	
-			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", null, "");
-			assertEquals(null, cryptogram.getDateCreated());			
+			Cryptogram cryptogram;
+			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", new Date(), "This is a test.");
+			assertTrue(cryptogram.isCompleted("This is a test."));
+			assertTrue(cryptogram.isCompleted("ThIs iS A tESt."));
+			assertTrue(cryptogram.isCompleted(cryptogram.decrypt()));
+			assertFalse(cryptogram.isCompleted("ThIs iS A tESt!"));
+			assertFalse(cryptogram.isCompleted("This sentence is false!")); // dont think about it, dont think about it, dont think about...
+			assertFalse(cryptogram.isCompleted(""));
+			try
+			{
+				cryptogram.isCompleted(null); 
+				fail();
+			}
+			catch (IllegalArgumentException iae)
+			{
+				
+			}
 		}
 	}

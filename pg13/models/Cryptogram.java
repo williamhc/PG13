@@ -12,231 +12,274 @@ import java.util.HashMap;
  */
 public class Cryptogram extends Puzzle
 {
-	private String ciphertext;	// Coded string
-	private String plaintext;	// the original user string
-	private HashMap<Character, Character> decryptMap;
+	private final int ALPHABET_SIZE = 26;	// Letters of the alphabet
+	private String ciphertext;				// Coded string
+	private String plaintext;				// the original user string
+	private CryptogramPair[] charMapping;	// Mapping for plaintext to ciphertext characters used for encryption and decryptoin
+	private CryptogramPair[] userMapping;	// User Entered mapping of characters when solving a cryptogram
 	
 	
-	/*
-	 *  @author Lauren Slusky
-	 *  @date May 26 2013
-	 *  @title Cryptogram Constructor
-	 */
 	public Cryptogram()
 	{
 		super();
+		this.charMapping = setMappingKeys();
+		generateMappingKeys();
+		this.userMapping = setMappingKeys();
 		this.ciphertext = "";
 		this.plaintext = "";
-		this.decryptMap = new HashMap<Character, Character> ();
 	}
 	
-	/*
-	 *  @author Lauren Slusky
-	 *  @date May 26 2013
-	 *  @title Cryptogram Constructor
-	 *  @param String author - whoever designed the cryptogram
-	 *  @param String title - name of cryptogram
-	 *  @param Date dateCreated - date of creation of puzzle
-	 *  @param String pt - plaintext given by the user for the puzzle
-	 */ 
 	public Cryptogram(String author, String title, Date dateCreated, String plaintext)
 	{
 		super(author, title, dateCreated);
-		this.decryptMap = new HashMap<Character, Character> ();
-		this.ciphertext = encrypt(plaintext);
+		this.charMapping = setMappingKeys();
+		generateMappingKeys();
+		this.userMapping = setMappingKeys();
 		this.plaintext = plaintext;	
+		this.ciphertext = encrypt();
 	}
 
-	/*
-	 *  @author Lauren Slusky
-	 *  @date May 26 2013
-	 *  @title getCipherText
-	 *  @return String cipherText
-	 */
 	public String getCiphertext() {
 		return ciphertext;
 	}
 
-	/*
-	 *  @author Lauren Slusky
-	 *  @date May 26 2013
-	 *  @title setCipherText
-	 *  @param String cipherText to set for a given puzzle
-	 */
 	public void setCiphertext(String ciphertext) {
 		this.ciphertext = ciphertext;
 	}
 
-	/*
-	 *  @author Lauren Slusky
-	 *  @date May 26 2013
-	 *  @title getPlainText
-	 *  @return plaintext for a puzzle
-	 */
 	public String getPlaintext() {
 		return plaintext;
 	}
 
+	public void setPlaintext(String plaintext) {
+		this.plaintext = plaintext;
+	}
+
+	public CryptogramPair[] getCharMapping() {
+		return charMapping;
+	}
+
+	public void setCharMapping(CryptogramPair[] charMapping) {
+		this.charMapping = charMapping;
+	}
+
+	public CryptogramPair[] getUserMapping() {
+		return userMapping;
+	}
+
+	public void setUserMapping(CryptogramPair[] userMapping) {
+		this.userMapping = userMapping;
+	}
+
+	public CryptogramPair getUserMapping(int mapIndex) {
+		return this.getUserMapping(mapIndex);
+	}
+
 	/*
 	 *  @author Lauren Slusky
 	 *  @date May 26 2013
-	 *  @title setPlainText
-	 *  @return sets plaintext for a puzzle
+	 *  @title getUserPlaintextFromCiphertext
+	 *  @return plaintext char that the user thinks is mapped to a given ciphertext
 	 */
-	public void setPlaintext(String plaintext) {
-		this.plaintext = plaintext;
+	public char getUserPlaintextFromCiphertext(char ciphertextc)
+	{
+		char[] decryptOrder = reOrderCharMappingByDecrypt();
+		int index = ciphertextc - 'A';
+		return decryptOrder[index];
+	}
+
+	/*
+	 *  @author Lauren Slusky
+	 *  @date May 26 2013
+	 *  @title getUserCiphertextFromPlaintext
+	 *  @return given a plaintext char a user has entered, this method returns the corresponding ciphertext char
+	 */
+	public char getUserCiphertextFromPlaintext(char plaintextc)
+	{
+		int index = plaintextc = 'A';
+		return this.userMapping[index].getCipherc();
 	}
 
 	/*
 	 *  @author Lauren Slusky
 	 *  @date May 26 2013
 	 *  @title setPlainText
-	 *  @return true if ciphertext and plaintext are the same (solution for cryptogram found)
-	 *   and false if there are not yet the same
-	 */	
-	public boolean isCompleted()
+	 *  @return maps the users choice of plaintext char for a given ciphertext char
+	 */
+	public void setUserPlaintextForCiphertext(char plaintextc, char ciphertextc)
 	{
-		return this.ciphertext.equalsIgnoreCase(this.plaintext);
+		int index = plaintextc - 'A';	// spot the in the array of the plaintext ciphertext pairing
+		this.userMapping[index].setCipherc(ciphertextc);	//map the ciphertext to the given plaintext
+	}
+	
+
+
+	/*
+	 *  @author Lauren Slusky
+	 *  @date May 26 2013
+	 *  @title isCompleted
+	 *  @paeam String userString
+	 *  @return checks if userString which is the user's plaintext, matches the original plaintext (ignorescase)
+	 */	
+	public boolean isCompleted(String userString)
+	{		
+		return userString.equalsIgnoreCase(this.plaintext);
+	}
+	
+	/*
+	 *  @author Lauren Slusky
+	 *  @date May 26 2013
+	 *  @title setMappingKeys
+	 *  @return an array of type Cryptogram pair with the plain text A - Z mapped
+	 */	
+	private CryptogramPair[] setMappingKeys()
+	{
+		char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+		CryptogramPair[] map = new CryptogramPair[ALPHABET_SIZE];
+		for(int i = 0; i < alphabet.length; i ++)
+		{
+			char letter = alphabet[i];
+			map[i] = new CryptogramPair(letter, '\0');	//no ciphertext char to map yet
+		}
+		return map;
+	}
+	
+	/*
+	 *  @author Lauren Slusky
+	 *  @date May 26 2013
+	 *  @title generateMappingKeys
+	 *  @desription Takes a randomly shuffled array of the alphabet and assigns the each char to the charMapping array[i]'s ciphertext
+	 */	
+	private void generateMappingKeys() 
+	{	
+		char[] alphabet = shuffleAlphabet();
+		
+		for(int i = 0; i < alphabet.length; i ++)
+		{
+			char letter = alphabet[i];
+			this.charMapping[i].setCipherc(letter);
+		}
+	}
+
+	/*
+	 *  @author Lauren Slusky
+	 *  @date May 26 2013
+	 *  @title shuffleAlphabet
+	 *  @return a char array of the alphabet where no letter is in the same place
+	 *  This Method Uses Sattolo's Algorithm URL(http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Sattolo.27s_algorithm)
+	 */	
+	private char[] shuffleAlphabet() 
+	{
+		char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+		int posn = ALPHABET_SIZE;
+		int newPosn = 0;
+		char temp;
+		
+		while(posn > 1)
+		{
+			posn = posn - 1;
+			// we use posn - 1 so that way there is no chance of the random element being posn and the element swapping places with itself
+			newPosn = (int)Math.random() * (posn - 1);
+			
+			// regular old swapskie
+			temp = alphabet[posn];
+			alphabet[posn] = alphabet[newPosn];
+			alphabet[newPosn] = temp;
+		}
+		return alphabet;
 	}
 
 	/*
 	 *  @author Lauren Slusky
 	 *  @date May 26 2013
 	 *  @title encrypt
-	 *  @return generates random ciphertext based on plain text
+	 *  @return generates random ciphertext based on plain text and charMapping array
 	 */	
-	private String encrypt(String plain)
+	private String encrypt()
 	{
-		char temp;
-		String ciphertext = "";;
-		HashMap<Character, Character> mapping = generateMappingKeys();
+		String ciphertext = "";
+		String plain = this.plaintext;
+		int index = 0;
 		
-		if(plain != null && plain.length() > 0)
+		if(this.plaintext != null && this.plaintext.length () > 0)
 		{
 			plain = plain.toUpperCase();
+			
 			for(int i = 0; i < plain.length(); i++)
 			{
-				temp = plain.charAt(i);	
+				char temp = plain.charAt(i);
 				
-				// if the character is between A - Z, concat it's mapping on to the ciphertext
+				//alphabet character
 				if(temp >= 'A' && temp <= 'Z')
 				{
-					ciphertext += mapping.get(temp);
+					index = temp - 'A';			// gives me index in charMapping for the cipher text letter that matches this plaintext char
+					ciphertext += this.charMapping[index].getCipherc();
 				}
-				//else it is punctuation or a number so we want to map it to itself
+				//punctuation, spaces, etc
 				else
 				{
 					ciphertext += temp;
 				}
-				
 			}
 		}
+		
 		return ciphertext;
 	}
 
 	/*
 	 *  @author Lauren Slusky
 	 *  @date May 26 2013
-	 *  @title generateAlphabet
-	 *  @return generates an arraylist with the alphabet in it 
-	 */	
-	private ArrayList<Character> generateAlphabet() {
-		ArrayList <Character> key =  new ArrayList<Character> ();
-		
-		key.add('A');
-		key.add('B');
-		key.add('C');
-		key.add('D');
-		key.add('E');
-		key.add('F');
-		key.add('G');
-		key.add('H');
-		key.add('I');
-		key.add('J');
-		key.add('K');
-		key.add('L');
-		key.add('M');
-		key.add('N');
-		key.add('O');
-		key.add('P');
-		key.add('Q');
-		key.add('R');
-		key.add('S');
-		key.add('T');
-		key.add('U');
-		key.add('V');
-		key.add('W');
-		key.add('X');
-		key.add('Y');
-		key.add('Z');
-		
-		return key;
-	}
-
-	/*
-	 *  @author Lauren Slusky
-	 *  @date May 26 2013
-	 *  @title generated
-	 *  @return randomized one-to-one mapping each time it is called of letters
-	 */	
-	private HashMap<Character, Character> generateMappingKeys() {
-		
-		int alphabetIndex = 0;
-		ArrayList<Character> toMap = generateAlphabet();
-		ArrayList<Character> keys = generateAlphabet();
-		HashMap<Character, Character> map = new HashMap<Character, Character> ();
-		
-		for(int i = 0; i < keys.size(); i++)
-		{
-			//Generate a random number that is between 0 - toMap size
-			alphabetIndex = (int) (Math.random() * toMap.size());
-			
-			if(keys.get(i) != toMap.get(alphabetIndex))
-			{
-				//Put a mapping between the next alphabet letter and the random one from toMap
-				map.put(keys.get(i), toMap.get(alphabetIndex));
-				
-				// Make sure we store the mapping we used to encrypt so 
-				// this can be decrypted properly later
-				// this is why we store the Code char as the key not the value in the
-				// class version but reverse the for the above instance version
-				this.decryptMap.put(toMap.get(alphabetIndex), keys.get(i));
-				
-				//Delete that letter as an option from toMap
-				toMap.remove(alphabetIndex);
-			}
-		}
-				
-	
-		return map;
-	}
-
-	/*
-	 *  @author Lauren Slusky
-	 *  @date May 26 2013
 	 *  @title decrypt
-	 *  @return decodes messages based on mapping and cipher text
+	 *  @return decodes messages based on charMapping and cipher text
 	 */	
-	public String decrypt() {
-		String result = "";
-		char temp;
-
-		for(int i = 0; i < this.ciphertext.length(); i++)
+	public String decrypt() 
+	{
+		String plaintext = "";
+		char[] decryptKey = reOrderCharMappingByDecrypt();	// an array of plaintext characters ordered by ciphertext character index
+		String ciphertext = this.ciphertext;
+		int index = 0;
+		
+		if(this.ciphertext != null && this.ciphertext.length () > 0)
 		{
-			temp = this.ciphertext.charAt(i);	
-			
-			// if the character is between A - Z, concat it's mapping on to the ciphertext
-			if(temp >= 'A' && temp <= 'Z')
+			for(int i = 0; i < ciphertext.length(); i++)
 			{
-				result += this.decryptMap.get(temp);
+				char temp = ciphertext.charAt(i);
+				
+				//alphabet character
+				if(temp >= 'A' && temp <= 'Z')
+				{
+					index = temp - 'A';				// gives me index associated with the ciphertext character (A = 0, B = 1) in charMapping 
+					plaintext += decryptKey[index];
+				}
+				//punctuation, spaces, etc
+				else
+				{
+					plaintext += temp;
+				}
 			}
-			//else it is punctuation or a number so we want to map it to itself
-			else
-			{
-				result += temp;
-			}
-			
 		}
-		return result;
+		
+		return plaintext;
+	}
+
+	/*
+	 *  @author Lauren Slusky
+	 *  @date May 26 2013
+	 *  @title reOrderCharMappingByDecrypt
+	 *  @return an array of plaintext characters that are in the position of it's paired cipher text
+	 *  	i.e if A plaintext maps to Z ciphertext then A is in spot 25 of this array
+	 */	
+	//TODO COMMENT
+	private char[] reOrderCharMappingByDecrypt() 
+	{
+		char[] reorder = new char[ALPHABET_SIZE];
+		int index = 0;
+		
+		for(int i = 0; i < this.charMapping.length; i++)
+		{
+			index = this.charMapping[i].getCipherc() - 'A';		// get ciphertext character index
+			reorder[index] = this.charMapping[i].getPlainc(); // put plaintext character in that spot
+		}
+		return reorder;
 	}
 }

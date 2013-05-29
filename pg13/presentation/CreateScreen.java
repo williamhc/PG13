@@ -8,7 +8,8 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
 
-public class CreateScreen extends Composite {
+public class CreateScreen extends Composite 
+{
 
 	/**
 	 * Creates and populates the create screen.
@@ -17,29 +18,35 @@ public class CreateScreen extends Composite {
 	 * @param style
 	 * @date May 26 2013
 	 */
-	public CreateScreen(Composite parent, int style) {
+	public CreateScreen(Composite parent, int style) 
+	{
 		super(parent, style);
 		setLayout(new FormLayout());
 		
-		// stub just to show that the screen is in fact being displayed
-		// TODO fill in the rest of this window, I'll get right on this... -- Eric
-		Label lblStubby = new Label(this, SWT.NONE);
-		FormData fd_lblStubby = new FormData();
-		fd_lblStubby.bottom = new FormAttachment(100);
-		fd_lblStubby.right = new FormAttachment(100);
-		fd_lblStubby.top = new FormAttachment(0, 100);
-		fd_lblStubby.left = new FormAttachment(0);
-		lblStubby.setLayoutData(fd_lblStubby);
-		lblStubby.setAlignment(SWT.CENTER);
-		lblStubby.setFont(SWTResourceManager.getFont("Segoe UI", 28, SWT.NORMAL));
-		lblStubby.setText("Create Screen Stub");
+		// puzzle's general properties
+		PuzzlePropertiesWidget cmpProperties = new PuzzlePropertiesWidget(this, SWT.NONE, true);
+		FormData fd_cmpProperties = new FormData();
+		fd_cmpProperties.top = new FormAttachment(0);
+		fd_cmpProperties.left = new FormAttachment(0);
+		fd_cmpProperties.bottom = new FormAttachment(100);
+		fd_cmpProperties.right = new FormAttachment(33);
+		cmpProperties.setLayoutData(fd_cmpProperties);
+		
+		// puzzle edit widget, for now is only cryptogram
+		CryptogramEditWidget cmpEditWidget = new CryptogramEditWidget(this, SWT.NONE);
+		FormData fd_composite = new FormData();
+		fd_composite.bottom = new FormAttachment(100);
+		fd_composite.right = new FormAttachment(100);
+		fd_composite.top = new FormAttachment(0);
+		fd_composite.left = new FormAttachment(33);
+		cmpEditWidget.setLayoutData(fd_composite);
 
 	}
 
 	@Override
-	protected void checkSubclass() {
+	protected void checkSubclass() 
+	{
 		// Disable the check that prevents subclassing of SWT components
 	}
-
 }
 

@@ -6,6 +6,7 @@ import java.util.Date;
 import junit.framework.TestCase;
 
 import pg13.models.Cryptogram;
+import pg13.models.CryptogramPair;
 
 	public class CryptogramTest extends TestCase
 	{
@@ -14,6 +15,29 @@ import pg13.models.Cryptogram;
 			super(arg0);
 		}
 
+		public void testCryptogramPairClass()
+		{
+			CryptogramPair cp = new CryptogramPair('L', 'L');
+			assertNotNull(cp);
+		}
+		
+		public void testCryptogramPairClassCharacters()
+		{
+			assertNotNull(new CryptogramPair('L', 'L'));	
+			assertNotNull(new CryptogramPair('L', 'R'));	
+			assertNotNull(new CryptogramPair('\0', '\0'));
+			assertNotNull(new CryptogramPair('L', '\0'));
+			try
+			{
+				CryptogramPair cp1 = new CryptogramPair('!', '!');
+				fail();
+			}
+			catch(IllegalArgumentException iae)
+			{
+				
+			}
+		}
+		
 		public void testEmptyCryptogram()
 		{
 			Cryptogram cryptogram;
@@ -91,7 +115,7 @@ import pg13.models.Cryptogram;
 			assertEquals("!!!!!!!!!!!!!!!!!!!!!&!!!!!!!!!!", cryptogram.decrypt());
 		}
 		
-		public void testCryptogramIsCompletedMethod()
+		public void testCryptogramCryptogramCompletion()
 		{
 			Cryptogram cryptogram;
 			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", new Date(), "This is a test.");
@@ -110,5 +134,15 @@ import pg13.models.Cryptogram;
 			{
 				
 			}
+		}
+		
+		public void testCryptogramUserUses()
+		{
+			Cryptogram cryptogram;
+			cryptogram = new Cryptogram("Lauren Slusky", "Practice Cryptogram", new Date(), "This is a test.");
+			cryptogram.setUserPlaintextForCiphertext('h', 'X');
+			assertEquals(cryptogram.getUserPlaintextFromCiphertext('X'), 'H');
+			assertEquals(cryptogram.getUserCiphertextFromPlaintext('h'), 'X');
+			assertNotNull(cryptogram.getUserMapping());
 		}
 	}

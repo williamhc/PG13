@@ -15,7 +15,7 @@ public class Cryptogram extends Puzzle
 	private final int ALPHABET_SIZE = 26;	// Letters of the alphabet
 	private String ciphertext;				// Coded string
 	private String plaintext;				// the original user string
-	private CryptogramPair[] charMapping;	// Mapping for plaintext to ciphertext characters used for encryption and decryptoin
+	private CryptogramPair[] charMapping;	// Mapping for plaintext to ciphertext characters used for encryption and decryption
 	private CryptogramPair[] userMapping;	// User Entered mapping of characters when solving a cryptogram
 	
 	
@@ -59,21 +59,10 @@ public class Cryptogram extends Puzzle
 		return charMapping;
 	}
 
-	public void setCharMapping(CryptogramPair[] charMapping) {
-		this.charMapping = charMapping;
-	}
-
 	public CryptogramPair[] getUserMapping() {
 		return userMapping;
 	}
 
-	public void setUserMapping(CryptogramPair[] userMapping) {
-		this.userMapping = userMapping;
-	}
-
-	public CryptogramPair getUserMapping(int mapIndex) {
-		return this.getUserMapping(mapIndex);
-	}
 
 	/*
 	 *  @author Lauren Slusky
@@ -83,9 +72,9 @@ public class Cryptogram extends Puzzle
 	 */
 	public char getUserPlaintextFromCiphertext(char ciphertextc)
 	{
-		char[] decryptOrder = reOrderCharMappingByDecrypt();
+		char[] decryptOrder = reOrderUserMappingByDecrypt();
 		int index = ciphertextc - 'A';
-		return decryptOrder[index];
+		return Character.toUpperCase(decryptOrder[index]);
 	}
 
 	/*
@@ -96,8 +85,8 @@ public class Cryptogram extends Puzzle
 	 */
 	public char getUserCiphertextFromPlaintext(char plaintextc)
 	{
-		int index = plaintextc = 'A';
-		return this.userMapping[index].getCipherc();
+		int index = Character.toUpperCase(plaintextc) - 'A';
+		return Character.toUpperCase(this.userMapping[index].getCipherc());
 	}
 
 	/*
@@ -108,8 +97,8 @@ public class Cryptogram extends Puzzle
 	 */
 	public void setUserPlaintextForCiphertext(char plaintextc, char ciphertextc)
 	{
-		int index = plaintextc - 'A';	// spot the in the array of the plaintext ciphertext pairing
-		this.userMapping[index].setCipherc(ciphertextc);	//map the ciphertext to the given plaintext
+		int index = Character.toUpperCase(plaintextc) - 'A';	// spot the in the array of the plaintext ciphertext pairing
+		this.userMapping[index].setCipherc(Character.toUpperCase(ciphertextc));	//map the ciphertext to the given plaintext
 	}
 	
 
@@ -282,6 +271,29 @@ public class Cryptogram extends Puzzle
 		{
 			index = this.charMapping[i].getCipherc() - 'A';		// get ciphertext character index
 			reorder[index] = this.charMapping[i].getPlainc(); // put plaintext character in that spot
+		}
+		return reorder;
+	}
+	
+	/*
+	 *  @author Lauren Slusky
+	 *  @date May 26 2013
+	 *  @title reOrderUserMappingByDecrypt
+	 *  @return an array of plaintext characters that are in the position of it's paired cipher text
+	 *  	i.e if A plaintext maps to Z ciphertext then A is in spot 25 of this array
+	 */	
+	private char[] reOrderUserMappingByDecrypt() 
+	{
+		char[] reorder = new char[ALPHABET_SIZE];
+		int index = 0;
+		
+		for(int i = 0; i < this.userMapping.length; i++)
+		{		
+			if(this.userMapping[i].getCipherc() != '\0')
+			{
+				index = this.userMapping[i].getCipherc() - 'A';		// get ciphertext character index
+				reorder[index] = this.userMapping[i].getPlainc(); // put plaintext character in that spot
+			}
 		}
 		return reorder;
 	}

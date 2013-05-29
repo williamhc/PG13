@@ -12,6 +12,10 @@ public class CryptogramPair {
 	
 	public CryptogramPair(char plainc, char cipherc)
 	{
+		if(!isLetter(plainc) || !isLetter(cipherc))
+		{
+			throw new IllegalArgumentException();
+		}
 		this.plainc = plainc;
 		this.cipherc = cipherc;
 	}
@@ -30,5 +34,10 @@ public class CryptogramPair {
 	
 	public void setCipherc(char cipherc) {
 		this.cipherc = cipherc;
+	}
+	
+	private boolean isLetter(char c)
+	{
+		return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '\0');
 	}
 }

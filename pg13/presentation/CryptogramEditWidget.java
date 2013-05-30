@@ -136,7 +136,8 @@ public class CryptogramEditWidget extends Composite
 	 */
 	private void preview()
 	{
-		workingCryptogram = new Cryptogram("", "", new Date(), txtPlaintext.getText());
+		// TODO make this reset user mapping as well
+		workingCryptogram.setPlaintext(txtPlaintext.getText());
 		cmpPreview.displayCryptogram(workingCryptogram.getCiphertext());
 	}
 	

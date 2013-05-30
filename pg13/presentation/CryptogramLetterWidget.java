@@ -20,6 +20,7 @@ public class CryptogramLetterWidget extends Composite {
 	private char ciphertextChar;
 	private Cryptogram parentCryptogram;
 	private Composite parent;
+	private boolean updateOnTxtChange;
 
 	/**
 	 * Creates and populates the letter widget.
@@ -35,6 +36,7 @@ public class CryptogramLetterWidget extends Composite {
 		this.ciphertextChar = ciphertextChar;
 		this.parentCryptogram = parentCryptogram;
 		this.parent = parent;
+		updateOnTxtChange = true;
 		
 		// ciphertext character
 		Label lblCiphertextChar = new Label(this, SWT.NONE);
@@ -148,7 +150,7 @@ public class CryptogramLetterWidget extends Composite {
 	{
 		char plaintextChar;
 		
-		if (txtPlaintextChar.getEditable() == true)
+		if (this.updateOnTxtChange == true && this.txtPlaintextChar.getEditable() == true)
 		{
 			if (txtPlaintextChar.getText().length() > 0)
 			{
@@ -159,11 +161,7 @@ public class CryptogramLetterWidget extends Composite {
 				plaintextChar = '\0';
 			}
 			
-			// TODO make it possible to set a plaintext character to '\o' or remove a plaintext character from the map?
-			if (plaintextChar != '\0')
-			{
-				this.parentCryptogram.setUserPlaintextForCiphertext(plaintextChar, this.ciphertextChar);
-			}
+			this.parentCryptogram.setUserPlaintextForCiphertext(plaintextChar, this.ciphertextChar);
 			
 			if (this.parent instanceof CryptogramSolveWidget)
 			{
@@ -185,14 +183,17 @@ public class CryptogramLetterWidget extends Composite {
 		{
 			plaintextChar = this.parentCryptogram.getUserPlaintextFromCiphertext(ciphertextChar);
 			
-			// TODO find a way to make this not recursively call the listenner...
 			if (plaintextChar == '\0')
 			{
-				//this.txtPlaintextChar.setText("");
+				this.updateOnTxtChange = false;
+				this.txtPlaintextChar.setText("");
+				this.updateOnTxtChange = true;
 			}
 			else
 			{
-				//this.txtPlaintextChar.setText("" + plaintextChar);
+				this.updateOnTxtChange = false;
+				this.txtPlaintextChar.setText("" + plaintextChar);
+				this.updateOnTxtChange = true;
 			}
 		}
 	}

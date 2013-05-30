@@ -16,15 +16,15 @@ public class Cryptogram extends Puzzle
 	private String ciphertext;				// Coded string
 	private String plaintext;				// the original user string
 	private CryptogramPair[] solutionMapping;	// Mapping for plaintext to ciphertext characters used for encryption and decryption
-	private CryptogramPair[] userMapping;	// User Entered mapping of characters when solving a cryptogram
+	private CryptogramPair[] userMapping;	// User Entered mapping of characters when solving a cryptogram ordered by ciphertext
 	
 	
 	public Cryptogram()
 	{
 		super();
-		this.solutionMapping = setMappingKeys();
+		this.solutionMapping = setMappingKeys(false);
 		generateMappingKeys();
-		this.userMapping = setMappingKeys();
+		this.userMapping = setMappingKeys(true);
 		this.ciphertext = "";
 		this.plaintext = "";
 	}
@@ -32,19 +32,15 @@ public class Cryptogram extends Puzzle
 	public Cryptogram(String author, String title, Date dateCreated, String plaintext)
 	{
 		super(author, title, dateCreated);
-		this.solutionMapping = setMappingKeys();
+		this.solutionMapping = setMappingKeys(false);
 		generateMappingKeys();
-		this.userMapping = setMappingKeys();
+		this.userMapping = setMappingKeys(true);
 		this.plaintext = plaintext;	
 		this.ciphertext = encrypt();
 	}
 
 	public String getCiphertext() {
 		return ciphertext;
-	}
-
-	public void setCiphertext(String ciphertext) {
-		this.ciphertext = ciphertext;
 	}
 
 	public String getPlaintext() {
@@ -73,21 +69,8 @@ public class Cryptogram extends Puzzle
 	 */
 	public char getUserPlaintextFromCiphertext(char ciphertextc)
 	{
-		char[] decryptOrder = reOrderMappingByDecrypt(this.userMapping);
-		int index = ciphertextc - 'A';
-		return Character.toUpperCase(decryptOrder[index]);
-	}
-
-	/*
-	 *  @author Lauren Slusky
-	 *  @date May 26 2013
-	 *  @title getUserCiphertextFromPlaintext
-	 *  @return given a plaintext char a user has entered, this method returns the corresponding ciphertext char
-	 */
-	public char getUserCiphertextFromPlaintext(char plaintextc)
-	{
-		int index = Character.toUpperCase(plaintextc) - 'A';
-		return Character.toUpperCase(this.userMapping[index].getCipherc());
+		int index = Character.toUpperCase(ciphertextc) - 'A';
+		return Character.toUpperCase(this.userMapping[index].getPlainc());
 	}
 
 	/*
@@ -98,8 +81,8 @@ public class Cryptogram extends Puzzle
 	 */
 	public void setUserPlaintextForCiphertext(char plaintextc, char ciphertextc)
 	{
-		int index = Character.toUpperCase(plaintextc) - 'A';	// spot the in the array of the plaintext ciphertext pairing
-		this.userMapping[index].setCipherc(Character.toUpperCase(ciphertextc));	//map the ciphertext to the given plaintext
+		int index = Character.toUpperCase(ciphertextc) - 'A';	// spot the in the array of the plaintext ciphertext pairing
+		this.userMapping[index].setPlainc(Character.toUpperCase(plaintextc));	//map the ciphertext to the given plaintext
 	}
 	
 
@@ -111,8 +94,9 @@ public class Cryptogram extends Puzzle
 	 *  @paeam String userString
 	 *  @return checks if userString which is the user's plaintext, matches the original plaintext (ignorescase)
 	 */	
-	public boolean isCompleted(String userString)
+	public boolean isCompleted()
 	{		
+		String userString = decrypt(this.userMapping);
 		if(userString == null)
 		{
 			throw new IllegalArgumentException();
@@ -126,14 +110,21 @@ public class Cryptogram extends Puzzle
 	 *  @title setMappingKeys
 	 *  @return an array of type Cryptogram pair with the plain text A - Z mapped
 	 */	
-	private CryptogramPair[] setMappingKeys()
+	private CryptogramPair[] setMappingKeys(boolean orderByCipherText)
 	{
 		char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 		CryptogramPair[] map = new CryptogramPair[ALPHABET_SIZE];
 		for(int i = 0; i < alphabet.length; i ++)
 		{
 			char letter = alphabet[i];
-			map[i] = new CryptogramPair(letter, '\0');	//no ciphertext char to map yet
+			if(orderByCipherText)
+			{
+				map[i] = new CryptogramPair('\0', letter);	//no ciphertext char to map yet
+			}
+			else
+			{
+				map[i] = new CryptogramPair(letter, '\0');	//no ciphertext char to map yet
+			}
 		}
 		return map;
 	}
@@ -226,10 +217,10 @@ public class Cryptogram extends Puzzle
 	 *  @title decrypt
 	 *  @return decodes messages based on charMapping and cipher text
 	 */	
-	public String decrypt() 
+	public String decrypt(CryptogramPair[] mapping) 
 	{
 		String plaintext = "";
-		char[] decryptKey = reOrderMappingByDecrypt(this.solutionMapping);	// an array of plaintext characters ordered by ciphertext character index
+		char[] decryptKey = reOrderMappingByDecrypt(mapping);	// an array of plaintext characters ordered by ciphertext character index
 		String ciphertext = this.ciphertext;
 		int index = 0;
 		

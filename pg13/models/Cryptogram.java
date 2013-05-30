@@ -215,6 +215,7 @@ public class Cryptogram extends Puzzle
 	 *  @author Lauren Slusky
 	 *  @date May 26 2013
 	 *  @title decrypt
+	 *  @param mapping - mapping used to decrypt the cipher text
 	 *  @return decodes messages based on charMapping and cipher text
 	 */	
 	public String decrypt(CryptogramPair[] mapping) 

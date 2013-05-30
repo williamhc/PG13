@@ -6,7 +6,6 @@ import java.util.Date;
 import junit.framework.TestCase;
 
 import pg13.models.Cryptogram;
-import pg13.models.CryptogramPair;
 
 	public class CryptogramTest extends TestCase
 	{
@@ -71,7 +70,7 @@ import pg13.models.CryptogramPair;
 			assertEquals(DEFAULT_PLAINTEXT, cryptogram.getPlaintext());
 			assertNotSame(DEFAULT_PLAINTEXT, cryptogram.getCiphertext());
 			assertFalse(DEFAULT_PLAINTEXT.equals(cryptogram.getCiphertext())); //for some reason there isn't assertNotEquals in JUnit
-			assertTrue((cryptogram.decrypt()).equalsIgnoreCase(DEFAULT_PLAINTEXT));
+			assertTrue((cryptogram.decrypt(cryptogram.getSolutionMapping())).equalsIgnoreCase(DEFAULT_PLAINTEXT));
 		}
 		
 		public void testCipherTextWorksPunctuation()
@@ -80,7 +79,7 @@ import pg13.models.CryptogramPair;
 			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_DATE, plaintext);
 			assertEquals(plaintext, cryptogram.getPlaintext());
 			assertNotSame(plaintext, cryptogram.getCiphertext());
-			assertTrue((cryptogram.decrypt()).equalsIgnoreCase(plaintext));
+			assertTrue((cryptogram.decrypt(cryptogram.getSolutionMapping())).equalsIgnoreCase(plaintext));
 			assertEquals(DEFAULT_AUTHOR, cryptogram.getAuthor());
 			assertEquals(DEFAULT_TITLE, cryptogram.getTitle());
 			assertEquals(DEFAULT_DATE, cryptogram.getDateCreated());
@@ -91,7 +90,7 @@ import pg13.models.CryptogramPair;
 			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_DATE, "");
 			assertEquals("", cryptogram.getPlaintext());
 			assertEquals("", cryptogram.getCiphertext());
-			assertEquals("", cryptogram.decrypt());
+			assertEquals("", cryptogram.decrypt(cryptogram.getSolutionMapping()));
 			assertEquals(DEFAULT_AUTHOR, cryptogram.getAuthor());
 			assertEquals(DEFAULT_TITLE, cryptogram.getTitle());
 			assertEquals(DEFAULT_DATE, cryptogram.getDateCreated());
@@ -103,35 +102,30 @@ import pg13.models.CryptogramPair;
 			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_DATE, plaintext);
 			assertEquals(plaintext, cryptogram.getPlaintext());
 			assertEquals(plaintext, cryptogram.getCiphertext());
-			assertEquals(plaintext, cryptogram.decrypt());
+			assertEquals(plaintext, cryptogram.decrypt(cryptogram.getSolutionMapping()));
 		}
 		
 		public void testCryptogramCryptogramCompletion()
 		{
 			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_DATE, "This is a test.");
-			assertTrue(cryptogram.isCompleted("This is a test."));
-			assertTrue(cryptogram.isCompleted("ThIs iS A tESt."));
-			assertTrue(cryptogram.isCompleted(cryptogram.decrypt()));
-			assertFalse(cryptogram.isCompleted("ThIs iS A tESt!"));
-			assertFalse(cryptogram.isCompleted("This sentence is false!")); // dont think about it, dont think about it, dont think about...
-			assertFalse(cryptogram.isCompleted(""));
-			try
-			{
-				cryptogram.isCompleted(null); 
-				fail();
-			}
-			catch (IllegalArgumentException iae)
-			{
-				
-			}
+			setUserMappingForTest(cryptogram);
+			assertTrue(cryptogram.isCompleted());
 		}
 		
+		private void setUserMappingForTest(Cryptogram cryptogram) 
+		{
+			for(int i = 0; i < cryptogram.getSolutionMapping().length; i++)
+			{			
+				cryptogram.setUserPlaintextForCiphertext(cryptogram.getSolutionMapping()[i].getPlainc(), cryptogram.getSolutionMapping()[i].getCipherc());
+			}
+			
+		}
+
 		public void testCryptogramUserUses()
 		{
 			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_DATE, "This is a test.");
 			cryptogram.setUserPlaintextForCiphertext('h', 'X');
 			assertEquals(cryptogram.getUserPlaintextFromCiphertext('X'), 'H');
-			assertEquals(cryptogram.getUserCiphertextFromPlaintext('h'), 'X');
 			assertNotNull(cryptogram.getUserMapping());
 		}
 	}

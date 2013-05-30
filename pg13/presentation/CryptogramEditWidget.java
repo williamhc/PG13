@@ -136,9 +136,10 @@ public class CryptogramEditWidget extends Composite
 	 */
 	private void preview()
 	{
-		// TODO make this reset user mapping as well
-		workingCryptogram.setPlaintext(txtPlaintext.getText());
-		cmpPreview.displayCryptogram(workingCryptogram.getCiphertext());
+		this.workingCryptogram = new Cryptogram();
+		this.workingCryptogram.setPlaintext(txtPlaintext.getText());
+		cmpPreview.setCryptogram(this.workingCryptogram);
+		cmpPreview.displayCryptogram();
 	}
 	
 	@Override

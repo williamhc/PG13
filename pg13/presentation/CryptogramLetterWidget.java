@@ -32,7 +32,8 @@ public class CryptogramLetterWidget extends Composite {
 	public CryptogramLetterWidget(Composite parent, int style, Cryptogram parentCryptogram, char ciphertextChar) {
 		super(parent, SWT.NONE);
 		setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		setLayout(new FormLayout());
+		FormLayout formLayout = new FormLayout();
+		setLayout(formLayout);
 		this.ciphertextChar = ciphertextChar;
 		this.parentCryptogram = parentCryptogram;
 		this.parent = parent;
@@ -60,7 +61,7 @@ public class CryptogramLetterWidget extends Composite {
 				updateCryptogram();
 			}
 		});
-		txtPlaintextChar.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
+		txtPlaintextChar.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.NORMAL));
 		//txtPlaintextChar.set
 		FormData fd_txtPlaintextChar = new FormData();
 		fd_txtPlaintextChar.top = new FormAttachment(0);

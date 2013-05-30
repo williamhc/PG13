@@ -12,6 +12,8 @@ import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import pg13.models.Cryptogram;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class CryptogramSolveWidget extends Composite 
 {
@@ -43,6 +45,14 @@ public class CryptogramSolveWidget extends Composite
 		setLayout(new FormLayout());
 		
 		Button btnCheckSolution = new Button(this, SWT.NONE);
+		btnCheckSolution.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				checkSolution();
+			}
+		});
 		FormData fd_btnCheckSolution = new FormData();
 		fd_btnCheckSolution.bottom = new FormAttachment(100, -6);
 		fd_btnCheckSolution.right = new FormAttachment(100, -6);
@@ -57,31 +67,49 @@ public class CryptogramSolveWidget extends Composite
 	}
 
 	/*
+	 * Sets the cryptogram we are currently solving to the specified cryptogram
+	 * @author Eric
+	 * @date May 29 2013
+	 * @param newCryptogram
+	 */
+	public void setCryptogram(Cryptogram newCryptogram)
+	{
+		this.solvingCryptogram = newCryptogram;
+	}
+	
+	/*
 	 * Displays the cryptogram in the centre of the window
 	 * @author Eric
 	 * @date May 29 2013
 	 * @param ciphertext
 	 */
-	public void displayCryptogram(String ciphertext)
+	public void displayCryptogram()
 	{
-		// clear the previous cryptogram display, if there is one
-		if (letterWidgets != null && letterWidgets.size() > 0)
+		String ciphertext;
+		
+		if (this.solvingCryptogram != null)
 		{
-			for (int i = 0; i < letterWidgets.size(); i++)
+			ciphertext = this.solvingCryptogram.getCiphertext();
+			
+			// clear the previous cryptogram display, if there is one
+			if (letterWidgets != null && letterWidgets.size() > 0)
 			{
-				letterWidgets.get(i).dispose();	
+				for (int i = 0; i < letterWidgets.size(); i++)
+				{
+					letterWidgets.get(i).dispose();	
+				}
 			}
+			
+			// create all the letter widgets
+			letterWidgets = new ArrayList<CryptogramLetterWidget>();
+			for (int i = 0; i < ciphertext.length(); i++)
+			{
+				letterWidgets.add(new CryptogramLetterWidget(this,SWT.NONE,solvingCryptogram,ciphertext.charAt(i)));
+			}
+			
+			// call the update function which organizes all the widgets peroperly
+			updateLetterWidgetLayout();
 		}
-		
-		// create all the letter widgets
-		letterWidgets = new ArrayList<CryptogramLetterWidget>();
-		for (int i = 0; i < ciphertext.length(); i++)
-		{
-			letterWidgets.add(new CryptogramLetterWidget(this,SWT.NONE,solvingCryptogram,ciphertext.charAt(i)));
-		}
-		
-		// call the update function which organizes all the widgets peroperly
-		updateLetterWidgetLayout();
 	}
 	
 	/*
@@ -91,8 +119,8 @@ public class CryptogramSolveWidget extends Composite
 	 */
 	private void updateLetterWidgetLayout()
 	{
-		final int LETTER_WIDGET_WIDTH = 22;
-		final int LETTER_WIDGET_HEIGHT = 60;
+		final int LETTER_WIDGET_WIDTH = 26;
+		final int LETTER_WIDGET_HEIGHT = 62;
 		final int LINE_SPACING = 6;
 		
 		FormData fd_letterWidget;			// form data used for display
@@ -187,5 +215,22 @@ public class CryptogramSolveWidget extends Composite
 		}
 		
 		this.layout(true,true);
+	}
+	
+	/*
+	 * Checks to see if the cryptogram is solved
+	 * @author Eric
+	 * @date May 30 2013
+	 */
+	private void checkSolution()
+	{
+		if (this.solvingCryptogram != null && this.solvingCryptogram.isCompleted())
+		{
+			System.out.println("Puzzle solved!");
+		}
+		else
+		{
+			System.out.println("Puzzle NOT solved!");
+		}
 	}
 }

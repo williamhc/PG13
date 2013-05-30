@@ -49,6 +49,7 @@ public class Cryptogram extends Puzzle
 
 	public void setPlaintext(String plaintext) {
 		this.plaintext = plaintext;
+		generateMappingKeys();
 		this.ciphertext = encrypt();
 	}
 
@@ -164,7 +165,7 @@ public class Cryptogram extends Puzzle
 		{
 			posn = posn - 1;
 			// we use posn - 1 so that way there is no chance of the random element being posn and the element swapping places with itself
-			newPosn = (int)Math.random() * (posn - 1);
+			newPosn = (int)(Math.random() * (posn - 1));
 			
 			// regular old swapskie
 			temp = alphabet[posn];

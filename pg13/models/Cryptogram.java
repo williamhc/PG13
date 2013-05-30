@@ -15,14 +15,14 @@ public class Cryptogram extends Puzzle
 	private final int ALPHABET_SIZE = 26;	// Letters of the alphabet
 	private String ciphertext;				// Coded string
 	private String plaintext;				// the original user string
-	private CryptogramPair[] charMapping;	// Mapping for plaintext to ciphertext characters used for encryption and decryption
+	private CryptogramPair[] solutionMapping;	// Mapping for plaintext to ciphertext characters used for encryption and decryption
 	private CryptogramPair[] userMapping;	// User Entered mapping of characters when solving a cryptogram
 	
 	
 	public Cryptogram()
 	{
 		super();
-		this.charMapping = setMappingKeys();
+		this.solutionMapping = setMappingKeys();
 		generateMappingKeys();
 		this.userMapping = setMappingKeys();
 		this.ciphertext = "";
@@ -32,7 +32,7 @@ public class Cryptogram extends Puzzle
 	public Cryptogram(String author, String title, Date dateCreated, String plaintext)
 	{
 		super(author, title, dateCreated);
-		this.charMapping = setMappingKeys();
+		this.solutionMapping = setMappingKeys();
 		generateMappingKeys();
 		this.userMapping = setMappingKeys();
 		this.plaintext = plaintext;	
@@ -53,10 +53,11 @@ public class Cryptogram extends Puzzle
 
 	public void setPlaintext(String plaintext) {
 		this.plaintext = plaintext;
+		this.ciphertext = encrypt();
 	}
 
-	public CryptogramPair[] getCharMapping() {
-		return charMapping;
+	public CryptogramPair[] getSolutionMapping() {
+		return solutionMapping;
 	}
 
 	public CryptogramPair[] getUserMapping() {
@@ -72,7 +73,7 @@ public class Cryptogram extends Puzzle
 	 */
 	public char getUserPlaintextFromCiphertext(char ciphertextc)
 	{
-		char[] decryptOrder = reOrderUserMappingByDecrypt();
+		char[] decryptOrder = reOrderMappingByDecrypt(this.userMapping);
 		int index = ciphertextc - 'A';
 		return Character.toUpperCase(decryptOrder[index]);
 	}
@@ -150,7 +151,7 @@ public class Cryptogram extends Puzzle
 		for(int i = 0; i < alphabet.length; i ++)
 		{
 			char letter = alphabet[i];
-			this.charMapping[i].setCipherc(letter);
+			this.solutionMapping[i].setCipherc(letter);
 		}
 	}
 
@@ -206,7 +207,7 @@ public class Cryptogram extends Puzzle
 				if(temp >= 'A' && temp <= 'Z')
 				{
 					index = temp - 'A';			// gives me index in charMapping for the cipher text letter that matches this plaintext char
-					ciphertext += this.charMapping[index].getCipherc();
+					ciphertext += this.solutionMapping[index].getCipherc();
 				}
 				//punctuation, spaces, etc
 				else
@@ -228,7 +229,7 @@ public class Cryptogram extends Puzzle
 	public String decrypt() 
 	{
 		String plaintext = "";
-		char[] decryptKey = reOrderCharMappingByDecrypt();	// an array of plaintext characters ordered by ciphertext character index
+		char[] decryptKey = reOrderMappingByDecrypt(this.solutionMapping);	// an array of plaintext characters ordered by ciphertext character index
 		String ciphertext = this.ciphertext;
 		int index = 0;
 		
@@ -258,42 +259,19 @@ public class Cryptogram extends Puzzle
 	/*
 	 *  @author Lauren Slusky
 	 *  @date May 26 2013
-	 *  @title reOrderCharMappingByDecrypt
+	 *  @title reOrderMappingByDecrypt
 	 *  @return an array of plaintext characters that are in the position of it's paired cipher text
 	 *  	i.e if A plaintext maps to Z ciphertext then A is in spot 25 of this array
 	 */	
-	private char[] reOrderCharMappingByDecrypt() 
+	private char[] reOrderMappingByDecrypt(CryptogramPair[] tofix) 
 	{
 		char[] reorder = new char[ALPHABET_SIZE];
 		int index = 0;
 		
-		for(int i = 0; i < this.charMapping.length; i++)
+		for(int i = 0; i < tofix.length; i++)
 		{
-			index = this.charMapping[i].getCipherc() - 'A';		// get ciphertext character index
-			reorder[index] = this.charMapping[i].getPlainc(); // put plaintext character in that spot
-		}
-		return reorder;
-	}
-	
-	/*
-	 *  @author Lauren Slusky
-	 *  @date May 26 2013
-	 *  @title reOrderUserMappingByDecrypt
-	 *  @return an array of plaintext characters that are in the position of it's paired cipher text
-	 *  	i.e if A plaintext maps to Z ciphertext then A is in spot 25 of this array
-	 */	
-	private char[] reOrderUserMappingByDecrypt() 
-	{
-		char[] reorder = new char[ALPHABET_SIZE];
-		int index = 0;
-		
-		for(int i = 0; i < this.userMapping.length; i++)
-		{		
-			if(this.userMapping[i].getCipherc() != '\0')
-			{
-				index = this.userMapping[i].getCipherc() - 'A';		// get ciphertext character index
-				reorder[index] = this.userMapping[i].getPlainc(); // put plaintext character in that spot
-			}
+			index = tofix[i].getCipherc() - 'A';		// get ciphertext character index
+			reorder[index] = tofix[i].getPlainc(); // put plaintext character in that spot
 		}
 		return reorder;
 	}

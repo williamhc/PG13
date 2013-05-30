@@ -7,15 +7,15 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.events.ControlAdapter;
-import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Button;
+import pg13.models.Cryptogram;
 
 public class PuzzlePropertiesWidget extends Composite 
 {
-	boolean editMode;				// can we edit the properties of the puzzle?
+	boolean editMode;						// can we edit the properties of the puzzle?
+	private Cryptogram displayingPuzzle;	// cryptogram to display/edit
 	private Text txtPuzzleName;
 	private Text txtDescription;
 	private Label lblCategory;
@@ -29,10 +29,11 @@ public class PuzzlePropertiesWidget extends Composite
 	 * @param style
 	 * @date May 29 2013
 	 */
-	public PuzzlePropertiesWidget(Composite parent, int style, boolean editMode) 
+	public PuzzlePropertiesWidget(Composite parent, int style, Cryptogram displayingPuzzle, boolean editMode) 
 	{
 		super(parent, style);
 		this.editMode = editMode;
+		this.displayingPuzzle = displayingPuzzle;
 		setLayout(new FormLayout());
 		
 		// puzzle name

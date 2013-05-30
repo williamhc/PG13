@@ -11,21 +11,30 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
+import pg13.models.Cryptogram;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.ModifyEvent;
 
 public class CryptogramLetterWidget extends Composite {
 	private Text txtPlaintextChar;
 	private char ciphertextChar;
+	private Cryptogram parentCryptogram;
+	private Composite parent;
 
 	/**
-	 * Create the composite.
+	 * Creates and populates the letter widget.
+	 * @author Eric
+	 * @date May 29 2013
 	 * @param parent
 	 * @param style
 	 */
-	public CryptogramLetterWidget(Composite parent, int style, char ciphertextChar) {
+	public CryptogramLetterWidget(Composite parent, int style, Cryptogram parentCryptogram, char ciphertextChar) {
 		super(parent, SWT.NONE);
 		setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		setLayout(new FormLayout());
 		this.ciphertextChar = ciphertextChar;
+		this.parentCryptogram = parentCryptogram;
+		this.parent = parent;
 		
 		// ciphertext character
 		Label lblCiphertextChar = new Label(this, SWT.NONE);
@@ -42,6 +51,13 @@ public class CryptogramLetterWidget extends Composite {
 		
 		// area for the plaintext character entered by user
 		txtPlaintextChar = new Text(this, SWT.BORDER | SWT.CENTER);
+		txtPlaintextChar.addModifyListener(new ModifyListener() 
+		{
+			public void modifyText(ModifyEvent event) 
+			{
+				updateCryptogram();
+			}
+		});
 		txtPlaintextChar.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
 		//txtPlaintextChar.set
 		FormData fd_txtPlaintextChar = new FormData();
@@ -80,6 +96,12 @@ public class CryptogramLetterWidget extends Composite {
 		                textIsValid = true;  
 					}  
 					
+					// an empty text is allowed
+					if (event.text.length() == 0)
+					{
+						textIsValid = true;
+					}
+					
 					if (!textIsValid)
 					{
 						// set to lowercase
@@ -106,9 +128,72 @@ public class CryptogramLetterWidget extends Composite {
 		// Disable the check that prevents subclassing of SWT components
 	}
 	
+	/*
+	 * Indicates whether or not this widget contains a space
+	 * @author Eric
+	 * @date May 29 2013
+	 * @return true if the widget contains a space, false otherwise
+	 */
 	public boolean isSpace()
 	{
 		return ciphertextChar == ' ';
 	}
 
+	/*
+	 * Updates the values in the cryptogram according to the value stored in this widget
+	 * @author Eric
+	 * @date May 29 2013
+	 */
+	private void updateCryptogram()
+	{
+		char plaintextChar;
+		
+		if (txtPlaintextChar.getEditable() == true)
+		{
+			if (txtPlaintextChar.getText().length() > 0)
+			{
+				plaintextChar = txtPlaintextChar.getText().charAt(0);
+			}
+			else
+			{
+				plaintextChar = '\0';
+			}
+			
+			// TODO make it possible to set a plaintext character to '\o' or remove a plaintext character from the map?
+			if (plaintextChar != '\0')
+			{
+				this.parentCryptogram.setUserPlaintextForCiphertext(plaintextChar, this.ciphertextChar);
+			}
+			
+			if (this.parent instanceof CryptogramSolveWidget)
+			{
+				((CryptogramSolveWidget) this.parent).updateLetterWidgetContents();
+			}
+		}
+	}
+	
+	/*
+	 * Updates the contents of the widget according to the mapping stored in the cryptogram
+	 * @author Eric
+	 * @date May 29 2013
+	 */
+	public void updateContents()
+	{
+		char plaintextChar;
+		
+		if (txtPlaintextChar.getEditable() == true)
+		{
+			plaintextChar = this.parentCryptogram.getUserPlaintextFromCiphertext(ciphertextChar);
+			
+			// TODO find a way to make this not recursively call the listenner...
+			if (plaintextChar == '\0')
+			{
+				//this.txtPlaintextChar.setText("");
+			}
+			else
+			{
+				//this.txtPlaintextChar.setText("" + plaintextChar);
+			}
+		}
+	}
 }

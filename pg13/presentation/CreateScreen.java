@@ -7,10 +7,12 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
+import pg13.models.Cryptogram;
 
 public class CreateScreen extends Composite 
 {
-
+	private Cryptogram workingPuzzle;		// the puzzle we are working on
+	
 	/**
 	 * Creates and populates the create screen.
 	 * @author Eric
@@ -21,10 +23,15 @@ public class CreateScreen extends Composite
 	public CreateScreen(Composite parent, int style) 
 	{
 		super(parent, style);
+		
+		// create new puzzle to edit
+		workingPuzzle = new Cryptogram();
+		
+		// set layout
 		setLayout(new FormLayout());
 		
 		// puzzle's general properties
-		PuzzlePropertiesWidget cmpProperties = new PuzzlePropertiesWidget(this, SWT.NONE, true);
+		PuzzlePropertiesWidget cmpProperties = new PuzzlePropertiesWidget(this, SWT.NONE, workingPuzzle, true);
 		FormData fd_cmpProperties = new FormData();
 		fd_cmpProperties.top = new FormAttachment(0);
 		fd_cmpProperties.left = new FormAttachment(0);
@@ -33,7 +40,7 @@ public class CreateScreen extends Composite
 		cmpProperties.setLayoutData(fd_cmpProperties);
 		
 		// puzzle edit widget, for now is only cryptogram
-		CryptogramEditWidget cmpEditWidget = new CryptogramEditWidget(this, SWT.NONE);
+		CryptogramEditWidget cmpEditWidget = new CryptogramEditWidget(this, SWT.NONE, workingPuzzle);
 		FormData fd_composite = new FormData();
 		fd_composite.bottom = new FormAttachment(100);
 		fd_composite.right = new FormAttachment(100);

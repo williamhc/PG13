@@ -1,5 +1,7 @@
 package pg13.presentation;
 
+import java.util.Date;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.wb.swt.SWTResourceManager;
@@ -13,11 +15,13 @@ import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import pg13.models.Cryptogram;
 
 public class CryptogramEditWidget extends Composite 
 {
 	private Text txtPlaintext;					// plaintext used to generate cryptogram
 	private CryptogramSolveWidget cmpPreview;	// preview area for the cryptogram
+	private Cryptogram workingCryptogram;
 
 	/**
 	 * Creates and populates the cryptogram edit widget.
@@ -26,13 +30,14 @@ public class CryptogramEditWidget extends Composite
 	 * @param style
 	 * @date May 29 2013
 	 */
-	public CryptogramEditWidget(Composite parent, int style) 
+	public CryptogramEditWidget(Composite parent, int style, Cryptogram workingCryptogram) 
 	{
 		super(parent, style);
 		setLayout(new FormLayout());
+		this.workingCryptogram = workingCryptogram;
 		
 		// cryptogram preview widget
-		cmpPreview = new CryptogramSolveWidget(this, SWT.BORDER);
+		cmpPreview = new CryptogramSolveWidget(this, SWT.BORDER, workingCryptogram);
 		FormData fd_cmpPreview = new FormData();
 		fd_cmpPreview.bottom = new FormAttachment(100, -10);
 		fd_cmpPreview.right = new FormAttachment(100, -10);
@@ -113,8 +118,7 @@ public class CryptogramEditWidget extends Composite
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				// testing
-				cmpPreview.displayCryptogram("HI LAUREN I LOVE YOU SO MUCH.  I AM SORRY FOR SOMETIMES BEING A POOP.  I AM SORRY THAT I AM NOT PAYING FULL ATTENTION TO YOU.  I STILL LOVE YOU A LOT AND ALWAYS.");
+				preview();
 			}
 		});
 		FormData fd_btnPreview = new FormData();
@@ -125,6 +129,17 @@ public class CryptogramEditWidget extends Composite
 
 	}
 
+	/*
+	 * Previews the cryptogram -- displays the cryptogram in the preview screen
+	 * @author Eric
+	 * @date May 29 2013
+	 */
+	private void preview()
+	{
+		workingCryptogram = new Cryptogram("", "", new Date(), txtPlaintext.getText());
+		cmpPreview.displayCryptogram(workingCryptogram.getCiphertext());
+	}
+	
 	@Override
 	protected void checkSubclass() 
 	{

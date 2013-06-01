@@ -15,12 +15,31 @@ import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.Viewer;
+
+import pg13.business.search.PuzzleTableDriver;
+import pg13.models.Puzzle;
 
 public class FindScreen extends Composite 
 {
+	private static class ContentProvider implements IStructuredContentProvider {
+		public Object[] getElements(Object inputElement) {
+			return new Object[0];
+		}
+		public void dispose() {
+		}
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		}
+	}
 	private Text txtTitle;
 	private Text txtAuthor;
 	private Table table;
+	private TableViewer tableViewer;
+	private PuzzleTableDriver tableDriver;
 
 	/**
 	 * Creates and populates the Find screen.
@@ -200,101 +219,6 @@ public class FindScreen extends Composite
 		btnExpert.setText("Expert");
 		btnExpert.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
-		// table which displays all the puzzles to play
-		table = new Table(this, SWT.BORDER | SWT.FULL_SELECTION);
-		FormData fd_table = new FormData();
-		fd_table.bottom = new FormAttachment(100, -10);
-		fd_table.right = new FormAttachment(100, -10);
-		fd_table.top = new FormAttachment(0, 10);
-		fd_table.left = new FormAttachment(separator, 10);
-		table.setLayoutData(fd_table);
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
-		
-		TableColumn tblclmnTitle = new TableColumn(table, SWT.NONE);
-		tblclmnTitle.setMoveable(true);
-		tblclmnTitle.setWidth(136);
-		tblclmnTitle.setText("Title");
-		
-		TableColumn tblclmnAuthor = new TableColumn(table, SWT.NONE);
-		tblclmnAuthor.setMoveable(true);
-		tblclmnAuthor.setWidth(100);
-		tblclmnAuthor.setText("Author");
-		
-		TableColumn tblclmnCategory = new TableColumn(table, SWT.NONE);
-		tblclmnCategory.setMoveable(true);
-		tblclmnCategory.setWidth(100);
-		tblclmnCategory.setText("Category");
-		
-		TableColumn tblclmnDifficulty = new TableColumn(table, SWT.NONE);
-		tblclmnDifficulty.setMoveable(true);
-		tblclmnDifficulty.setWidth(100);
-		tblclmnDifficulty.setText("Difficulty");
-		
-		// some test entries to play with
-		TableItem testItem1 = new TableItem(table, SWT.NONE);
-		testItem1.setText(new String[] {"This is nothing", "Eric", "Animals", "Easy"});
-		
-		TableItem testItem2 = new TableItem(table, SWT.NONE);
-		testItem2.setText(new String[] {"This also does nothing", "Eric", "Science", "Average"});
-		
-		TableItem testItem3 = new TableItem(table, SWT.NONE);
-		testItem3.setText(new String[] {"Is three enough?", "Eric", "Computers", "Easy"});
-		
-		TableItem testItem4 = new TableItem(table, SWT.NONE);
-		testItem4.setText(new String[] {"Maybe four", "Eric", "Biology", "Difficult"});
-		
-		TableItem testItem5 = new TableItem(table, SWT.NONE);
-		testItem5.setText(new String[] {"Yeah, definitely four", "Eric", "Space", "Expert"});
-		
-		TableItem testItem6 = new TableItem(table, SWT.NONE);
-		testItem6.setText(new String[] {"Wait a minute..", "Eric", "Computers", "Difficult"});
-		
-		TableItem testItem7 = new TableItem(table, SWT.NONE);
-		testItem7.setText(new String[] {"Oops", "Eric", "Animals", "Average"});
-		
-		TableItem testItem8 = new TableItem(table, SWT.NONE);
-		testItem8.setText(new String[] {"Stop adding so many", "William", "Space", "Easy"});
-		
-		TableItem testItem9 = new TableItem(table, SWT.NONE);
-		testItem9.setText(new String[] {"Wait...", "William", "Biology", "Average"});
-		
-		TableItem testItem10 = new TableItem(table, SWT.NONE);
-		testItem10.setText(new String[] {"I can use these to test filters!", "William", "Sports", "Difficult"});
-		
-		TableItem testItem11 = new TableItem(table, SWT.NONE);
-		testItem11.setText(new String[] {"And how long names look on this display!", "Eric", "Space", "Easy"});
-		
-		TableItem testItem12 = new TableItem(table, SWT.NONE);
-		testItem12.setText(new String[] {"Yeah whatever", "William", "Science", "Average"});
-		
-		TableItem testItem13 = new TableItem(table, SWT.NONE);
-		testItem13.setText(new String[] {"Don't make Will talk like that", "Lauren", "Computers", "Expert"});
-		
-		TableItem testItem14 = new TableItem(table, SWT.NONE);
-		testItem14.setText(new String[] {"Hey...", "Lauren", "Biology", "Expert"});
-		
-		TableItem testItem15 = new TableItem(table, SWT.NONE);
-		testItem15.setText(new String[] {"Stop it!", "Lauren", "Science", "Expert"});
-		
-		TableItem testItem16 = new TableItem(table, SWT.NONE);
-		testItem16.setText(new String[] {"hehehe...", "Eric", "Politics", "Difficult"});
-		
-		TableItem testItem17 = new TableItem(table, SWT.NONE);
-		testItem17.setText(new String[] {"I'm here, too", "Paymahn", "Politics", "Average"});
-		
-		TableItem testItem18 = new TableItem(table, SWT.NONE);
-		testItem18.setText(new String[] {"Build failing...", "Travis", "Computers", "Easy"});
-		
-		TableItem testItem19 = new TableItem(table, SWT.NONE);
-		testItem19.setText(new String[] {"Shut up, Travis", "Eric", "Science", "Difficult"});
-		
-		TableItem testItem20 = new TableItem(table, SWT.NONE);
-		testItem20.setText(new String[] {"He's my friend", "William", "Computers", "Easy"});
-		
-		TableItem testItem21 = new TableItem(table, SWT.NONE);
-		testItem21.setText(new String[] {"This should be enough to test vertical scrolling", "Eric", "Space", "Expert"});
-		
 		// play the selected puzzle!
 		Button btnPlaySelectedPuzzle = new Button(this, SWT.NONE);
 		FormData fd_btnPlaySelectedPuzzle = new FormData();
@@ -305,8 +229,43 @@ public class FindScreen extends Composite
 		btnPlaySelectedPuzzle.setLayoutData(fd_btnPlaySelectedPuzzle);
 		btnPlaySelectedPuzzle.setText("Play Selected Puzzle");
 		
-		
+		// add business layer table driver
+		this.tableDriver = new PuzzleTableDriver();
 
+		// create a table viewer to show puzzles
+		this.tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);
+		table = tableViewer.getTable();
+		FormData fd_table = new FormData();
+		fd_table.bottom = new FormAttachment(100, -10);
+		fd_table.right = new FormAttachment(100, -10);
+		fd_table.top = new FormAttachment(separator, 10, SWT.TOP);
+		fd_table.left = new FormAttachment(separator, 6);
+		table.setLayoutData(fd_table);
+		table.setLinesVisible(true);
+		table.setHeaderVisible(true);
+		table.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+		this.createColumns(this, this.tableViewer);
+	}
+
+	private void createColumns(final Composite parent, final TableViewer viewer) {
+		String[] titles = { "Title", "Author", "Category", "Difficulty" };
+		int[] bounds = { 100, 100, 100, 100 };
+
+		// create each column
+		for(int i = 0; i < titles.length; i++)
+		{
+			TableViewerColumn col = createTableViewerColumn(titles[i], bounds[i], i);
+			col.setLabelProvider(this.tableDriver.getColumnLabelProvider(titles[i]));
+		}
+	}
+
+	private TableViewerColumn createTableViewerColumn(String title, int width, final int colNumber) {
+	    final TableViewerColumn viewerColumn = new TableViewerColumn(this.tableViewer, SWT.NONE);
+	    final TableColumn column = viewerColumn.getColumn();
+	    column.setText(title);
+	    column.setWidth(width);
+	    column.setResizable(true);
+	    return viewerColumn;
 	}
 
 	@Override

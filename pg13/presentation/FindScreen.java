@@ -1,5 +1,7 @@
 package pg13.presentation;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Label;
@@ -27,8 +29,9 @@ import pg13.models.Puzzle;
 public class FindScreen extends Composite 
 {
 	private static class ContentProvider implements IStructuredContentProvider {
-		public Object[] getElements(Object inputElement) {
-			return new Object[0];
+		public Object[] getElements(Object newElements) {
+		      ArrayList<Puzzle> puzzles = (ArrayList<Puzzle>) newElements;
+		      return puzzles.toArray();
 		}
 		public void dispose() {
 		}
@@ -40,6 +43,7 @@ public class FindScreen extends Composite
 	private Table table;
 	private TableViewer tableViewer;
 	private PuzzleTableDriver tableDriver;
+	private ArrayList<Puzzle> puzzleResults;
 
 	/**
 	 * Creates and populates the Find screen.
@@ -229,9 +233,6 @@ public class FindScreen extends Composite
 		btnPlaySelectedPuzzle.setLayoutData(fd_btnPlaySelectedPuzzle);
 		btnPlaySelectedPuzzle.setText("Play Selected Puzzle");
 		
-		// add business layer table driver
-		this.tableDriver = new PuzzleTableDriver();
-
 		// create a table viewer to show puzzles
 		this.tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);
 		table = tableViewer.getTable();
@@ -244,7 +245,17 @@ public class FindScreen extends Composite
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
 		table.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+
+		// add business layer table driver
+		this.puzzleResults = new ArrayList<Puzzle>();
+		this.tableDriver = new PuzzleTableDriver(this.puzzleResults);
+
+		// make the columns
 		this.createColumns(this, this.tableViewer);
+
+		// add a content provider
+		this.tableViewer.setContentProvider(new ContentProvider());
+		this.tableViewer.setInput(this.puzzleResults);
 	}
 
 	private void createColumns(final Composite parent, final TableViewer viewer) {

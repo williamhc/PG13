@@ -17,13 +17,15 @@ public abstract class Puzzle implements IFindable, ICreateable, IPlayable{
 		this.dateCreated = null;
 	}
 	
-	protected Puzzle(String author, String title, Date dateCreated)
+	protected Puzzle(String author, String title, String category, String difficulty, Date dateCreated)
 	{
 		this();
 		this.author = author;
 		this.isCompleted = false;
 		this.title = title;
 		this.dateCreated = dateCreated;
+		this.difficulty = difficulty;
+		this.category = category;
 	}
 	
 	public boolean isCompleted() {

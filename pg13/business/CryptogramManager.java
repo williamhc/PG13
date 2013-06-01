@@ -11,7 +11,6 @@ import pg13.models.Cryptogram;
 public class CryptogramManager {
 
 	Cryptogram cryptogram;
-	String plaintext;
 	
 	public CryptogramManager()
 	{
@@ -28,10 +27,10 @@ public class CryptogramManager {
 
 	public void setPlaintext(String string) {
 		this.validatePlaintext(string);
-		this.plaintext = string;
+		this.cryptogram.setPlaintext(string);
 	}
 
-	private void validatePlaintext(String string) {
+	public void validatePlaintext(String string) {
 		char[] characters = string.toCharArray();
 		for (int i = 0; i < characters.length; i++)
 		{
@@ -44,6 +43,6 @@ public class CryptogramManager {
 	}
 
 	public String getPlaintext() {
-		return this.plaintext;
+		return this.cryptogram.getPlaintext();
 	}
 }

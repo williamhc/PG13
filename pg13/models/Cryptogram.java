@@ -1,6 +1,7 @@
 package pg13.models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -267,5 +268,28 @@ public class Cryptogram extends Puzzle
 			reorder[index] = tofix[i].getPlainc(); // put plaintext character in that spot
 		}
 		return reorder;
+	}
+	
+	
+	/**
+	 * @author PaymahnMoghadasian
+	 * @date May 31 2013
+	 * 
+	 * @param object The other (hopefully) cryptogram to compare against
+	 */
+	public boolean equals(Object object)
+	{
+		if(!(object instanceof Cryptogram))
+			return false;
+		
+		Cryptogram other = (Cryptogram)object;
+		
+		boolean equalAuthors = (this.getAuthor() == null && other.getAuthor() == null) || this.getAuthor().equals(other.getAuthor());
+		boolean equalTitles = (this.getTitle() == null && other.getTitle() == null) || this.getTitle().equals(other.getTitle());
+		boolean equalDates = (this.getDateCreated() == null && other.getDateCreated() == null) || this.getDateCreated().equals(other.getDateCreated());
+		boolean equalPlaintext = this.plaintext.equals(other.getPlaintext());
+		boolean equalSolutionMaps = Arrays.equals(this.getSolutionMapping(), other.getSolutionMapping());
+		
+		return equalAuthors && equalTitles && equalDates && equalPlaintext && equalSolutionMaps;
 	}
 }

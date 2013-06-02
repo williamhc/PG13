@@ -64,5 +64,22 @@ public class CryptogramManager {
 		return result;
 		
 	}
+	
+	public void setUserCharForUserChar(char plaintextChar, char ciphertextChar)
+	{
+		this.cryptogram.setUserPlaintextForCiphertext(plaintextChar, ciphertextChar);
+	}
+	
+	public void setUserCharForUserChar(String plaintextChar, char ciphertextChar)
+	{
+		if(plaintextChar.length() > 0)
+		{
+			this.setUserCharForUserChar(plaintextChar.charAt(0), ciphertextChar);
+		}
+		else
+		{
+			this.setUserCharForUserChar('\0', ciphertextChar);
+		}
+	} 
 
 }

@@ -180,8 +180,7 @@ public class CryptogramLetterWidget extends Composite
 				plaintextChar = '\0';
 			}
 
-			this.parentCryptogram.setUserPlaintextForCiphertext(plaintextChar,
-					this.ciphertextChar);
+			this.cm.setUserCharForUserChar(txtPlaintextChar.getText(), this.ciphertextChar);
 
 			if (this.parent instanceof CryptogramSolveWidget)
 			{

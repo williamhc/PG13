@@ -67,7 +67,9 @@ public class Cryptogram extends Puzzle
 	 *  @author Lauren Slusky
 	 *  @date May 26 2013
 	 *  @title getUserPlaintextFromCiphertext
-	 *  @return plaintext char that the user thinks is mapped to a given ciphertext
+	 *  @return the UPPERCASE plaintext char that the user thinks is mapped to a given ciphertext. 
+	 *  
+	 *  This method expects a letter, not any character.
 	 */
 	public char getUserPlaintextFromCiphertext(char ciphertextc)
 	{

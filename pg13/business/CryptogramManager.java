@@ -37,7 +37,7 @@ public class CryptogramManager {
 			char curr = characters[i];
 			if ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,:;- !?()&#$%'\"".indexOf(curr) < 0)
 			{
-				throw new IllegalArgumentException("Invalid character in plaintext");
+				throw new IllegalArgumentException(String.format("Invalid character (%c) in plaintext", curr));
 			}
 		}		
 	}
@@ -45,4 +45,24 @@ public class CryptogramManager {
 	public String getPlaintext() {
 		return this.cryptogram.getPlaintext();
 	}
+	
+	/**
+	 * 
+	 * @param cipherCharacter The cipher character for which we want the users' mapping
+	 * @return A single uppercase letter string of the users mapping to the ciphercharacter. If there is not mapping, returns an empty string
+	 */
+	public String getUserCharForCipherChar(char cipherCharacter)
+	{
+		String result = "";
+		char userChar = this.cryptogram.getUserPlaintextFromCiphertext(cipherCharacter);
+		
+		if(userChar != '\0')
+		{
+			result += userChar;
+		}
+		
+		return result;
+		
+	}
+
 }

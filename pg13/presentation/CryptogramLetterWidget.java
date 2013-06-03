@@ -21,7 +21,6 @@ public class CryptogramLetterWidget extends Composite
 {
 	private Text txtPlaintextChar;
 	private char ciphertextChar;
-	private Cryptogram parentCryptogram;
 	private CryptogramManager cm;
 	private Composite parent;
 	private boolean updateOnTxtChange;
@@ -42,7 +41,6 @@ public class CryptogramLetterWidget extends Composite
 		FormLayout formLayout = new FormLayout();
 		setLayout(formLayout);
 		this.ciphertextChar = ciphertextChar;
-		this.parentCryptogram = parentCryptogram;
 		this.cm = new CryptogramManager(parentCryptogram);
 		this.parent = parent;
 		updateOnTxtChange = true;

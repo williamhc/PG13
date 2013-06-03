@@ -80,6 +80,27 @@ public class CryptogramManager {
 		{
 			this.setUserCharForUserChar('\0', ciphertextChar);
 		}
-	} 
+	}
+	
+	public void validateUserCharForCipherChar(char charToValidate)
+	{
+		if(charToValidate != '\0' && "abcdefghijklmnopqrstuvwxyz".indexOf(charToValidate) < 0)
+		{
+			throw new IllegalArgumentException(String.format("Illegal character %c", charToValidate));
+		}
+	}
+	
+	public void validateUserCharForCipherChar(String charToValidate)
+	{
+		if(charToValidate.length() > 1)
+		{
+			throw new IllegalArgumentException(String.format("Illegal length. The string, %s, must of length 0 or 1", charToValidate));
+		}
+		if(charToValidate.length() == 0)
+		{
+			return;
+		}
+		this.validateUserCharForCipherChar(charToValidate.toLowerCase().charAt(0));
+	}
 
 }

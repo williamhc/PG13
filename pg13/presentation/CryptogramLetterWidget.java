@@ -95,39 +95,11 @@ public class CryptogramLetterWidget extends Composite
 			{
 				public void verifyText(VerifyEvent event)
 				{
-					char enteredChar; // text that was entered
-					boolean textIsValid = false; // text that was entered is OK
-
-					// allow editing keys
-					switch (event.keyCode)
+					try
 					{
-					case SWT.BS: // Backspace
-					case SWT.DEL: // Delete
-					case SWT.HOME: // Home
-					case SWT.END: // End
-					case SWT.ARROW_LEFT: // Left arrow
-					case SWT.ARROW_RIGHT: // Right arrow
-						textIsValid = true;
-					}
-
-					// an empty text is allowed
-					if (event.text.length() == 0)
-					{
-						textIsValid = true;
-					}
-
-					if (!textIsValid)
-					{
-						// set to lowercase
 						event.text = event.text.toLowerCase();
-
-						enteredChar = event.text.charAt(0);
-						if ("abcdefghijklmnopqrstuvwxyz".indexOf(enteredChar) >= 0)
-							textIsValid = true;
-					}
-
-					// block the event if text is not valid
-					if (!textIsValid)
+						cm.validateUserCharForCipherChar(event.text);
+					}catch(IllegalArgumentException e)
 					{
 						event.doit = false;
 					}
@@ -172,13 +144,6 @@ public class CryptogramLetterWidget extends Composite
 		if (this.updateOnTxtChange == true
 				&& this.txtPlaintextChar.getEditable() == true)
 		{
-			if (txtPlaintextChar.getText().length() > 0)
-			{
-				plaintextChar = txtPlaintextChar.getText().charAt(0);
-			} else
-			{
-				plaintextChar = '\0';
-			}
 
 			this.cm.setUserCharForUserChar(txtPlaintextChar.getText(), this.ciphertextChar);
 

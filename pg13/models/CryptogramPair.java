@@ -40,4 +40,20 @@ public class CryptogramPair {
 	{
 		return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '\0');
 	}
+	
+	/**
+	 * @author PaymahnMoghadasian
+	 * @date May 31 2013
+	 * 
+	 * @param object The other (hopefully) CryptogramPair to compare against
+	 */
+	public boolean equals(Object object)
+	{
+		if(!(object instanceof CryptogramPair))
+			return false;
+		
+		CryptogramPair other = (CryptogramPair)object;
+		
+		return this.getPlainc() == other.getPlainc() && this.getCipherc() == other.getCipherc();
+	}
 }

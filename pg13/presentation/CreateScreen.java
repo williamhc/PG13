@@ -8,6 +8,7 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
 import pg13.models.Cryptogram;
+import org.eclipse.swt.widgets.Control;
 
 public class CreateScreen extends Composite 
 {
@@ -47,6 +48,7 @@ public class CreateScreen extends Composite
 		fd_composite.top = new FormAttachment(0);
 		fd_composite.left = new FormAttachment(33);
 		cmpEditWidget.setLayoutData(fd_composite);
+		setTabList(new Control[]{cmpProperties, cmpEditWidget});
 
 	}
 

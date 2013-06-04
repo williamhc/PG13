@@ -289,10 +289,12 @@ public class Cryptogram extends Puzzle
 		
 		boolean equalAuthors = (this.getAuthor() == null && other.getAuthor() == null) || this.getAuthor().equals(other.getAuthor());
 		boolean equalTitles = (this.getTitle() == null && other.getTitle() == null) || this.getTitle().equals(other.getTitle());
+		boolean equalDifficulties = (this.getDifficulty() == null && other.getDifficulty() == null) || this.getDifficulty().equals(other.getDifficulty());
 		boolean equalDates = (this.getDateCreated() == null && other.getDateCreated() == null) || this.getDateCreated().equals(other.getDateCreated());
+		boolean equalCategories = (this.getCategory() == null && other.getCategory() == null) || this.getCategory().equals(other.getCategory());
 		boolean equalPlaintext = this.plaintext.equals(other.getPlaintext());
 		boolean equalSolutionMaps = Arrays.equals(this.getSolutionMapping(), other.getSolutionMapping());
 		
-		return equalAuthors && equalTitles && equalDates && equalPlaintext && equalSolutionMaps;
+		return equalAuthors && equalTitles && equalDifficulties && equalCategories && equalDates && equalPlaintext && equalSolutionMaps;
 	}
 }

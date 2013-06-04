@@ -36,7 +36,7 @@ public class CryptogramManagerTest extends TestCase
 		this.cm = new CryptogramManager(cryptogram);
 		assertEquals(cryptogram, cm.getCryptogram());
 
-		cryptogram = new Cryptogram("Someone's Name", "Random title",
+		cryptogram = new Cryptogram("Someone's Name", "Random title","Animal", "Hard",
 				new Date(), "This is the plaintext");
 		this.cm = new CryptogramManager(cryptogram);
 		assertEquals(cryptogram, cm.getCryptogram());

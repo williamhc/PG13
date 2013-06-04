@@ -31,6 +31,7 @@ public class MainWindow
 	private Display display;
 	private Shell shell;
 	private CreateScreen cmpCreateScreen;
+	private FindScreen cmpFindScreen;
 	private Label lblLoggedInAs;
 
 	/**
@@ -77,8 +78,18 @@ public class MainWindow
 		shell.setLayout(new FormLayout());
 		
 		// play button
-		// TODO make this button do something
 		Button btnPlay = new Button(shell, SWT.NONE);
+		btnPlay.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				// show the find screen and hide other screens
+				cmpCreateScreen.setVisible(false);
+				cmpFindScreen.onLoad();
+				cmpFindScreen.setVisible(true);
+			}
+		});
 		FormData fd_btnPlay = new FormData();
 		fd_btnPlay.right = new FormAttachment(0, 86);
 		fd_btnPlay.top = new FormAttachment(0, 11);
@@ -103,8 +114,9 @@ public class MainWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				// show the create screen
+				// show the create screen and hide other screens
 				cmpCreateScreen.setVisible(true);
+				cmpFindScreen.setVisible(false);
 			}
 		});
 		FormData fd_btnCreate = new FormData();
@@ -189,7 +201,17 @@ public class MainWindow
 		cmpCreateScreen.setLayoutData(fd_cmpCreateScreen);
 		cmpCreateScreen.setVisible(false);
 		
-		// TODO load a play screen here as well, as with the create screen
+		// load the create screen, but hide it
+		cmpFindScreen = new FindScreen(cmpMainArea, SWT.NONE);
+		FormData fd_cmpFindScreen = new FormData();
+		fd_cmpFindScreen.bottom = new FormAttachment(100);
+		fd_cmpFindScreen.right = new FormAttachment(100);
+		fd_cmpFindScreen.top = new FormAttachment(0);
+		fd_cmpFindScreen.left = new FormAttachment(0);
+		cmpFindScreen.setLayoutData(fd_cmpFindScreen);
+		cmpFindScreen.setVisible(false);
+		
+		// TODO load and hide a play screen here as well
 		
 		// show the window
 		shell.open();

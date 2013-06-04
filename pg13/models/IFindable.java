@@ -35,6 +35,30 @@ public interface IFindable {
 	public void setTitle(String value);
 	
 	/**
+	 * Get the category of this object
+	 * @return The category of the object
+	 */
+	public String getCategory();
+
+	/**
+	 * Set the category of the object
+	 * @param value The new category of the object
+	 */
+	public void setCategory(String value);
+
+	/**
+	 * Get the difficulty of this object
+	 * @return The difficulty of the object
+	 */
+	public String getDifficulty();
+
+	/**
+	 * Set the difficulty of the object
+	 * @param value The new difficulty of the object
+	 */
+	public void setDifficulty(String value);
+
+	/**
 	 * Get the creation date of the object
 	 * @return The creation date of the object
 	 */

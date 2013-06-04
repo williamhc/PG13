@@ -3,7 +3,7 @@ package pg13.models;
 import java.util.Date;
 
 public abstract class Puzzle implements IFindable, ICreateable, IPlayable{
-	private String title, author;
+	private String title, description, author, category, difficulty;
 	private Date dateCreated;
 	private boolean isCompleted;
 
@@ -12,16 +12,20 @@ public abstract class Puzzle implements IFindable, ICreateable, IPlayable{
 		this.author = null;
 		this.isCompleted = false;
 		this.title = null;
+		this.category = null;
+		this.difficulty = null;
 		this.dateCreated = null;
 	}
 	
-	protected Puzzle(String author, String title, Date dateCreated)
+	protected Puzzle(String author, String title, String category, String difficulty, Date dateCreated)
 	{
 		this();
 		this.author = author;
 		this.isCompleted = false;
 		this.title = title;
 		this.dateCreated = dateCreated;
+		this.difficulty = difficulty;
+		this.category = category;
 	}
 	
 	public boolean isCompleted() {
@@ -46,6 +50,30 @@ public abstract class Puzzle implements IFindable, ICreateable, IPlayable{
 
 	public void setTitle(String value) {
 		this.title = value;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(String difficulty) {
+		this.difficulty = difficulty;
 	}
 
 	public Date getDateCreated() {

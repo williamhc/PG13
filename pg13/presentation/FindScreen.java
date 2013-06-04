@@ -283,4 +283,9 @@ public class FindScreen extends Composite
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
 	}
+
+	public void onLoad() {
+		this.tableDriver.refresh();
+		this.tableViewer.setInput(this.puzzleResults);
+	}
 }

@@ -86,6 +86,7 @@ public class MainWindow
 			{
 				// show the find screen and hide other screens
 				cmpCreateScreen.setVisible(false);
+				cmpFindScreen.onLoad();
 				cmpFindScreen.setVisible(true);
 			}
 		});

@@ -31,7 +31,7 @@ public class PuzzleTableDriver {
 	 */
 	public PuzzleTableDriver(ArrayList<Puzzle> puzzleList){
 		//initialize the puzzle controller
-		this.db = new PuzzleController();
+		this.db = PuzzleController.getInstance();
 
 		// initialize the label providers
 		this.columnLabels = new HashMap<String, ColumnLabelProvider>();
@@ -48,5 +48,11 @@ public class PuzzleTableDriver {
 
 	public ColumnLabelProvider getColumnLabelProvider(String columnTitle) {
 		return this.columnLabels.get(columnTitle);
+	}
+
+	public void refresh() {
+		ArrayList<Puzzle> dbResponse = this.db.getAllPuzzles();
+		this.puzzleList.clear();
+		this.puzzleList.addAll(dbResponse);
 	}
 }

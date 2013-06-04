@@ -3,6 +3,10 @@ package pg13.presentation;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.FormData;
@@ -10,7 +14,10 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Button;
+
+import pg13.business.create.PuzzleCreator;
 import pg13.models.Cryptogram;
+import pg13.models.Puzzle;
 
 public class PuzzlePropertiesWidget extends Composite 
 {
@@ -21,6 +28,7 @@ public class PuzzlePropertiesWidget extends Composite
 	private Label lblCategory;
 	private Label lblDifficulty;
 	private Combo cmbDificulty;
+	private Combo cmbCategory;
 	
 	/**
 	 * Creates and populates the properties widget.
@@ -29,11 +37,12 @@ public class PuzzlePropertiesWidget extends Composite
 	 * @param style
 	 * @date May 29 2013
 	 */
-	public PuzzlePropertiesWidget(Composite parent, int style, Cryptogram displayingPuzzle, boolean editMode) 
+	public PuzzlePropertiesWidget(Composite parent, int style, Cryptogram displayingPuzzle, boolean editMode)
 	{
 		super(parent, style);
 		this.editMode = editMode;
 		this.displayingPuzzle = displayingPuzzle;
+		final Puzzle puzzle = displayingPuzzle;
 		setLayout(new FormLayout());
 		
 		// puzzle name
@@ -46,6 +55,12 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_txtPuzzleName.bottom = new FormAttachment(0, 49);
 		fd_txtPuzzleName.right = new FormAttachment(100, -10);
 		txtPuzzleName.setLayoutData(fd_txtPuzzleName);
+		txtPuzzleName.addModifyListener(new ModifyListener(){
+			@Override
+			public void modifyText(ModifyEvent e) {
+				puzzle.setTitle(txtPuzzleName.getText());
+			}
+		});
 		
 		// puzzle description label
 		Label lblDescription = new Label(this, SWT.NONE);
@@ -54,6 +69,7 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_lblDescription.left = new FormAttachment(0, 10);
 		lblDescription.setLayoutData(fd_lblDescription);
 		lblDescription.setText("Description");
+
 		
 		// puzzle description text field
 		txtDescription = new Text(this, SWT.BORDER | SWT.WRAP);
@@ -64,7 +80,13 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_txtDescription.top = new FormAttachment(lblDescription, 4);
 		fd_txtDescription.left = new FormAttachment(0, 10);
 		txtDescription.setLayoutData(fd_txtDescription);
-		
+		txtDescription.addModifyListener(new ModifyListener(){
+			@Override
+			public void modifyText(ModifyEvent e) {
+				puzzle.setDescription(txtDescription.getText());
+			}
+		});
+
 		// category label
 		lblCategory = new Label(this, SWT.NONE);
 		FormData fd_lblCategory = new FormData();
@@ -74,7 +96,7 @@ public class PuzzlePropertiesWidget extends Composite
 		lblCategory.setText("Category");
 		
 		// category selection box
-		Combo cmbCategory = new Combo(this, SWT.NONE);
+		cmbCategory = new Combo(this, SWT.NONE);
 		cmbCategory.setItems(new String[] {"Animals", "Biology", "Computers", "Games", "General Trivia", "Geography", "History", "Miscellaneous", "Politics", "Science", "Space", "Sports"});
 		FormData fd_cmbCategory = new FormData();
 		fd_cmbCategory.right = new FormAttachment(60);
@@ -82,7 +104,14 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_cmbCategory.left = new FormAttachment(0, 10);
 		cmbCategory.setLayoutData(fd_cmbCategory);
 		cmbCategory.select(7);
-		
+		cmbCategory.addModifyListener(new ModifyListener(){
+			@Override
+			public void modifyText(ModifyEvent e) {
+				puzzle.setCategory(cmbCategory.getText());
+			}
+		});
+
+
 		// difficulty label
 		lblDifficulty = new Label(this, SWT.NONE);
 		FormData fd_lblDifficulty = new FormData();
@@ -100,6 +129,13 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_cmbDificulty.left = new FormAttachment(0, 10);
 		cmbDificulty.setLayoutData(fd_cmbDificulty);
 		cmbDificulty.select(1);
+		cmbDificulty.addModifyListener(new ModifyListener(){
+			@Override
+			public void modifyText(ModifyEvent e) {
+				puzzle.setDifficulty(cmbDificulty.getText());
+			}
+		});
+
 		
 		// save puzzle button
 		Button btnSavePuzzle = new Button(this, SWT.NONE);
@@ -110,7 +146,19 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_btnSavePuzzle.right = new FormAttachment(50, 70);
 		btnSavePuzzle.setLayoutData(fd_btnSavePuzzle);
 		btnSavePuzzle.setText("Save this Puzzle");
+		btnSavePuzzle.addSelectionListener(new SelectionListener(){
 
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				new PuzzleCreator().save(puzzle);
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				new PuzzleCreator().save(puzzle);
+			}
+
+		});
 	}
 
 	@Override

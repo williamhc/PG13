@@ -129,17 +129,17 @@ public class MainWindow
 		fd_cmpLogin.top = new FormAttachment(0, 5);
 		fd_cmpLogin.left = new FormAttachment(100, -350);
 		cmpLogin.setLayoutData(fd_cmpLogin);
-		cmpLogin.setBackground(SWTResourceManager.getColor(SWT.COLOR_YELLOW));
+		cmpLogin.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND));
 		cmpLogin.setLayout(new GridLayout(2, false));
 		
 		// label that identifies 
 		lblLoggedInAs = new Label(cmpLogin, SWT.NONE);
-		lblLoggedInAs.setBackground(SWTResourceManager.getColor(SWT.COLOR_YELLOW));
+		lblLoggedInAs.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND));
 		lblLoggedInAs.setText("Logged in as Guest");
 		
 		// toolbar that contains the user buttons
 		ToolBar toolBar = new ToolBar(cmpLogin, SWT.FLAT);
-		toolBar.setBackground(SWTResourceManager.getColor(SWT.COLOR_YELLOW));
+		toolBar.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND));
 		
 		// separator
 		ToolItem tltmSeparator1 = new ToolItem(toolBar, SWT.SEPARATOR);
@@ -210,7 +210,28 @@ public class MainWindow
 		cmpFindScreen.setLayoutData(fd_cmpFindScreen);
 		cmpFindScreen.setVisible(false);
 		
-		// TODO load and hide a play screen here as well
+		// welcome message
+		Label lblWelcome = new Label(cmpMainArea, SWT.CENTER);
+		lblWelcome.setFont(SWTResourceManager.getFont("Segoe UI", 22, SWT.NORMAL));
+		lblWelcome.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		FormData fd_lblWelcome = new FormData();
+		fd_lblWelcome.top = new FormAttachment(50, -130);
+		fd_lblWelcome.right = new FormAttachment(50, 220);
+		fd_lblWelcome.left = new FormAttachment(50, -220);
+		lblWelcome.setLayoutData(fd_lblWelcome);
+		lblWelcome.setText("Welcome to Puzzle Games 2013 (PG13)");
+		
+		Label lblWelcomeDescription = new Label(cmpMainArea, SWT.WRAP);
+		lblWelcomeDescription.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
+		lblWelcomeDescription.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		FormData fd_lblWelcomeDescription = new FormData();
+		fd_lblWelcomeDescription.top = new FormAttachment(lblWelcome, 14);
+		fd_lblWelcomeDescription.bottom = new FormAttachment(lblWelcome, 200);
+		fd_lblWelcomeDescription.right = new FormAttachment(50, 200);
+		fd_lblWelcomeDescription.left = new FormAttachment(50, -200);
+		lblWelcomeDescription.setLayoutData(fd_lblWelcomeDescription);
+		lblWelcomeDescription.setText("Selecte the Create option above to begin creating a new cryptogram.  You can preview and test your cryptogram by selecting the preview option therein.\r\n\r\nOnce your cryptogram is complete and saved, you can find it among other cryptograms by selecting the Play option.");
+		
 		
 		// show the window
 		shell.open();

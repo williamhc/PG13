@@ -47,11 +47,11 @@ public class CryptogramManager {
 	}
 	
 	/**
-	 * 
+	 * Gets the user mapping for a cipher character
 	 * @param cipherCharacter The cipher character for which we want the users' mapping
 	 * @return A single uppercase letter string of the users mapping to the ciphercharacter. If there is not mapping, returns an empty string
 	 */
-	public String getUserCharForCipherChar(char cipherCharacter)
+	public String getUserMapping(char cipherCharacter)
 	{
 		String result = "";
 		char userChar = this.cryptogram.getUserPlaintextFromCiphertext(cipherCharacter);
@@ -65,24 +65,47 @@ public class CryptogramManager {
 		
 	}
 	
-	public void setUserCharForUserChar(char plaintextChar, char ciphertextChar)
+	/**
+	 * Updates a user mapping for a cryptogra. IE: map X to A where X is the character the user entered and A is the
+	 * ciphertext
+	 * @author PaymahnMoghadasian
+	 * @date June 1 2013
+	 * @param plaintextChar The character that is being mapped
+	 * @param ciphertextChar The character being mapped to
+	 */
+	public void setUserMapping(char plaintextChar, char ciphertextChar)
 	{
+		this.validateUserMapping(plaintextChar);
 		this.cryptogram.setUserPlaintextForCiphertext(plaintextChar, ciphertextChar);
 	}
 	
-	public void setUserCharForUserChar(String plaintextChar, char ciphertextChar)
+	/**
+	 * Updates a user mapping for a cryptogram. IE: map X to A where X is the character the user entered and A is the
+	 * ciphertext
+	 * @author PaymahnMoghadasian
+	 * @date June 1 2013
+	 * @param plaintextChar A single character string or empty string to be assigned. If empty, the character '\0' will be assigned
+	 * @param ciphertextChar The character being mapped to
+	 */
+	public void setUserMapping(String plaintextChar, char ciphertextChar)
 	{
 		if(plaintextChar.length() > 0)
 		{
-			this.setUserCharForUserChar(plaintextChar.charAt(0), ciphertextChar);
+			this.setUserMapping(plaintextChar.charAt(0), ciphertextChar);
 		}
 		else
 		{
-			this.setUserCharForUserChar('\0', ciphertextChar);
+			this.setUserMapping('\0', ciphertextChar);
 		}
 	}
 	
-	public void validateUserCharForCipherChar(char charToValidate)
+	/**
+	 * Validates a user mapping. Valid characters are those in the range of a-z or '\0'
+	 * @param charToValidate The character to validate
+	 * @author PaymahnMoghadasian
+	 * @date June 1 2013
+	 */
+	public void validateUserMapping(char charToValidate)
 	{
 		if(charToValidate != '\0' && "abcdefghijklmnopqrstuvwxyz".indexOf(charToValidate) < 0)
 		{
@@ -90,7 +113,13 @@ public class CryptogramManager {
 		}
 	}
 	
-	public void validateUserCharForCipherChar(String charToValidate)
+	/**
+	 * Validates a user mapping. Valid characters are those in the range of a-z or '\0'
+	 * @param charToValidate Single character string or empty string to be validated.
+	 * @author PaymahnMoghadasian
+	 * @date June 1 2013
+	 */
+	public void validateUserMapping(String charToValidate)
 	{
 		if(charToValidate.length() > 1)
 		{
@@ -100,7 +129,7 @@ public class CryptogramManager {
 		{
 			return;
 		}
-		this.validateUserCharForCipherChar(charToValidate.toLowerCase().charAt(0));
+		this.validateUserMapping(charToValidate.toLowerCase().charAt(0));
 	}
 
 }

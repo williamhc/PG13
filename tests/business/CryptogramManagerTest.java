@@ -36,8 +36,8 @@ public class CryptogramManagerTest extends TestCase
 		this.cm = new CryptogramManager(cryptogram);
 		assertEquals(cryptogram, cm.getCryptogram());
 
-		cryptogram = new Cryptogram("Someone's Name", "Random title","Animal", "Hard",
-				new Date(), "This is the plaintext");
+		cryptogram = new Cryptogram("Someone's Name", "Random title", "Animal",
+				"Hard", new Date(), "This is the plaintext");
 		this.cm = new CryptogramManager(cryptogram);
 		assertEquals(cryptogram, cm.getCryptogram());
 	}
@@ -99,6 +99,16 @@ public class CryptogramManagerTest extends TestCase
 		}
 	}
 
+	/**
+	 * Try to set the plaintext of a crayptogram. An exception should be raised
+	 * by the CryptogramManager because the plaintext is (expected to be)
+	 * invalid.
+	 * 
+	 * @param plaintext
+	 *            The plaintext to set
+	 * @author PaymahnMoghadasian
+	 * @date June 1 2013
+	 */
 	private void setAndValidateInvalidPlaintext(String plaintext)
 	{
 		try
@@ -116,8 +126,9 @@ public class CryptogramManagerTest extends TestCase
 	 * @author PaymahnMoghadasian
 	 * @date June 2 2013
 	 * 
-	 * This is a beast of a method and is not exhaustive (I don't think). Someone should look over it and see if there's a better way to approach
-	 * testing the method this method tests.
+	 *       This is a beast of a method and is not exhaustive (I don't think).
+	 *       Someone should look over it and see if there's a better way to
+	 *       approach testing the method this method tests.
 	 */
 	public void testGetUserCharForCipherChar()
 	{
@@ -125,78 +136,126 @@ public class CryptogramManagerTest extends TestCase
 		cm.setPlaintext(plaintext);
 		String cipherText = cm.getCryptogram().getCiphertext();
 		assertFalse(cipherText.equals(""));
-		
-		//test none mapped
+
+		// test none mapped
 		for (int i = 0; i < cipherText.length(); i++)
 		{
 			char currentChar = cipherText.charAt(i);
 			if (Character.isLetter(currentChar))
 			{
-				String userChar = cm.getUserCharForCipherChar(currentChar);
+				String userChar = cm.getUserMapping(currentChar);
 				assertEquals("", userChar);
 			}
 		}
-		
-		//test one mapped
-		cm.getCryptogram().setUserPlaintextForCiphertext(plaintext.charAt(0), cipherText.charAt(0));
-		for(int i = 0; i < cipherText.length(); i++)
+
+		// test one mapped
+		cm.getCryptogram().setUserPlaintextForCiphertext(plaintext.charAt(0),
+				cipherText.charAt(0));
+		for (int i = 0; i < cipherText.length(); i++)
 		{
 			char currentChar = cipherText.charAt(i);
-			if(Character.isLetter(currentChar))
+			if (Character.isLetter(currentChar))
 			{
-				String userChar = cm.getUserCharForCipherChar(currentChar);
-				if(plaintext.charAt(i) == 't')
+				String userChar = cm.getUserMapping(currentChar);
+				if (plaintext.charAt(i) == 't')
 				{
 					assertEquals("T", userChar);
-				}
-				else
+				} else
 				{
 					assertEquals("", userChar);
 				}
-			}
-		}
-		
-		//test two mapped
-		cm.getCryptogram().setUserPlaintextForCiphertext(plaintext.charAt(1), cipherText.charAt(1));
-		for(int i = 0; i < cipherText.length(); i++)
-		{
-			char currentChar = cipherText.charAt(i);
-			if(Character.isLetter(currentChar))
-			{
-				String userChar = cm.getUserCharForCipherChar(currentChar);
-				if(plaintext.charAt(i) == 't')
-				{
-					assertEquals("T", userChar);
-				}
-				else if(plaintext.charAt(i) == 'e')
-				{
-					assertEquals("E", userChar);
-				}
-				else
-				{
-					assertEquals("", userChar);
-				}
-			}
-		}
-		
-		//test all mapped
-		for(int i = 0; i < plaintext.length(); i++)
-		{
-			if(Character.isLetter(plaintext.charAt(i)))
-			{
-				cm.getCryptogram().setUserPlaintextForCiphertext(plaintext.charAt(i), cipherText.charAt(i));	
-			}
-		}
-		for(int i = 0; i < cipherText.length(); i++)
-		{
-			char currentChar = cipherText.charAt(i);
-			if(Character.isLetter(currentChar))
-			{
-				String userChar = cm.getUserCharForCipherChar(currentChar);
-				assertEquals(Character.toString(Character.toUpperCase(plaintext.charAt(i))), userChar);
 			}
 		}
 
+		// test two mapped
+		cm.getCryptogram().setUserPlaintextForCiphertext(plaintext.charAt(1),
+				cipherText.charAt(1));
+		for (int i = 0; i < cipherText.length(); i++)
+		{
+			char currentChar = cipherText.charAt(i);
+			if (Character.isLetter(currentChar))
+			{
+				String userChar = cm.getUserMapping(currentChar);
+				if (plaintext.charAt(i) == 't')
+				{
+					assertEquals("T", userChar);
+				} else if (plaintext.charAt(i) == 'e')
+				{
+					assertEquals("E", userChar);
+				} else
+				{
+					assertEquals("", userChar);
+				}
+			}
+		}
+
+		// test all mapped
+		for (int i = 0; i < plaintext.length(); i++)
+		{
+			if (Character.isLetter(plaintext.charAt(i)))
+			{
+				cm.getCryptogram().setUserPlaintextForCiphertext(
+						plaintext.charAt(i), cipherText.charAt(i));
+			}
+		}
+		for (int i = 0; i < cipherText.length(); i++)
+		{
+			char currentChar = cipherText.charAt(i);
+			if (Character.isLetter(currentChar))
+			{
+				String userChar = cm.getUserMapping(currentChar);
+				assertEquals(Character.toString(Character.toUpperCase(plaintext
+						.charAt(i))), userChar);
+			}
+		}
+
+	}
+	
+	/**
+	 * @author PaymahnMoghadasian
+	 * @date June 4 2013
+	 */
+	public void testValidatePlaintext()
+	{
+		//we expect that none of these will raise an exception
+		cm.validatePlaintext("a");
+		cm.validatePlaintext("g");
+		cm.validatePlaintext("abcdefghijklmnopqrstuvwxyz");
+		cm.validatePlaintext("L");
+		cm.validatePlaintext("Z");
+		cm.validatePlaintext("A!");
+		cm.validatePlaintext("AAAAAAABBBBBCCCCCCCC");
+		cm.validatePlaintext("abcdefgHIJKL");
+		cm.validatePlaintext("A b c d some phrase");
+		cm.validatePlaintext("A large bear appeared!");
+		cm.validatePlaintext("a!!!!!!??!?!");
+		cm.validatePlaintext("A large & vicious animal!   Attack? ATTACK! ...");
+		cm.validatePlaintext("");
+		
+		//all of these will raise an exception
+		this.invalidPlaintext("~");
+		this.invalidPlaintext("mid`dle");
+		this.invalidPlaintext("~begin");
+		this.invalidPlaintext("end~");
+		this.invalidPlaintext("test invalid with spaces~");
+		this.invalidPlaintext("~~~~~~~~~~~~~~~~`````````````");
+		this.invalidPlaintext("[");
+		this.invalidPlaintext("}");
+		this.invalidPlaintext("\\");
+	}
+	
+	private void invalidPlaintext(String plaintext)
+	{
+		try
+		
+		{
+			cm.validatePlaintext(plaintext);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			//expected
+		}
 	}
 
 }

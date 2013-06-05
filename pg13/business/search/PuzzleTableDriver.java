@@ -16,7 +16,8 @@ import pg13.models.Puzzle;
  * and persistence layers. Defines how the puzzle table acts and its data.
  * @author williamhumphreys-cloutier
  */
-public class PuzzleTableDriver {
+public class PuzzleTableDriver 
+{
 	
 	private Map<String, ColumnLabelProvider> columnLabels;
 	private ArrayList<Puzzle> puzzleList;
@@ -27,7 +28,8 @@ public class PuzzleTableDriver {
 	 * @author williamhumphreys-cloutier
 	 * @date June 1 2013
 	 */
-	public PuzzleTableDriver(ArrayList<Puzzle> puzzleList){
+	public PuzzleTableDriver(ArrayList<Puzzle> puzzleList)
+	{
 		//initialize the puzzle controller
 		this.db = PuzzleController.getInstance();
 
@@ -44,11 +46,13 @@ public class PuzzleTableDriver {
 		this.puzzleList.addAll(dbResponse);
 	}
 
-	public ColumnLabelProvider getColumnLabelProvider(String columnTitle) {
+	public ColumnLabelProvider getColumnLabelProvider(String columnTitle) 
+	{
 		return this.columnLabels.get(columnTitle);
 	}
 
-	public void refresh() {
+	public void refresh()
+	{
 		ArrayList<Puzzle> dbResponse = this.db.getAllPuzzles();
 		this.puzzleList.clear();
 		this.puzzleList.addAll(dbResponse);

@@ -31,7 +31,8 @@ public class CryptogramEditWidget extends Composite {
 	 * @date May 29 2013
 	 */
 	public CryptogramEditWidget(Composite parent, int style,
-			Cryptogram workingCryptogram) {
+			Cryptogram workingCryptogram) 
+	{
 		super(parent, style);
 		setLayout(new FormLayout());
 		this.cm = new CryptogramManager(workingCryptogram);
@@ -61,11 +62,16 @@ public class CryptogramEditWidget extends Composite {
 		lblPreview.setText("Preview");
 
 		txtPlaintext = new Text(this, SWT.BORDER);
-		txtPlaintext.addVerifyListener(new VerifyListener() {
-			public void verifyText(VerifyEvent event) {
-				try {
+		txtPlaintext.addVerifyListener(new VerifyListener()
+		{
+			public void verifyText(VerifyEvent event) 
+			{
+				try 
+				{
 					cm.validatePlaintext(event.text);
-				} catch (IllegalArgumentException e) {
+				} 
+				catch (IllegalArgumentException e)
+				{
 					event.doit = false;
 				}
 			}
@@ -80,9 +86,11 @@ public class CryptogramEditWidget extends Composite {
 		txtPlaintext.setLayoutData(fd_txtPlaintext);
 
 		Button btnPreview = new Button(this, SWT.NONE);
-		btnPreview.addSelectionListener(new SelectionAdapter() {
+		btnPreview.addSelectionListener(new SelectionAdapter() 
+		{
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) 
+			{
 				preview();
 			}
 		});
@@ -101,12 +109,16 @@ public class CryptogramEditWidget extends Composite {
 	 * 
 	 * @date May 29 2013
 	 */
-	private void preview() {
-		try {
+	private void preview() 
+	{
+		try
+		{
 			this.cm.setPlaintext(txtPlaintext.getText());
 			cmpPreview.setCryptogram(this.cm.getCryptogram());
 			cmpPreview.displayCryptogram();
-		} catch (IllegalArgumentException e) {
+		} 
+		catch (IllegalArgumentException e)
+		{
 			MessageBox dialog = new MessageBox(this.getShell(), SWT.OK);
 			dialog.setText("Invalid text");
 			dialog.setMessage("The text you have entered is invalid. Please modify the text.");
@@ -114,7 +126,8 @@ public class CryptogramEditWidget extends Composite {
 	}
 
 	@Override
-	protected void checkSubclass() {
+	protected void checkSubclass()
+	{
 		// Disable the check that prevents subclassing of SWT components
 	}
 }

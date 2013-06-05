@@ -14,15 +14,18 @@ import pg13.models.Puzzle;
  * @author williamhumphreys-cloutier
  *
  */
-public class PuzzleController {
+public class PuzzleController 
+{
 	static private PuzzleController pc_instance;
 	private ArrayList<Puzzle> puzzleList;
 
-	public PuzzleController(){
+	public PuzzleController()
+	{
 		this.puzzleList = new ArrayList<Puzzle>();
-		String[][] dummyPuzzles = {
-				{"Toughy", "Will", "Testing", "Easy"},
-				{"Wootbots", "Will", "Fake", "Average"}
+		String[][] dummyPuzzles =
+		{
+			{"Toughy", "Will", "Testing", "Easy"},
+			{"Wootbots", "Will", "Fake", "Average"}
 		};
 		for(String[] def: dummyPuzzles)
 		{
@@ -32,19 +35,23 @@ public class PuzzleController {
 
 	}
 
-	public static PuzzleController getInstance(){
+	public static PuzzleController getInstance()
+	{
 		if(pc_instance == null)
 		{
 			pc_instance = new PuzzleController();
 		}
 		return pc_instance;
 	}
-	public ArrayList<Puzzle> getAllPuzzles() {
+	
+	public ArrayList<Puzzle> getAllPuzzles()
+	{
 		System.out.println("All puzzles:" + this.puzzleList);
 		return this.puzzleList;
 	}
 
-	public void persist(Puzzle puzzle){
+	public void persist(Puzzle puzzle)
+	{
 		this.puzzleList.add(puzzle);
 		System.out.println(this.puzzleList);
 	}

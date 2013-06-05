@@ -3,15 +3,18 @@ package pg13.business.create;
 import persistence.PuzzleController;
 import pg13.models.Puzzle;
 
-public class PuzzleCreator {
+public class PuzzleCreator
+{
 
 	private PuzzleController db;
 
-	public PuzzleCreator(){
+	public PuzzleCreator()
+	{
 		this.db = PuzzleController.getInstance();
 	}
 	
-	public void save(Puzzle puzzle){
+	public void save(Puzzle puzzle)
+	{
 		this.db.persist(puzzle);
 	}
 }

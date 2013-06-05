@@ -13,11 +13,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.custom.ScrolledComposite;
-import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TableViewerColumn;
@@ -28,14 +24,19 @@ import pg13.models.Puzzle;
 
 public class FindScreen extends Composite 
 {
-	private static class ContentProvider implements IStructuredContentProvider {
-		public Object[] getElements(Object newElements) {
-		      ArrayList<Puzzle> puzzles = (ArrayList<Puzzle>) newElements;
+	private static class ContentProvider implements IStructuredContentProvider 
+	{
+		public Object[] getElements(Object newElements) 
+		{
+		      @SuppressWarnings("unchecked")
+			ArrayList<Puzzle> puzzles = (ArrayList<Puzzle>) newElements;
 		      return puzzles.toArray();
 		}
-		public void dispose() {
+		public void dispose()
+		{
 		}
-		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) 
+		{
 		}
 	}
 	private Text txtTitle;
@@ -258,7 +259,8 @@ public class FindScreen extends Composite
 		this.tableViewer.setInput(this.puzzleResults);
 	}
 
-	private void createColumns(final Composite parent, final TableViewer viewer) {
+	private void createColumns(final Composite parent, final TableViewer viewer)
+	{
 		String[] titles = { "Title", "Author", "Category", "Difficulty" };
 		int[] bounds = { 100, 100, 100, 100 };
 
@@ -270,7 +272,8 @@ public class FindScreen extends Composite
 		}
 	}
 
-	private TableViewerColumn createTableViewerColumn(String title, int width, final int colNumber) {
+	private TableViewerColumn createTableViewerColumn(String title, int width, final int colNumber)
+	{
 	    final TableViewerColumn viewerColumn = new TableViewerColumn(this.tableViewer, SWT.NONE);
 	    final TableColumn column = viewerColumn.getColumn();
 	    column.setText(title);
@@ -280,11 +283,13 @@ public class FindScreen extends Composite
 	}
 
 	@Override
-	protected void checkSubclass() {
+	protected void checkSubclass()
+	{
 		// Disable the check that prevents subclassing of SWT components
 	}
 
-	public void onLoad() {
+	public void onLoad()
+	{
 		this.tableDriver.refresh();
 		this.tableViewer.setInput(this.puzzleResults);
 	}

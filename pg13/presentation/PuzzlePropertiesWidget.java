@@ -22,7 +22,6 @@ import pg13.models.Puzzle;
 public class PuzzlePropertiesWidget extends Composite 
 {
 	boolean editMode;						// can we edit the properties of the puzzle?
-	private Cryptogram displayingPuzzle;	// cryptogram to display/edit
 	private Text txtPuzzleName;
 	private Text txtDescription;
 	private Label lblCategory;
@@ -41,7 +40,6 @@ public class PuzzlePropertiesWidget extends Composite
 	{
 		super(parent, style);
 		this.editMode = editMode;
-		this.displayingPuzzle = displayingPuzzle;
 		final Puzzle puzzle = displayingPuzzle;
 		setLayout(new FormLayout());
 		
@@ -55,9 +53,11 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_txtPuzzleName.bottom = new FormAttachment(0, 49);
 		fd_txtPuzzleName.right = new FormAttachment(100, -10);
 		txtPuzzleName.setLayoutData(fd_txtPuzzleName);
-		txtPuzzleName.addModifyListener(new ModifyListener(){
+		txtPuzzleName.addModifyListener(new ModifyListener()
+		{
 			@Override
-			public void modifyText(ModifyEvent e) {
+			public void modifyText(ModifyEvent e) 
+			{
 				puzzle.setTitle(txtPuzzleName.getText());
 			}
 		});
@@ -80,9 +80,11 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_txtDescription.top = new FormAttachment(lblDescription, 4);
 		fd_txtDescription.left = new FormAttachment(0, 10);
 		txtDescription.setLayoutData(fd_txtDescription);
-		txtDescription.addModifyListener(new ModifyListener(){
+		txtDescription.addModifyListener(new ModifyListener()
+		{
 			@Override
-			public void modifyText(ModifyEvent e) {
+			public void modifyText(ModifyEvent e)
+			{
 				puzzle.setDescription(txtDescription.getText());
 			}
 		});
@@ -104,9 +106,11 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_cmbCategory.left = new FormAttachment(0, 10);
 		cmbCategory.setLayoutData(fd_cmbCategory);
 		cmbCategory.select(7);
-		cmbCategory.addModifyListener(new ModifyListener(){
+		cmbCategory.addModifyListener(new ModifyListener()
+		{
 			@Override
-			public void modifyText(ModifyEvent e) {
+			public void modifyText(ModifyEvent e) 
+			{
 				puzzle.setCategory(cmbCategory.getText());
 			}
 		});
@@ -129,9 +133,11 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_cmbDificulty.left = new FormAttachment(0, 10);
 		cmbDificulty.setLayoutData(fd_cmbDificulty);
 		cmbDificulty.select(1);
-		cmbDificulty.addModifyListener(new ModifyListener(){
+		cmbDificulty.addModifyListener(new ModifyListener()
+		{
 			@Override
-			public void modifyText(ModifyEvent e) {
+			public void modifyText(ModifyEvent e) 
+			{
 				puzzle.setDifficulty(cmbDificulty.getText());
 			}
 		});
@@ -146,15 +152,18 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_btnSavePuzzle.right = new FormAttachment(50, 70);
 		btnSavePuzzle.setLayoutData(fd_btnSavePuzzle);
 		btnSavePuzzle.setText("Save this Puzzle");
-		btnSavePuzzle.addSelectionListener(new SelectionListener(){
+		btnSavePuzzle.addSelectionListener(new SelectionListener()
+		{
 
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e)
+			{
 				new PuzzleCreator().save(puzzle);
 			}
 
 			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
+			public void widgetDefaultSelected(SelectionEvent e) 
+			{
 				new PuzzleCreator().save(puzzle);
 			}
 
@@ -162,7 +171,8 @@ public class PuzzlePropertiesWidget extends Composite
 	}
 
 	@Override
-	protected void checkSubclass() {
+	protected void checkSubclass() 
+	{
 		// Disable the check that prevents subclassing of SWT components
 	}
 }

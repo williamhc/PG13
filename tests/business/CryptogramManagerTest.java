@@ -121,7 +121,8 @@ public class CryptogramManagerTest extends TestCase
 		{
 			this.cm.setPlaintext(plaintext);
 			fail();
-		} catch (IllegalArgumentException e)
+		} 
+		catch (IllegalArgumentException e)
 		{
 			// expected
 		}
@@ -166,7 +167,8 @@ public class CryptogramManagerTest extends TestCase
 				if (plaintext.charAt(i) == 't')
 				{
 					assertEquals("T", userChar);
-				} else
+				} 
+				else
 				{
 					assertEquals("", userChar);
 				}
@@ -185,10 +187,12 @@ public class CryptogramManagerTest extends TestCase
 				if (plaintext.charAt(i) == 't')
 				{
 					assertEquals("T", userChar);
-				} else if (plaintext.charAt(i) == 'e')
+				} 
+				else if (plaintext.charAt(i) == 'e')
 				{
 					assertEquals("E", userChar);
-				} else
+				} 
+				else
 				{
 					assertEquals("", userChar);
 				}
@@ -299,7 +303,8 @@ public class CryptogramManagerTest extends TestCase
 		if (plaintext == '\0')
 		{
 			assertEquals("", cm.getUserMapping(cipherChar));
-		} else
+		} 
+		else
 		{
 			assertEquals(Character.toString(Character.toUpperCase(plaintext)),
 					cm.getUserMapping(cipherChar));

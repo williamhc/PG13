@@ -62,7 +62,8 @@ public class CryptogramSolveWidget extends Composite
 	}
 
 	@Override
-	protected void checkSubclass() {
+	protected void checkSubclass()
+	{
 		// Disable the check that prevents subclassing of SWT components
 	}
 

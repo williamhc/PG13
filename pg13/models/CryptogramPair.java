@@ -5,7 +5,8 @@ package pg13.models;
  * @date May 28, 2013
  * Class used to house mapping between plain and cipher text characters
  */
-public class CryptogramPair {
+public class CryptogramPair
+{
 
 	private char plainc; // plain text character NOTE* this is the character that is used to index the array
 	private char cipherc; // cipher text character

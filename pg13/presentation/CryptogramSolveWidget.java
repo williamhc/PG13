@@ -3,6 +3,7 @@ package pg13.presentation;
 import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.SWT;
@@ -225,13 +226,22 @@ public class CryptogramSolveWidget extends Composite
 	 */
 	private void checkSolution()
 	{
+		String msg;
+		MessageBox dialog;
+		
 		if (this.solvingCryptogram != null && this.solvingCryptogram.isCompleted())
 		{
-			System.out.println("Puzzle solved!");
+			msg = "Puzzle solved!";
 		}
 		else
 		{
-			System.out.println("Puzzle NOT solved!");
+			msg = "Puzzle NOT solved!";
 		}
+
+		dialog = new MessageBox(this.getShell() , SWT.ICON_QUESTION | SWT.OK);
+		dialog.setText("Cryptogram Solution");
+		dialog.setMessage(msg);
+
+		dialog.open(); 
 	}
 }

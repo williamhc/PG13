@@ -1,5 +1,7 @@
 package pg13.presentation;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.SWT;
@@ -28,7 +30,7 @@ public class PuzzlePropertiesWidget extends Composite
 	private Label lblDifficulty;
 	private Combo cmbDificulty;
 	private Combo cmbCategory;
-
+	private Button btnSavePuzzle;
 	/**
 	 * Creates and populates the properties widget.
 	 * @author Eric
@@ -39,7 +41,8 @@ public class PuzzlePropertiesWidget extends Composite
 	public PuzzlePropertiesWidget(Composite parent, int style, Cryptogram displayingPuzzle, boolean editMode)
 	{
 		super(parent, style);
-		this.editMode = editMode;
+
+		this.displayingPuzzle = displayingPuzzle;
 		final Puzzle puzzle = displayingPuzzle;
 		setLayout(new FormLayout());
 
@@ -142,7 +145,7 @@ public class PuzzlePropertiesWidget extends Composite
 
 
 		// save puzzle button
-		Button btnSavePuzzle = new Button(this, SWT.NONE);
+		this.btnSavePuzzle = new Button(this, SWT.NONE);
 		FormData fd_btnSavePuzzle = new FormData();
 		fd_btnSavePuzzle.top = new FormAttachment(100, -40);
 		fd_btnSavePuzzle.bottom = new FormAttachment(100, -10);
@@ -166,6 +169,16 @@ public class PuzzlePropertiesWidget extends Composite
 			}
 
 		});
+		this.setEditMode(editMode);
+	}
+
+	private void setEditMode(boolean editMode){
+		this.editMode = editMode;
+		this.cmbCategory.setEnabled(this.editMode);
+		this.cmbDificulty.setEnabled(this.editMode);
+		this.txtDescription.setEnabled(this.editMode);
+		this.txtPuzzleName.setEnabled(this.editMode);
+		this.btnSavePuzzle.setVisible(this.editMode);
 	}
 
 	@Override

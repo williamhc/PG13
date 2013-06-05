@@ -95,6 +95,7 @@ public class MainWindow
 		// connect button
 		// TODO make this button do something
 		Button btnConnect = new Button(shell, SWT.NONE);
+		btnConnect.setEnabled(false);
 		FormData fd_btnConnect = new FormData();
 		fd_btnConnect.right = new FormAttachment(0, 172);
 		fd_btnConnect.top = new FormAttachment(0, 11);
@@ -146,6 +147,7 @@ public class MainWindow
 		
 		// my puzzles button
 		ToolItem tltmMyPuzzles = new ToolItem(toolBar, SWT.NONE);
+		tltmMyPuzzles.setEnabled(false);
 		tltmMyPuzzles.setText("My Puzzles");
 		
 		// separator
@@ -155,6 +157,7 @@ public class MainWindow
 		// mystery button
 		// TODO decide what this button does
 		ToolItem tltmMystery = new ToolItem(toolBar, SWT.NONE);
+		tltmMystery.setEnabled(false);
 		tltmMystery.setText("Something Else");
 		
 		// separator
@@ -165,6 +168,7 @@ public class MainWindow
 		
 		// login button
 		ToolItem tltmLogin = new ToolItem(toolBar, SWT.NONE);
+		tltmLogin.setEnabled(false);
 		tltmLogin.setText("Login");
 		
 		// horizontal line

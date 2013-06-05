@@ -39,7 +39,7 @@ public class CreateScreen extends Composite
 		cmpProperties.setLayoutData(fd_cmpProperties);
 		
 		// puzzle edit widget, for now is only cryptogram
-		CryptogramEditWidget cmpEditWidget = new CryptogramEditWidget(this, SWT.NONE, workingPuzzle);
+		CryptogramEditWidget cmpEditWidget = new CryptogramEditWidget(this, SWT.NONE, workingPuzzle, true);
 		FormData fd_composite = new FormData();
 		fd_composite.bottom = new FormAttachment(100);
 		fd_composite.right = new FormAttachment(100);

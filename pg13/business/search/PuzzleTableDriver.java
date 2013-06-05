@@ -8,9 +8,9 @@ import java.util.Map;
 
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 
-import persistence.PuzzleController;
 import pg13.models.Cryptogram;
 import pg13.models.Puzzle;
+import pg13.persistence.PuzzleController;
 
 
 /**

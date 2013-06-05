@@ -1,7 +1,7 @@
 package pg13.business.create;
 
-import persistence.PuzzleController;
 import pg13.models.Puzzle;
+import pg13.persistence.PuzzleController;
 
 public class PuzzleCreator {
 

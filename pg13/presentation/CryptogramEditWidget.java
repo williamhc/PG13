@@ -78,8 +78,6 @@ public class CryptogramEditWidget extends Composite {
 				}
 			}
 		});
-
-		txtPlaintext.setText("The quick brown fox jumps over the lazy dog.");
 		FormData fd_txtPlaintext = new FormData();
 		fd_txtPlaintext.right = new FormAttachment(100, -10);
 		fd_txtPlaintext.bottom = new FormAttachment(lblPreview, -6);

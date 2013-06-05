@@ -1,10 +1,7 @@
 package pg13.presentation;
 
-import java.util.Date;
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
@@ -12,8 +9,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.SelectionAdapter;

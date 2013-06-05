@@ -96,7 +96,7 @@ public class CryptogramLetterWidget extends Composite
 					try
 					{
 						event.text = event.text.toLowerCase();
-						cm.validateUserCharForCipherChar(event.text);
+						cm.validateUserMapping(event.text);
 					}catch(IllegalArgumentException e)
 					{
 						event.doit = false;
@@ -143,7 +143,7 @@ public class CryptogramLetterWidget extends Composite
 				&& this.txtPlaintextChar.getEditable() == true)
 		{
 
-			this.cm.setUserCharForUserChar(txtPlaintextChar.getText(), this.ciphertextChar);
+			this.cm.setUserMapping(txtPlaintextChar.getText(), this.ciphertextChar);
 
 			if (this.parent instanceof CryptogramSolveWidget)
 			{
@@ -168,7 +168,7 @@ public class CryptogramLetterWidget extends Composite
 		if (txtPlaintextChar.getEditable() == true)
 		{
 			plaintextChar = this.cm
-					.getUserCharForCipherChar(this.ciphertextChar);
+					.getUserMapping(this.ciphertextChar);
 
 			this.updateOnTxtChange = false;
 			this.txtPlaintextChar.setText(plaintextChar);

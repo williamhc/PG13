@@ -21,7 +21,6 @@ public class CryptogramEditWidget extends Composite {
 	private Text txtPlaintext; // plaintext used to generate cryptogram
 	private CryptogramSolveWidget cmpPreview; // preview area for the cryptogram
 	private CryptogramManager cm;
-	private boolean editMode;
 	private Button btnPreview;
 
 	/**
@@ -110,8 +109,8 @@ public class CryptogramEditWidget extends Composite {
 	 *
 	 * @date June 4th 2013
 	 */
-	private void setEditMode(boolean editMode) {
-		this.editMode = editMode;
+	private void setEditMode(boolean editMode) 
+	{
 		this.txtPlaintext.setEnabled(editMode);
 		this.btnPreview.setVisible(editMode);
 	}

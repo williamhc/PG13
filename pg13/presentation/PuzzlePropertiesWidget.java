@@ -1,7 +1,5 @@
 package pg13.presentation;
 
-import java.util.ArrayList;
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.SWT;

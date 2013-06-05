@@ -37,7 +37,7 @@ public class PuzzlePropertiesWidget extends Composite
 	 * @date May 29 2013
 	 */
 	public PuzzlePropertiesWidget(Composite parent, int style, Cryptogram displayingPuzzle, boolean editMode)
-	{
+	{ 
 		super(parent, style);
 		this.editMode = editMode;
 		final Puzzle puzzle = displayingPuzzle;

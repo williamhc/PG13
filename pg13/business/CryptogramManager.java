@@ -76,6 +76,7 @@ public class CryptogramManager {
 	public void setUserMapping(char plaintextChar, char ciphertextChar)
 	{
 		this.validateUserMapping(plaintextChar);
+		this.validateUserMapping(ciphertextChar);
 		this.cryptogram.setUserPlaintextForCiphertext(plaintextChar, ciphertextChar);
 	}
 	
@@ -107,7 +108,7 @@ public class CryptogramManager {
 	 */
 	public void validateUserMapping(char charToValidate)
 	{
-		if(charToValidate != '\0' && "abcdefghijklmnopqrstuvwxyz".indexOf(charToValidate) < 0)
+		if(charToValidate != '\0' && "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(charToValidate) < 0)
 		{
 			throw new IllegalArgumentException(String.format("Illegal character %c", charToValidate));
 		}

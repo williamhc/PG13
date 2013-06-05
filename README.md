@@ -1,32 +1,51 @@
-Puzzle Games 2013 (PG13) Vision Statement
-==========================
+-------------------------------------------------------------------------------
+Group 4 - Puzzle Games 2013 (PG13) - Paymahn M., Eric H., Will H-C., Lauren S.
+-------------------------------------------------------------------------------
+Version 1.00
+Iteration 1 date: 06/06/2013
+-------------------------------------------------------------------------------
+Project state:
+  stable
+-------------------------------------------------------------------------------
+Credits
+  Paymahn M.
+  Eric H.
+  William H-C.
+  Lauren S.
+-------------------------------------------------------------------------------
+Location of Repository
 
-PG13 is a social application for building, sharing and solving various word puzzles. 
-These puzzles include, but are not exclusive to: word searches, crosswords and 
-cryptograms. Users will be able create, share and solve a variety of puzzles at their 
-leisure. 
+The repository is a git repository under the root directory of an Amazon EC2 instance. The authorized user is ubuntu. The SSH key required will be included in the .zip (comp3350.pem).
 
-PG13 has a target audience of puzzle enthusiasts. Our application allows enthusiasts
-to quickly access and solve a range of puzzles. For the enthusiasts that like to create,
-our application will allow them to easily create and share their puzzles with the 
-world. 
-PG13 will also be useful for teachers, who will be able to use our application to 
-create educational puzzles that can be solved by their students. The other benefit 
-for teachers is that they will be able to share their puzzles with other educators and 
-students can benefit from sharing their own puzzles amongst each other. 
+To clone the repo, use the ssh (via chmod and ssh-add) key and then:
+git clone ubuntu@ec2-54-245-216-243.us-west-2.compute.amazonaws.com:PG13.git
 
-In the future, we hope to expand PG13 so it can connect with real social networks, 
-such as Facebook and Twitter. 
-PG13 gives users quick access to a larger selection of puzzles than what they can 
-find in current media outlets, such as the newspaper. Users can also choose puzzles 
-that are at their level as opposed to the limited options in the newspaper. Puzzles are
-a great way for teachers to teach their curriculum whilst keeping students 
-interested. Some teachers already see the value in puzzles and create them by hand 
-for their classes. Our application makes this process faster and easier. The social 
-aspect can create competition and interactivity between students. Puzzlers can take 
-advantage of the social aspect of PG13 as well and compete with each other for high 
-scores. Puzzles are healthy and keep the mind young and active! 
+The project can also simply be downloaded from Dropbox:
+https://www.dropbox.com/s/gnrtwoen3d4b995/PG13.zip
 
-We would like to have 5000 users registered, and 10000 puzzles created in the next 
-year. In five years time, we aim to have our application used by 10% of schools in 
-Winnipeg.
+-------------------------------------------------------------------------------
+Project File Contents
+
+Our project is contained in the package, pg13. Our main function can be found in the pg13.app package. pg13.presentation contains the GUI component of our project. pg13.business contains all the data processing and logic. pg13.persistence contains our stub database required for this iteration. pg13.models is our domain specific data objects, puzzles. We also have test package that contains all of our JUNIT tests. tests.models contains the files that thoroughly test our data objects. tests.business tests all the data processing and logic.
+-------------------------------------------------------------------------------
+Project description
+
+PG13 is a social puzzle making and playing software. In this iteration you, our users, can create a puzzle by clicking the create button. Currently, we only have cryptograms. Clicking the generate preview allows you to play the cryptogram in the preview screen. "Save this Puzzle" will allow you to store the puzzle you made for the length of the lifetime of the application. You can also click the "Play" button, which will display all the puzzles that have been created (including yours, if you saved it). You have a few dummy puzzles that populate this screen right now from our stub database.
+
+The yellow header bar, "Connect", and the filter options on the play screen have been made uninteractable for this iteration as they are not fully implemented.
+
+Enjoy the program :)
+
+-------------------------------------------------------------------------------
+How to Run:
+
+THIS NEEDS TO BE DONE ONCE WE MAKE OUR BAT FILES AND STUFF
+-------------------------------------------------------------------------------
+Additional Notes
+
+Included in our electronic handin are the following: our source code, this readme file, a copy of our log, a text file outlining our developer tasks for this iteration, their current state, and estimated times, and AllTests.txt that contains the output of our RunTests script.
+
+Anything else you think is of interest (for example, object hierarchy) should
+be placed here.
+REMOVE THIS LINE IF WE DON'T ADD MORE
+

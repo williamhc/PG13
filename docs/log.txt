@@ -1,1 +1,225 @@
-Date: 2013-05-17Person: William Humphreys-CloutierTask: Puzzle Creation UI DesignHours: 1.5Description: Did some serious brainstorming. See note section (left side). Ithink I got a good idea of how the application will flow now. I'll make somemockups in Balsamiq this afternoon and you guys can give me feedback on it. Feel free to take a look and comment on the Note.Date: 2013-05-17Person: William Humphreys-CloutierTask: Puzzle Creation UI DesignHours: 1Description: Alright I thought some more and got a mockup for creating puzzles. Ithink it could use some other eyes for sure. The other UIs would be laid outsimilar if it makes sense (it does for searching and playing at least - maybe not).See the attached PDFs and ask if there are any questions. If you guys have want towork on it in Balsamiq (the webapp is free iirc) I added the .bmml file too.Date: 2013-05-20Person: William Humphreys-CloutierTask: Meeting #2Hours: 2Description: We discussed developer tasks coding standards and architecture andinterface design.Date: 2013-05-21Person: William Humphreys-CloutierTask: Create READMEsHours: 1Description: Added a docs folder too.Date: 2013-05-21Person: Lauren SluskyTask: Set up Eclipse and GitHubHours: 3Description:Date: 2013-05-21Person: Eric HimbeaultTask: Set up Eclipse and GitHours: 3Description: Set up eclipse.Fought with the Git plugin for Eclipse and lost.Tried some more.Got GitHub and eclipse project set up. TO DO:Figure out what on earth I am doing.Date: 2013-05-26Person: Lauren SluskyTask: Add validation to cryptogramHours: 1.5Description:Date: 2013-05-24Person: William Humphreys-CloutierTask: Design a find and solve viewHours: 2Description: Designed the find view and about 75% of the solve view. Almost done.Date: 2013-05-26Person: Eric HimbeaultTask: Create a main window with the app layoutHours: 4.75Description: Created a main window and made a pull request for it.  Made thebottom section a container panel and made the Create button populate it with aCreate Screen stub.Date: 2013-05-26Person: Lauren SluskyTask: Basic Cryptogram class set upHours: 1.5Description: I added the files and the packages needed to start all this andwrote some initial testsIt's cool when the little JUnit bar goes green!Date: 2013-05-28Person: Lauren SluskyTask: Fix Cryptogram Class and write Tests + New ClassHours: 2Description:Date: 2013-05-28Person: Eric HimbeaultTask: Fix Cryptogram Class and write Tests + New ClassHours: 2Description: Co-pilot for Lauren (pair programming)Date: 2013-05-27Person: Eric HimbeaultTask: Meeting about BO LayerHours: 1Description: Had a meeting to discuss details about the Business layer.Date: 2013-05-27Person: Lauren SluskyTask: Meeting about BO LayerHours: 1Description:Date: 2013-05-26Person: Lauren SluskyTask: Add solvability to CryptogramsHours: 1Description:Date: 2013-05-28Person: Lauren SluskyTask: Create Cryptogram classHours: 2Description: Continued working on the class from the other task regarding thisDate: 2013-05-28Person: Eric HimbeaultTask: Create Cryptogram classHours: 2Description: co-pilot with Lauren (pair programming)Date: 2013-05-22Person: Paymahn MoghadasianTask: Create an exceptions guidelineHours: 1Description:Date: 2013-05-26Person: Paymahn MoghadasianTask: Create a test suite.Hours: 1.5Description:Date: 2013-05-24Person: Paymahn MoghadasianTask: Create a puzzle classHours: 0.5Description:Date: 2013-05-26Person: Paymahn MoghadasianTask: Create Cryptogram classHours: 2Description:Date: 2013-05-29Person: Paymahn MoghadasianTask: Create Cryptogram classHours: 1Description: Spent time with Eric and Lauren learning the code. Made somechanges to the test class for the cryptogramDate: 2013-05-29Person: Eric HimbeaultTask: Add creation viewHours: 5Description: Added but not all elements are functional.  GUI elements should beall there including the widget for preview which can be reused in the solving view.Date: 2013-05-29Person: William Humphreys-CloutierTask: Rig up Travis-CIHours: 2.5Description: Done! Finally... It is working with all unit tests. If we have toget full GUI testing eventually that'll be another bridge to cross.Date: 2013-05-30Person: Eric HimbeaultTask: Add creation viewHours: 1Description: Fixed some issues discovered added minor functionality.Date: 2013-05-30Person: Lauren SluskyTask: Add creation viewHours: 1Description: Paired programming with eric fixing minor UI stuff and a few changesto the Cryptogram class and associated testsDate: 2013-05-31Person: Eric HimbeaultTask: Implement Find Screen GuiHours: 2Description: Added a find screen GUI with all the widgets that should be neededfor now.  They are not functional yet.  In branch add-find-screen.Date: 2013-05-31Person: Paymahn MoghadasianTask: Think about business layerHours: 2Description: I think I have an idea of how to structure the business layer aftertalking with Levko about it and reviewing the SRS code. I'm gonna write some codetonight and make a push request by late tonight or sometime tomorrow. My plan isto push incomplete but functional code so that I can get some input.Date: 2013-06-01Person: Paymahn MoghadasianTask: Create initial business layerHours: 2Description: Created a single class business layer, waiting for critique beforeI continue.Date: 2013-06-02Person: Paymahn MoghadasianTask: Create initial business layerHours: 4Description: I started doing more work. There was a bug. I tried going back toan old commit. I think I lost all of my work.Date: 2013-06-03Person: Paymahn MoghadasianTask: Create initial business layerHours: 2Description: I think the cryptogram manager is done nowDate: 2013-06-04Person: William Humphreys-CloutierTask: Add functionality to Find ScreenHours: 4Description: Implemented over the weekend. You can now find puzzles that yourCreate on the creation screen.Date: 2013-06-04Person: Paymahn MoghadasianTask: Code cleanup and more testing if necessaryHours: 0.5Description: Doing a log update. Did some cleanup, renaming and wrote more tests.I will be doing more of this tonight.
+Date: 2013-05-17
+Person: William Humphreys-Cloutier
+Task: Puzzle Creation UI Design
+Hours: 1.5
+Description: Did some serious brainstorming. See note section (left side). I
+think I got a good idea of how the application will flow now. I'll make some
+mockups in Balsamiq this afternoon and you guys can give me feedback on it. Feel
+free to take a look and comment on the Note.
+
+Date: 2013-05-17
+Person: William Humphreys-Cloutier
+Task: Puzzle Creation UI Design
+Hours: 1
+Description: Alright I thought some more and got a mockup for creating puzzles. I
+think it could use some other eyes for sure. The other UIs would be laid out
+similar if it makes sense (it does for searching and playing at least - maybe not).
+See the attached PDFs and ask if there are any questions. If you guys have want to
+work on it in Balsamiq (the webapp is free iirc) I added the .bmml file too.
+
+Date: 2013-05-20
+Person: William Humphreys-Cloutier
+Task: Meeting #2
+Hours: 2
+Description: We discussed developer tasks coding standards and architecture and
+interface design.
+
+Date: 2013-05-21
+Person: William Humphreys-Cloutier
+Task: Create READMEs
+Hours: 1
+Description: Added a docs folder too.
+
+Date: 2013-05-21
+Person: Lauren Slusky
+Task: Set up Eclipse and GitHub
+Hours: 3
+Description:
+
+Date: 2013-05-21
+Person: Eric Himbeault
+Task: Set up Eclipse and Git
+Hours: 3
+Description: Set up eclipse.Fought with the Git plugin for Eclipse and lost.
+Tried some more.
+Got GitHub and eclipse project set up. TO DO:Figure out what on earth I am doing.
+
+Date: 2013-05-26
+Person: Lauren Slusky
+Task: Add validation to cryptogram
+Hours: 1.5
+Description:
+
+Date: 2013-05-24
+Person: William Humphreys-Cloutier
+Task: Design a find and solve view
+Hours: 2
+Description: Designed the find view and about 75% of the solve view. Almost done.
+
+Date: 2013-05-26
+Person: Eric Himbeault
+Task: Create a main window with the app layout
+Hours: 4.75
+Description: Created a main window and made a pull request for it.  Made the
+bottom section a container panel and made the Create button populate it with a
+Create Screen stub.
+
+Date: 2013-05-26
+Person: Lauren Slusky
+Task: Basic Cryptogram class set up
+Hours: 1.5
+Description: I added the files and the packages needed to start all this and
+wrote some initial tests
+
+It's cool when the little JUnit bar goes green!
+
+Date: 2013-05-28
+Person: Lauren Slusky
+Task: Fix Cryptogram Class and write Tests + New Class
+Hours: 2
+Description:
+
+Date: 2013-05-28
+Person: Eric Himbeault
+Task: Fix Cryptogram Class and write Tests + New Class
+Hours: 2
+Description: Co-pilot for Lauren (pair programming)
+
+Date: 2013-05-27
+Person: Eric Himbeault
+Task: Meeting about BO Layer
+Hours: 1
+Description: Had a meeting to discuss details about the Business layer.
+
+Date: 2013-05-27
+Person: Lauren Slusky
+Task: Meeting about BO Layer
+Hours: 1
+Description:
+
+Date: 2013-05-26
+Person: Lauren Slusky
+Task: Add solvability to Cryptograms
+Hours: 1
+Description:
+
+Date: 2013-05-28
+Person: Lauren Slusky
+Task: Create Cryptogram class
+Hours: 2
+Description: Continued working on the class from the other task regarding this
+
+Date: 2013-05-28
+Person: Eric Himbeault
+Task: Create Cryptogram class
+Hours: 2
+Description: co-pilot with Lauren (pair programming)
+
+Date: 2013-05-22
+Person: Paymahn Moghadasian
+Task: Create an exceptions guideline
+Hours: 1
+Description:
+
+Date: 2013-05-26
+Person: Paymahn Moghadasian
+Task: Create a test suite.
+Hours: 1.5
+Description:
+
+Date: 2013-05-24
+Person: Paymahn Moghadasian
+Task: Create a puzzle class
+Hours: 0.5
+Description:
+
+Date: 2013-05-26
+Person: Paymahn Moghadasian
+Task: Create Cryptogram class
+Hours: 2
+Description:
+
+Date: 2013-05-29
+Person: Paymahn Moghadasian
+Task: Create Cryptogram class
+Hours: 1
+Description: Spent time with Eric and Lauren learning the code. Made some
+changes to the test class for the cryptogram
+
+Date: 2013-05-29
+Person: Eric Himbeault
+Task: Add creation view
+Hours: 5
+Description: Added but not all elements are functional.  GUI elements should be
+all there including the widget for preview which can be reused in the solving view.
+
+Date: 2013-05-29
+Person: William Humphreys-Cloutier
+Task: Rig up Travis-CI
+Hours: 2.5
+Description: Done! Finally... It is working with all unit tests. If we have to
+get full GUI testing eventually that'll be another bridge to cross.
+
+Date: 2013-05-30
+Person: Eric Himbeault
+Task: Add creation view
+Hours: 1
+Description: Fixed some issues discovered added minor functionality.
+
+Date: 2013-05-30
+Person: Lauren Slusky
+Task: Add creation view
+Hours: 1
+Description: Paired programming with eric fixing minor UI stuff and a few changes
+to the Cryptogram class and associated tests
+
+Date: 2013-05-31
+Person: Eric Himbeault
+Task: Implement Find Screen Gui
+Hours: 2
+Description: Added a find screen GUI with all the widgets that should be needed
+for now.  They are not functional yet.  In branch add-find-screen.
+
+Date: 2013-05-31
+Person: Paymahn Moghadasian
+Task: Think about business layer
+Hours: 2
+Description: I think I have an idea of how to structure the business layer after
+talking with Levko about it and reviewing the SRS code. I'm gonna write some code
+tonight and make a push request by late tonight or sometime tomorrow. My plan is
+to push incomplete but functional code so that I can get some input.
+
+Date: 2013-06-01
+Person: Paymahn Moghadasian
+Task: Create initial business layer
+Hours: 2
+Description: Created a single class business layer, waiting for critique before
+I continue.
+
+Date: 2013-06-02
+Person: Paymahn Moghadasian
+Task: Create initial business layer
+Hours: 4
+Description: I started doing more work. There was a bug. I tried going back to
+an old commit. I think I lost all of my work.
+
+Date: 2013-06-03
+Person: Paymahn Moghadasian
+Task: Create initial business layer
+Hours: 2
+Description: I think the cryptogram manager is done now
+
+Date: 2013-06-04
+Person: William Humphreys-Cloutier
+Task: Add functionality to Find Screen
+Hours: 4
+Description: Implemented over the weekend. You can now find puzzles that your
+Create on the creation screen.
+
+Date: 2013-06-04
+Person: Paymahn Moghadasian
+Task: Code cleanup and more testing if necessary
+Hours: 0.5
+Description: Doing a log update. Did some cleanup, renaming and wrote more tests.
+I will be doing more of this tonight.
+

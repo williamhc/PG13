@@ -2,7 +2,6 @@ package tests.models;
 
 import junit.framework.TestCase;
 
-import pg13.models.Cryptogram;
 import pg13.models.CryptogramPair;
 
 public class CryptogramPairTest extends TestCase
@@ -26,7 +25,7 @@ public class CryptogramPairTest extends TestCase
 		assertNotNull(new CryptogramPair('L', '\0'));
 		try
 		{
-			CryptogramPair cp1 = new CryptogramPair('!', '!');
+			new CryptogramPair('!', '!');
 			fail();
 		}
 		catch(IllegalArgumentException iae)

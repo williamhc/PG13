@@ -37,6 +37,8 @@ import pg13.models.Cryptogram;
 			assertEquals(DEFAULT_TITLE, cryptogram.getTitle());
 			assertEquals(DEFAULT_DATE, cryptogram.getDateCreated());
 			assertEquals(DEFAULT_PLAINTEXT, cryptogram.getPlaintext());
+			assertEquals(DEFAULT_CATEGORY, cryptogram.getCategory());
+			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 		}
 
 		public void testCryptogramEmptyAuthor()
@@ -46,6 +48,8 @@ import pg13.models.Cryptogram;
 			assertEquals(DEFAULT_TITLE, cryptogram.getTitle());
 			assertEquals(DEFAULT_DATE, cryptogram.getDateCreated());
 			assertEquals("", cryptogram.getPlaintext());
+			assertEquals(DEFAULT_CATEGORY, cryptogram.getCategory());
+			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 		}
 		
 		public void testCryptogramEmptyTitle()
@@ -55,6 +59,8 @@ import pg13.models.Cryptogram;
 			assertEquals(DEFAULT_AUTHOR, cryptogram.getAuthor());
 			assertEquals(DEFAULT_DATE, cryptogram.getDateCreated());
 			assertEquals("", cryptogram.getPlaintext());
+			assertEquals(DEFAULT_CATEGORY, cryptogram.getCategory());
+			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 		}
 		
 		public void testCryptogramEmptyDate()
@@ -64,6 +70,8 @@ import pg13.models.Cryptogram;
 			assertEquals(DEFAULT_AUTHOR, cryptogram.getAuthor());
 			assertEquals(DEFAULT_TITLE, cryptogram.getTitle());
 			assertEquals("", cryptogram.getPlaintext());
+			assertEquals(DEFAULT_CATEGORY, cryptogram.getCategory());
+			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 		}
 		
 		public void testCipherTextWorksNoPunctuation()
@@ -73,6 +81,8 @@ import pg13.models.Cryptogram;
 			assertNotSame(DEFAULT_PLAINTEXT, cryptogram.getCiphertext());
 			assertFalse(DEFAULT_PLAINTEXT.equals(cryptogram.getCiphertext())); //for some reason there isn't assertNotEquals in JUnit
 			assertTrue((cryptogram.decrypt(cryptogram.getSolutionMapping())).equalsIgnoreCase(DEFAULT_PLAINTEXT));
+			assertEquals(DEFAULT_CATEGORY, cryptogram.getCategory());
+			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 		}
 		
 		public void testCipherTextWorksPunctuation()
@@ -85,6 +95,8 @@ import pg13.models.Cryptogram;
 			assertEquals(DEFAULT_AUTHOR, cryptogram.getAuthor());
 			assertEquals(DEFAULT_TITLE, cryptogram.getTitle());
 			assertEquals(DEFAULT_DATE, cryptogram.getDateCreated());
+			assertEquals(DEFAULT_CATEGORY, cryptogram.getCategory());
+			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 		}
 		
 		public void testCryptogramEmptyPlainText()
@@ -96,6 +108,8 @@ import pg13.models.Cryptogram;
 			assertEquals(DEFAULT_AUTHOR, cryptogram.getAuthor());
 			assertEquals(DEFAULT_TITLE, cryptogram.getTitle());
 			assertEquals(DEFAULT_DATE, cryptogram.getDateCreated());
+			assertEquals(DEFAULT_CATEGORY, cryptogram.getCategory());
+			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 		}
 
 		public void testCryptogramAllPuncatuationPlainText()
@@ -105,12 +119,17 @@ import pg13.models.Cryptogram;
 			assertEquals(plaintext, cryptogram.getPlaintext());
 			assertEquals(plaintext, cryptogram.getCiphertext());
 			assertEquals(plaintext, cryptogram.decrypt(cryptogram.getSolutionMapping()));
+			assertEquals(DEFAULT_AUTHOR, cryptogram.getAuthor());
+			assertEquals(DEFAULT_TITLE, cryptogram.getTitle());
+			assertEquals(DEFAULT_DATE, cryptogram.getDateCreated());
+			assertEquals(DEFAULT_CATEGORY, cryptogram.getCategory());
+			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 		}
 		
 		public void testCryptogramCryptogramCompletion()
 		{
 			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_DATE, "This is a test.");
-			setUserMappingForTest(cryptogram);
+			this.setUserMappingForTest(cryptogram);
 			assertTrue(cryptogram.isCompleted());
 		}
 		
@@ -129,5 +148,49 @@ import pg13.models.Cryptogram;
 			cryptogram.setUserPlaintextForCiphertext('h', 'X');
 			assertEquals(cryptogram.getUserPlaintextFromCiphertext('X'), 'H');
 			assertNotNull(cryptogram.getUserMapping());
+		}
+		
+		public void testSetPlaintext()
+		{
+			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_DATE, DEFAULT_PLAINTEXT);
+			cryptogram.setUserPlaintextForCiphertext(DEFAULT_PLAINTEXT.charAt(0), cryptogram.getCiphertext().charAt(0));
+			this.SetPlaintextandValidateMappings("new plaintext");
+			this.SetPlaintextandValidateMappings("new plaintext!");
+			this.SetPlaintextandValidateMappings("newplaintext");
+			this.SetPlaintextandValidateMappings("");
+			this.SetPlaintextandValidateMappings("12345678");
+			this.SetPlaintextandValidateMappings("![");			
+		}
+		
+		private void SetPlaintextandValidateMappings(String plaintext)
+		{
+			cryptogram.setPlaintext(plaintext);
+			for(char ch = 'a'; ch < 'z'; ch++)
+			{
+				assertEquals('\0', cryptogram.getUserPlaintextFromCiphertext(ch));
+				assertEquals('\0', cryptogram.getUserPlaintextFromCiphertext(Character.toUpperCase(ch)));
+			}
+		}
+		
+		public void testSetAndGetValidUserMappings()
+		{
+			cryptogram = new Cryptogram(DEFAULT_AUTHOR, DEFAULT_TITLE, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_DATE, DEFAULT_PLAINTEXT);
+			for(char ch1 = 'a'; ch1 <= 'z'; ch1++)
+			{
+				for(char ch2 = 'a'; ch2 <= 'z'; ch2++ )
+				{
+					cryptogram.setUserPlaintextForCiphertext(ch1, ch2);
+					assertEquals(Character.toUpperCase(ch1), cryptogram.getUserPlaintextFromCiphertext(ch2));
+					
+					cryptogram.setUserPlaintextForCiphertext(Character.toUpperCase(ch1), ch2);
+					assertEquals(Character.toUpperCase(ch1), cryptogram.getUserPlaintextFromCiphertext(ch2));
+					
+					cryptogram.setUserPlaintextForCiphertext(ch1, Character.toUpperCase(ch2));
+					assertEquals(Character.toUpperCase(ch1), cryptogram.getUserPlaintextFromCiphertext(ch2));
+					
+					cryptogram.setUserPlaintextForCiphertext(Character.toUpperCase(ch1), Character.toUpperCase(ch2));
+					assertEquals(Character.toUpperCase(ch1), cryptogram.getUserPlaintextFromCiphertext(ch2));
+				}
+			}
 		}
 	}

@@ -183,7 +183,7 @@ public class MainWindow
 		Composite cmpMainArea = new Composite(shell, SWT.BORDER);
 		cmpMainArea.setLayout(new FormLayout());
 		FormData fd_cmpMainArea = new FormData();
-		fd_cmpMainArea.bottom = new FormAttachment(100, -10);
+		fd_cmpMainArea.bottom = new FormAttachment(100, -35);
 		fd_cmpMainArea.right = new FormAttachment(100, -5);
 		fd_cmpMainArea.top = new FormAttachment(0, 50);
 		fd_cmpMainArea.left = new FormAttachment(0, 5);
@@ -231,6 +231,30 @@ public class MainWindow
 		fd_lblWelcomeDescription.left = new FormAttachment(50, -200);
 		lblWelcomeDescription.setLayoutData(fd_lblWelcomeDescription);
 		lblWelcomeDescription.setText("Selecte the Create option above to begin creating a new cryptogram.  You can preview and test your cryptogram by selecting the preview option therein.\r\n\r\nOnce your cryptogram is complete and saved, you can find it among other cryptograms by selecting the Play option.");
+		
+		// Quit button
+		Button btnQuit = new Button(shell, SWT.NONE);
+		btnQuit.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				shell.dispose();
+			}
+		});
+		FormData fd_btnQuit = new FormData();
+		fd_btnQuit.left = new FormAttachment(100, -100);
+		fd_btnQuit.bottom = new FormAttachment(100, -6);
+		fd_btnQuit.right = new FormAttachment(100, -5);
+		btnQuit.setLayoutData(fd_btnQuit);
+		btnQuit.setText("Quit");
+		
+		Label lblVersion = new Label(shell, SWT.NONE);
+		FormData fd_lblVersion = new FormData();
+		fd_lblVersion.bottom = new FormAttachment(btnQuit, 0, SWT.BOTTOM);
+		fd_lblVersion.left = new FormAttachment(0, 10);
+		lblVersion.setLayoutData(fd_lblVersion);
+		lblVersion.setText("Version 1.00");
 		
 		
 		// show the window

@@ -93,7 +93,6 @@ public class MainWindow
 		btnPlay.setText("Play");
 		
 		// connect button
-		// TODO make this button do something
 		Button btnConnect = new Button(shell, SWT.NONE);
 		btnConnect.setEnabled(false);
 		FormData fd_btnConnect = new FormData();
@@ -155,7 +154,6 @@ public class MainWindow
 		tltmSeparator2.setText("sep");
 		
 		// mystery button
-		// TODO decide what this button does
 		ToolItem tltmMystery = new ToolItem(toolBar, SWT.NONE);
 		tltmMystery.setEnabled(false);
 		tltmMystery.setText("Something Else");

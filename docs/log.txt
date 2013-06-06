@@ -196,12 +196,11 @@ Hours: 2
 Description: Created a single class business layer, waiting for critique before
 I continue.
 
-Date: 2013-06-02
-Person: Paymahn Moghadasian
+Date: 2013-06-02Person: Paymahn Moghadasian
 Task: Create initial business layer
 Hours: 4
 Description: I started doing more work. There was a bug. I tried going back to
-an old commit. I think I lost all of my work.
+an old commit. I think I lost all of my work. Fuck.
 
 Date: 2013-06-03
 Person: Paymahn Moghadasian
@@ -223,3 +222,138 @@ Hours: 0.5
 Description: Doing a log update. Did some cleanup, renaming and wrote more tests.
 I will be doing more of this tonight.
 
+Date: 2013-06-04
+Person: Paymahn Moghadasian
+Task: Code cleanup and more testing if necessary
+Hours: 1.33333
+Description: See commit history...I don't like writing things twice
+
+Date: 2013-06-03
+Person: Lauren Slusky
+Task: Merge Request #11
+Hours: 1
+Description: Eric and I merged a pull request into the master file. Lots of eyes
+saw will's nice persistence layer :)
+
+Date: 2013-06-04
+Person: Lauren Slusky
+Task: 3 - tier Diagram
+Hours: 1
+Description: Drew the diagram with eric, looks so good!
+
+Date: 2013-06-03
+Person: Eric Himbeault
+Task: Merge Request #11
+Hours: 1
+Description:
+
+Date: 2013-06-04
+Person: Eric Himbeault
+Task: 3 - tier Diagram
+Hours: 1
+Description:
+
+Date: 2013-06-04
+Person: Eric Himbeault
+Task: Write readme.txt
+Hours: 1
+Description:
+
+Date: 2013-06-04
+Person: Lauren Slusky
+Task: Write readme.txt
+Hours: 1
+Description: readme is more or less done @williamhumphreyscloutier , please add the location stuff
+as a group we have to figure out the how to run section
+at the bottom we left a spot for any additional information that might be of interest
+this file is attached to this task but can also be found in the files tab on teambox
+
+Date: 2013-06-04
+Person: Lauren Slusky
+Task: wrote AllTests.java
+Hours: 0.75
+Description: wrote the test suite class. still needs some work before its actually 'done done'
+
+Date: 2013-06-04
+Person: Eric Himbeault
+Task: Code cleanup and more testing if necessary
+Hours: 0.5
+Description: Greyed out GUI elements, removed default text, removed print statement.
+gui preparation for the first iteration.
+
+Date: 2013-06-04
+Person: Lauren Slusky
+Task: Code cleanup and more testing if necessary
+Hours: 1
+Description: did lots of clean up for the brackets for our standards, please make sure you watch that in the future
+removed unused imports as to remove warning messages
+added some test stuff to AllTests.java
+
+Date: 2013-06-04
+Person: Eric Himbeault
+Task: Check SOlution
+Hours: 0.25
+Description: Made the Check Solution button display a dialog instead of printing to standard out.
+
+Date: 2013-06-05
+Person: Eric Himbeault
+Task: Welcome Screen
+Hours: 2
+Description: Added a welcome screen to the main screen of the GUI
+
+Date: 2013-06-05
+Person: Eric Himbeault
+Task: Iteration 1 prep
+Hours: 1
+Description: .bat files, developer tasks, readme, packaging up the project, etc.
+
+Date: 2013-06-05
+Person: Lauren Slusky
+Task: Iteration 1 prep
+Hours: 3.5
+Description: See comment below regarding what this entailed....oy vey... :)
+
+Date: 2013-06-05
+Person: William Humphreys-Cloutier
+Task: Implement Save Button
+Hours: 2
+Description: Collecting puzzle criteria when the save button is pressed.
+
+Date: 2013-06-05
+Person: Lauren Slusky
+Task: Final Preperation Before Iteration 1 is Due
+Hours: 3.5
+Description: Fun times with food and tea and codez
+
+:)
+
+
+Date: 2013-06-05
+Person: Eric Himbeault
+Task: Final Preperation Before Iteration 1 is Due
+Hours: 3.5
+Description: I was there.
+
+Date: 2013-06-05
+Person: William Humphreys-Cloutier
+Task: Final Preperation Before Iteration 1 is Due
+Hours: 4
+Description: Added log files and readme and worked with vampire .bat's
+
+Date: 2013-06-05
+Person: Paymahn Moghadasian
+Task: Final Preperation Before Iteration 1 is Due
+Hours: 3.5
+Description: Helped!
+
+Date: 2013-06-05
+Person: Lauren Slusky
+Task: List out developer tasks
+Hours: 1.5
+Description:
+
+Date: 2013-06-05
+Person: Paymahn Moghadasian
+Task: Code cleanup and more testing if necessary
+Hours: 2
+Description: See commit history

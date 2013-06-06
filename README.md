@@ -30,12 +30,9 @@ Getting up and running
 -------------------------------------------------------------------------------
 **Note:** you must have javac and java in your PATH
 
- 1. Unzip `pg13-iteration1.zip`.
- 2. Run `Compile.bat`.
- 3. Run `Run.bat`.
- 4. To run tests, run `RunAllTests.bat`
-
-
+ 1. Run `Compile.bat`.
+ 2. Run `Run.bat`.
+ 3. To run tests, run `RunAllTests.bat`
 
 Project File Contents
 -------------------------------------------------------------------------------

@@ -10,7 +10,7 @@ REM
 
 
 REM clean all .class files out of the bin directory
-
+if not exist %CD%\bin mkdir bin
 cd bin
 erase /S /Q *.class
 cd ..

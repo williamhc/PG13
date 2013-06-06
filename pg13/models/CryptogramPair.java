@@ -26,6 +26,10 @@ public class CryptogramPair
 	}
 	
 	public void setPlainc(char plainc) {
+		if(!isLetter(plainc))
+		{
+			throw new IllegalArgumentException("Invalid plaintext character");
+		}
 		this.plainc = plainc;
 	}
 	
@@ -34,6 +38,10 @@ public class CryptogramPair
 	}
 	
 	public void setCipherc(char cipherc) {
+		if(!isLetter(cipherc))
+		{
+			throw new IllegalArgumentException("Invalid ciphertext character");
+		}
 		this.cipherc = cipherc;
 	}
 	

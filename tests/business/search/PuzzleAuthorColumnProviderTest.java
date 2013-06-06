@@ -9,29 +9,34 @@ import junit.framework.TestCase;
  * @author williamhumphreys-cloutier
  *
  */
-public class PuzzleAuthorColumnProviderTest extends TestCase {
+public class PuzzleAuthorColumnProviderTest extends TestCase 
+{
 
 	private Cryptogram testCryptogram;
 	private PuzzleAuthorColumnProvider authorProvider;
 	
-	protected void setUp(){
+	protected void setUp()
+	{
 		this.testCryptogram = new Cryptogram();
 		this.authorProvider = new PuzzleAuthorColumnProvider();
 	}
 	
-	public void testEmptyAuthor(){
+	public void testEmptyAuthor()
+	{
 		this.testCryptogram.setAuthor("");
 		String resultAuthor = this.authorProvider.getText(this.testCryptogram);
 		assertEquals(resultAuthor, "Guest");
 	}
 
-	public void testNullAuthor(){
+	public void testNullAuthor()
+	{
 		this.testCryptogram.setAuthor(null);
 		String resultAuthor = this.authorProvider.getText(this.testCryptogram);
 		assertEquals(resultAuthor, "Guest");		
 	}
 	
-	public void testNormalAuthor(){
+	public void testNormalAuthor()
+	{
 		String originalAuthor = "Will Coolcat";
 		this.testCryptogram.setAuthor(originalAuthor);
 		String resultAuthor = this.authorProvider.getText(this.testCryptogram);

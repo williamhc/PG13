@@ -8,7 +8,8 @@ import java.util.Date;
  * @author PaymahnMoghadasian
  *
  */
-public interface IFindable {
+public interface IFindable 
+{
 	
 	/**
 	 * Get the author of the object

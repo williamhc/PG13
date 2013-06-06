@@ -2,7 +2,8 @@ package pg13.models;
 
 import java.util.Date;
 
-public abstract class Puzzle implements IFindable, ICreateable, IPlayable{
+public abstract class Puzzle implements IFindable, ICreateable, IPlayable
+{
 	private String title, description, author, category, difficulty;
 	private Date dateCreated;
 	private boolean isCompleted;
@@ -28,79 +29,93 @@ public abstract class Puzzle implements IFindable, ICreateable, IPlayable{
 		this.category = category;
 	}
 	
-	public boolean isCompleted() {
+	public boolean isCompleted() 
+	{
 		return this.isCompleted;
 	}
 
-	public void setIsCompleted(boolean value) {
+	public void setIsCompleted(boolean value)
+	{
 		this.isCompleted = value;
 	}
 
-	public String getAuthor() {
+	public String getAuthor() 
+	{
 		return this.author;
 	}
 
-	public void setAuthor(String value) {
+	public void setAuthor(String value) 
+	{
 		this.author = value;
 	}
 
-	public String getTitle() {
+	public String getTitle()
+	{
 		return this.title;
 	}
 
-	public void setTitle(String value) {
+	public void setTitle(String value) 
+	{
 		this.title = value;
 	}
 
-	public String getDescription() {
+	public String getDescription() 
+	{
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(String description)
+	{
 		this.description = description;
 	}
 
-	public String getCategory() {
+	public String getCategory() 
+	{
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(String category) 
+	{
 		this.category = category;
 	}
 
-	public String getDifficulty() {
+	public String getDifficulty()
+	{
 		return difficulty;
 	}
 
-	public void setDifficulty(String difficulty) {
+	public void setDifficulty(String difficulty)
+	{
 		this.difficulty = difficulty;
 	}
 
-	public Date getDateCreated() {
+	public Date getDateCreated() 
+	{
 		return this.dateCreated;
 		}
 
-	public void setDateCreated(Date value) {
+	public void setDateCreated(Date value) 
+	{
 		this.dateCreated = value;
 	}
 	
-	public void startPlaying() {
-		// TODO Auto-generated method stub
-		
+	public void startPlaying() 
+	{
+		//empty but required to be here because of interfaces
 	}
 
-	public void finishPlaying() {
-		// TODO Auto-generated method stub
-		
+	public void finishPlaying()
+	{
+		//empty but required to be here because of interfaces
 	}
 
-	public void create() {
-		// TODO Auto-generated method stub
-		
+	public void create()
+	{
+		//empty but required to be here because of interfaces
 	}
 
-	public void validate() {
-		// TODO Auto-generated method stub
-		
+	public void validate()
+	{
+		//empty but required to be here because of interfaces
 	}
 }

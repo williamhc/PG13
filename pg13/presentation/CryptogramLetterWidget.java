@@ -10,7 +10,6 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.VerifyListener;
-import org.eclipse.swt.events.VerifyEvent;
 
 import pg13.business.CryptogramManager;
 import pg13.models.Cryptogram;
@@ -85,7 +84,8 @@ public class CryptogramLetterWidget extends Composite
 		{
 			txtPlaintextChar.setEditable(false);
 			txtPlaintextChar.setText("" + ciphertextChar);
-		} else
+		} 
+		else
 		{
 			// limit characters that can be entered
 			txtPlaintextChar.setTextLimit(1);
@@ -97,7 +97,8 @@ public class CryptogramLetterWidget extends Composite
 					{
 						event.text = event.text.toLowerCase();
 						cm.validateUserMapping(event.text);
-					}catch(IllegalArgumentException e)
+					}
+					catch(IllegalArgumentException e)
 					{
 						event.doit = false;
 					}
@@ -137,8 +138,6 @@ public class CryptogramLetterWidget extends Composite
 	 */
 	private void updateCryptogram()
 	{
-		char plaintextChar;
-
 		if (this.updateOnTxtChange == true
 				&& this.txtPlaintextChar.getEditable() == true)
 		{

@@ -9,29 +9,34 @@ import junit.framework.TestCase;
  * @category williamhumphreys-cloutier
  *
  */
-public class PuzzleCategoryColumnProviderTest extends TestCase {
+public class PuzzleCategoryColumnProviderTest extends TestCase
+{
 
 	private Cryptogram testCryptogram;
 	private PuzzleCategoryColumnProvider categoryProvider;
 	
-	protected void setUp(){
+	protected void setUp()
+	{
 		this.testCryptogram = new Cryptogram();
 		this.categoryProvider = new PuzzleCategoryColumnProvider();
 	}
 	
-	public void testEmptyCategory(){
+	public void testEmptyCategory()
+	{
 		this.testCryptogram.setCategory("");
 		String resultCategory = this.categoryProvider.getText(this.testCryptogram);
 		assertEquals(resultCategory, "Uncategorized");
 	}
 
-	public void testNullCategory(){
+	public void testNullCategory()
+	{
 		this.testCryptogram.setCategory(null);
 		String resultCategory = this.categoryProvider.getText(this.testCryptogram);
 		assertEquals(resultCategory, "Uncategorized");
 	}
 	
-	public void testNormalCategory(){
+	public void testNormalCategory()
+	{
 		String originalCategory = "Will Coolcat";
 		this.testCryptogram.setCategory(originalCategory);
 		String resultCategory = this.categoryProvider.getText(this.testCryptogram);

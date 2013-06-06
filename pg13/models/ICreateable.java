@@ -6,7 +6,8 @@ package pg13.models;
  * @author PaymahnMoghadasian
  *
  */
-public interface ICreateable {
+public interface ICreateable
+{
 	/**
 	 * Create the object
 	 */

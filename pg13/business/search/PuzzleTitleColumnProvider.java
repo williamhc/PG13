@@ -9,9 +9,11 @@ import pg13.models.Puzzle;
  * @author williamhumphreys-cloutier
  */
 
-public class PuzzleTitleColumnProvider extends ColumnLabelProvider {
+public class PuzzleTitleColumnProvider extends ColumnLabelProvider 
+{
 	@Override
-	public String getText(Object obj){
+	public String getText(Object obj)
+	{
 		Puzzle p = (Puzzle) obj;
 		String title = p.getTitle();
 		return title != null && title.length() > 0 ? title : "Untitled";

@@ -1,8 +1,7 @@
 package tests.models;
 
-import junit.framework.TestCase;
-
 import pg13.models.CryptogramPair;
+import junit.framework.TestCase;
 
 public class CryptogramPairTest extends TestCase
  {	

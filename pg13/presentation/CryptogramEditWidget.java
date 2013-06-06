@@ -21,17 +21,19 @@ public class CryptogramEditWidget extends Composite {
 	private Text txtPlaintext; // plaintext used to generate cryptogram
 	private CryptogramSolveWidget cmpPreview; // preview area for the cryptogram
 	private CryptogramManager cm;
+	private Button btnPreview;
 
 	/**
 	 * Creates and populates the cryptogram edit widget.
-	 * 
+	 *
 	 * @author Eric
 	 * @param parent
 	 * @param style
 	 * @date May 29 2013
 	 */
 	public CryptogramEditWidget(Composite parent, int style,
-			Cryptogram workingCryptogram) {
+			Cryptogram workingCryptogram, boolean editMode)
+		{
 		super(parent, style);
 		setLayout(new FormLayout());
 		this.cm = new CryptogramManager(workingCryptogram);
@@ -61,17 +63,20 @@ public class CryptogramEditWidget extends Composite {
 		lblPreview.setText("Preview");
 
 		txtPlaintext = new Text(this, SWT.BORDER);
-		txtPlaintext.addVerifyListener(new VerifyListener() {
-			public void verifyText(VerifyEvent event) {
-				try {
+		txtPlaintext.addVerifyListener(new VerifyListener()
+		{
+			public void verifyText(VerifyEvent event)
+			{
+				try
+				{
 					cm.validatePlaintext(event.text);
-				} catch (IllegalArgumentException e) {
+				}
+				catch (IllegalArgumentException e)
+				{
 					event.doit = false;
 				}
 			}
 		});
-
-		txtPlaintext.setText("The quick brown fox jumps over the lazy dog.");
 		FormData fd_txtPlaintext = new FormData();
 		fd_txtPlaintext.right = new FormAttachment(100, -10);
 		fd_txtPlaintext.bottom = new FormAttachment(lblPreview, -6);
@@ -79,10 +84,12 @@ public class CryptogramEditWidget extends Composite {
 		fd_txtPlaintext.left = new FormAttachment(cmpPreview, 0, SWT.LEFT);
 		txtPlaintext.setLayoutData(fd_txtPlaintext);
 
-		Button btnPreview = new Button(this, SWT.NONE);
-		btnPreview.addSelectionListener(new SelectionAdapter() {
+		this.btnPreview = new Button(this, SWT.NONE);
+		btnPreview.addSelectionListener(new SelectionAdapter()
+		{
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e)
+			{
 				preview();
 			}
 		});
@@ -92,21 +99,39 @@ public class CryptogramEditWidget extends Composite {
 		btnPreview.setLayoutData(fd_btnPreview);
 		btnPreview.setText("Generate Preview");
 
+		this.setEditMode(editMode);
+	}
+
+	/*
+	 * Set the edit mode of the widget - if false, the cryptogram will not be changeable
+	 *
+	 * @author Will
+	 *
+	 * @date June 4th 2013
+	 */
+	private void setEditMode(boolean editMode) 
+	{
+		this.txtPlaintext.setEnabled(editMode);
+		this.btnPreview.setVisible(editMode);
 	}
 
 	/*
 	 * Previews the cryptogram -- displays the cryptogram in the preview screen
-	 * 
+	 *
 	 * @author Eric
-	 * 
+	 *
 	 * @date May 29 2013
 	 */
-	private void preview() {
-		try {
+	private void preview()
+	{
+		try
+		{
 			this.cm.setPlaintext(txtPlaintext.getText());
 			cmpPreview.setCryptogram(this.cm.getCryptogram());
 			cmpPreview.displayCryptogram();
-		} catch (IllegalArgumentException e) {
+		}
+		catch (IllegalArgumentException e)
+		{
 			MessageBox dialog = new MessageBox(this.getShell(), SWT.OK);
 			dialog.setText("Invalid text");
 			dialog.setMessage("The text you have entered is invalid. Please modify the text.");
@@ -114,7 +139,8 @@ public class CryptogramEditWidget extends Composite {
 	}
 
 	@Override
-	protected void checkSubclass() {
+	protected void checkSubclass()
+	{
 		// Disable the check that prevents subclassing of SWT components
 	}
 }

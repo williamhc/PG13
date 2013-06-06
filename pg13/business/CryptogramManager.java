@@ -8,7 +8,8 @@ import pg13.models.Cryptogram;
  * @author PaymahnMoghadasian
  *
  */
-public class CryptogramManager {
+public class CryptogramManager 
+{
 
 	Cryptogram cryptogram;
 	
@@ -17,20 +18,24 @@ public class CryptogramManager {
 		this.cryptogram = new Cryptogram();
 	}
 
-	public CryptogramManager(Cryptogram cryptogram) {
+	public CryptogramManager(Cryptogram cryptogram)
+	{
 		this.cryptogram = cryptogram;
 	}
 
-	public Cryptogram getCryptogram() {
+	public Cryptogram getCryptogram() 
+	{
 		return cryptogram;
 	}
 
-	public void setPlaintext(String string) {
+	public void setPlaintext(String string)
+	{
 		this.validatePlaintext(string);
 		this.cryptogram.setPlaintext(string);
 	}
 
-	public void validatePlaintext(String string) {
+	public void validatePlaintext(String string)
+	{
 		char[] characters = string.toCharArray();
 		for (int i = 0; i < characters.length; i++)
 		{
@@ -42,7 +47,8 @@ public class CryptogramManager {
 		}		
 	}
 
-	public String getPlaintext() {
+	public String getPlaintext()
+	{
 		return this.cryptogram.getPlaintext();
 	}
 	

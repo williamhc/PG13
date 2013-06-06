@@ -38,26 +38,31 @@ public class Cryptogram extends Puzzle
 		this.ciphertext = encrypt();
 	}
 
-	public String getCiphertext() {
+	public String getCiphertext() 
+	{
 		return ciphertext;
 	}
 
-	public String getPlaintext() {
+	public String getPlaintext()
+	{
 		return plaintext;
 	}
 
-	public void setPlaintext(String plaintext) {
+	public void setPlaintext(String plaintext)
+	{
 		this.plaintext = plaintext;
 		generateMappingKeys();
 		this.userMapping = setMappingKeys(true);
 		this.ciphertext = encrypt();
 	}
 
-	public CryptogramPair[] getSolutionMapping() {
+	public CryptogramPair[] getSolutionMapping() 
+	{
 		return solutionMapping;
 	}
 
-	public CryptogramPair[] getUserMapping() {
+	public CryptogramPair[] getUserMapping()
+	{
 		return userMapping;
 	}
 

@@ -10,8 +10,8 @@ public class PuzzleTests
     public static Test suite()
     {
         suite = new TestSuite("Puzzle tests");
-      //  suite.addTestSuite(CalculateGPATest.class);
-      //  suite.addTestSuite(CalculateGPA2Test.class);
+        suite.addTestSuite(CryptogramPairTest.class);
+        suite.addTestSuite(CryptogramTest.class);
        return suite;
     }
 }

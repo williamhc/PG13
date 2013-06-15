@@ -16,7 +16,9 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Button;
 
 import pg13.business.create.PuzzleCreator;
+import pg13.models.Category;
 import pg13.models.Cryptogram;
+import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 
 public class PuzzlePropertiesWidget extends Composite
@@ -96,7 +98,7 @@ public class PuzzlePropertiesWidget extends Composite
 
 		// category selection box
 		cmbCategory = new Combo(this, SWT.NONE);
-		cmbCategory.setItems(new String[] {"", "Animals", "Biology", "Computers", "Games", "General Trivia", "Geography", "History", "Miscellaneous", "Politics", "Science", "Space", "Sports"});
+		cmbCategory.setItems(new String[] {"", "Animals", "Biology", "Computers", "Games", "Trivia", "Geography", "History", "Miscellaneous", "Politics", "Science", "Space", "Sports"});
 		FormData fd_cmbCategory = new FormData();
 		fd_cmbCategory.right = new FormAttachment(60);
 		fd_cmbCategory.top = new FormAttachment(lblCategory, 4);
@@ -108,7 +110,7 @@ public class PuzzlePropertiesWidget extends Composite
 			@Override
 			public void modifyText(ModifyEvent e)
 			{
-				puzzle.setCategory(cmbCategory.getText());
+				puzzle.setCategory(Category.valueOf(cmbCategory.getText()));
 			}
 		});
 
@@ -123,7 +125,7 @@ public class PuzzlePropertiesWidget extends Composite
 
 		// difficulty selection box
 		cmbDificulty = new Combo(this, SWT.NONE);
-		cmbDificulty.setItems(new String[] {"", "Easy", "Average", "Difficult", "Expert"});
+		cmbDificulty.setItems(new String[] {"", "Easy", "Medium", "Difficult"});
 		FormData fd_cmbDificulty = new FormData();
 		fd_cmbDificulty.right = new FormAttachment(60);
 		fd_cmbDificulty.top = new FormAttachment(lblDifficulty, 4);
@@ -135,7 +137,7 @@ public class PuzzlePropertiesWidget extends Composite
 			@Override
 			public void modifyText(ModifyEvent e)
 			{
-				puzzle.setDifficulty(cmbDificulty.getText());
+				puzzle.setDifficulty(Difficulty.valueOf(cmbDificulty.getText()));
 			}
 		});
 

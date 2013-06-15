@@ -2,6 +2,7 @@ package pg13.business.search;
 
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 
+import pg13.models.Category;
 import pg13.models.Puzzle;
 
 /**
@@ -14,7 +15,7 @@ public class PuzzleCategoryColumnProvider extends ColumnLabelProvider
 	public String getText(Object obj)
 	{
 		Puzzle p = (Puzzle) obj;
-		String category = p.getCategory();
-		return category != null && category.length() > 0 ? category : "Uncategorized";
+		Category category = p.getCategory();
+		return category != null  ? category.toString() : "Uncategorized";
 	}
 }

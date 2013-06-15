@@ -4,6 +4,7 @@ import java.util.Date;
 
 import pg13.business.CryptogramManager;
 import pg13.models.Cryptogram;
+import pg13.models.Difficulty;
 import junit.framework.TestCase;
 
 /**
@@ -37,7 +38,7 @@ public class CryptogramManagerTest extends TestCase
 		assertEquals(cryptogram, cm.getCryptogram());
 
 		cryptogram = new Cryptogram("Someone's Name", "Random title", "Animal",
-				"Hard", new Date(), "This is the plaintext");
+				Difficulty.Easy, new Date(), "This is the plaintext");
 		this.cm = new CryptogramManager(cryptogram);
 		assertEquals(cryptogram, cm.getCryptogram());
 	}

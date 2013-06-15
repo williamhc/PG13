@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Button;
 
 import pg13.business.create.PuzzleCreator;
 import pg13.models.Cryptogram;
+import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 
 public class PuzzlePropertiesWidget extends Composite
@@ -123,7 +124,7 @@ public class PuzzlePropertiesWidget extends Composite
 
 		// difficulty selection box
 		cmbDificulty = new Combo(this, SWT.NONE);
-		cmbDificulty.setItems(new String[] {"", "Easy", "Average", "Difficult", "Expert"});
+		cmbDificulty.setItems(new String[] {"", "Easy", "Medium", "Difficult"});
 		FormData fd_cmbDificulty = new FormData();
 		fd_cmbDificulty.right = new FormAttachment(60);
 		fd_cmbDificulty.top = new FormAttachment(lblDifficulty, 4);
@@ -135,7 +136,7 @@ public class PuzzlePropertiesWidget extends Composite
 			@Override
 			public void modifyText(ModifyEvent e)
 			{
-				puzzle.setDifficulty(cmbDificulty.getText());
+				puzzle.setDifficulty(Difficulty.valueOf(cmbDificulty.getText()));
 			}
 		});
 

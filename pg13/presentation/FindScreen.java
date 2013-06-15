@@ -207,32 +207,32 @@ public class FindScreen extends Composite
 		btnEasy.setText("Easy");
 		btnEasy.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
-		Button btnAverage = new Button(cmpPuzzleSearch, SWT.CHECK);
-		btnAverage.setEnabled(false);
+		Button btnMedium = new Button(cmpPuzzleSearch, SWT.CHECK);
+		btnMedium.setEnabled(false);
 		FormData fd_btnAverage = new FormData();
 		fd_btnAverage.left = new FormAttachment(0, 6);
 		fd_btnAverage.top = new FormAttachment(btnEasy, 4);
-		btnAverage.setLayoutData(fd_btnAverage);
-		btnAverage.setText("Average");
-		btnAverage.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		btnMedium.setLayoutData(fd_btnAverage);
+		btnMedium.setText("Medium");
+		btnMedium.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 		Button btnDifficult = new Button(cmpPuzzleSearch, SWT.CHECK);
 		btnDifficult.setEnabled(false);
 		FormData fd_btnDifficult = new FormData();
-		fd_btnDifficult.top = new FormAttachment(btnAverage, 4);
+		fd_btnDifficult.top = new FormAttachment(btnMedium, 4);
 		fd_btnDifficult.left = new FormAttachment(0, 6);
 		btnDifficult.setLayoutData(fd_btnDifficult);
 		btnDifficult.setText("Difficult");
 		btnDifficult.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
-		Button btnExpert = new Button(cmpPuzzleSearch, SWT.CHECK);
-		btnExpert.setEnabled(false);
-		FormData fd_btnExpert = new FormData();
-		fd_btnExpert.top = new FormAttachment(btnDifficult, 4);
-		fd_btnExpert.left = new FormAttachment(0, 6);
-		btnExpert.setLayoutData(fd_btnExpert);
-		btnExpert.setText("Expert");
-		btnExpert.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+//		Button btnExpert = new Button(cmpPuzzleSearch, SWT.CHECK);
+//		btnExpert.setEnabled(false);
+//		FormData fd_btnExpert = new FormData();
+//		fd_btnExpert.top = new FormAttachment(btnDifficult, 4);
+//		fd_btnExpert.left = new FormAttachment(0, 6);
+//		btnExpert.setLayoutData(fd_btnExpert);
+//		btnExpert.setText("Expert");
+//		btnExpert.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 		// play the selected puzzle!
 		Button btnPlaySelectedPuzzle = new Button(this, SWT.NONE);

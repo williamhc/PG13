@@ -51,13 +51,13 @@ public interface IFindable
 	 * Get the difficulty of this object
 	 * @return The difficulty of the object
 	 */
-	public String getDifficulty();
+	public Difficulty getDifficulty();
 
 	/**
 	 * Set the difficulty of the object
 	 * @param value The new difficulty of the object
 	 */
-	public void setDifficulty(String value);
+	public void setDifficulty(Difficulty value);
 
 	/**
 	 * Get the creation date of the object

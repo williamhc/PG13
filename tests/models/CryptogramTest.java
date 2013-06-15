@@ -5,6 +5,7 @@ import java.util.Date;
 
 import junit.framework.TestCase;
 
+import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
 
@@ -12,7 +13,7 @@ import pg13.models.Difficulty;
 	{
 		private final String DEFAULT_TITLE = "Practice Cryptogram";
 		private final String DEFAULT_AUTHOR = "Lauren Slusky";
-		private final String DEFAULT_CATEGORY = "Hamsters";
+		private final Category DEFAULT_CATEGORY = Category.Comuters;
 		private final Difficulty DEFAULT_DIFFICULTY = Difficulty.Easy;
 		private final Date DEFAULT_DATE = new Date();
 		private final String DEFAULT_PLAINTEXT = "This is a test.";

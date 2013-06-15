@@ -1,6 +1,7 @@
 package tests.business.search;
 
 import pg13.business.search.PuzzleCategoryColumnProvider;
+import pg13.models.Category;
 import pg13.models.Cryptogram;
 import junit.framework.TestCase;
 
@@ -21,13 +22,6 @@ public class PuzzleCategoryColumnProviderTest extends TestCase
 		this.categoryProvider = new PuzzleCategoryColumnProvider();
 	}
 	
-	public void testEmptyCategory()
-	{
-		this.testCryptogram.setCategory("");
-		String resultCategory = this.categoryProvider.getText(this.testCryptogram);
-		assertEquals(resultCategory, "Uncategorized");
-	}
-
 	public void testNullCategory()
 	{
 		this.testCryptogram.setCategory(null);
@@ -37,10 +31,10 @@ public class PuzzleCategoryColumnProviderTest extends TestCase
 	
 	public void testNormalCategory()
 	{
-		String originalCategory = "Will Coolcat";
+		Category originalCategory = Category.Geography;
 		this.testCryptogram.setCategory(originalCategory);
 		String resultCategory = this.categoryProvider.getText(this.testCryptogram);
-		assertEquals(resultCategory, originalCategory);
+		assertEquals(resultCategory, originalCategory.toString());
 	}
 
 }

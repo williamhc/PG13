@@ -6,6 +6,7 @@ package pg13.persistence;
 import java.util.ArrayList;
 import java.util.Date;
 
+import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
 import pg13.models.Puzzle;
@@ -30,7 +31,7 @@ public class PuzzleController
 		};
 		for(String[] def: dummyPuzzles)
 		{
-			Cryptogram dummyPuzzle = new Cryptogram(def[0], def[1], def[2], Difficulty.Medium, new Date(), "Fake!");
+			Cryptogram dummyPuzzle = new Cryptogram(def[0], def[1], Category.Miscellaneous, Difficulty.Medium, new Date(), "Fake!");
 			puzzleList.add(dummyPuzzle);
 		}
 

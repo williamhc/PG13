@@ -28,7 +28,7 @@ public class Cryptogram extends Puzzle
 		this.plaintext = "";
 	}
 	
-	public Cryptogram(String author, String title, String category, Difficulty difficulty, Date dateCreated, String plaintext)
+	public Cryptogram(String author, String title, Category category, Difficulty difficulty, Date dateCreated, String plaintext)
 	{
 		super(author, title, category, difficulty, dateCreated);
 		this.solutionMapping = setMappingKeys(false);

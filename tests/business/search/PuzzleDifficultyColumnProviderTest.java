@@ -2,6 +2,7 @@ package tests.business.search;
 
 import pg13.business.search.PuzzleDifficultyColumnProvider;
 import pg13.models.Cryptogram;
+import pg13.models.Difficulty;
 import junit.framework.TestCase;
 
 /**
@@ -21,12 +22,6 @@ public class PuzzleDifficultyColumnProviderTest extends TestCase
 		this.difficultyProvider = new PuzzleDifficultyColumnProvider();
 	}
 	
-	public void testEmptyDifficulty()
-	{
-		this.testCryptogram.setDifficulty("");
-		String resultDifficulty = this.difficultyProvider.getText(this.testCryptogram);
-		assertEquals(resultDifficulty, "Unrated");
-	}
 
 	public void testNullDifficulty()
 	{
@@ -37,9 +32,9 @@ public class PuzzleDifficultyColumnProviderTest extends TestCase
 	
 	public void testNormalDifficulty()
 	{
-		String originalDifficulty = "Puzzle of Doom!";
+		Difficulty originalDifficulty = Difficulty.Medium;
 		this.testCryptogram.setDifficulty(originalDifficulty);
 		String resultDifficulty = this.difficultyProvider.getText(this.testCryptogram);
-		assertEquals(resultDifficulty, originalDifficulty);
+		assertEquals(resultDifficulty, originalDifficulty.toString());
 	}
 }

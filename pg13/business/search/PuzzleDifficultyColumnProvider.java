@@ -2,6 +2,7 @@ package pg13.business.search;
 
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 
+import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 
 /**
@@ -15,8 +16,8 @@ public class PuzzleDifficultyColumnProvider extends ColumnLabelProvider
 	public String getText(Object obj)
 	{
 		Puzzle p = (Puzzle) obj;
-		String difficulty = p.getDifficulty();
-		return difficulty != null && difficulty.length() > 0 ? difficulty : "Unrated";
+		Difficulty difficulty = p.getDifficulty();
+		return difficulty != null  ? difficulty.toString() : "Unrated";
 	}
 
 }

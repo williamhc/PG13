@@ -17,28 +17,47 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.graphics.Point;
 
+import pg13.models.Cryptogram;
+
 /**
  * The main window for the application.
  * @author Eric
  */
 public class MainWindow 
 {
+	private static MainWindow instance;
+	
 	private Display display;
 	private Shell shell;
 	private CreateScreen cmpCreateScreen;
 	private FindScreen cmpFindScreen;
+	private PlayScreen cmpPlayScreen;
 	private Label lblLoggedInAs;
 
 	/**
-	 * Constructor -- Launches an instance of the window when it is created
+	 * gets the instance of the main window
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+	public static MainWindow getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new MainWindow();
+		}
+		
+		return instance;
+	}
+	
+	/**
+	 * Constructor -- creates an instance of the window when it is created
 	 * @author Eric
 	 * @date May 26 2013
 	 */
-	public MainWindow()
+	private MainWindow()
 	{
         display = Display.getDefault();
 		createWindow();
-		runWindow();
 	}
 
 	/**
@@ -79,10 +98,7 @@ public class MainWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				// show the find screen and hide other screens
-				cmpCreateScreen.setVisible(false);
-				cmpFindScreen.onLoad();
-				cmpFindScreen.setVisible(true);
+				playPressed();
 			}
 		});
 		FormData fd_btnPlay = new FormData();
@@ -109,9 +125,7 @@ public class MainWindow
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				// show the create screen and hide other screens
-				cmpCreateScreen.setVisible(true);
-				cmpFindScreen.setVisible(false);
+				createPressed();
 			}
 		});
 		FormData fd_btnCreate = new FormData();
@@ -209,6 +223,16 @@ public class MainWindow
 		cmpFindScreen.setLayoutData(fd_cmpFindScreen);
 		cmpFindScreen.setVisible(false);
 		
+		// load the play screen, but hide it
+		cmpPlayScreen = new PlayScreen(cmpMainArea, SWT.NONE);
+		FormData fd_cmpPlayScreen = new FormData();
+		fd_cmpPlayScreen.bottom = new FormAttachment(100);
+		fd_cmpPlayScreen.right = new FormAttachment(100);
+		fd_cmpPlayScreen.top = new FormAttachment(0);
+		fd_cmpPlayScreen.left = new FormAttachment(0);
+		cmpPlayScreen.setLayoutData(fd_cmpPlayScreen);
+		cmpPlayScreen.setVisible(false);
+		
 		// welcome message
 		Label lblWelcome = new Label(cmpMainArea, SWT.CENTER);
 		lblWelcome.setFont(SWTResourceManager.getFont("Segoe UI", 22, SWT.NORMAL));
@@ -259,5 +283,88 @@ public class MainWindow
 		// show the window
 		shell.open();
 	}
+    
+    /**
+	 * Performs the actions for when the create button is pressed
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+    private void createPressed()
+    {
+    	// create a new puzzle to edit
+    	cmpCreateScreen.setPuzzle(new Cryptogram());
+    	
+    	// show the create screen and hide other screens
+		switchToCreateScreen();
+    }
+    
+    /**
+	 * Performs the actions for when the play button is pressed
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+    private void playPressed()
+    {
+    	// show the find screen and hide other screens
+		switchToFindScreen();
+		
+		// refresh find screen
+		cmpFindScreen.onLoad();
+    }
+    
+    /**
+	 * hides all views in the main window
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+    private void hideAllViews()
+    {
+    	cmpCreateScreen.setVisible(false);
+		cmpFindScreen.setVisible(false);
+		cmpPlayScreen.setVisible(false);
+    }
+    
+    /**
+	 * switches the view to the create screen
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+    public void switchToCreateScreen()
+    {
+    	hideAllViews();
+    	cmpCreateScreen.setVisible(true);
+    }
+    
+    /**
+	 * switches the view to the find screen
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+    public void switchToFindScreen()
+    {
+    	hideAllViews();
+    	cmpFindScreen.setVisible(true);
+    }
+    
+    /**
+	 * switches the view to the play screen
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+    public void switchToPlayScreen()
+    {
+    	hideAllViews();
+    	cmpPlayScreen.setVisible(true);
+    }
+    
+    /**
+	 * switches the view to the welcome screen
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+    public void switchToWelcomeScreen()
+    {
+    	hideAllViews();
+    }
 }
 

@@ -77,6 +77,9 @@ public class CryptogramSolveWidget extends Composite
 	public void setCryptogram(Cryptogram newCryptogram)
 	{
 		this.solvingCryptogram = newCryptogram;
+		
+		// update the display
+		displayCryptogram();
 	}
 	
 	/*

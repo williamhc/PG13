@@ -69,7 +69,7 @@ public class MainWindow
 		shell.setMinimumSize(new Point(640, 480));
 		shell.setSize(692, 616);
 		shell.setLocation(150,100);
-		shell.setText("PG13");
+		shell.setText(Constants.PG13);
 		shell.setLayout(new FormLayout());
 		
 		// play button
@@ -90,7 +90,7 @@ public class MainWindow
 		fd_btnPlay.top = new FormAttachment(0, 11);
 		fd_btnPlay.left = new FormAttachment(0, 5);
 		btnPlay.setLayoutData(fd_btnPlay);
-		btnPlay.setText("Play");
+		btnPlay.setText(Constants.PLAY);
 		
 		// connect button
 		Button btnConnect = new Button(shell, SWT.NONE);
@@ -100,7 +100,7 @@ public class MainWindow
 		fd_btnConnect.top = new FormAttachment(0, 11);
 		fd_btnConnect.left = new FormAttachment(0, 91);
 		btnConnect.setLayoutData(fd_btnConnect);
-		btnConnect.setText("Connect");
+		btnConnect.setText(Constants.CONNECT);
 		
 		// create button
 		Button btnCreate = new Button(shell, SWT.NONE);
@@ -119,7 +119,7 @@ public class MainWindow
 		fd_btnCreate.top = new FormAttachment(0, 11);
 		fd_btnCreate.left = new FormAttachment(0, 177);
 		btnCreate.setLayoutData(fd_btnCreate);
-		btnCreate.setText("Create");
+		btnCreate.setText(Constants.CREATE);
 		
 		// container for user login info
 		Composite cmpLogin = new Composite(shell, SWT.BORDER);
@@ -134,7 +134,8 @@ public class MainWindow
 		// label that identifies 
 		lblLoggedInAs = new Label(cmpLogin, SWT.NONE);
 		lblLoggedInAs.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND));
-		lblLoggedInAs.setText("Logged in as Guest");
+		//TODO change this to pull from user
+		lblLoggedInAs.setText(MessageConstants.GUEST_LOGON);
 		
 		// toolbar that contains the user buttons
 		ToolBar toolBar = new ToolBar(cmpLogin, SWT.FLAT);
@@ -147,7 +148,7 @@ public class MainWindow
 		// my puzzles button
 		ToolItem tltmMyPuzzles = new ToolItem(toolBar, SWT.NONE);
 		tltmMyPuzzles.setEnabled(false);
-		tltmMyPuzzles.setText("My Puzzles");
+		tltmMyPuzzles.setText(Constants.MY_PUZZLES);
 		
 		// separator
 		ToolItem tltmSeparator2 = new ToolItem(toolBar, SWT.SEPARATOR);
@@ -156,7 +157,7 @@ public class MainWindow
 		// mystery button
 		ToolItem tltmMystery = new ToolItem(toolBar, SWT.NONE);
 		tltmMystery.setEnabled(false);
-		tltmMystery.setText("Something Else");
+		tltmMystery.setText(Constants.SOMETHING_ELSE);
 		
 		// separator
 		ToolItem tltmSeparator3 = new ToolItem(toolBar, SWT.SEPARATOR);
@@ -167,7 +168,7 @@ public class MainWindow
 		// login button
 		ToolItem tltmLogin = new ToolItem(toolBar, SWT.NONE);
 		tltmLogin.setEnabled(false);
-		tltmLogin.setText("Login");
+		tltmLogin.setText(Constants.LOGIN);
 		
 		// horizontal line
 		Label label = new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL);
@@ -217,7 +218,7 @@ public class MainWindow
 		fd_lblWelcome.right = new FormAttachment(50, 220);
 		fd_lblWelcome.left = new FormAttachment(50, -220);
 		lblWelcome.setLayoutData(fd_lblWelcome);
-		lblWelcome.setText("Welcome to Puzzle Games 2013 (PG13)");
+		lblWelcome.setText(MessageConstants.WELCOME_HEADER);
 		
 		Label lblWelcomeDescription = new Label(cmpMainArea, SWT.WRAP);
 		lblWelcomeDescription.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
@@ -228,7 +229,7 @@ public class MainWindow
 		fd_lblWelcomeDescription.right = new FormAttachment(50, 200);
 		fd_lblWelcomeDescription.left = new FormAttachment(50, -200);
 		lblWelcomeDescription.setLayoutData(fd_lblWelcomeDescription);
-		lblWelcomeDescription.setText("Selecte the Create option above to begin creating a new cryptogram.  You can preview and test your cryptogram by selecting the preview option therein.\r\n\r\nOnce your cryptogram is complete and saved, you can find it among other cryptograms by selecting the Play option.");
+		lblWelcomeDescription.setText(MessageConstants.APPLICATION_INSTRUCTIONS);
 		
 		// Quit button
 		Button btnQuit = new Button(shell, SWT.NONE);
@@ -245,14 +246,14 @@ public class MainWindow
 		fd_btnQuit.bottom = new FormAttachment(100, -6);
 		fd_btnQuit.right = new FormAttachment(100, -5);
 		btnQuit.setLayoutData(fd_btnQuit);
-		btnQuit.setText("Quit");
+		btnQuit.setText(Constants.QUIT);
 		
 		Label lblVersion = new Label(shell, SWT.NONE);
 		FormData fd_lblVersion = new FormData();
 		fd_lblVersion.bottom = new FormAttachment(btnQuit, 0, SWT.BOTTOM);
 		fd_lblVersion.left = new FormAttachment(0, 10);
 		lblVersion.setLayoutData(fd_lblVersion);
-		lblVersion.setText("Version 1.00");
+		lblVersion.setText(Constants.VERSION);
 		
 		
 		// show the window

@@ -1,6 +1,8 @@
 package pg13.models;
 
-public enum Category
+import java.util.Enumeration;
+
+public enum Category implements Enumeration<Object>
 {
 	Animals,
 	Biology,
@@ -13,5 +15,15 @@ public enum Category
 	Politics,
 	Science,
 	Space,
-	Sports
+	Sports;
+
+	@Override
+	public boolean hasMoreElements() {
+		return false;
+	}
+
+	@Override
+	public Object nextElement() {
+		return null;
+	}
 }

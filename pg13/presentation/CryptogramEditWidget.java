@@ -53,14 +53,14 @@ public class CryptogramEditWidget extends Composite {
 		fd_lblPlaintext.top = new FormAttachment(0, 10);
 		fd_lblPlaintext.left = new FormAttachment(0, 10);
 		lblPlaintext.setLayoutData(fd_lblPlaintext);
-		lblPlaintext.setText("Cryptogram Plaintext");
+		lblPlaintext.setText(Constants.CRYPTOGRAM_PLAINTEXT);
 
 		Label lblPreview = new Label(this, SWT.NONE);
 		FormData fd_lblPreview = new FormData();
 		fd_lblPreview.bottom = new FormAttachment(cmpPreview, -6);
 		fd_lblPreview.left = new FormAttachment(0, 10);
 		lblPreview.setLayoutData(fd_lblPreview);
-		lblPreview.setText("Preview");
+		lblPreview.setText(Constants.PREVIEW);
 
 		txtPlaintext = new Text(this, SWT.BORDER);
 		txtPlaintext.addVerifyListener(new VerifyListener()
@@ -97,7 +97,7 @@ public class CryptogramEditWidget extends Composite {
 		fd_btnPreview.top = new FormAttachment(lblPreview, -5, SWT.TOP);
 		fd_btnPreview.right = new FormAttachment(100, -10);
 		btnPreview.setLayoutData(fd_btnPreview);
-		btnPreview.setText("Generate Preview");
+		btnPreview.setText(MessageConstants.GENERATE_PREVIEW);
 
 		this.setEditMode(editMode);
 	}
@@ -133,8 +133,8 @@ public class CryptogramEditWidget extends Composite {
 		catch (IllegalArgumentException e)
 		{
 			MessageBox dialog = new MessageBox(this.getShell(), SWT.OK);
-			dialog.setText("Invalid text");
-			dialog.setMessage("The text you have entered is invalid. Please modify the text.");
+			dialog.setText(MessageConstants.INVALID_TEXT);
+			dialog.setMessage(MessageConstants.INVALID_TEXT_MESSAGE);
 		}
 	}
 

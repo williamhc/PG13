@@ -1,5 +1,7 @@
 package pg13.presentation;
 
+import java.util.Enumeration;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.SWT;
@@ -68,7 +70,7 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_lblDescription.top = new FormAttachment(txtPuzzleName, 10);
 		fd_lblDescription.left = new FormAttachment(0, 10);
 		lblDescription.setLayoutData(fd_lblDescription);
-		lblDescription.setText("Description");
+		lblDescription.setText(Constants.DESCRIPTION);
 
 
 		// puzzle description text field
@@ -94,11 +96,11 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_lblCategory.left = new FormAttachment(0, 10);
 		fd_lblCategory.top = new FormAttachment(txtDescription, 10);
 		lblCategory.setLayoutData(fd_lblCategory);
-		lblCategory.setText("Category");
+		lblCategory.setText(Constants.CATEGORY);
 
 		// category selection box
 		cmbCategory = new Combo(this, SWT.READ_ONLY);
-		cmbCategory.setItems(new String[] {"Animals", "Biology", "Computers", "Games", "Trivia", "Geography", "History", "Miscellaneous", "Politics", "Science", "Space", "Sports"});
+		cmbCategory.setItems(getCategories(Category.values()));
 		FormData fd_cmbCategory = new FormData();
 		fd_cmbCategory.right = new FormAttachment(60);
 		fd_cmbCategory.top = new FormAttachment(lblCategory, 4);
@@ -122,11 +124,11 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_lblDifficulty.top = new FormAttachment(cmbCategory, 10);
 		fd_lblDifficulty.left = new FormAttachment(0, 10);
 		lblDifficulty.setLayoutData(fd_lblDifficulty);
-		lblDifficulty.setText("Difficulty");
+		lblDifficulty.setText(Constants.DIFFICULTY);
 
 		// difficulty selection box
 		cmbDificulty = new Combo(this, SWT.READ_ONLY);
-		cmbDificulty.setItems(new String[] {"Easy", "Medium", "Hard"});
+		cmbDificulty.setItems(getCategories(Difficulty.values()));
 		FormData fd_cmbDificulty = new FormData();
 		fd_cmbDificulty.right = new FormAttachment(60);
 		fd_cmbDificulty.top = new FormAttachment(lblDifficulty, 4);
@@ -169,6 +171,24 @@ public class PuzzlePropertiesWidget extends Composite
 
 		});
 		this.setEditMode(editMode);
+	}
+
+	/**
+	 * Creates and populates the array of categories from the given enum
+	 * @author Lauren
+	 * @date June 19, 2013
+	 */
+	
+	@SuppressWarnings("rawtypes")
+	private String[] getCategories(Enumeration[] catEnum) 
+	{
+		String[] categories = new String[catEnum.length];
+		
+		for(int i = 0; i < catEnum.length; i++)
+		{
+			categories[i] = catEnum[i].toString();
+		}
+		return categories;
 	}
 
 	private void setEditMode(boolean editMode){

@@ -58,7 +58,7 @@ public class CryptogramSolveWidget extends Composite
 		fd_btnCheckSolution.bottom = new FormAttachment(100, -6);
 		fd_btnCheckSolution.right = new FormAttachment(100, -6);
 		btnCheckSolution.setLayoutData(fd_btnCheckSolution);
-		btnCheckSolution.setText("Check Solution");
+		btnCheckSolution.setText(MessageConstants.CHECK_SOLUTION);
 
 	}
 
@@ -231,15 +231,15 @@ public class CryptogramSolveWidget extends Composite
 		
 		if (this.solvingCryptogram != null && this.solvingCryptogram.isCompleted())
 		{
-			msg = "Puzzle solved!";
+			msg = MessageConstants.PUZZLE_SOLVED;
 		}
 		else
 		{
-			msg = "Puzzle NOT solved!";
+			msg = MessageConstants.PUZZLE_UNSOLVED;
 		}
 
 		dialog = new MessageBox(this.getShell() , SWT.ICON_QUESTION | SWT.OK);
-		dialog.setText("Cryptogram Solution");
+		dialog.setText(Constants.CRYPTOGRAM_SOLUTION);
 		dialog.setMessage(msg);
 
 		dialog.open(); 

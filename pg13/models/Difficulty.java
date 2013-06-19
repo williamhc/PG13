@@ -1,8 +1,21 @@
+
 package pg13.models;
 
-public enum Difficulty
+import java.util.Enumeration;
+
+public enum Difficulty implements Enumeration<Object>
 {
 	Easy,
 	Medium,
-	Hard
+	Hard;
+
+	@Override
+	public boolean hasMoreElements() {
+		return false;
+	}
+
+	@Override
+	public Object nextElement() {
+		return null;
+	}
 }

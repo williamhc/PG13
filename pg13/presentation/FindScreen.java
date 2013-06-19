@@ -73,7 +73,7 @@ public class FindScreen extends Composite
 		fd_lblFindAPuzzle.top = new FormAttachment(0, 10);
 		fd_lblFindAPuzzle.left = new FormAttachment(0, 10);
 		lblFindAPuzzle.setLayoutData(fd_lblFindAPuzzle);
-		lblFindAPuzzle.setText("Find Puzzles:");
+		lblFindAPuzzle.setText(Constants.FIND_PUZZLES);
 		
 		// composite that contains the radio buttons to filter puzzle search
 		Composite cmpPuzzleFilter = new Composite(this, SWT.BORDER);
@@ -93,7 +93,7 @@ public class FindScreen extends Composite
 		fd_btnAllPuzzles.top = new FormAttachment(0, 6);
 		fd_btnAllPuzzles.left = new FormAttachment(0, 6);
 		btnAllPuzzles.setLayoutData(fd_btnAllPuzzles);
-		btnAllPuzzles.setText("All Puzzles");
+		btnAllPuzzles.setText(Constants.ALL_PUZZLES);
 		btnAllPuzzles.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 		Button btnFriendsPuzzles = new Button(cmpPuzzleFilter, SWT.RADIO);
@@ -103,7 +103,7 @@ public class FindScreen extends Composite
 		fd_btnFriendsPuzzles.right = new FormAttachment(100, -6);
 		fd_btnFriendsPuzzles.left = new FormAttachment(0, 6);
 		btnFriendsPuzzles.setLayoutData(fd_btnFriendsPuzzles);
-		btnFriendsPuzzles.setText("My Friends' Puzzles");
+		btnFriendsPuzzles.setText(Constants.FRIENDS_PUZZLES);
 		btnFriendsPuzzles.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 		Button btnMyPuzzles = new Button(cmpPuzzleFilter, SWT.RADIO);
@@ -113,7 +113,7 @@ public class FindScreen extends Composite
 		fd_btnMyPuzzles.top = new FormAttachment(0, 50);
 		fd_btnMyPuzzles.left = new FormAttachment(0, 6);
 		btnMyPuzzles.setLayoutData(fd_btnMyPuzzles);
-		btnMyPuzzles.setText("My Puzzles");
+		btnMyPuzzles.setText(Constants.MY_PUZZLES);
 		btnMyPuzzles.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 		// composite that contains additional search filters for the properties of the puzzle
@@ -134,7 +134,7 @@ public class FindScreen extends Composite
 		fd_lblTitle.top = new FormAttachment(0, 6);
 		fd_lblTitle.left = new FormAttachment(0, 6);
 		lblTitle.setLayoutData(fd_lblTitle);
-		lblTitle.setText("Title:");
+		lblTitle.setText(Constants.TITLE);
 		
 		txtTitle = new Text(cmpPuzzleSearch, SWT.BORDER);
 		txtTitle.setEnabled(false);
@@ -151,7 +151,7 @@ public class FindScreen extends Composite
 		fd_lblAuthor.top = new FormAttachment(txtTitle, 6);
 		fd_lblAuthor.left = new FormAttachment(0, 6);
 		lblAuthor.setLayoutData(fd_lblAuthor);
-		lblAuthor.setText("Author:");
+		lblAuthor.setText(Constants.AUTHOR);
 		
 		txtAuthor = new Text(cmpPuzzleSearch, SWT.BORDER);
 		txtAuthor.setEnabled(false);
@@ -168,7 +168,7 @@ public class FindScreen extends Composite
 		fd_lblCategory.top = new FormAttachment(txtAuthor, 6);
 		fd_lblCategory.left = new FormAttachment(0, 6);
 		lblCategory.setLayoutData(fd_lblCategory);
-		lblCategory.setText("Category:");
+		lblCategory.setText(Constants.CATEGORY + ":");
 		
 		Combo cmbCategory = new Combo(cmpPuzzleSearch, SWT.NONE);
 		cmbCategory.setEnabled(false);
@@ -187,7 +187,7 @@ public class FindScreen extends Composite
 		fd_lblDifficulty.top = new FormAttachment(cmbCategory, 8);
 		fd_lblDifficulty.left = new FormAttachment(0, 6);
 		lblDifficulty.setLayoutData(fd_lblDifficulty);
-		lblDifficulty.setText("Difficulty:");
+		lblDifficulty.setText(Constants.DIFFICULTY + ":");
 		
 		Button btnAllDifficulties = new Button(cmpPuzzleSearch, SWT.CHECK);
 		btnAllDifficulties.setEnabled(false);
@@ -195,7 +195,7 @@ public class FindScreen extends Composite
 		fd_btnAllDifficulties.top = new FormAttachment(lblDifficulty, 4);
 		fd_btnAllDifficulties.left = new FormAttachment(0, 6);
 		btnAllDifficulties.setLayoutData(fd_btnAllDifficulties);
-		btnAllDifficulties.setText("All Difficulties");
+		btnAllDifficulties.setText(Constants.ALL_DIFFICULTIES);
 		btnAllDifficulties.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 		Button btnEasy = new Button(cmpPuzzleSearch, SWT.CHECK);
@@ -204,7 +204,7 @@ public class FindScreen extends Composite
 		fd_btnEasy.top = new FormAttachment(btnAllDifficulties, 4);
 		fd_btnEasy.left = new FormAttachment(0, 6);
 		btnEasy.setLayoutData(fd_btnEasy);
-		btnEasy.setText("Easy");
+		btnEasy.setText(Constants.EASY);
 		btnEasy.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 		Button btnMedium = new Button(cmpPuzzleSearch, SWT.CHECK);
@@ -213,7 +213,7 @@ public class FindScreen extends Composite
 		fd_btnAverage.left = new FormAttachment(0, 6);
 		fd_btnAverage.top = new FormAttachment(btnEasy, 4);
 		btnMedium.setLayoutData(fd_btnAverage);
-		btnMedium.setText("Medium");
+		btnMedium.setText(Constants.MEDIUM);
 		btnMedium.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 		Button btnDifficult = new Button(cmpPuzzleSearch, SWT.CHECK);
@@ -222,7 +222,7 @@ public class FindScreen extends Composite
 		fd_btnDifficult.top = new FormAttachment(btnMedium, 4);
 		fd_btnDifficult.left = new FormAttachment(0, 6);
 		btnDifficult.setLayoutData(fd_btnDifficult);
-		btnDifficult.setText("Difficult");
+		btnDifficult.setText(Constants.HARD);
 		btnDifficult.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 //		Button btnExpert = new Button(cmpPuzzleSearch, SWT.CHECK);
@@ -243,7 +243,7 @@ public class FindScreen extends Composite
 		fd_btnPlaySelectedPuzzle.top = new FormAttachment(100, -36);
 		fd_btnPlaySelectedPuzzle.left = new FormAttachment(lblFindAPuzzle, 0, SWT.LEFT);
 		btnPlaySelectedPuzzle.setLayoutData(fd_btnPlaySelectedPuzzle);
-		btnPlaySelectedPuzzle.setText("Play Selected Puzzle");
+		btnPlaySelectedPuzzle.setText(MessageConstants.SOLVE_SELECTED);
 		
 		// create a table viewer to show puzzles
 		this.tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);
@@ -272,7 +272,7 @@ public class FindScreen extends Composite
 
 	private void createColumns(final Composite parent, final TableViewer viewer)
 	{
-		String[] titles = { "Title", "Author", "Category", "Difficulty" };
+		String[] titles = {"Title", "Author", "Category", "Difficulty" };
 		int[] bounds = { 100, 100, 100, 100 };
 
 		// create each column

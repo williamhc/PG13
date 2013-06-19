@@ -15,6 +15,7 @@ public class PuzzleAuthorColumnProvider extends ColumnLabelProvider
 	{
 		Puzzle p = (Puzzle) obj;
 		String author = p.getAuthor();
+		//TODO login as guest option so we should not hardcode guest
 		return author != null && author.length() > 0 ? author : "Guest";
 	}
 }

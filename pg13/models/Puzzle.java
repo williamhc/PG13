@@ -4,7 +4,8 @@ import java.util.Date;
 
 public abstract class Puzzle implements IFindable, ICreateable, IPlayable
 {
-	private String title, description, author; 
+	private String title, description;
+	private User user;
 	private Category category;
 	private Difficulty difficulty;
 	private Date dateCreated;
@@ -12,7 +13,7 @@ public abstract class Puzzle implements IFindable, ICreateable, IPlayable
 
 	protected Puzzle()
 	{
-		this.author = null;
+		this.user = new User();
 		this.isCompleted = false;
 		this.title = null;
 		this.category = null;
@@ -20,10 +21,10 @@ public abstract class Puzzle implements IFindable, ICreateable, IPlayable
 		this.dateCreated = null;
 	}
 	
-	protected Puzzle(String author, String title, Category category, Difficulty difficulty, Date dateCreated)
+	protected Puzzle(User user, String title, Category category, Difficulty difficulty, Date dateCreated)
 	{
 		this();
-		this.author = author;
+		this.user = user;
 		this.isCompleted = false;
 		this.title = title;
 		this.dateCreated = dateCreated;
@@ -39,16 +40,6 @@ public abstract class Puzzle implements IFindable, ICreateable, IPlayable
 	public void setIsCompleted(boolean value)
 	{
 		this.isCompleted = value;
-	}
-
-	public String getAuthor() 
-	{
-		return this.author;
-	}
-
-	public void setAuthor(String value) 
-	{
-		this.author = value;
 	}
 
 	public String getTitle()
@@ -71,6 +62,26 @@ public abstract class Puzzle implements IFindable, ICreateable, IPlayable
 		this.description = description;
 	}
 
+	public User getUser() 
+	{
+		return user;
+	}
+
+	public void setUser(User user) 
+	{
+		this.user = user;
+	}
+	
+	public String getAuthor()
+	{
+		return this.user.getUserName();
+	}
+	
+	public void setAuthor(String name)
+	{
+		this.user.setUserName(name);
+	}
+	
 	public Category getCategory() 
 	{
 		return category;

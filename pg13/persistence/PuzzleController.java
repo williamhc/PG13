@@ -10,6 +10,7 @@ import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
 import pg13.models.Puzzle;
+import pg13.models.User;
 
 /**
  * A simple fake DB to serve up puzzles and act like a persistence layer.
@@ -19,6 +20,7 @@ import pg13.models.Puzzle;
 public class PuzzleController
 {
 	static private PuzzleController pc_instance;
+	static private Long userKey = new Long(0);
 	private ArrayList<Puzzle> puzzleList;
 
 	public PuzzleController()
@@ -31,8 +33,9 @@ public class PuzzleController
 		};
 		for(String[] def: dummyPuzzles)
 		{
-			Cryptogram dummyPuzzle = new Cryptogram(def[0], def[1], Category.Miscellaneous, Difficulty.Medium, new Date(), "Fake!");
+			Cryptogram dummyPuzzle = new Cryptogram(new User(userKey, def[0]), def[1], Category.Miscellaneous, Difficulty.Medium, new Date(), "Fake!");
 			puzzleList.add(dummyPuzzle);
+			userKey++;
 		}
 
 	}

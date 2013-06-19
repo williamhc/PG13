@@ -97,15 +97,16 @@ public class PuzzlePropertiesWidget extends Composite
 		lblCategory.setText("Category");
 
 		// category selection box
-		cmbCategory = new Combo(this, SWT.NONE);
-		cmbCategory.setItems(new String[] {"", "Animals", "Biology", "Computers", "Games", "Trivia", "Geography", "History", "Miscellaneous", "Politics", "Science", "Space", "Sports"});
+		cmbCategory = new Combo(this, SWT.READ_ONLY);
+		cmbCategory.setItems(new String[] {"Animals", "Biology", "Computers", "Games", "Trivia", "Geography", "History", "Miscellaneous", "Politics", "Science", "Space", "Sports"});
 		FormData fd_cmbCategory = new FormData();
 		fd_cmbCategory.right = new FormAttachment(60);
 		fd_cmbCategory.top = new FormAttachment(lblCategory, 4);
 		fd_cmbCategory.left = new FormAttachment(0, 10);
 		cmbCategory.setLayoutData(fd_cmbCategory);
-		cmbCategory.select(0);
+		cmbCategory.select(7);
 		cmbCategory.addModifyListener(new ModifyListener()
+
 		{
 			@Override
 			public void modifyText(ModifyEvent e)
@@ -124,8 +125,8 @@ public class PuzzlePropertiesWidget extends Composite
 		lblDifficulty.setText("Difficulty");
 
 		// difficulty selection box
-		cmbDificulty = new Combo(this, SWT.NONE);
-		cmbDificulty.setItems(new String[] {"", "Easy", "Medium", "Difficult"});
+		cmbDificulty = new Combo(this, SWT.READ_ONLY);
+		cmbDificulty.setItems(new String[] {"Easy", "Medium", "Hard"});
 		FormData fd_cmbDificulty = new FormData();
 		fd_cmbDificulty.right = new FormAttachment(60);
 		fd_cmbDificulty.top = new FormAttachment(lblDifficulty, 4);

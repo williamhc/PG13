@@ -4,7 +4,7 @@ public enum Category
 {
 	Animals,
 	Biology,
-	Comuters,
+	Computers,
 	Games,
 	Trivia,
 	Geography,

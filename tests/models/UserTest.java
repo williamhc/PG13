@@ -18,7 +18,7 @@ public class UserTest extends TestCase
 	private final String DEFAULT_TITLE = "Practice Cryptogram";
 	private final String DEFAULT_AUTHOR = "Lauren Slusky";
 	private final User	DEFAULT_USER = new User("Lauren Slusky");
-	private final Category DEFAULT_CATEGORY = Category.Comuters;
+	private final Category DEFAULT_CATEGORY = Category.Computers;
 	private final Difficulty DEFAULT_DIFFICULTY = Difficulty.Easy;
 	private final String DEFAULT_TEXT = "This is a test";
 	private final Date DEFAULT_DATE = new Date();

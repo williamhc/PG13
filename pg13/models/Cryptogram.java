@@ -285,18 +285,74 @@ public class Cryptogram extends Puzzle
 	 */
 	public boolean equals(Object object)
 	{
+		boolean equalAuthors;
+		boolean equalDifficulties;
+		boolean equalTitles;
+		boolean equalDates;
+		boolean equalCategories;
+		boolean equalPlaintext;
+		boolean equalSolutionMaps;
+		
 		if(!(object instanceof Cryptogram))
 			return false;
 		
 		Cryptogram other = (Cryptogram)object;
 		
-		boolean equalAuthors = (this.getAuthor() == null && other.getAuthor() == null) || this.getAuthor().equals(other.getAuthor());
-		boolean equalTitles = (this.getTitle() == null && other.getTitle() == null) || this.getTitle().equals(other.getTitle());
-		boolean equalDifficulties = (this.getDifficulty() == null && other.getDifficulty() == null) || this.getDifficulty().equals(other.getDifficulty());
-		boolean equalDates = (this.getDateCreated() == null && other.getDateCreated() == null) || this.getDateCreated().equals(other.getDateCreated());
-		boolean equalCategories = (this.getCategory() == null && other.getCategory() == null) || this.getCategory().equals(other.getCategory());
-		boolean equalPlaintext = this.plaintext.equals(other.getPlaintext());
-		boolean equalSolutionMaps = Arrays.equals(this.getSolutionMapping(), other.getSolutionMapping());
+		if( this.getAuthor() == null && other.getAuthor() != null)
+		{
+			equalAuthors = false;
+		}
+		else
+		{
+			equalAuthors = (this.getAuthor() == null && other.getAuthor() == null) || this.getAuthor().equals(other.getAuthor());
+		}
+		
+		if( this.getTitle() == null && other.getTitle() != null)
+		{
+			equalTitles = false;
+		}
+		else
+		{
+			equalTitles = (this.getTitle() == null && other.getTitle() == null) || this.getTitle().equals(other.getTitle());
+		}
+		
+		if( this.getDifficulty() == null && other.getDifficulty() != null)
+		{
+			equalDifficulties = false;
+		}
+		else
+		{
+			equalDifficulties = (this.getDifficulty() == null && other.getDifficulty() == null) || this.getDifficulty().equals(other.getDifficulty());
+		}		
+
+		if( this.getDateCreated() == null && other.getDateCreated() != null)
+		{
+			equalDates = false;
+		}
+		else
+		{
+			equalDates = (this.getDateCreated() == null && other.getDateCreated() == null) || this.getDateCreated().equals(other.getDateCreated());
+		}
+		
+		if( this.getCategory() == null && other.getCategory() != null)
+		{
+			equalCategories = false;
+		}
+		else
+		{
+			equalCategories = (this.getCategory() == null && other.getCategory() == null) || this.getCategory().equals(other.getCategory());
+		}
+
+		if( this.plaintext == null && other.getPlaintext() != null)
+		{
+			equalPlaintext = false;
+		}
+		else
+		{
+			equalPlaintext = this.plaintext.equals(other.getPlaintext());
+		}
+
+		equalSolutionMaps = Arrays.equals(this.getSolutionMapping(), other.getSolutionMapping());
 		
 		return equalAuthors && equalTitles && equalDifficulties && equalCategories && equalDates && equalPlaintext && equalSolutionMaps;
 	}

@@ -15,7 +15,7 @@ import pg13.models.User;
 		private final String DEFAULT_TITLE = "Practice Cryptogram";
 		private final String DEFAULT_AUTHOR = "Lauren Slusky";
 		private final User	DEFAULT_USER = new User("Lauren Slusky");
-		private final Category DEFAULT_CATEGORY = Category.Comuters;
+		private final Category DEFAULT_CATEGORY = Category.Computers;
 		private final Difficulty DEFAULT_DIFFICULTY = Difficulty.Easy;
 		private final Date DEFAULT_DATE = new Date();
 		private final String DEFAULT_PLAINTEXT = "This is a test.";

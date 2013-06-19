@@ -7,6 +7,7 @@ import tests.business.search.PuzzleDifficultyColumnProviderTest;
 import tests.business.search.PuzzleTitleColumnProviderTest;
 import tests.models.CryptogramPairTest;
 import tests.models.CryptogramTest;
+import tests.models.UserTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -26,6 +27,7 @@ public class AllTests
     {
         suite.addTestSuite(CryptogramPairTest.class);
         suite.addTestSuite(CryptogramTest.class);
+        suite.addTestSuite(UserTest.class);
     }
 
     private static void testBusiness()

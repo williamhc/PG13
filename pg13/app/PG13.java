@@ -13,7 +13,7 @@ public class PG13
 	public static void main(String[] args) 
 	{
 		// launch a main window
-		new MainWindow();
+		MainWindow.getInstance().runWindow();
 	}
 }
 

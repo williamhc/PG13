@@ -10,7 +10,9 @@ import org.eclipse.swt.widgets.Control;
 
 public class CreateScreen extends Composite 
 {
-	private Cryptogram workingPuzzle;		// the puzzle we are working on
+	private Cryptogram workingPuzzle;				// the puzzle we are working on
+	private PuzzlePropertiesWidget cmpProperties;	// puzzle properties area
+	private CryptogramEditWidget cmpEditWidget;		// editing area
 	
 	/**
 	 * Creates and populates the create screen.
@@ -30,7 +32,7 @@ public class CreateScreen extends Composite
 		setLayout(new FormLayout());
 		
 		// puzzle's general properties
-		PuzzlePropertiesWidget cmpProperties = new PuzzlePropertiesWidget(this, SWT.NONE, workingPuzzle, true);
+		cmpProperties = new PuzzlePropertiesWidget(this, SWT.NONE, workingPuzzle, true);
 		FormData fd_cmpProperties = new FormData();
 		fd_cmpProperties.top = new FormAttachment(0);
 		fd_cmpProperties.left = new FormAttachment(0);
@@ -39,7 +41,7 @@ public class CreateScreen extends Composite
 		cmpProperties.setLayoutData(fd_cmpProperties);
 		
 		// puzzle edit widget, for now is only cryptogram
-		CryptogramEditWidget cmpEditWidget = new CryptogramEditWidget(this, SWT.NONE, workingPuzzle, true);
+		cmpEditWidget = new CryptogramEditWidget(this, SWT.NONE, workingPuzzle, true);
 		FormData fd_composite = new FormData();
 		fd_composite.bottom = new FormAttachment(100);
 		fd_composite.right = new FormAttachment(100);
@@ -48,6 +50,19 @@ public class CreateScreen extends Composite
 		cmpEditWidget.setLayoutData(fd_composite);
 		setTabList(new Control[]{cmpProperties, cmpEditWidget});
 
+	}
+	
+	/**
+	 * Sets the puzzle being created/edited
+	 * @author Eric
+	 * @param newPuzzle
+	 * @date June 19 2013
+	 */
+	public void setPuzzle(Cryptogram newPuzzle)
+	{
+		workingPuzzle = newPuzzle;
+		cmpProperties.setPuzzle(newPuzzle);
+		cmpEditWidget.setCryptogram(newPuzzle);
 	}
 
 	@Override

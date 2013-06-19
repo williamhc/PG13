@@ -33,6 +33,8 @@ public class PuzzlePropertiesWidget extends Composite
 	private Combo cmbDificulty;
 	private Combo cmbCategory;
 	private Button btnSavePuzzle;
+	private Puzzle displayingPuzzle;
+
 	/**
 	 * Creates and populates the properties widget.
 	 * @author Eric
@@ -40,10 +42,10 @@ public class PuzzlePropertiesWidget extends Composite
 	 * @param style
 	 * @date May 29 2013
 	 */
-	public PuzzlePropertiesWidget(Composite parent, int style, Cryptogram displayingPuzzle, boolean editMode)
+	public PuzzlePropertiesWidget(Composite parent, int style, Puzzle displayingPuzzle, boolean editMode)
 	{
 		super(parent, style);
-		final Puzzle puzzle = displayingPuzzle;
+		this.displayingPuzzle = displayingPuzzle;
 		setLayout(new FormLayout());
 
 		// puzzle name
@@ -60,7 +62,7 @@ public class PuzzlePropertiesWidget extends Composite
 			@Override
 			public void modifyText(ModifyEvent e)
 			{
-				puzzle.setTitle(txtPuzzleName.getText());
+				updatePuzzleTitle();
 			}
 		});
 
@@ -86,7 +88,7 @@ public class PuzzlePropertiesWidget extends Composite
 			@Override
 			public void modifyText(ModifyEvent e)
 			{
-				puzzle.setDescription(txtDescription.getText());
+				updatePuzzleDescription();
 			}
 		});
 
@@ -113,7 +115,7 @@ public class PuzzlePropertiesWidget extends Composite
 			@Override
 			public void modifyText(ModifyEvent e)
 			{
-				puzzle.setCategory(Category.valueOf(cmbCategory.getText()));
+				updatePuzzleCategory();
 			}
 		});
 
@@ -140,7 +142,7 @@ public class PuzzlePropertiesWidget extends Composite
 			@Override
 			public void modifyText(ModifyEvent e)
 			{
-				puzzle.setDifficulty(Difficulty.valueOf(cmbDificulty.getText()));
+				updatePuzzleDifficulty();
 			}
 		});
 
@@ -160,13 +162,13 @@ public class PuzzlePropertiesWidget extends Composite
 			@Override
 			public void widgetSelected(SelectionEvent e)
 			{
-				new PuzzleCreator().save(puzzle);
+				savePuzzle();
 			}
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e)
 			{
-				new PuzzleCreator().save(puzzle);
+				savePuzzle();
 			}
 
 		});
@@ -174,16 +176,39 @@ public class PuzzlePropertiesWidget extends Composite
 	}
 
 	/**
+	 * Sets the puzzle we are displaying.
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+	public void setPuzzle(Cryptogram newPuzzle)
+	{
+		this.displayingPuzzle = newPuzzle;
+		updateFields();
+	}
+
+	/**
+	 * Updates all the fields to display.
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+	private void updateFields()
+	{
+		this.txtPuzzleName.setText((displayingPuzzle.getTitle() == null? "": displayingPuzzle.getTitle()));
+		this.txtDescription.setText((displayingPuzzle.getDescription() == null? "": displayingPuzzle.getDescription()));
+		// TODO make the combo boxes display correctly, how does this work with our enum sol?
+	}
+
+	/**
 	 * Creates and populates the array of categories from the given enum
 	 * @author Lauren
 	 * @date June 19, 2013
 	 */
-	
+
 	@SuppressWarnings("rawtypes")
-	private String[] getCategories(Enumeration[] catEnum) 
+	private String[] getCategories(Enumeration[] catEnum)
 	{
 		String[] categories = new String[catEnum.length];
-		
+
 		for(int i = 0; i < catEnum.length; i++)
 		{
 			categories[i] = catEnum[i].toString();
@@ -191,13 +216,70 @@ public class PuzzlePropertiesWidget extends Composite
 		return categories;
 	}
 
-	private void setEditMode(boolean editMode){
+	/**
+	 * Enables or disables widgets in the screen to be editable.
+	 * @author Eric
+	 * @param editMode
+	 * @date June 19 2013
+	 */
+	private void setEditMode(boolean editMode)
+	{
 		this.editMode = editMode;
 		this.cmbCategory.setEnabled(this.editMode);
 		this.cmbDificulty.setEnabled(this.editMode);
 		this.txtDescription.setEnabled(this.editMode);
 		this.txtPuzzleName.setEnabled(this.editMode);
 		this.btnSavePuzzle.setVisible(this.editMode);
+	}
+
+	/**
+	 * Saves the puzzle being displayed.
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+	private void savePuzzle()
+	{
+		new PuzzleCreator().save(displayingPuzzle);
+	}
+
+	/**
+	 * Updates the displaying puzzle's title field.
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+	private void updatePuzzleTitle()
+	{
+		displayingPuzzle.setTitle(txtPuzzleName.getText());
+	}
+
+	/**
+	 * Updates the displaying puzzle's description field.
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+	private void updatePuzzleDescription()
+	{
+		displayingPuzzle.setDescription(txtDescription.getText());
+	}
+
+	/**
+	 * Updates the displaying puzzle's category field.
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+	private void updatePuzzleCategory()
+	{
+		displayingPuzzle.setCategory(Category.valueOf(cmbCategory.getText()));
+	}
+
+	/**
+	 * Updates the displaying puzzle's difficulty field.
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+	private void updatePuzzleDifficulty()
+	{
+		displayingPuzzle.setDifficulty(Difficulty.valueOf(cmbDificulty.getText()));
 	}
 
 	@Override

@@ -104,9 +104,7 @@ public class CryptogramEditWidget extends Composite {
 
 	/*
 	 * Set the edit mode of the widget - if false, the cryptogram will not be changeable
-	 *
 	 * @author Will
-	 *
 	 * @date June 4th 2013
 	 */
 	private void setEditMode(boolean editMode) 
@@ -117,9 +115,7 @@ public class CryptogramEditWidget extends Composite {
 
 	/*
 	 * Previews the cryptogram -- displays the cryptogram in the preview screen
-	 *
 	 * @author Eric
-	 *
 	 * @date May 29 2013
 	 */
 	private void preview()
@@ -128,7 +124,6 @@ public class CryptogramEditWidget extends Composite {
 		{
 			this.cm.setPlaintext(txtPlaintext.getText());
 			cmpPreview.setCryptogram(this.cm.getCryptogram());
-			cmpPreview.displayCryptogram();
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -136,6 +131,18 @@ public class CryptogramEditWidget extends Composite {
 			dialog.setText(MessageConstants.INVALID_TEXT);
 			dialog.setMessage(MessageConstants.INVALID_TEXT_MESSAGE);
 		}
+	}
+	
+	/*
+	 * Sets the cryptogram for the widget to display
+	 * @author Eric
+	 * @date May 29 2013
+	 */
+	public void setCryptogram(Cryptogram newCryptogram)
+	{
+		this.cm = new CryptogramManager(newCryptogram);
+		txtPlaintext.setText(cm.getPlaintext());
+		cmpPreview.setCryptogram(newCryptogram);
 	}
 
 	@Override

@@ -51,7 +51,6 @@ public class FindScreen extends Composite
 
 	/**
 	 * Creates and populates the Find screen.
-	 * @author Eric
 	 * @param parent
 	 * @param style
 	 * @date May 31 2013
@@ -228,15 +227,6 @@ public class FindScreen extends Composite
 		btnDifficult.setText(Constants.HARD);
 		btnDifficult.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
-//		Button btnExpert = new Button(cmpPuzzleSearch, SWT.CHECK);
-//		btnExpert.setEnabled(false);
-//		FormData fd_btnExpert = new FormData();
-//		fd_btnExpert.top = new FormAttachment(btnDifficult, 4);
-//		fd_btnExpert.left = new FormAttachment(0, 6);
-//		btnExpert.setLayoutData(fd_btnExpert);
-//		btnExpert.setText("Expert");
-//		btnExpert.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		
 		// play the selected puzzle!
 		btnPlaySelectedPuzzle = new Button(this, SWT.NONE);
 		btnPlaySelectedPuzzle.addSelectionListener(new SelectionAdapter() 
@@ -333,7 +323,6 @@ public class FindScreen extends Composite
 	
 	/**
 	 * Sets the play button to enabled or disabled, depending on the table selection.
-	 * @author Eric
 	 * @date June 19 2013
 	 */
 	private void updatePlayButtonStatus()
@@ -355,7 +344,6 @@ public class FindScreen extends Composite
 	
 	/**
 	 * Handles when the play puzzles button is pressed.
-	 * @author Eric
 	 * @date June 19 2013
 	 */
 	private void playPuzzlePressed()

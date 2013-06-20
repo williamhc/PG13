@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 import pg13.models.Cryptogram;
+import org.eclipse.swt.widgets.Label;
 
 public class PlayScreen extends Composite 
 {
@@ -17,7 +18,6 @@ public class PlayScreen extends Composite
 	
 	/**
 	 * Creates and populates the play screen.
-	 * @author Eric
 	 * @param parent
 	 * @param style
 	 * @date June 19 2013
@@ -31,6 +31,14 @@ public class PlayScreen extends Composite
 		
 		// set layout
 		setLayout(new FormLayout());
+		
+		// separator between properties and play area
+		Label separator = new Label(this, SWT.SEPARATOR | SWT.VERTICAL);
+		FormData fd_separator = new FormData();
+		fd_separator.left = new FormAttachment(33);
+		fd_separator.bottom = new FormAttachment(100);
+		fd_separator.top = new FormAttachment(0);
+		separator.setLayoutData(fd_separator);
 		
 		// puzzle's general properties
 		cmpProperties = new PuzzlePropertiesWidget(this, SWT.NONE, workingPuzzle, false);
@@ -54,7 +62,6 @@ public class PlayScreen extends Composite
 
 	/**
 	 * Sets the puzzle being played
-	 * @author Eric
 	 * @param newPuzzle
 	 * @date June 19 2013
 	 */
@@ -69,5 +76,4 @@ public class PlayScreen extends Composite
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
 	}
-
 }

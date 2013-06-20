@@ -37,7 +37,6 @@ public class MainWindow
 
 	/**
 	 * gets the instance of the main window
-	 * @author Eric
 	 * @date June 19 2013
 	 */
 	public static MainWindow getInstance()
@@ -52,7 +51,6 @@ public class MainWindow
 	
 	/**
 	 * Constructor -- creates an instance of the window when it is created
-	 * @author Eric
 	 * @date May 26 2013
 	 */
 	private MainWindow()
@@ -63,7 +61,6 @@ public class MainWindow
 
 	/**
 	 * Displays the main window.
-	 * @author Eric
 	 * @date May 26 2013
 	 */
     public void runWindow()
@@ -80,7 +77,6 @@ public class MainWindow
 
     /**
      * Creates and populates the main window
-     * @author Eric
      * @date May 26 2013
      */
     public void createWindow()
@@ -287,7 +283,6 @@ public class MainWindow
     
     /**
 	 * Opens up the play screen for the given puzzle, currently only cryptograms supported.
-	 * @author Eric
 	 * @date June 19 2013
 	 */
     public void playPuzzle(Puzzle puzzle)
@@ -303,7 +298,6 @@ public class MainWindow
     
     /**
 	 * Performs the actions for when the create button is pressed
-	 * @author Eric
 	 * @date June 19 2013
 	 */
     private void createPressed()
@@ -317,7 +311,6 @@ public class MainWindow
     
     /**
 	 * Performs the actions for when the play button is pressed
-	 * @author Eric
 	 * @date June 19 2013
 	 */
     private void playPressed()
@@ -331,7 +324,6 @@ public class MainWindow
     
     /**
 	 * hides all views in the main window
-	 * @author Eric
 	 * @date June 19 2013
 	 */
     private void hideAllViews()
@@ -343,7 +335,6 @@ public class MainWindow
     
     /**
 	 * switches the view to the create screen
-	 * @author Eric
 	 * @date June 19 2013
 	 */
     public void switchToCreateScreen()
@@ -354,7 +345,6 @@ public class MainWindow
     
     /**
 	 * switches the view to the find screen
-	 * @author Eric
 	 * @date June 19 2013
 	 */
     public void switchToFindScreen()
@@ -365,7 +355,6 @@ public class MainWindow
     
     /**
 	 * switches the view to the play screen
-	 * @author Eric
 	 * @date June 19 2013
 	 */
     public void switchToPlayScreen()
@@ -376,7 +365,6 @@ public class MainWindow
     
     /**
 	 * switches the view to the welcome screen
-	 * @author Eric
 	 * @date June 19 2013
 	 */
     public void switchToWelcomeScreen()

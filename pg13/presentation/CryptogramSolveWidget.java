@@ -3,7 +3,6 @@ package pg13.presentation;
 import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.SWT;
@@ -12,9 +11,6 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import pg13.models.Cryptogram;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 
 public class CryptogramSolveWidget extends Composite 
 {
@@ -23,7 +19,6 @@ public class CryptogramSolveWidget extends Composite
 	
 	/**
 	 * Creates and populates the cryptogram solving widget.
-	 * @author Eric
 	 * @param parent
 	 * @param style
 	 * @date May 29 2013
@@ -44,21 +39,6 @@ public class CryptogramSolveWidget extends Composite
 		});
 		setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		setLayout(new FormLayout());
-		
-		Button btnCheckSolution = new Button(this, SWT.NONE);
-		btnCheckSolution.addSelectionListener(new SelectionAdapter() 
-		{
-			@Override
-			public void widgetSelected(SelectionEvent e) 
-			{
-				checkSolution();
-			}
-		});
-		FormData fd_btnCheckSolution = new FormData();
-		fd_btnCheckSolution.bottom = new FormAttachment(100, -6);
-		fd_btnCheckSolution.right = new FormAttachment(100, -6);
-		btnCheckSolution.setLayoutData(fd_btnCheckSolution);
-		btnCheckSolution.setText(MessageConstants.CHECK_SOLUTION);
 
 	}
 
@@ -68,9 +48,8 @@ public class CryptogramSolveWidget extends Composite
 		// Disable the check that prevents subclassing of SWT components
 	}
 
-	/*
+	/**
 	 * Sets the cryptogram we are currently solving to the specified cryptogram
-	 * @author Eric
 	 * @date May 29 2013
 	 * @param newCryptogram
 	 */
@@ -82,9 +61,8 @@ public class CryptogramSolveWidget extends Composite
 		displayCryptogram();
 	}
 	
-	/*
+	/**
 	 * Displays the cryptogram in the centre of the window
-	 * @author Eric
 	 * @date May 29 2013
 	 * @param ciphertext
 	 */
@@ -117,9 +95,8 @@ public class CryptogramSolveWidget extends Composite
 		}
 	}
 	
-	/*
+	/**
 	 * Updates the organization of the letter widgets in the cryptogram to display properly
-	 * @author Eric
 	 * @date May 29 2013
 	 */
 	private void updateLetterWidgetLayout()
@@ -207,9 +184,8 @@ public class CryptogramSolveWidget extends Composite
 		}
 	}
 	
-	/*
+	/**
 	 * Updates the contents of all the letters according to the cryptogram's stored contents
-	 * @author Eric
 	 * @date May 29 2013
 	 */
 	public void updateLetterWidgetContents()
@@ -220,31 +196,5 @@ public class CryptogramSolveWidget extends Composite
 		}
 		
 		this.layout(true,true);
-	}
-	
-	/*
-	 * Checks to see if the cryptogram is solved
-	 * @author Eric
-	 * @date May 30 2013
-	 */
-	private void checkSolution()
-	{
-		String msg;
-		MessageBox dialog;
-		
-		if (this.solvingCryptogram != null && this.solvingCryptogram.isCompleted())
-		{
-			msg = MessageConstants.PUZZLE_SOLVED;
-		}
-		else
-		{
-			msg = MessageConstants.PUZZLE_UNSOLVED;
-		}
-
-		dialog = new MessageBox(this.getShell() , SWT.ICON_QUESTION | SWT.OK);
-		dialog.setText(Constants.CRYPTOGRAM_SOLUTION);
-		dialog.setMessage(msg);
-
-		dialog.open(); 
 	}
 }

@@ -23,8 +23,6 @@ public class CryptogramEditWidget extends Composite {
 
 	/**
 	 * Creates and populates the cryptogram edit widget.
-	 *
-	 * @author Eric
 	 * @param parent
 	 * @param style
 	 * @date May 29 2013
@@ -92,9 +90,8 @@ public class CryptogramEditWidget extends Composite {
 		this.setEditMode(editMode);
 	}
 
-	/*
+	/**
 	 * Set the edit mode of the widget - if false, the cryptogram will not be changeable
-	 * @author Will
 	 * @date June 4th 2013
 	 */
 	private void setEditMode(boolean editMode) 
@@ -102,7 +99,7 @@ public class CryptogramEditWidget extends Composite {
 		this.txtPlaintext.setEnabled(editMode);
 	}
 
-	/*
+	/**
 	 * Updates the plaintext of the working cryptogram according to what is
 	 * written in the plaintext box.  Also updates the preview.
 	 * @author Eric
@@ -124,7 +121,7 @@ public class CryptogramEditWidget extends Composite {
 	}
 	
 	
-	/*
+	/**
 	 * Sets the cryptogram for the widget to display
 	 * @author Eric
 	 * @date May 29 2013

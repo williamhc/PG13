@@ -31,7 +31,7 @@ public class Constants
 	//Cryptogram Constants
 	public static final String CRYPTOGRAM_PLAINTEXT = 			"Cryptogram Plaintext";
 	public static final String PREVIEW 				= 			"Preview";
-	public static final String CRYPTOGRAM_SOLUTION 	= 			"Cryptogram Solution";	
+	public static final String PUZZLE_SOLUTION 		= 			"Puzzle Solution";	
 	
 	//Find Screen Constants
 	public static final String FIND_PUZZLES			= 			"Find Puzzles:";

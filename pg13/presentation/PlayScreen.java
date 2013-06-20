@@ -12,6 +12,8 @@ import pg13.models.Cryptogram;
 public class PlayScreen extends Composite 
 {
 	private Cryptogram workingPuzzle;		// the puzzle we are playing
+	private PuzzlePropertiesWidget cmpProperties;	// the properties area
+	private CryptogramSolveWidget cmpSolveWidget;	// the area to solve the puzzle
 	
 	/**
 	 * Creates and populates the play screen.
@@ -31,7 +33,7 @@ public class PlayScreen extends Composite
 		setLayout(new FormLayout());
 		
 		// puzzle's general properties
-		PuzzlePropertiesWidget cmpProperties = new PuzzlePropertiesWidget(this, SWT.NONE, workingPuzzle, false);
+		cmpProperties = new PuzzlePropertiesWidget(this, SWT.NONE, workingPuzzle, false);
 		FormData fd_cmpProperties = new FormData();
 		fd_cmpProperties.top = new FormAttachment(0);
 		fd_cmpProperties.left = new FormAttachment(0);
@@ -40,7 +42,7 @@ public class PlayScreen extends Composite
 		cmpProperties.setLayoutData(fd_cmpProperties);
 		
 		// puzzle solve widget, for now is only cryptogram
-		CryptogramSolveWidget cmpSolveWidget = new CryptogramSolveWidget(this, SWT.NONE, workingPuzzle);
+		cmpSolveWidget = new CryptogramSolveWidget(this, SWT.NONE, workingPuzzle);
 		FormData fd_composite = new FormData();
 		fd_composite.bottom = new FormAttachment(100);
 		fd_composite.right = new FormAttachment(100);
@@ -50,6 +52,19 @@ public class PlayScreen extends Composite
 		setTabList(new Control[]{cmpProperties, cmpSolveWidget});
 	}
 
+	/**
+	 * Sets the puzzle being played
+	 * @author Eric
+	 * @param newPuzzle
+	 * @date June 19 2013
+	 */
+	public void setPuzzle(Cryptogram newPuzzle)
+	{
+		workingPuzzle = newPuzzle;
+		cmpProperties.setPuzzle(newPuzzle);
+		cmpSolveWidget.setCryptogram(newPuzzle);
+	}
+	
 	@Override
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components

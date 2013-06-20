@@ -8,20 +8,18 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 
 import pg13.business.CryptogramManager;
 import pg13.models.Cryptogram;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.ModifyEvent;
 
 public class CryptogramEditWidget extends Composite {
 	private Text txtPlaintext; // plaintext used to generate cryptogram
 	private CryptogramSolveWidget cmpPreview; // preview area for the cryptogram
 	private CryptogramManager cm;
-	private Button btnPreview;
 
 	/**
 	 * Creates and populates the cryptogram edit widget.
@@ -63,6 +61,13 @@ public class CryptogramEditWidget extends Composite {
 		lblPreview.setText(Constants.PREVIEW);
 
 		txtPlaintext = new Text(this, SWT.BORDER);
+		txtPlaintext.addModifyListener(new ModifyListener() 
+		{
+			public void modifyText(ModifyEvent event) 
+			{
+				updatePuzzlePlaintext();
+			}
+		});
 		txtPlaintext.addVerifyListener(new VerifyListener()
 		{
 			public void verifyText(VerifyEvent event)
@@ -84,21 +89,6 @@ public class CryptogramEditWidget extends Composite {
 		fd_txtPlaintext.left = new FormAttachment(cmpPreview, 0, SWT.LEFT);
 		txtPlaintext.setLayoutData(fd_txtPlaintext);
 
-		this.btnPreview = new Button(this, SWT.NONE);
-		btnPreview.addSelectionListener(new SelectionAdapter()
-		{
-			@Override
-			public void widgetSelected(SelectionEvent e)
-			{
-				preview();
-			}
-		});
-		FormData fd_btnPreview = new FormData();
-		fd_btnPreview.top = new FormAttachment(lblPreview, -5, SWT.TOP);
-		fd_btnPreview.right = new FormAttachment(100, -10);
-		btnPreview.setLayoutData(fd_btnPreview);
-		btnPreview.setText(MessageConstants.GENERATE_PREVIEW);
-
 		this.setEditMode(editMode);
 	}
 
@@ -110,20 +100,20 @@ public class CryptogramEditWidget extends Composite {
 	private void setEditMode(boolean editMode) 
 	{
 		this.txtPlaintext.setEnabled(editMode);
-		this.btnPreview.setVisible(editMode);
 	}
 
 	/*
-	 * Previews the cryptogram -- displays the cryptogram in the preview screen
+	 * Updates the plaintext of the working cryptogram according to what is
+	 * written in the plaintext box.  Also updates the preview.
 	 * @author Eric
-	 * @date May 29 2013
+	 * @date June 19 2013
 	 */
-	private void preview()
+	private void updatePuzzlePlaintext()
 	{
 		try
 		{
 			this.cm.setPlaintext(txtPlaintext.getText());
-			cmpPreview.setCryptogram(this.cm.getCryptogram());
+			cmpPreview.displayCryptogram();			
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -132,6 +122,7 @@ public class CryptogramEditWidget extends Composite {
 			dialog.setMessage(MessageConstants.INVALID_TEXT_MESSAGE);
 		}
 	}
+	
 	
 	/*
 	 * Sets the cryptogram for the widget to display

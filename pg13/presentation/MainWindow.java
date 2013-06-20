@@ -18,6 +18,7 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.graphics.Point;
 
 import pg13.models.Cryptogram;
+import pg13.models.Puzzle;
 
 /**
  * The main window for the application.
@@ -283,6 +284,22 @@ public class MainWindow
 		// show the window
 		shell.open();
 	}
+    
+    /**
+	 * Opens up the play screen for the given puzzle, currently only cryptograms supported.
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+    public void playPuzzle(Puzzle puzzle)
+    {
+    	// currently only cryptograms supported
+    	if(puzzle instanceof Cryptogram)
+    	{
+    		cmpPlayScreen.setPuzzle((Cryptogram) puzzle);
+    	}
+    	
+    	switchToPlayScreen();
+    }
     
     /**
 	 * Performs the actions for when the create button is pressed

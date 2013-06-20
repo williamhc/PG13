@@ -21,6 +21,8 @@ import org.eclipse.jface.viewers.Viewer;
 
 import pg13.business.search.PuzzleTableDriver;
 import pg13.models.Puzzle;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class FindScreen extends Composite 
 {
@@ -45,6 +47,7 @@ public class FindScreen extends Composite
 	private TableViewer tableViewer;
 	private PuzzleTableDriver tableDriver;
 	private ArrayList<Puzzle> puzzleResults;
+	private Button btnPlaySelectedPuzzle;
 
 	/**
 	 * Creates and populates the Find screen.
@@ -235,8 +238,22 @@ public class FindScreen extends Composite
 //		btnExpert.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 		// play the selected puzzle!
-		Button btnPlaySelectedPuzzle = new Button(this, SWT.NONE);
-		btnPlaySelectedPuzzle.setEnabled(false);
+		btnPlaySelectedPuzzle = new Button(this, SWT.NONE);
+		btnPlaySelectedPuzzle.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				playPuzzlePressed();
+			}
+			
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) 
+			{
+				playPuzzlePressed();
+			}
+		});
 		FormData fd_btnPlaySelectedPuzzle = new FormData();
 		fd_btnPlaySelectedPuzzle.right = new FormAttachment(separator, -10);
 		fd_btnPlaySelectedPuzzle.bottom = new FormAttachment(100, -10);
@@ -248,6 +265,14 @@ public class FindScreen extends Composite
 		// create a table viewer to show puzzles
 		this.tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);
 		table = tableViewer.getTable();
+		table.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				updatePlayButtonStatus();
+			}
+		});
 		FormData fd_table = new FormData();
 		fd_table.bottom = new FormAttachment(100, -10);
 		fd_table.right = new FormAttachment(100, -10);
@@ -303,5 +328,46 @@ public class FindScreen extends Composite
 	{
 		this.tableDriver.refresh();
 		this.tableViewer.setInput(this.puzzleResults);
+		updatePlayButtonStatus();
+	}
+	
+	/**
+	 * Sets the play button to enabled or disabled, depending on the table selection.
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+	private void updatePlayButtonStatus()
+	{
+		int selected;
+		
+		// get the selected puzzle from the table
+		selected = table.getSelectionIndex();
+		
+		if (selected < 0)
+		{
+			btnPlaySelectedPuzzle.setEnabled(false);
+		}
+		else
+		{
+			btnPlaySelectedPuzzle.setEnabled(true);
+		}
+	}
+	
+	/**
+	 * Handles when the play puzzles button is pressed.
+	 * @author Eric
+	 * @date June 19 2013
+	 */
+	private void playPuzzlePressed()
+	{
+		int selected;	
+		
+		// get the selected puzzle from the table
+		selected = table.getSelectionIndex();
+		
+		if(selected >= 0)
+		{
+			MainWindow.getInstance().playPuzzle(this.puzzleResults.get(selected));
+		}
 	}
 }

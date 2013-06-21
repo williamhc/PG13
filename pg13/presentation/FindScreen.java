@@ -3,6 +3,8 @@ package pg13.presentation;
 import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
@@ -18,8 +20,10 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 
 import pg13.business.search.PuzzleTableDriver;
+import pg13.business.search.TitleFilter;
 import pg13.models.Puzzle;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -276,6 +280,18 @@ public class FindScreen extends Composite
 		// add a content provider
 		this.tableViewer.setContentProvider(new ContentProvider());
 		this.tableViewer.setInput(this.puzzleResults);
+
+		// add some filters to the table
+		final TitleFilter titleFilter = new TitleFilter();
+		this.txtTitle.addModifyListener(new ModifyListener(){
+			@Override
+			public void modifyText(ModifyEvent e) {
+				Text source = (Text) e.getSource();
+				titleFilter.setSearchString(source.getText());
+				tableViewer.refresh();
+			}
+		});
+		this.tableViewer.addFilter(titleFilter);
 	}
 
 	private void createColumns(final Composite parent, final TableViewer viewer)

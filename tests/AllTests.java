@@ -6,6 +6,7 @@ import tests.business.search.PuzzleAuthorColumnProviderTest;
 import tests.business.search.PuzzleCategoryColumnProviderTest;
 import tests.business.search.PuzzleDifficultyColumnProviderTest;
 import tests.business.search.PuzzleTitleColumnProviderTest;
+import tests.business.search.TitleFilterTest;
 import tests.models.CryptogramPairTest;
 import tests.models.CryptogramTest;
 import tests.models.UserTest;
@@ -39,5 +40,6 @@ public class AllTests
         suite.addTestSuite(PuzzleDifficultyColumnProviderTest.class);
         suite.addTestSuite(PuzzleTitleColumnProviderTest.class);
         suite.addTestSuite(TestUserManager.class);
+        suite.addTestSuite(TitleFilterTest.class);
     }
 }

@@ -109,7 +109,6 @@ public class FindScreen extends Composite
 		btnFriendsPuzzles.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 		Button btnMyPuzzles = new Button(cmpPuzzleFilter, SWT.RADIO);
-		btnMyPuzzles.setEnabled(false);
 		FormData fd_btnMyPuzzles = new FormData();
 		fd_btnMyPuzzles.right = new FormAttachment(100, -6);
 		fd_btnMyPuzzles.top = new FormAttachment(0, 50);
@@ -139,7 +138,6 @@ public class FindScreen extends Composite
 		lblTitle.setText(Constants.TITLE);
 		
 		txtTitle = new Text(cmpPuzzleSearch, SWT.BORDER);
-		txtTitle.setEnabled(false);
 		FormData fd_txtTitle = new FormData();
 		fd_txtTitle.right = new FormAttachment(100, -6);
 		fd_txtTitle.top = new FormAttachment(lblTitle, 2);
@@ -156,7 +154,6 @@ public class FindScreen extends Composite
 		lblAuthor.setText(Constants.AUTHOR);
 		
 		txtAuthor = new Text(cmpPuzzleSearch, SWT.BORDER);
-		txtAuthor.setEnabled(false);
 		FormData fd_txtAuthor = new FormData();
 		fd_txtAuthor.top = new FormAttachment(lblAuthor, 2);
 		fd_txtAuthor.right = new FormAttachment(100, -6);
@@ -173,7 +170,6 @@ public class FindScreen extends Composite
 		lblCategory.setText(Constants.CATEGORY + ":");
 		
 		Combo cmbCategory = new Combo(cmpPuzzleSearch, SWT.NONE);
-		cmbCategory.setEnabled(false);
 		cmbCategory.setItems(new String[] {"All Categories", "Animals", "Biology", "Computers", "Games", "General Trivia", "Geography", "History", "Miscellaneous", "Politics", "Science", "Space", "Sports"});
 		FormData fd_cmbCategory = new FormData();
 		fd_cmbCategory.top = new FormAttachment(lblCategory, 2);
@@ -192,7 +188,6 @@ public class FindScreen extends Composite
 		lblDifficulty.setText(Constants.DIFFICULTY + ":");
 		
 		Button btnAllDifficulties = new Button(cmpPuzzleSearch, SWT.CHECK);
-		btnAllDifficulties.setEnabled(false);
 		FormData fd_btnAllDifficulties = new FormData();
 		fd_btnAllDifficulties.top = new FormAttachment(lblDifficulty, 4);
 		fd_btnAllDifficulties.left = new FormAttachment(0, 6);
@@ -201,7 +196,6 @@ public class FindScreen extends Composite
 		btnAllDifficulties.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 		Button btnEasy = new Button(cmpPuzzleSearch, SWT.CHECK);
-		btnEasy.setEnabled(false);
 		FormData fd_btnEasy = new FormData();
 		fd_btnEasy.top = new FormAttachment(btnAllDifficulties, 4);
 		fd_btnEasy.left = new FormAttachment(0, 6);
@@ -210,7 +204,6 @@ public class FindScreen extends Composite
 		btnEasy.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 		Button btnMedium = new Button(cmpPuzzleSearch, SWT.CHECK);
-		btnMedium.setEnabled(false);
 		FormData fd_btnAverage = new FormData();
 		fd_btnAverage.left = new FormAttachment(0, 6);
 		fd_btnAverage.top = new FormAttachment(btnEasy, 4);
@@ -219,7 +212,6 @@ public class FindScreen extends Composite
 		btnMedium.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 		Button btnDifficult = new Button(cmpPuzzleSearch, SWT.CHECK);
-		btnDifficult.setEnabled(false);
 		FormData fd_btnDifficult = new FormData();
 		fd_btnDifficult.top = new FormAttachment(btnMedium, 4);
 		fd_btnDifficult.left = new FormAttachment(0, 6);
@@ -244,6 +236,7 @@ public class FindScreen extends Composite
 				playPuzzlePressed();
 			}
 		});
+
 		FormData fd_btnPlaySelectedPuzzle = new FormData();
 		fd_btnPlaySelectedPuzzle.right = new FormAttachment(separator, -10);
 		fd_btnPlaySelectedPuzzle.bottom = new FormAttachment(100, -10);

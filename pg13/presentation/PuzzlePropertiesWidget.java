@@ -311,27 +311,13 @@ public class PuzzlePropertiesWidget extends Composite
 	 */
 	private void savePuzzle()
 	{
-		boolean puzzleIsValid = true;
 		MessageBox dialog;
 		
-		// make sure the puzzle is valid to save
 		try
 		{
+			// make sure the puzzle is valid to save
 			displayingPuzzle.validate();
-		}
-		catch(PuzzleValidationException e)
-		{
-			puzzleIsValid = false;
 			
-			dialog = new MessageBox(this.getShell() , SWT.ICON_ERROR | SWT.OK);
-			dialog.setText(MessageConstants.SAVE_ERROR);
-			dialog.setMessage(e.getMessage());
-
-			dialog.open(); 
-		}
-		
-		if(puzzleIsValid == true)
-		{
 			new PuzzleCreator().save(displayingPuzzle);
 			
 			dialog = new MessageBox(this.getShell() , SWT.ICON_INFORMATION | SWT.OK);
@@ -341,6 +327,14 @@ public class PuzzlePropertiesWidget extends Composite
 			dialog.open(); 
 			
 			MainWindow.getInstance().switchToWelcomeScreen();
+		}
+		catch(PuzzleValidationException e)
+		{
+			dialog = new MessageBox(this.getShell() , SWT.ICON_ERROR | SWT.OK);
+			dialog.setText(MessageConstants.SAVE_ERROR);
+			dialog.setMessage(e.getMessage());
+
+			dialog.open(); 
 		}
 	}
 

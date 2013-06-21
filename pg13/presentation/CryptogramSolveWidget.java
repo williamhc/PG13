@@ -114,7 +114,6 @@ public class CryptogramSolveWidget extends Composite
 		int verticalOffset;					// vertical offset for displaying
 		int horizontalOffset;				// horizontal offset for displaying
 		int finalHeight;					// final height after everything is layed out
-		int finalYPos;						// final y position
 		int widthInLetters;					// the amount of letters that can fit in the
 											// allowed width
 		
@@ -202,8 +201,8 @@ public class CryptogramSolveWidget extends Composite
 			{
 				finalHeight += 2*(LETTER_WIDGET_HEIGHT + LINE_SPACING);
 			}
-			finalYPos = Math.max(0, this.getParent().getBounds().height/2 - finalHeight/2);
-			this.setBounds(this.getBounds().x, finalYPos, this.getBounds().width, finalHeight );
+			finalHeight = Math.max(this.getParent().getBounds().height - 4, finalHeight);
+			this.setBounds(this.getBounds().x, this.getBounds().y, this.getBounds().width, finalHeight );
 			
 			// indicate that the layout has changed
 			this.layout(true);

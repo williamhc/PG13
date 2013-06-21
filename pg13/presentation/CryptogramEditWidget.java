@@ -17,8 +17,6 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipse.swt.events.ControlAdapter;
-import org.eclipse.swt.events.ControlEvent;
 
 public class CryptogramEditWidget extends Composite {
 	private Text txtPlaintext; // plaintext used to generate cryptogram
@@ -73,7 +71,7 @@ public class CryptogramEditWidget extends Composite {
 		lblPreview.setLayoutData(fd_lblPreview);
 		lblPreview.setText(Constants.PREVIEW);
 
-		txtPlaintext = new Text(this, SWT.BORDER);
+		txtPlaintext = new Text(this, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
 		txtPlaintext.addModifyListener(new ModifyListener() 
 		{
 			public void modifyText(ModifyEvent event) 
@@ -100,6 +98,7 @@ public class CryptogramEditWidget extends Composite {
 		fd_txtPlaintext.bottom = new FormAttachment(lblPreview, -6);
 		fd_txtPlaintext.top = new FormAttachment(lblPlaintext, 6);
 		fd_txtPlaintext.left = new FormAttachment(cmpPreviewScrollable, 0, SWT.LEFT);
+		txtPlaintext.setTextLimit(Constants.MAX_PLAINTEXT_CHAR);
 		txtPlaintext.setLayoutData(fd_txtPlaintext);
 
 		this.setEditMode(editMode);

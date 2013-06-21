@@ -27,6 +27,7 @@ public class Constants
 	public static final String DESCRIPTION 			= 			"Description";
 	public static final String TITLE 				= 			"Title:";
 	public static final String AUTHOR 				= 			"Author:";
+	public static final int MAX_PLAINTEXT_CHAR 		= 			500;
 	
 	//Cryptogram Constants
 	public static final String CRYPTOGRAM_PLAINTEXT = 			"Cryptogram Plaintext";

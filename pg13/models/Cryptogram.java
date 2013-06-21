@@ -53,8 +53,9 @@ public class Cryptogram extends Puzzle
 	public void setPlaintext(String plaintext)
 	{
 		this.plaintext = plaintext;
-		generateMappingKeys();
-		this.userMapping = setMappingKeys(true);
+		//TODO Remove
+		//generateMappingKeys();
+		//this.userMapping = setMappingKeys(true);
 		this.ciphertext = encrypt();
 	}
 

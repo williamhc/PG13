@@ -3,6 +3,7 @@ package tests;
 import tests.business.CryptogramManagerTest;
 import tests.business.create.TestUserManager;
 import tests.business.search.AuthorFilterTest;
+import tests.business.search.CategoryFilterTest;
 import tests.business.search.PuzzleAuthorColumnProviderTest;
 import tests.business.search.PuzzleCategoryColumnProviderTest;
 import tests.business.search.PuzzleDifficultyColumnProviderTest;
@@ -43,5 +44,6 @@ public class AllTests
         suite.addTestSuite(TestUserManager.class);
         suite.addTestSuite(TitleFilterTest.class);
         suite.addTestSuite(AuthorFilterTest.class);
+        suite.addTestSuite(CategoryFilterTest.class);
     }
 }

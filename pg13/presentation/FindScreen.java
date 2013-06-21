@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
@@ -20,11 +23,12 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerFilter;
 
 import pg13.business.search.AuthorFilter;
+import pg13.business.search.CategoryFilter;
 import pg13.business.search.PuzzleTableDriver;
 import pg13.business.search.TitleFilter;
+import pg13.models.Category;
 import pg13.models.Puzzle;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -48,6 +52,7 @@ public class FindScreen extends Composite
 	}
 	private Text txtTitle;
 	private Text txtAuthor;
+	private Combo cmbCategory;
 	private Table table;
 	private TableViewer tableViewer;
 	private PuzzleTableDriver tableDriver;
@@ -174,8 +179,10 @@ public class FindScreen extends Composite
 		lblCategory.setLayoutData(fd_lblCategory);
 		lblCategory.setText(Constants.CATEGORY + ":");
 		
-		Combo cmbCategory = new Combo(cmpPuzzleSearch, SWT.NONE);
-		cmbCategory.setItems(new String[] {"All Categories", "Animals", "Biology", "Computers", "Games", "General Trivia", "Geography", "History", "Miscellaneous", "Politics", "Science", "Space", "Sports"});
+		cmbCategory = new Combo(cmpPuzzleSearch, SWT.NONE);
+		ArrayList<String> categories = Category.valuesAsStrings();
+		categories.add(0, "All Categories");
+		cmbCategory.setItems(categories.toArray(new String[categories.size()]));
 		FormData fd_cmbCategory = new FormData();
 		fd_cmbCategory.top = new FormAttachment(lblCategory, 2);
 		fd_cmbCategory.right = new FormAttachment(100, -6);
@@ -305,6 +312,27 @@ public class FindScreen extends Composite
 			}
 		});
 		this.tableViewer.addFilter(authorFilter);
+
+		// add a category filter to the table
+		final CategoryFilter categoryFilter = new CategoryFilter();
+		this.cmbCategory.addSelectionListener(new SelectionAdapter(){
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Combo source = (Combo) e.getSource();
+				int index = source.getSelectionIndex();
+				String selection = source.getItem(index);
+
+				Category category = null;
+				if(!selection.equalsIgnoreCase("All Categories"))
+				{
+					category = Category.valueOf(selection);
+				}
+				categoryFilter.setSearchValue(category);
+				tableViewer.refresh();
+			}
+		});
+		this.tableViewer.addFilter(categoryFilter);
 	}
 
 	private void createColumns(final Composite parent, final TableViewer viewer)

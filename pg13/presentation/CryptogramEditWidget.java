@@ -8,25 +8,23 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 
 import pg13.business.CryptogramManager;
 import pg13.models.Cryptogram;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class CryptogramEditWidget extends Composite {
 	private Text txtPlaintext; // plaintext used to generate cryptogram
 	private CryptogramSolveWidget cmpPreview; // preview area for the cryptogram
 	private CryptogramManager cm;
-	private Button btnPreview;
 
 	/**
 	 * Creates and populates the cryptogram edit widget.
-	 *
-	 * @author Eric
 	 * @param parent
 	 * @param style
 	 * @date May 29 2013
@@ -37,16 +35,27 @@ public class CryptogramEditWidget extends Composite {
 		super(parent, style);
 		setLayout(new FormLayout());
 		this.cm = new CryptogramManager(workingCryptogram);
+		
+		ScrolledComposite cmpPreviewScrollable = new ScrolledComposite(this, SWT.BORDER | SWT.V_SCROLL);
+		cmpPreviewScrollable.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		FormData fd_cmpPreviewScrollable = new FormData();
+		fd_cmpPreviewScrollable.bottom = new FormAttachment(100, -10);
+		fd_cmpPreviewScrollable.right = new FormAttachment(100, -10);
+		fd_cmpPreviewScrollable.top = new FormAttachment(0, 136);
+		fd_cmpPreviewScrollable.left = new FormAttachment(0, 10);
+		cmpPreviewScrollable.setLayoutData(fd_cmpPreviewScrollable);
+		cmpPreviewScrollable.setExpandHorizontal(true);
 
 		// cryptogram preview widget
-		cmpPreview = new CryptogramSolveWidget(this, SWT.BORDER,
-				workingCryptogram);
+		cmpPreview = new CryptogramSolveWidget(cmpPreviewScrollable, SWT.NONE, workingCryptogram);
 		FormData fd_cmpPreview = new FormData();
 		fd_cmpPreview.bottom = new FormAttachment(100, -10);
 		fd_cmpPreview.right = new FormAttachment(100, -10);
 		fd_cmpPreview.top = new FormAttachment(0, 136);
 		fd_cmpPreview.left = new FormAttachment(0, 10);
 		cmpPreview.setLayoutData(fd_cmpPreview);
+		
+		cmpPreviewScrollable.setContent(cmpPreview);
 
 		Label lblPlaintext = new Label(this, SWT.NONE);
 		FormData fd_lblPlaintext = new FormData();
@@ -57,12 +66,19 @@ public class CryptogramEditWidget extends Composite {
 
 		Label lblPreview = new Label(this, SWT.NONE);
 		FormData fd_lblPreview = new FormData();
-		fd_lblPreview.bottom = new FormAttachment(cmpPreview, -6);
+		fd_lblPreview.bottom = new FormAttachment(cmpPreviewScrollable, -6);
 		fd_lblPreview.left = new FormAttachment(0, 10);
 		lblPreview.setLayoutData(fd_lblPreview);
 		lblPreview.setText(Constants.PREVIEW);
 
-		txtPlaintext = new Text(this, SWT.BORDER);
+		txtPlaintext = new Text(this, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
+		txtPlaintext.addModifyListener(new ModifyListener() 
+		{
+			public void modifyText(ModifyEvent event) 
+			{
+				updatePuzzlePlaintext();
+			}
+		});
 		txtPlaintext.addVerifyListener(new VerifyListener()
 		{
 			public void verifyText(VerifyEvent event)
@@ -81,49 +97,34 @@ public class CryptogramEditWidget extends Composite {
 		fd_txtPlaintext.right = new FormAttachment(100, -10);
 		fd_txtPlaintext.bottom = new FormAttachment(lblPreview, -6);
 		fd_txtPlaintext.top = new FormAttachment(lblPlaintext, 6);
-		fd_txtPlaintext.left = new FormAttachment(cmpPreview, 0, SWT.LEFT);
+		fd_txtPlaintext.left = new FormAttachment(cmpPreviewScrollable, 0, SWT.LEFT);
+		txtPlaintext.setTextLimit(Constants.MAX_PLAINTEXT_CHAR);
 		txtPlaintext.setLayoutData(fd_txtPlaintext);
-
-		this.btnPreview = new Button(this, SWT.NONE);
-		btnPreview.addSelectionListener(new SelectionAdapter()
-		{
-			@Override
-			public void widgetSelected(SelectionEvent e)
-			{
-				preview();
-			}
-		});
-		FormData fd_btnPreview = new FormData();
-		fd_btnPreview.top = new FormAttachment(lblPreview, -5, SWT.TOP);
-		fd_btnPreview.right = new FormAttachment(100, -10);
-		btnPreview.setLayoutData(fd_btnPreview);
-		btnPreview.setText(MessageConstants.GENERATE_PREVIEW);
 
 		this.setEditMode(editMode);
 	}
 
-	/*
+	/**
 	 * Set the edit mode of the widget - if false, the cryptogram will not be changeable
-	 * @author Will
 	 * @date June 4th 2013
 	 */
 	private void setEditMode(boolean editMode) 
 	{
 		this.txtPlaintext.setEnabled(editMode);
-		this.btnPreview.setVisible(editMode);
 	}
 
-	/*
-	 * Previews the cryptogram -- displays the cryptogram in the preview screen
+	/**
+	 * Updates the plaintext of the working cryptogram according to what is
+	 * written in the plaintext box.  Also updates the preview.
 	 * @author Eric
-	 * @date May 29 2013
+	 * @date June 19 2013
 	 */
-	private void preview()
+	private void updatePuzzlePlaintext()
 	{
 		try
 		{
 			this.cm.setPlaintext(txtPlaintext.getText());
-			cmpPreview.setCryptogram(this.cm.getCryptogram());
+			cmpPreview.displayCryptogram();			
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -133,7 +134,8 @@ public class CryptogramEditWidget extends Composite {
 		}
 	}
 	
-	/*
+	
+	/**
 	 * Sets the cryptogram for the widget to display
 	 * @author Eric
 	 * @date May 29 2013

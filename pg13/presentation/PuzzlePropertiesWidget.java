@@ -16,12 +16,14 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.MessageBox;
 
 import pg13.business.create.PuzzleCreator;
 import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
 import pg13.models.Puzzle;
+import pg13.models.PuzzleValidationException;
 
 public class PuzzlePropertiesWidget extends Composite
 {
@@ -29,15 +31,18 @@ public class PuzzlePropertiesWidget extends Composite
 	private Text txtPuzzleName;
 	private Text txtDescription;
 	private Label lblCategory;
+	private Label lblCategoryFixedText;
 	private Label lblDifficulty;
+	private Label lblDifficultyFixedText;
 	private Combo cmbDificulty;
 	private Combo cmbCategory;
 	private Button btnSavePuzzle;
+	private Button btnCheckSolution;
 	private Puzzle displayingPuzzle;
+
 
 	/**
 	 * Creates and populates the properties widget.
-	 * @author Eric
 	 * @param parent
 	 * @param style
 	 * @date May 29 2013
@@ -102,15 +107,15 @@ public class PuzzlePropertiesWidget extends Composite
 
 		// category selection box
 		cmbCategory = new Combo(this, SWT.READ_ONLY);
+		cmbCategory.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.NORMAL));
 		cmbCategory.setItems(getCategories(Category.values()));
 		FormData fd_cmbCategory = new FormData();
 		fd_cmbCategory.right = new FormAttachment(60);
 		fd_cmbCategory.top = new FormAttachment(lblCategory, 4);
 		fd_cmbCategory.left = new FormAttachment(0, 10);
 		cmbCategory.setLayoutData(fd_cmbCategory);
-		cmbCategory.select(7);
+		cmbCategory.select(0);
 		cmbCategory.addModifyListener(new ModifyListener()
-
 		{
 			@Override
 			public void modifyText(ModifyEvent e)
@@ -118,7 +123,16 @@ public class PuzzlePropertiesWidget extends Composite
 				updatePuzzleCategory();
 			}
 		});
-
+		
+		// category fixed label
+		lblCategoryFixedText = new Label(this, SWT.BORDER);
+		lblCategoryFixedText.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
+		FormData fd_lblCategoryFixedText = new FormData();
+		fd_lblCategoryFixedText.height = 21;
+		fd_lblCategoryFixedText.right = new FormAttachment(60);
+		fd_lblCategoryFixedText.top = new FormAttachment(lblCategory, 4);
+		fd_lblCategoryFixedText.left = new FormAttachment(0, 10);
+		lblCategoryFixedText.setLayoutData(fd_lblCategoryFixedText);
 
 		// difficulty label
 		lblDifficulty = new Label(this, SWT.NONE);
@@ -130,6 +144,7 @@ public class PuzzlePropertiesWidget extends Composite
 
 		// difficulty selection box
 		cmbDificulty = new Combo(this, SWT.READ_ONLY);
+		cmbDificulty.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.NORMAL));
 		cmbDificulty.setItems(getCategories(Difficulty.values()));
 		FormData fd_cmbDificulty = new FormData();
 		fd_cmbDificulty.right = new FormAttachment(60);
@@ -146,6 +161,15 @@ public class PuzzlePropertiesWidget extends Composite
 			}
 		});
 
+		// difficulty fixed label
+		lblDifficultyFixedText = new Label(this, SWT.BORDER);
+		lblDifficultyFixedText.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
+		FormData fd_lblDifficultyFixedText = new FormData();
+		fd_lblDifficultyFixedText.height = 21;
+		fd_lblDifficultyFixedText.right = new FormAttachment(60);
+		fd_lblDifficultyFixedText.top = new FormAttachment(lblDifficulty, 4);
+		fd_lblDifficultyFixedText.left = new FormAttachment(0, 10);
+		lblDifficultyFixedText.setLayoutData(fd_lblDifficultyFixedText);
 
 		// save puzzle button
 		this.btnSavePuzzle = new Button(this, SWT.NONE);
@@ -155,7 +179,7 @@ public class PuzzlePropertiesWidget extends Composite
 		fd_btnSavePuzzle.left = new FormAttachment(50, -70);
 		fd_btnSavePuzzle.right = new FormAttachment(50, 70);
 		btnSavePuzzle.setLayoutData(fd_btnSavePuzzle);
-		btnSavePuzzle.setText("Save this Puzzle");
+		btnSavePuzzle.setText(MessageConstants.SAVE_PUZZLE);
 		btnSavePuzzle.addSelectionListener(new SelectionListener()
 		{
 
@@ -172,12 +196,36 @@ public class PuzzlePropertiesWidget extends Composite
 			}
 
 		});
+		
+		// check solution button
+		this.btnCheckSolution = new Button(this, SWT.NONE);
+		btnCheckSolution.addSelectionListener(new SelectionListener() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				checkSolution();
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e)
+			{
+				checkSolution();
+			}
+		});
+		FormData fd_btnCheckSolution = new FormData();
+		fd_btnCheckSolution.top = new FormAttachment(100, -40);
+		fd_btnCheckSolution.bottom = new FormAttachment(100, -10);
+		fd_btnCheckSolution.left = new FormAttachment(50, -70);
+		fd_btnCheckSolution.right = new FormAttachment(50, 70);
+		btnCheckSolution.setLayoutData(fd_btnCheckSolution);
+		btnCheckSolution.setText(MessageConstants.CHECK_SOLUTION);
+		
 		this.setEditMode(editMode);
 	}
 
 	/**
 	 * Sets the puzzle we are displaying.
-	 * @author Eric
 	 * @date June 19 2013
 	 */
 	public void setPuzzle(Cryptogram newPuzzle)
@@ -188,22 +236,22 @@ public class PuzzlePropertiesWidget extends Composite
 
 	/**
 	 * Updates all the fields to display.
-	 * @author Eric
 	 * @date June 19 2013
 	 */
 	private void updateFields()
 	{
 		this.txtPuzzleName.setText((displayingPuzzle.getTitle() == null? "": displayingPuzzle.getTitle()));
 		this.txtDescription.setText((displayingPuzzle.getDescription() == null? "": displayingPuzzle.getDescription()));
-		// TODO make the combo boxes display correctly, how does this work with our enum sol?
+		this.cmbCategory.select(getComboIndex(displayingPuzzle.getCategory(), Category.values()));
+		this.lblCategoryFixedText.setText(cmbCategory.getText());
+		this.cmbDificulty.select(getComboIndex(displayingPuzzle.getDifficulty(), Difficulty.values()));
+		this.lblDifficultyFixedText.setText(cmbDificulty.getText());
 	}
 
 	/**
 	 * Creates and populates the array of categories from the given enum
-	 * @author Lauren
 	 * @date June 19, 2013
 	 */
-
 	@SuppressWarnings("rawtypes")
 	private String[] getCategories(Enumeration[] catEnum)
 	{
@@ -215,36 +263,83 @@ public class PuzzlePropertiesWidget extends Composite
 		}
 		return categories;
 	}
+	
+	/**
+	 * Gets the index of an enumerated type to select it in a combo box
+	 * @date June 20, 2013
+	 */
+	@SuppressWarnings("rawtypes")
+	private int getComboIndex(Enumeration key, Enumeration[] list)
+	{
+		int result = -1;
+		
+		for (int i = 0; i < list.length; i++)
+		{
+			if (list[i].equals(key))
+			{
+				result = i;
+			}
+		}
+		
+		return result;
+	}
 
 	/**
-	 * Enables or disables widgets in the screen to be editable.
-	 * @author Eric
+	 * Sets whether the fields in the widget are editable.
 	 * @param editMode
 	 * @date June 19 2013
 	 */
 	private void setEditMode(boolean editMode)
 	{
 		this.editMode = editMode;
-		this.cmbCategory.setEnabled(this.editMode);
-		this.cmbDificulty.setEnabled(this.editMode);
-		this.txtDescription.setEnabled(this.editMode);
-		this.txtPuzzleName.setEnabled(this.editMode);
+		
+		this.cmbCategory.setVisible(this.editMode);
+		this.lblCategoryFixedText.setVisible(!this.editMode);
+		this.cmbDificulty.setVisible(this.editMode);
+		this.lblDifficultyFixedText.setVisible(!this.editMode);
+		
+		this.txtDescription.setEditable(this.editMode);
+		this.txtPuzzleName.setEditable(this.editMode);
+		
 		this.btnSavePuzzle.setVisible(this.editMode);
+		this.btnCheckSolution.setVisible(!this.editMode);
 	}
 
 	/**
 	 * Saves the puzzle being displayed.
-	 * @author Eric
 	 * @date June 19 2013
 	 */
 	private void savePuzzle()
 	{
-		new PuzzleCreator().save(displayingPuzzle);
+		MessageBox dialog;
+		
+		try
+		{
+			// make sure the puzzle is valid to save
+			displayingPuzzle.validate();
+			
+			new PuzzleCreator().save(displayingPuzzle);
+			
+			dialog = new MessageBox(this.getShell() , SWT.ICON_INFORMATION | SWT.OK);
+			dialog.setText(MessageConstants.SAVE_SUCCESS);
+			dialog.setMessage(MessageConstants.SAVE_SUCCESS_MSG);
+
+			dialog.open(); 
+			
+			MainWindow.getInstance().switchToWelcomeScreen();
+		}
+		catch(PuzzleValidationException e)
+		{
+			dialog = new MessageBox(this.getShell() , SWT.ICON_ERROR | SWT.OK);
+			dialog.setText(MessageConstants.SAVE_ERROR);
+			dialog.setMessage(e.getMessage());
+
+			dialog.open(); 
+		}
 	}
 
 	/**
 	 * Updates the displaying puzzle's title field.
-	 * @author Eric
 	 * @date June 19 2013
 	 */
 	private void updatePuzzleTitle()
@@ -254,7 +349,6 @@ public class PuzzlePropertiesWidget extends Composite
 
 	/**
 	 * Updates the displaying puzzle's description field.
-	 * @author Eric
 	 * @date June 19 2013
 	 */
 	private void updatePuzzleDescription()
@@ -264,24 +358,49 @@ public class PuzzlePropertiesWidget extends Composite
 
 	/**
 	 * Updates the displaying puzzle's category field.
-	 * @author Eric
 	 * @date June 19 2013
 	 */
 	private void updatePuzzleCategory()
 	{
 		displayingPuzzle.setCategory(Category.valueOf(cmbCategory.getText()));
+		lblCategoryFixedText.setText(cmbCategory.getText());
 	}
 
 	/**
 	 * Updates the displaying puzzle's difficulty field.
-	 * @author Eric
 	 * @date June 19 2013
 	 */
 	private void updatePuzzleDifficulty()
 	{
 		displayingPuzzle.setDifficulty(Difficulty.valueOf(cmbDificulty.getText()));
+		lblDifficultyFixedText.setText(cmbDificulty.getText());
 	}
 
+	/**
+	 * Checks to see if the puzzle is solved
+	 * @date May 30 2013
+	 */
+	private void checkSolution()
+	{
+		String msg;
+		MessageBox dialog;
+		
+		if (this.displayingPuzzle != null && this.displayingPuzzle.isCompleted())
+		{
+			msg = MessageConstants.PUZZLE_SOLVED;
+		}
+		else
+		{
+			msg = MessageConstants.PUZZLE_UNSOLVED;
+		}
+
+		dialog = new MessageBox(this.getShell() , SWT.ICON_QUESTION | SWT.OK);
+		dialog.setText(Constants.PUZZLE_SOLUTION);
+		dialog.setMessage(msg);
+
+		dialog.open(); 
+	}
+	
 	@Override
 	protected void checkSubclass()
 	{

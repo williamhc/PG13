@@ -2,8 +2,12 @@ package pg13.models;
 
 import java.util.Date;
 
-public abstract class Puzzle implements IFindable, ICreateable, IPlayable
+public abstract class Puzzle
 {
+	private static final String DEFAULT_TITLE = "New Puzzle";
+	private static final Category DEFAULT_CATEGORY = Category.Miscellaneous;
+	private static final Difficulty DEFAULT_DIFFICULTY = Difficulty.Easy;
+	
 	private String title, description;
 	private User user;
 	private Category category;
@@ -15,9 +19,9 @@ public abstract class Puzzle implements IFindable, ICreateable, IPlayable
 	{
 		this.user = new User();
 		this.isCompleted = false;
-		this.title = null;
-		this.category = null;
-		this.difficulty = null;
+		this.title = DEFAULT_TITLE;
+		this.category = DEFAULT_CATEGORY;
+		this.difficulty = DEFAULT_DIFFICULTY;
 		this.dateCreated = null;
 	}
 	
@@ -127,7 +131,7 @@ public abstract class Puzzle implements IFindable, ICreateable, IPlayable
 		//empty but required to be here because of interfaces
 	}
 
-	public void validate()
+	public void validate() throws PuzzleValidationException
 	{
 		//empty but required to be here because of interfaces
 	}

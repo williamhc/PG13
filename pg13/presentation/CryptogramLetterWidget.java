@@ -26,8 +26,6 @@ public class CryptogramLetterWidget extends Composite
 
 	/**
 	 * Creates and populates the letter widget.
-	 * 
-	 * @author Eric
 	 * @date May 29 2013
 	 * @param parent
 	 * @param style
@@ -114,13 +112,9 @@ public class CryptogramLetterWidget extends Composite
 		// Disable the check that prevents subclassing of SWT components
 	}
 
-	/*
+	/**
 	 * Indicates whether or not this widget contains a space
-	 * 
-	 * @author Eric
-	 * 
 	 * @date May 29 2013
-	 * 
 	 * @return true if the widget contains a space, false otherwise
 	 */
 	public boolean isSpace()
@@ -128,12 +122,9 @@ public class CryptogramLetterWidget extends Composite
 		return ciphertextChar == ' ';
 	}
 
-	/*
+	/**
 	 * Updates the values in the cryptogram according to the value stored in
-	 * this widget
-	 * 
-	 * @author Eric
-	 * 
+	 * this widget 
 	 * @date May 29 2013
 	 */
 	private void updateCryptogram()
@@ -152,12 +143,9 @@ public class CryptogramLetterWidget extends Composite
 		}
 	}
 
-	/*
+	/**
 	 * Updates the contents of the widget according to the mapping stored in the
 	 * cryptogram
-	 * 
-	 * @author Eric
-	 * 
 	 * @date May 29 2013
 	 */
 	public void updateContents()

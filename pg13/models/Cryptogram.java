@@ -11,7 +11,9 @@ import java.util.Date;
  */
 public class Cryptogram extends Puzzle
 {
-	private final int ALPHABET_SIZE = 26;	// Letters of the alphabet
+	private static final int ALPHABET_SIZE = 26;	// Letters of the alphabet
+	private static final String INVALID_PLAINTEXT_MESSAGE = "A cryptogram must have at least one character in its plaintext.";
+	
 	private String ciphertext;				// Coded string
 	private String plaintext;				// the original user string
 	private CryptogramPair[] solutionMapping;	// Mapping for plaintext to ciphertext characters used for encryption and decryption
@@ -51,8 +53,9 @@ public class Cryptogram extends Puzzle
 	public void setPlaintext(String plaintext)
 	{
 		this.plaintext = plaintext;
-		generateMappingKeys();
-		this.userMapping = setMappingKeys(true);
+		//TODO Remove
+		//generateMappingKeys();
+		//this.userMapping = setMappingKeys(true);
 		this.ciphertext = encrypt();
 	}
 
@@ -355,5 +358,17 @@ public class Cryptogram extends Puzzle
 		equalSolutionMaps = Arrays.equals(this.getSolutionMapping(), other.getSolutionMapping());
 		
 		return equalAuthors && equalTitles && equalDifficulties && equalCategories && equalDates && equalPlaintext && equalSolutionMaps;
+	}
+	
+	/**
+	 * Ensures that the cryptogram is valid.
+	 * @date June 20 2013
+	 */
+	public void validate() throws PuzzleValidationException
+	{
+		if(this.plaintext == null || this.plaintext.length() == 0)
+		{
+			throw new PuzzleValidationException(INVALID_PLAINTEXT_MESSAGE);
+		}
 	}
 }

@@ -16,7 +16,6 @@ public class CreateScreen extends Composite
 	
 	/**
 	 * Creates and populates the create screen.
-	 * @author Eric
 	 * @param parent
 	 * @param style
 	 * @date May 26 2013
@@ -54,7 +53,6 @@ public class CreateScreen extends Composite
 	
 	/**
 	 * Sets the puzzle being created/edited
-	 * @author Eric
 	 * @param newPuzzle
 	 * @date June 19 2013
 	 */

@@ -4,34 +4,46 @@ import java.util.ArrayList;
 
 public class User 
 {
-	private static long nextID = 1;
-	
 	private Long primaryKey;
 	private ArrayList<Puzzle> puzzles;
-	private String name;
+	private String userName;
 	
 	public User()
 	{
-		this.primaryKey = nextID++;
-		this.name = null;
+		this.primaryKey = (long) -1;
+		this.userName = null;
 		this.puzzles = new ArrayList<Puzzle> ();		
 	}
 	
 	public User(String name)
 	{
-		this();
-		this.name = name;
+		this.primaryKey = (long) -1;
+		this.userName = name;
+		this.puzzles = new ArrayList<Puzzle> ();				
 	}
 	
-	public User(String name, ArrayList<Puzzle> puzzles)
+	public User(Long primaryKey, String name)
 	{
-		this(name);
-		this.puzzles = puzzles;
+		this.primaryKey = primaryKey;
+		this.userName = name;
+		this.puzzles = new ArrayList<Puzzle> ();
 	}
 	
-	public long getPrimaryKey()
+	public User(Long primaryKey, String name, ArrayList<Puzzle> puzzles)
+	{
+		this.primaryKey = primaryKey;
+		this.userName = name;
+		this.puzzles = puzzles;		
+	}
+	
+	public Long getPrimaryKey()
 	{
 		return primaryKey;
+	}
+	
+	public void setPrimaryKey(Long primaryKey)
+	{
+		this.primaryKey = primaryKey;
 	}
 	
 	public ArrayList<Puzzle> getPuzzles() 
@@ -46,12 +58,12 @@ public class User
 	
 	public String getName() 
 	{
-		return name;
+		return userName;
 	}
 	
 	public void setName(String userName) 
 	{
-		this.name = userName;
+		this.userName = userName;
 	}
 	
 	/**

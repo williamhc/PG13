@@ -1,6 +1,7 @@
 package pg13.persistence;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import pg13.models.User;
 
@@ -21,7 +22,7 @@ public class UserController
 	{
 		users = new ArrayList<User>();
 		
-		User guest = new User(GUEST_NAME);
+		User guest = new User(1l, GUEST_NAME);
 		UserController.guestPrimaryKey = guest.getPrimaryKey();
 		this.persist(guest);
 	}
@@ -45,9 +46,14 @@ public class UserController
 		return this.users;
 	}
 	
-	public void persist(User user)
+	public void persist(User toAdd)
 	{
-		this.users.add(user);
+		for(User user: this.users)
+		{
+			if(user.getPrimaryKey() == toAdd.getPrimaryKey())
+				throw new IllegalArgumentException("User with primarykey " + toAdd.getPrimaryKey() + " already exists in the databse");
+		}
+		this.users.add(toAdd);
 	}
 
 	public User findUser(long primaryKey)
@@ -59,5 +65,18 @@ public class UserController
 		}
 		
 		return null;
+	}
+	
+	public static ArrayList<Long> getPrimaryKeys()
+	{
+		ArrayList<Long> keys = new ArrayList<Long>();
+		
+		for(User user: UserController.getInstance().getUsers())
+		{
+			keys.add(user.getPrimaryKey());
+		}
+		
+		Collections.sort(keys);
+		return keys;
 	}
 }

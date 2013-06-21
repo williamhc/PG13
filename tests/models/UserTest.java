@@ -42,64 +42,64 @@ public class UserTest extends TestCase
 		User user = new User();
 		assertNotNull(user);
 		assertEquals(null, user.getName());
-		assertTrue(0 < user.getPrimaryKey());
-		assertTrue(user.getPuzzles().size() == 0);
+		assert(-1 == user.getPrimaryKey().longValue());
+		assert(user.getPuzzles().size() == 0);
 	}
 	
 	public void testUserConstructorOneArguments()
 	{
 		User user = new User(DEFAULT_AUTHOR);
 		assertEquals(DEFAULT_AUTHOR, user.getName());
-		assertTrue(0 < user.getPrimaryKey());
-		assertTrue(user.getPuzzles().size() == 0);	
+		assert(-1 == user.getPrimaryKey().longValue());
+		assert(user.getPuzzles().size() == 0);	
 		user.setName(DEFAULT_AUTHOR);
 		assertEquals(DEFAULT_AUTHOR, user.getName());
 	}
 	
 	public void testUserConstructorTwoArguments()
 	{
-		User user = new User(DEFAULT_AUTHOR);
+		User user = new User(new Long(10), DEFAULT_AUTHOR);
 		assertEquals(DEFAULT_AUTHOR, user.getName());
-		assertTrue(0 < user.getPrimaryKey());
-		assertTrue(user.getPuzzles().size() == 0);
+		assert(10 == user.getPrimaryKey().longValue());
+		assert(user.getPuzzles().size() == 0);
 	}
 	
 	public void testUserConstructorThreeArguments()
 	{
-		User user = new User(DEFAULT_AUTHOR, testPuzzles);
+		User user = new User(new Long(10), DEFAULT_AUTHOR, testPuzzles);
 		assertEquals(DEFAULT_AUTHOR, user.getName());
-		assertTrue(0 < user.getPrimaryKey());
-		assertTrue(user.getPuzzles().size() > 0);
+		assert(10 == user.getPrimaryKey().longValue());
+		assert(user.getPuzzles().size() > 0);
 	}
 	
 	public void testUserArrayListAddElements()
 	{
-		User user = new User(DEFAULT_AUTHOR);
-		assertTrue(user.getPuzzles().size() == 0);
+		User user = new User(new Long(10), DEFAULT_AUTHOR);
+		assert(user.getPuzzles().size() == 0);
 		Cryptogram cp = new Cryptogram(new User("Author"), "Title", DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_DATE, DEFAULT_TEXT);
 		user.addPuzzle(cp);
-		assertTrue(user.getPuzzles().size() == 1);
+		assert(user.getPuzzles().size() == 1);
 		user.addPuzzle(cp);
 		user.addPuzzle(cp);
-		assertTrue(user.getPuzzles().size() == 3);
+		assert(user.getPuzzles().size() == 3);
 		user.setPuzzles(testPuzzles);
-		assertTrue(user.getPuzzles().size() == 2);
+		assert(user.getPuzzles().size() == 2);
 		user.setPuzzles(null);
 		assertNull(user.getPuzzles());		
 	}
 	
 	public void testUserArrayListRemoveElements()
 	{
-		User user = new User(DEFAULT_AUTHOR);
-		assertTrue(user.getPuzzles().size() == 0);
+		User user = new User(new Long(10), DEFAULT_AUTHOR);
+		assert(user.getPuzzles().size() == 0);
 		Cryptogram cp = new Cryptogram(new User("Author"), "Title", DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_DATE, DEFAULT_TEXT);
 		user.addPuzzle(cp);
 		user.addPuzzle(cp);
 		user.addPuzzle(cp);
 		assertNotNull(user.getPuzzles());
-		assertTrue(user.getPuzzles().size() == 3);
+		assert(user.getPuzzles().size() == 3);
 		user.removePuzzle(0);
-		assertTrue(user.getPuzzles().size() == 2);
+		assert(user.getPuzzles().size() == 2);
 		user.setPuzzles(testPuzzles);
 		assertFalse(user.removePuzzle(cp));
 		assertTrue(user.removePuzzle(testPuzzles.get(0)));

@@ -104,6 +104,7 @@ public class CryptogramSolveWidget extends Composite
 		final int LETTER_WIDGET_WIDTH = 26;
 		final int LETTER_WIDGET_HEIGHT = 62;
 		final int LINE_SPACING = 6;
+		final int MARGIN = 10;
 		
 		FormData fd_letterWidget;			// form data used for display
 		int line;							// which line the text is on
@@ -117,14 +118,14 @@ public class CryptogramSolveWidget extends Composite
 		int widthInLetters;					// the amount of letters that can fit in the
 											// allowed width
 		
-		widthInLetters = (this.getBounds().width - 20)/LETTER_WIDGET_WIDTH;
+		widthInLetters = (this.getBounds().width - 2*MARGIN)/LETTER_WIDGET_WIDTH;
 		
 		if(letterWidgets != null && letterWidgets.size() > 0)
 		{
 			// calculate the y-offset
 			if (letterWidgets.size() > widthInLetters)
 			{
-				expectedNumLines = ((int) (letterWidgets.size()*LETTER_WIDGET_WIDTH*1.3))/(this.getBounds().width - 20) + 1;
+				expectedNumLines = ((int) (letterWidgets.size()*LETTER_WIDGET_WIDTH*1.3))/(this.getBounds().width - 2*MARGIN) + 1;
 				verticalOffset = ((expectedNumLines - 1)*LETTER_WIDGET_HEIGHT + (expectedNumLines - 1)*LINE_SPACING)/2;
 				horizontalOffset = 0;
 			}
@@ -132,7 +133,7 @@ public class CryptogramSolveWidget extends Composite
 			{
 				expectedNumLines = 1;
 				verticalOffset = 0;
-				horizontalOffset = (this.getBounds().width - 20 - letterWidgets.size()*LETTER_WIDGET_WIDTH)/2;
+				horizontalOffset = (this.getBounds().width - 2*MARGIN - letterWidgets.size()*LETTER_WIDGET_WIDTH)/2;
 			}
 			
 			
@@ -145,7 +146,7 @@ public class CryptogramSolveWidget extends Composite
 			for(int i = 0; i < letterWidgets.size(); i++)
 			{
 				// check if we would go past the end of the form
-				if (10 + (leftPos+1)*LETTER_WIDGET_WIDTH >= this.getBounds().width - 10)
+				if (MARGIN + (leftPos+1)*LETTER_WIDGET_WIDTH >= this.getBounds().width - MARGIN)
 				{	
 					// if a space was seen on this line
 					if (lastSeenSpace >= 0 && lastSeenSpaceLine == line)
@@ -161,10 +162,10 @@ public class CryptogramSolveWidget extends Composite
 						for (int j = lastSeenSpace + 1; j < i; j++)
 						{
 							fd_letterWidget = new FormData();
-							fd_letterWidget.right = new FormAttachment(0, 10 + (leftPos+1)*LETTER_WIDGET_WIDTH + horizontalOffset);
+							fd_letterWidget.right = new FormAttachment(0, MARGIN + (leftPos+1)*LETTER_WIDGET_WIDTH + horizontalOffset);
 							fd_letterWidget.bottom = new FormAttachment(50, LETTER_WIDGET_HEIGHT/2 + line*(LETTER_WIDGET_HEIGHT + LINE_SPACING) - verticalOffset);
 							fd_letterWidget.top = new FormAttachment(50, -(LETTER_WIDGET_HEIGHT + 1)/2 + line*(LETTER_WIDGET_HEIGHT + LINE_SPACING) - verticalOffset);
-							fd_letterWidget.left = new FormAttachment(0, 10 + leftPos*LETTER_WIDGET_WIDTH + horizontalOffset);
+							fd_letterWidget.left = new FormAttachment(0, MARGIN + leftPos*LETTER_WIDGET_WIDTH + horizontalOffset);
 							letterWidgets.get(j).setLayoutData(fd_letterWidget);
 							
 							leftPos++;
@@ -179,10 +180,10 @@ public class CryptogramSolveWidget extends Composite
 				}
 				
 				fd_letterWidget = new FormData();
-				fd_letterWidget.right = new FormAttachment(0, 10 + (leftPos+1)*LETTER_WIDGET_WIDTH + horizontalOffset);
+				fd_letterWidget.right = new FormAttachment(0, MARGIN + (leftPos+1)*LETTER_WIDGET_WIDTH + horizontalOffset);
 				fd_letterWidget.bottom = new FormAttachment(50, LETTER_WIDGET_HEIGHT/2 + line*(LETTER_WIDGET_HEIGHT + LINE_SPACING) - verticalOffset);
 				fd_letterWidget.top = new FormAttachment(50, -(LETTER_WIDGET_HEIGHT + 1)/2 + line*(LETTER_WIDGET_HEIGHT + LINE_SPACING) - verticalOffset);
-				fd_letterWidget.left = new FormAttachment(0, 10 + leftPos*LETTER_WIDGET_WIDTH + horizontalOffset);
+				fd_letterWidget.left = new FormAttachment(0, MARGIN + leftPos*LETTER_WIDGET_WIDTH + horizontalOffset);
 				letterWidgets.get(i).setLayoutData(fd_letterWidget);
 				letterWidgets.get(i).setVisible(true);
 				

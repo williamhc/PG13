@@ -1,6 +1,7 @@
 package pg13.presentation;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -9,6 +10,7 @@ import org.eclipse.swt.widgets.Control;
 
 import pg13.models.Cryptogram;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class PlayScreen extends Composite 
 {
@@ -49,15 +51,26 @@ public class PlayScreen extends Composite
 		fd_cmpProperties.right = new FormAttachment(33);
 		cmpProperties.setLayoutData(fd_cmpProperties);
 		
+		ScrolledComposite cmpSolveScrollable = new ScrolledComposite(this, SWT.BORDER | SWT.V_SCROLL);
+		cmpSolveScrollable.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		FormData fd_cmpSolveScrollable = new FormData();
+		fd_cmpSolveScrollable.bottom = new FormAttachment(100);
+		fd_cmpSolveScrollable.right = new FormAttachment(100);
+		fd_cmpSolveScrollable.top = new FormAttachment(0);
+		fd_cmpSolveScrollable.left = new FormAttachment(33);
+		cmpSolveScrollable.setLayoutData(fd_cmpSolveScrollable);
+		cmpSolveScrollable.setExpandHorizontal(true);
+		
 		// puzzle solve widget, for now is only cryptogram
-		cmpSolveWidget = new CryptogramSolveWidget(this, SWT.NONE, workingPuzzle);
+		cmpSolveWidget = new CryptogramSolveWidget(cmpSolveScrollable, SWT.NONE, workingPuzzle);
 		FormData fd_composite = new FormData();
 		fd_composite.bottom = new FormAttachment(100);
 		fd_composite.right = new FormAttachment(100);
 		fd_composite.top = new FormAttachment(0);
 		fd_composite.left = new FormAttachment(33);
 		cmpSolveWidget.setLayoutData(fd_composite);
-		setTabList(new Control[]{cmpProperties, cmpSolveWidget});
+		
+		cmpSolveScrollable.setContent(cmpSolveWidget);
 	}
 
 	/**

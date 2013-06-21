@@ -17,7 +17,10 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.graphics.Point;
 
+import pg13.business.create.UserManager;
 import pg13.models.Cryptogram;
+import pg13.models.User;
+import pg13.persistence.UserController;
 
 /**
  * The main window for the application.
@@ -33,6 +36,8 @@ public class MainWindow
 	private FindScreen cmpFindScreen;
 	private PlayScreen cmpPlayScreen;
 	private Label lblLoggedInAs;
+	private UserManager userManager;
+	private User loggedInUser;
 
 	/**
 	 * gets the instance of the main window
@@ -57,6 +62,8 @@ public class MainWindow
 	private MainWindow()
 	{
         display = Display.getDefault();
+        this.userManager = new UserManager();
+        loggedInUser = this.userManager.findUser(UserController.getGuestPrimaryKey()); //log in as guest
 		createWindow();
 	}
 

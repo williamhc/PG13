@@ -1,6 +1,7 @@
 package tests;
 
 import tests.business.CryptogramManagerTest;
+import tests.business.create.TestUserManager;
 import tests.business.search.PuzzleAuthorColumnProviderTest;
 import tests.business.search.PuzzleCategoryColumnProviderTest;
 import tests.business.search.PuzzleDifficultyColumnProviderTest;
@@ -37,5 +38,6 @@ public class AllTests
         suite.addTestSuite(PuzzleCategoryColumnProviderTest.class);
         suite.addTestSuite(PuzzleDifficultyColumnProviderTest.class);
         suite.addTestSuite(PuzzleTitleColumnProviderTest.class);
+        suite.addTestSuite(TestUserManager.class);
     }
 }

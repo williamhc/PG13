@@ -56,12 +56,12 @@ public class User
 		this.puzzles = puzzles;
 	}
 	
-	public String getUserName() 
+	public String getName() 
 	{
 		return userName;
 	}
 	
-	public void setUserName(String userName) 
+	public void setName(String userName) 
 	{
 		this.userName = userName;
 	}

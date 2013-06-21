@@ -20,9 +20,15 @@ public class MessageConstants
 	public static final String PUZZLE_SOLVED 			= 			"Puzzle solved!";
 	public static final String PUZZLE_UNSOLVED			= 			"Puzzle NOT solved!";	
 	
+	//Puzzle Saving Messages
+	public static final String SAVE_SUCCESS				=			"Save Puzzle";
+	public static final String SAVE_SUCCESS_MSG			=			"Puzzle saved!";
+	
 	//Error/Invalid Data Messages
 	public static final String INVALID_TEXT 			= 			"Invalid text";
 	public static final String INVALID_TEXT_MESSAGE	 	= 			"The text you have entered is invalid. Please modify the text.";
+	public static final String SAVE_ERROR				=			"Save Puzzle Error";
+
 
 	
 

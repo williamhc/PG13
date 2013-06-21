@@ -8,6 +8,7 @@ import junit.framework.TestCase;
 import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
+import pg13.models.PuzzleValidationException;
 import pg13.models.User;
 
 	public class CryptogramTest extends TestCase
@@ -31,6 +32,16 @@ import pg13.models.User;
 		{
 			cryptogram = new Cryptogram();
 			assertNotNull(cryptogram);
+			
+			try
+			{
+				cryptogram.validate();
+				fail();
+			}
+			catch(PuzzleValidationException e)
+			{
+				
+			}
 		}
 		
 		public void testCryptogramGeneralData()
@@ -114,6 +125,16 @@ import pg13.models.User;
 			assertEquals(DEFAULT_DATE, cryptogram.getDateCreated());
 			assertEquals(DEFAULT_CATEGORY, cryptogram.getCategory());
 			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
+			
+			try
+			{
+				cryptogram.validate();
+				fail();
+			}
+			catch(PuzzleValidationException e)
+			{
+				
+			}
 		}
 
 		public void testCryptogramAllPuncatuationPlainText()

@@ -22,6 +22,7 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
+import pg13.business.search.AuthorFilter;
 import pg13.business.search.PuzzleTableDriver;
 import pg13.business.search.TitleFilter;
 import pg13.models.Puzzle;
@@ -281,7 +282,7 @@ public class FindScreen extends Composite
 		this.tableViewer.setContentProvider(new ContentProvider());
 		this.tableViewer.setInput(this.puzzleResults);
 
-		// add some filters to the table
+		// add a title filter to the table
 		final TitleFilter titleFilter = new TitleFilter();
 		this.txtTitle.addModifyListener(new ModifyListener(){
 			@Override
@@ -292,6 +293,18 @@ public class FindScreen extends Composite
 			}
 		});
 		this.tableViewer.addFilter(titleFilter);
+
+		// add an author filter to the table
+		final AuthorFilter authorFilter = new AuthorFilter();
+		this.txtAuthor.addModifyListener(new ModifyListener(){
+			@Override
+			public void modifyText(ModifyEvent e) {
+				Text source = (Text) e.getSource();
+				authorFilter.setSearchString(source.getText());
+				tableViewer.refresh();
+			}
+		});
+		this.tableViewer.addFilter(authorFilter);
 	}
 
 	private void createColumns(final Composite parent, final TableViewer viewer)

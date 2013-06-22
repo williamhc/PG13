@@ -78,12 +78,12 @@ public abstract class Puzzle
 	
 	public String getAuthor()
 	{
-		return this.user.getUserName();
+		return this.user.getName();
 	}
 	
 	public void setAuthor(String name)
 	{
-		this.user.setUserName(name);
+		this.user.setName(name);
 	}
 	
 	public Category getCategory() 

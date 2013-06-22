@@ -20,10 +20,10 @@ import pg13.models.User;
 public class PuzzleController
 {
 	static private PuzzleController pc_instance;
-	static private Long userKey = new Long(0);
 	private ArrayList<Puzzle> puzzleList;
 
-	public PuzzleController()
+	//I assume this is a singleton class?
+	private PuzzleController()
 	{
 		this.puzzleList = new ArrayList<Puzzle>();
 		String[][] dummyPuzzles =
@@ -33,9 +33,8 @@ public class PuzzleController
 		};
 		for(String[] def: dummyPuzzles)
 		{
-			Cryptogram dummyPuzzle = new Cryptogram(new User(userKey, def[0]), def[1], Category.Miscellaneous, Difficulty.Medium, new Date(), "Fake!");
+			Cryptogram dummyPuzzle = new Cryptogram(new User(def[0]), def[1], Category.Miscellaneous, Difficulty.Medium, new Date(), "Fake!");
 			puzzleList.add(dummyPuzzle);
-			userKey++;
 		}
 
 	}

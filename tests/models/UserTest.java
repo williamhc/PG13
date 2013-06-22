@@ -41,7 +41,7 @@ public class UserTest extends TestCase
 	{
 		User user = new User();
 		assertNotNull(user);
-		assertEquals(null, user.getUserName());
+		assertEquals(null, user.getName());
 		assert(-1 == user.getPrimaryKey().longValue());
 		assert(user.getPuzzles().size() == 0);
 	}
@@ -49,17 +49,17 @@ public class UserTest extends TestCase
 	public void testUserConstructorOneArguments()
 	{
 		User user = new User(DEFAULT_AUTHOR);
-		assertEquals(DEFAULT_AUTHOR, user.getUserName());
+		assertEquals(DEFAULT_AUTHOR, user.getName());
 		assert(-1 == user.getPrimaryKey().longValue());
 		assert(user.getPuzzles().size() == 0);	
-		user.setUserName(DEFAULT_AUTHOR);
-		assertEquals(DEFAULT_AUTHOR, user.getUserName());
+		user.setName(DEFAULT_AUTHOR);
+		assertEquals(DEFAULT_AUTHOR, user.getName());
 	}
 	
 	public void testUserConstructorTwoArguments()
 	{
 		User user = new User(new Long(10), DEFAULT_AUTHOR);
-		assertEquals(DEFAULT_AUTHOR, user.getUserName());
+		assertEquals(DEFAULT_AUTHOR, user.getName());
 		assert(10 == user.getPrimaryKey().longValue());
 		assert(user.getPuzzles().size() == 0);
 	}
@@ -67,7 +67,7 @@ public class UserTest extends TestCase
 	public void testUserConstructorThreeArguments()
 	{
 		User user = new User(new Long(10), DEFAULT_AUTHOR, testPuzzles);
-		assertEquals(DEFAULT_AUTHOR, user.getUserName());
+		assertEquals(DEFAULT_AUTHOR, user.getName());
 		assert(10 == user.getPrimaryKey().longValue());
 		assert(user.getPuzzles().size() > 0);
 	}

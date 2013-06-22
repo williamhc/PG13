@@ -67,11 +67,11 @@ public class UserController
 		return null;
 	}
 	
-	public static ArrayList<Long> getPrimaryKeys()
+	public ArrayList<Long> getPrimaryKeys()
 	{
 		ArrayList<Long> keys = new ArrayList<Long>();
 		
-		for(User user: UserController.getInstance().getUsers())
+		for(User user: this.getUsers())
 		{
 			keys.add(user.getPrimaryKey());
 		}

@@ -16,7 +16,7 @@ public class UserManager
 	
 	public User addUser(String name)
 	{
-		ArrayList<Long> keys = UserController.getPrimaryKeys();
+		ArrayList<Long> keys = db.getPrimaryKeys();
 		long primaryKey = keys.get(keys.size() - 1).longValue() + 1;
 		User user = new User(primaryKey, name);
 		this.db.persist(user);

@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.MessageBox;
 
-import pg13.business.create.PuzzleCreator;
+import pg13.business.create.PuzzleManager;
 import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
@@ -317,8 +317,8 @@ public class PuzzlePropertiesWidget extends Composite
 		{
 			// make sure the puzzle is valid to save
 			displayingPuzzle.validate();
-			
-			new PuzzleCreator().save(displayingPuzzle);
+			displayingPuzzle.setUser(MainWindow.getInstance().getLoggedInUser());
+			new PuzzleManager().save(displayingPuzzle);
 			
 			dialog = new MessageBox(this.getShell() , SWT.ICON_INFORMATION | SWT.OK);
 			dialog.setText(MessageConstants.SAVE_SUCCESS);

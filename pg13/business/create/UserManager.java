@@ -2,24 +2,26 @@ package pg13.business.create;
 
 import java.util.ArrayList;
 
+import pg13.app.PG13;
+import pg13.app.Services;
 import pg13.models.User;
-import pg13.persistence.UserController;
+import pg13.persistence.DataAccess;
 
 public class UserManager
 {
-	private UserController db;
+	private DataAccess dataAccess;
 	
 	public UserManager()
 	{
-		this.db = UserController.getInstance();
+		dataAccess = Services.getDataAccess(PG13.dbName);
 	}
 	
 	public User addUser(String name)
 	{
-		ArrayList<Long> keys = db.getPrimaryKeys();
+		ArrayList<Long> keys = dataAccess.getPrimaryKeys();
 		long primaryKey = keys.get(keys.size() - 1).longValue() + 1;
 		User user = new User(primaryKey, name);
-		this.db.persist(user);
+		this.dataAccess.saveUser(user);
 		return user;
 	}
 	
@@ -30,7 +32,7 @@ public class UserManager
 	
 	public User findUser(long primaryKey)
 	{
-		return this.db.findUser(primaryKey);
+		return this.dataAccess.findUser(primaryKey);
 	}
 	
 	public String getNameOfUser(long primaryKey)
@@ -42,7 +44,7 @@ public class UserManager
 	
 	public ArrayList<String> getNameOfAllUsers()
 	{
-		ArrayList<User> users = this.db.getUsers();
+		ArrayList<User> users = this.dataAccess.getUsers();
 		ArrayList<String> names = new ArrayList<String>();
 		
 		for(int i =0; i < users.size(); i++)
@@ -51,5 +53,10 @@ public class UserManager
 		}
 		
 		return names;
+	}
+	
+	public long getGuestPrimaryKey()
+	{
+		return this.dataAccess.getGuestPrimaryKey();
 	}
 }

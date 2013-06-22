@@ -53,7 +53,7 @@ public class Cryptogram extends Puzzle
 	public void setPlaintext(String plaintext)
 	{
 		this.plaintext = plaintext;
-		//TODO Remove
+		//TODO Remove. When the following two lines are commented out, go to the CryptogramTest class and find the TODO. Do what it says.
 		//generateMappingKeys();
 		//this.userMapping = setMappingKeys(true);
 		this.ciphertext = encrypt();

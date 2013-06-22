@@ -7,7 +7,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
@@ -26,9 +25,11 @@ import org.eclipse.jface.viewers.Viewer;
 
 import pg13.business.search.AuthorFilter;
 import pg13.business.search.CategoryFilter;
+import pg13.business.search.DifficultyFilter;
 import pg13.business.search.PuzzleTableDriver;
 import pg13.business.search.TitleFilter;
 import pg13.models.Category;
+import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -57,7 +58,12 @@ public class FindScreen extends Composite
 	private TableViewer tableViewer;
 	private PuzzleTableDriver tableDriver;
 	private ArrayList<Puzzle> puzzleResults;
+
 	private Button btnPlaySelectedPuzzle;
+	private Button btnAllDifficulties;
+	private Button btnEasy;
+	private Button btnDifficult;
+	private Button btnMedium;
 
 	/**
 	 * Creates and populates the Find screen.
@@ -194,43 +200,43 @@ public class FindScreen extends Composite
 		Label lblDifficulty = new Label(cmpPuzzleSearch, SWT.NONE);
 		lblDifficulty.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblDifficulty = new FormData();
-		fd_lblDifficulty.top = new FormAttachment(cmbCategory, 8);
-		fd_lblDifficulty.left = new FormAttachment(0, 6);
+		fd_lblDifficulty.top = new FormAttachment(cmbCategory, 6);
+		fd_lblDifficulty.left = new FormAttachment(lblTitle, 0, SWT.LEFT);
 		lblDifficulty.setLayoutData(fd_lblDifficulty);
 		lblDifficulty.setText(Constants.DIFFICULTY + ":");
 		
-		Button btnAllDifficulties = new Button(cmpPuzzleSearch, SWT.CHECK);
+		btnAllDifficulties = new Button(cmpPuzzleSearch, SWT.CHECK);
 		FormData fd_btnAllDifficulties = new FormData();
-		fd_btnAllDifficulties.top = new FormAttachment(lblDifficulty, 4);
+		fd_btnAllDifficulties.top = new FormAttachment(lblDifficulty, 6);
 		fd_btnAllDifficulties.left = new FormAttachment(0, 6);
 		btnAllDifficulties.setLayoutData(fd_btnAllDifficulties);
 		btnAllDifficulties.setText(Constants.ALL_DIFFICULTIES);
 		btnAllDifficulties.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
-		Button btnEasy = new Button(cmpPuzzleSearch, SWT.CHECK);
+		btnEasy = new Button(cmpPuzzleSearch, SWT.CHECK);
 		FormData fd_btnEasy = new FormData();
-		fd_btnEasy.top = new FormAttachment(btnAllDifficulties, 4);
 		fd_btnEasy.left = new FormAttachment(0, 6);
 		btnEasy.setLayoutData(fd_btnEasy);
 		btnEasy.setText(Constants.EASY);
 		btnEasy.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		fd_btnEasy.top = new FormAttachment(btnAllDifficulties, 4);
 		
-		Button btnMedium = new Button(cmpPuzzleSearch, SWT.CHECK);
-		FormData fd_btnAverage = new FormData();
-		fd_btnAverage.left = new FormAttachment(0, 6);
-		fd_btnAverage.top = new FormAttachment(btnEasy, 4);
-		btnMedium.setLayoutData(fd_btnAverage);
-		btnMedium.setText(Constants.MEDIUM);
-		btnMedium.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		
-		Button btnDifficult = new Button(cmpPuzzleSearch, SWT.CHECK);
+		btnDifficult = new Button(cmpPuzzleSearch, SWT.CHECK);
 		FormData fd_btnDifficult = new FormData();
-		fd_btnDifficult.top = new FormAttachment(btnMedium, 4);
-		fd_btnDifficult.left = new FormAttachment(0, 6);
+		fd_btnDifficult.left = new FormAttachment(lblTitle, 0, SWT.LEFT);
 		btnDifficult.setLayoutData(fd_btnDifficult);
 		btnDifficult.setText(Constants.HARD);
 		btnDifficult.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
+		btnMedium = new Button(cmpPuzzleSearch, SWT.CHECK);
+		fd_btnDifficult.top = new FormAttachment(btnMedium, 6);
+		FormData fd_btnAverage = new FormData();
+		fd_btnAverage.top = new FormAttachment(btnEasy, 4);
+		fd_btnAverage.left = new FormAttachment(0, 6);
+		btnMedium.setLayoutData(fd_btnAverage);
+		btnMedium.setText(Constants.MEDIUM);
+		btnMedium.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+				
 		// play the selected puzzle!
 		btnPlaySelectedPuzzle = new Button(this, SWT.NONE);
 		btnPlaySelectedPuzzle.addSelectionListener(new SelectionAdapter() 
@@ -333,6 +339,50 @@ public class FindScreen extends Composite
 			}
 		});
 		this.tableViewer.addFilter(categoryFilter);
+
+		// add filters to the difficulty
+		final DifficultyFilter difficultyFilter = new DifficultyFilter();
+		this.tableViewer.addFilter(difficultyFilter);
+		SelectionAdapter SLToggleAll = new SelectionAdapter(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Button source = (Button) e.getSource();
+				boolean checked = source.getSelection();
+				for(Difficulty diff: Difficulty.values())
+				{
+					if(checked)
+					{
+						difficultyFilter.addValue(diff);
+					}
+					else
+					{
+						difficultyFilter.removeValue(diff);
+					}
+				}
+				tableViewer.refresh();
+			}
+		};
+		SelectionAdapter SLToggleOne = new SelectionAdapter(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Button source = (Button) e.getSource();
+				boolean checked = source.getSelection();
+				Difficulty diff = Difficulty.valueOf(source.getText());
+				if(checked)
+				{
+					difficultyFilter.addValue(diff);
+				}
+				else
+				{
+					difficultyFilter.removeValue(diff);
+				}
+				tableViewer.refresh();
+			}
+		};
+		this.btnAllDifficulties.addSelectionListener(SLToggleAll);
+		this.btnEasy.addSelectionListener(SLToggleOne);
+		this.btnMedium.addSelectionListener(SLToggleOne);
+		this.btnDifficult.addSelectionListener(SLToggleOne);
 	}
 
 	private void createColumns(final Composite parent, final TableViewer viewer)

@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-import org.eclipse.core.databinding.observable.Diffs;
-import org.eclipse.ui.internal.CycleBaseHandler;
-
 import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;

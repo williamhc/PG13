@@ -22,7 +22,7 @@ public class PuzzleManager
 		if(puzzle.getID() == Puzzle.DEFAULT_ID)
 		{
 			ArrayList<Long> keys = dataAccess.getSortedPuzzleIDs();
-			long nextID = keys.get(keys.size() - 1) + 1;
+			long nextID = keys.size() == 0 ? 1 : keys.get(keys.size() - 1) + 1;
 			puzzle.setID(nextID);
 		}
 		

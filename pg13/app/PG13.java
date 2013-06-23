@@ -25,7 +25,7 @@ public class PG13
 
 	public static void startUp()
 	{
-		Services.createDataAccess(new StubDB(dbName));
+		Services.createDataAccess(dbName);
 	}
 
 	public static void shutDown()

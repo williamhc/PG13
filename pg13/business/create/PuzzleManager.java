@@ -19,6 +19,13 @@ public class PuzzleManager
 	
 	public void save(Puzzle puzzle)
 	{
+		if(puzzle.getID() == Puzzle.DEFAULT_ID)
+		{
+			ArrayList<Long> keys = dataAccess.getSortedPuzzleIDs();
+			long nextID = keys.get(keys.size() - 1) + 1;
+			puzzle.setID(nextID);
+		}
+		
 		this.dataAccess.savePuzzle(puzzle);
 	}
 	

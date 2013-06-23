@@ -73,13 +73,27 @@ public class StubDB implements DataAccess
 	}
 
 	@Override
-	public ArrayList<Long> getPrimaryKeys()
+	public ArrayList<Long> getSortedUserPrimaryKeys()
 	{
 ArrayList<Long> keys = new ArrayList<Long>();
 		
-		for(User user: this.getUsers())
+		for(User user: this.users)
 		{
 			keys.add(user.getPrimaryKey());
+		}
+		
+		Collections.sort(keys);
+		return keys;
+	}
+	
+	@Override
+	public ArrayList<Long> getSortedPuzzleIDs()
+	{
+ArrayList<Long> keys = new ArrayList<Long>();
+		
+		for(Puzzle puzzle: this.puzzles)
+		{
+			keys.add(puzzle.getID());
 		}
 		
 		Collections.sort(keys);
@@ -106,10 +120,10 @@ ArrayList<Long> keys = new ArrayList<Long>();
 		users.add(joe);
 		
 		puzzles = new ArrayList<Puzzle>();
-		puzzle = new Cryptogram(joe, "My first puzzle", Category.Miscellaneous, Difficulty.Hard, new Date(), "Fake!");
+		puzzle = new Cryptogram(joe, "My first puzzle", Category.Miscellaneous, Difficulty.Hard, new Date(), "Fake!", 1);
 		joe.addPuzzle(puzzle);
 		puzzles.add(puzzle);
-		puzzle = new Cryptogram(joe, "another puzzle", Category.Animals, Difficulty.Medium, new Date(), "Butterflies");
+		puzzle = new Cryptogram(joe, "another puzzle", Category.Animals, Difficulty.Medium, new Date(), "Butterflies", 2);
 		joe.addPuzzle(puzzle);
 		puzzles.add(puzzle);
 	

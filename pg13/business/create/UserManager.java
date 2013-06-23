@@ -18,7 +18,7 @@ public class UserManager
 	
 	public User addUser(String name)
 	{
-		ArrayList<Long> keys = dataAccess.getPrimaryKeys();
+		ArrayList<Long> keys = dataAccess.getSortedUserPrimaryKeys();
 		long primaryKey = keys.get(keys.size() - 1).longValue() + 1;
 		User user = new User(primaryKey, name);
 		this.dataAccess.saveUser(user);

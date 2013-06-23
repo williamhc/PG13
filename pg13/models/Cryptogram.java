@@ -39,6 +39,12 @@ public class Cryptogram extends Puzzle
 		this.plaintext = plaintext;	
 		this.ciphertext = encrypt();
 	}
+	
+	public Cryptogram(User user, String title, Category category, Difficulty difficulty, Date dateCreated, String plaintext, long id)
+	{
+		this(user, title, category, difficulty, dateCreated, plaintext);
+		this.setID(id);
+	}
 
 	public String getCiphertext() 
 	{

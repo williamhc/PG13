@@ -25,7 +25,9 @@ public interface DataAccess
 	
 	public User findUser(long primaryKey);
 	
-	public ArrayList<Long> getPrimaryKeys();
+	public ArrayList<Long> getSortedUserPrimaryKeys();
+	
+	public ArrayList<Long> getSortedPuzzleIDs();
 	
 	public void open(String string);
 	

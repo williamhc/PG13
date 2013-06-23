@@ -3,12 +3,15 @@ package pg13.presentation;
 import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
-import pg13.org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Combo;
@@ -19,8 +22,16 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 
+import pg13.business.search.AuthorFilter;
+import pg13.business.search.CategoryFilter;
+import pg13.business.search.DifficultyFilter;
 import pg13.business.search.PuzzleTableDriver;
+import pg13.business.search.TitleFilter;
+import pg13.models.Category;
+import pg13.models.Difficulty;
 import pg13.models.Puzzle;
+import pg13.org.eclipse.wb.swt.SWTResourceManager;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
@@ -43,11 +54,17 @@ public class FindScreen extends Composite
 	}
 	private Text txtTitle;
 	private Text txtAuthor;
+	private Combo cmbCategory;
 	private Table table;
 	private TableViewer tableViewer;
 	private PuzzleTableDriver tableDriver;
 	private ArrayList<Puzzle> puzzleResults;
+
 	private Button btnPlaySelectedPuzzle;
+	private Button btnAllDifficulties;
+	private Button btnEasy;
+	private Button btnDifficult;
+	private Button btnMedium;
 
 	/**
 	 * Creates and populates the Find screen.
@@ -109,7 +126,6 @@ public class FindScreen extends Composite
 		btnFriendsPuzzles.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
 		Button btnMyPuzzles = new Button(cmpPuzzleFilter, SWT.RADIO);
-		btnMyPuzzles.setEnabled(false);
 		FormData fd_btnMyPuzzles = new FormData();
 		fd_btnMyPuzzles.right = new FormAttachment(100, -6);
 		fd_btnMyPuzzles.top = new FormAttachment(0, 50);
@@ -139,7 +155,6 @@ public class FindScreen extends Composite
 		lblTitle.setText(Constants.TITLE);
 		
 		txtTitle = new Text(cmpPuzzleSearch, SWT.BORDER);
-		txtTitle.setEnabled(false);
 		FormData fd_txtTitle = new FormData();
 		fd_txtTitle.right = new FormAttachment(100, -6);
 		fd_txtTitle.top = new FormAttachment(lblTitle, 2);
@@ -156,7 +171,6 @@ public class FindScreen extends Composite
 		lblAuthor.setText(Constants.AUTHOR);
 		
 		txtAuthor = new Text(cmpPuzzleSearch, SWT.BORDER);
-		txtAuthor.setEnabled(false);
 		FormData fd_txtAuthor = new FormData();
 		fd_txtAuthor.top = new FormAttachment(lblAuthor, 2);
 		fd_txtAuthor.right = new FormAttachment(100, -6);
@@ -172,9 +186,10 @@ public class FindScreen extends Composite
 		lblCategory.setLayoutData(fd_lblCategory);
 		lblCategory.setText(Constants.CATEGORY + ":");
 		
-		Combo cmbCategory = new Combo(cmpPuzzleSearch, SWT.NONE);
-		cmbCategory.setEnabled(false);
-		cmbCategory.setItems(new String[] {"All Categories", "Animals", "Biology", "Computers", "Games", "General Trivia", "Geography", "History", "Miscellaneous", "Politics", "Science", "Space", "Sports"});
+		cmbCategory = new Combo(cmpPuzzleSearch, SWT.NONE);
+		ArrayList<String> categories = Category.valuesAsStrings();
+		categories.add(0, "All Categories");
+		cmbCategory.setItems(categories.toArray(new String[categories.size()]));
 		FormData fd_cmbCategory = new FormData();
 		fd_cmbCategory.top = new FormAttachment(lblCategory, 2);
 		fd_cmbCategory.right = new FormAttachment(100, -6);
@@ -186,47 +201,43 @@ public class FindScreen extends Composite
 		Label lblDifficulty = new Label(cmpPuzzleSearch, SWT.NONE);
 		lblDifficulty.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblDifficulty = new FormData();
-		fd_lblDifficulty.top = new FormAttachment(cmbCategory, 8);
-		fd_lblDifficulty.left = new FormAttachment(0, 6);
+		fd_lblDifficulty.top = new FormAttachment(cmbCategory, 6);
+		fd_lblDifficulty.left = new FormAttachment(lblTitle, 0, SWT.LEFT);
 		lblDifficulty.setLayoutData(fd_lblDifficulty);
 		lblDifficulty.setText(Constants.DIFFICULTY + ":");
 		
-		Button btnAllDifficulties = new Button(cmpPuzzleSearch, SWT.CHECK);
-		btnAllDifficulties.setEnabled(false);
+		btnAllDifficulties = new Button(cmpPuzzleSearch, SWT.CHECK);
 		FormData fd_btnAllDifficulties = new FormData();
-		fd_btnAllDifficulties.top = new FormAttachment(lblDifficulty, 4);
+		fd_btnAllDifficulties.top = new FormAttachment(lblDifficulty, 6);
 		fd_btnAllDifficulties.left = new FormAttachment(0, 6);
 		btnAllDifficulties.setLayoutData(fd_btnAllDifficulties);
 		btnAllDifficulties.setText(Constants.ALL_DIFFICULTIES);
 		btnAllDifficulties.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
-		Button btnEasy = new Button(cmpPuzzleSearch, SWT.CHECK);
-		btnEasy.setEnabled(false);
+		btnEasy = new Button(cmpPuzzleSearch, SWT.CHECK);
 		FormData fd_btnEasy = new FormData();
-		fd_btnEasy.top = new FormAttachment(btnAllDifficulties, 4);
 		fd_btnEasy.left = new FormAttachment(0, 6);
 		btnEasy.setLayoutData(fd_btnEasy);
 		btnEasy.setText(Constants.EASY);
 		btnEasy.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		fd_btnEasy.top = new FormAttachment(btnAllDifficulties, 4);
 		
-		Button btnMedium = new Button(cmpPuzzleSearch, SWT.CHECK);
-		btnMedium.setEnabled(false);
-		FormData fd_btnAverage = new FormData();
-		fd_btnAverage.left = new FormAttachment(0, 6);
-		fd_btnAverage.top = new FormAttachment(btnEasy, 4);
-		btnMedium.setLayoutData(fd_btnAverage);
-		btnMedium.setText(Constants.MEDIUM);
-		btnMedium.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		
-		Button btnDifficult = new Button(cmpPuzzleSearch, SWT.CHECK);
-		btnDifficult.setEnabled(false);
+		btnDifficult = new Button(cmpPuzzleSearch, SWT.CHECK);
 		FormData fd_btnDifficult = new FormData();
-		fd_btnDifficult.top = new FormAttachment(btnMedium, 4);
-		fd_btnDifficult.left = new FormAttachment(0, 6);
+		fd_btnDifficult.left = new FormAttachment(lblTitle, 0, SWT.LEFT);
 		btnDifficult.setLayoutData(fd_btnDifficult);
 		btnDifficult.setText(Constants.HARD);
 		btnDifficult.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
+		btnMedium = new Button(cmpPuzzleSearch, SWT.CHECK);
+		fd_btnDifficult.top = new FormAttachment(btnMedium, 6);
+		FormData fd_btnAverage = new FormData();
+		fd_btnAverage.top = new FormAttachment(btnEasy, 4);
+		fd_btnAverage.left = new FormAttachment(0, 6);
+		btnMedium.setLayoutData(fd_btnAverage);
+		btnMedium.setText(Constants.MEDIUM);
+		btnMedium.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+				
 		// play the selected puzzle!
 		btnPlaySelectedPuzzle = new Button(this, SWT.NONE);
 		btnPlaySelectedPuzzle.addSelectionListener(new SelectionAdapter() 
@@ -244,6 +255,7 @@ public class FindScreen extends Composite
 				playPuzzlePressed();
 			}
 		});
+
 		FormData fd_btnPlaySelectedPuzzle = new FormData();
 		fd_btnPlaySelectedPuzzle.right = new FormAttachment(separator, -10);
 		fd_btnPlaySelectedPuzzle.bottom = new FormAttachment(100, -10);
@@ -283,6 +295,95 @@ public class FindScreen extends Composite
 		// add a content provider
 		this.tableViewer.setContentProvider(new ContentProvider());
 		this.tableViewer.setInput(this.puzzleResults);
+
+		// add a title filter to the table
+		final TitleFilter titleFilter = new TitleFilter();
+		this.txtTitle.addModifyListener(new ModifyListener(){
+			@Override
+			public void modifyText(ModifyEvent e) {
+				Text source = (Text) e.getSource();
+				titleFilter.setSearchString(source.getText());
+				tableViewer.refresh();
+			}
+		});
+		this.tableViewer.addFilter(titleFilter);
+
+		// add an author filter to the table
+		final AuthorFilter authorFilter = new AuthorFilter();
+		this.txtAuthor.addModifyListener(new ModifyListener(){
+			@Override
+			public void modifyText(ModifyEvent e) {
+				Text source = (Text) e.getSource();
+				authorFilter.setSearchString(source.getText());
+				tableViewer.refresh();
+			}
+		});
+		this.tableViewer.addFilter(authorFilter);
+
+		// add a category filter to the table
+		final CategoryFilter categoryFilter = new CategoryFilter();
+		this.cmbCategory.addSelectionListener(new SelectionAdapter(){
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Combo source = (Combo) e.getSource();
+				int index = source.getSelectionIndex();
+				String selection = source.getItem(index);
+
+				Category category = null;
+				if(!selection.equalsIgnoreCase("All Categories"))
+				{
+					category = Category.valueOf(selection);
+				}
+				categoryFilter.setSearchValue(category);
+				tableViewer.refresh();
+			}
+		});
+		this.tableViewer.addFilter(categoryFilter);
+
+		// add filters to the difficulty
+		final DifficultyFilter difficultyFilter = new DifficultyFilter();
+		this.tableViewer.addFilter(difficultyFilter);
+		SelectionAdapter SLToggleAll = new SelectionAdapter(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Button source = (Button) e.getSource();
+				boolean checked = source.getSelection();
+				for(Difficulty diff: Difficulty.values())
+				{
+					if(checked)
+					{
+						difficultyFilter.addValue(diff);
+					}
+					else
+					{
+						difficultyFilter.removeValue(diff);
+					}
+				}
+				tableViewer.refresh();
+			}
+		};
+		SelectionAdapter SLToggleOne = new SelectionAdapter(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Button source = (Button) e.getSource();
+				boolean checked = source.getSelection();
+				Difficulty diff = Difficulty.valueOf(source.getText());
+				if(checked)
+				{
+					difficultyFilter.addValue(diff);
+				}
+				else
+				{
+					difficultyFilter.removeValue(diff);
+				}
+				tableViewer.refresh();
+			}
+		};
+		this.btnAllDifficulties.addSelectionListener(SLToggleAll);
+		this.btnEasy.addSelectionListener(SLToggleOne);
+		this.btnMedium.addSelectionListener(SLToggleOne);
+		this.btnDifficult.addSelectionListener(SLToggleOne);
 	}
 
 	private void createColumns(final Composite parent, final TableViewer viewer)

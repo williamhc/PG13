@@ -318,6 +318,7 @@ public class PuzzlePropertiesWidget extends Composite
 			// make sure the puzzle is valid to save
 			displayingPuzzle.validate();
 			displayingPuzzle.setUser(MainWindow.getInstance().getLoggedInUser());
+			displayingPuzzle.prepareForSave();
 			new PuzzleManager().save(displayingPuzzle);
 			
 			dialog = new MessageBox(this.getShell() , SWT.ICON_INFORMATION | SWT.OK);

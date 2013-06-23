@@ -122,4 +122,9 @@ public abstract class Puzzle
 	{
 		this.id = id;
 	}
+	
+	public void prepareForSave()
+	{
+		// do any cleanup necessary before the puzzle can be saved
+	}
 }

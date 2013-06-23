@@ -180,23 +180,6 @@ import pg13.models.User;
 			assertNotNull(cryptogram.getUserMapping());
 		}
 		
-		//Big-ish comment:
-		//TODO uncomment this
-		//this was previously public. However, some changes to the logic in the Cryptogram class make this test fail
-		//immediately. Currently, cryptogram.setPlaintext(..) has two commented out method calls. These method calls
-		// "reset' the cryptogram. 
-//		public void testSetPlaintext()
-//		{
-//			cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_DATE, DEFAULT_PLAINTEXT);
-//			cryptogram.setUserPlaintextForCiphertext(DEFAULT_PLAINTEXT.charAt(0), cryptogram.getCiphertext().charAt(0));
-//			this.SetPlaintextandValidateMappings("new plaintext");
-//			this.SetPlaintextandValidateMappings("new plaintext!");
-//			this.SetPlaintextandValidateMappings("newplaintext");
-//			this.SetPlaintextandValidateMappings("");
-//			this.SetPlaintextandValidateMappings("12345678");
-//			this.SetPlaintextandValidateMappings("![");			
-//		}
-		
 		private void SetPlaintextandValidateMappings(String plaintext)
 		{
 			cryptogram.setPlaintext(plaintext);

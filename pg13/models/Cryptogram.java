@@ -59,10 +59,12 @@ public class Cryptogram extends Puzzle
 	public void setPlaintext(String plaintext)
 	{
 		this.plaintext = plaintext;
-		//TODO Remove. When the following two lines are commented out, go to the CryptogramTest class and find the TODO. Do what it says.
-		//generateMappingKeys();
-		//this.userMapping = setMappingKeys(true);
 		this.ciphertext = encrypt();
+	}
+	
+	public void resetUserMapping()
+	{
+		this.userMapping = setMappingKeys(true);
 	}
 
 	public CryptogramPair[] getSolutionMapping() 
@@ -366,5 +368,14 @@ public class Cryptogram extends Puzzle
 		{
 			throw new PuzzleValidationException(INVALID_PLAINTEXT_MESSAGE);
 		}
+	}
+	
+	/**
+	 * Does some cleanup so the cryptogram can be saved.
+	 * @date June 23 2013
+	 */
+	public void prepareForSave()
+	{
+		this.resetUserMapping();
 	}
 }

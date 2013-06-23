@@ -32,8 +32,6 @@ public class DataAccessObject implements DataAccess
 
 	private String cmdString;
 	private int updateCount;
-	private String result;
-	private static String EOF = "  ";
 
 	private boolean beingBuilt;
 
@@ -57,7 +55,6 @@ public class DataAccessObject implements DataAccess
 	{
 		String values;
 
-		result = null;
 		try
 		{
 			long id = puzzle.getID();
@@ -71,10 +68,10 @@ public class DataAccessObject implements DataAccess
 			cmdString = "Insert into Cryptograms Values(" + values + ")";
 			System.out.println(cmdString);
 			updateCount = st1.executeUpdate(cmdString);
-			result = checkWarning(st1, updateCount);
+			checkWarning(st1, updateCount);
 		} catch (Exception e)
 		{
-			result = processSQLError(e);
+			processSQLError(e);
 		}
 		try
 		{
@@ -82,10 +79,10 @@ public class DataAccessObject implements DataAccess
 			cmdString = "Insert into UserPuzzles Values(" + values + ")";
 			System.out.println(cmdString);
 			updateCount = st1.executeUpdate(cmdString);
-			result = checkWarning(st1, updateCount);
+			checkWarning(st1, updateCount);
 		} catch (Exception e)
 		{
-			result = processSQLError(e);
+			processSQLError(e);
 		}
 
 	}
@@ -324,7 +321,6 @@ public class DataAccessObject implements DataAccess
 	{
 		String values;
 
-		result = null;
 		try
 		{
 			values = String.format("%d, %s", user.getPrimaryKey(),
@@ -332,10 +328,10 @@ public class DataAccessObject implements DataAccess
 			cmdString = "Insert into Users Values(" + values + ")";
 			System.out.println(cmdString);
 			updateCount = st1.executeUpdate(cmdString);
-			result = checkWarning(st1, updateCount);
+			checkWarning(st1, updateCount);
 		} catch (Exception e)
 		{
-			result = processSQLError(e);
+			processSQLError(e);
 		}
 		try
 		{
@@ -346,11 +342,11 @@ public class DataAccessObject implements DataAccess
 				cmdString = "Insert into UserPuzzles Values(" + values + ")";
 				System.out.println(cmdString);
 				updateCount = st1.executeUpdate(cmdString);
-				result = checkWarning(st1, updateCount);
+				checkWarning(st1, updateCount);
 			}
 		} catch (Exception e)
 		{
-			result = processSQLError(e);
+			processSQLError(e);
 		}
 	}
 

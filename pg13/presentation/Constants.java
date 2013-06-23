@@ -11,9 +11,9 @@ public class Constants
 	public static final String PLAY 				= 			"Play";
 	public static final String CONNECT 				= 			"Connect";
 	public static final String CREATE 				= 			"Create";
-	public static final String SOMETHING_ELSE 		= 			"Something Else";
+	public static final String HOME 				= 			"Home";
 	public static final String MY_PUZZLES 			= 			"My Puzzles";
-	public static final String LOGIN 				= 			"Login";
+	public static final String LOGOUT 				= 			"Logout";
 	
 	//Category & Difficulty Labels
 	public static final String CATEGORY	 			= 			"Category";
@@ -27,7 +27,8 @@ public class Constants
 	public static final String DESCRIPTION 			= 			"Description";
 	public static final String TITLE 				= 			"Title:";
 	public static final String AUTHOR 				= 			"Author:";
-	public static final int MAX_PLAINTEXT_CHAR 		= 			500;
+	public static final int MAX_PLAINTEXT_CHARS 	= 			500;
+	public static final int MAX_DESCRIPTION_CHARS 	= 			2000;
 	
 	//Cryptogram Constants
 	public static final String CRYPTOGRAM_PLAINTEXT = 			"Cryptogram Plaintext";

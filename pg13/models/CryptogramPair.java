@@ -1,7 +1,6 @@
 package pg13.models;
 
 /*
- * @author Lauren Slusky
  * @date May 28, 2013
  * Class used to house mapping between plain and cipher text characters
  */
@@ -51,7 +50,6 @@ public class CryptogramPair
 	}
 	
 	/**
-	 * @author PaymahnMoghadasian
 	 * @date May 31 2013
 	 * 
 	 * @param object The other (hopefully) CryptogramPair to compare against

@@ -6,7 +6,6 @@ import pg13.models.Puzzle;
 
 /**
  * Reports the title as a string of a puzzle for displaying in a table column.
- * @author williamhumphreys-cloutier
  */
 
 public class PuzzleTitleColumnProvider extends ColumnLabelProvider 

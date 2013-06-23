@@ -6,7 +6,6 @@ import pg13.models.Puzzle;
 
 /**
  * Reports the author of a puzzle as a string for displaying in a table column.
- * @author williamhumphreys-cloutier
  */
 public class PuzzleAuthorColumnProvider extends ColumnLabelProvider
 {

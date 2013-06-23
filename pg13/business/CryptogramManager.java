@@ -5,7 +5,6 @@ import pg13.models.Cryptogram;
 
 /**
  * @date May31st 2013
- * @author PaymahnMoghadasian
  *
  */
 public class CryptogramManager 
@@ -74,7 +73,6 @@ public class CryptogramManager
 	/**
 	 * Updates a user mapping for a cryptogra. IE: map X to A where X is the character the user entered and A is the
 	 * ciphertext
-	 * @author PaymahnMoghadasian
 	 * @date June 1 2013
 	 * @param plaintextChar The character that is being mapped
 	 * @param ciphertextChar The character being mapped to
@@ -89,7 +87,6 @@ public class CryptogramManager
 	/**
 	 * Updates a user mapping for a cryptogram. IE: map X to A where X is the character the user entered and A is the
 	 * ciphertext
-	 * @author PaymahnMoghadasian
 	 * @date June 1 2013
 	 * @param plaintextChar A single character string or empty string to be assigned. If empty, the character '\0' will be assigned
 	 * @param ciphertextChar The character being mapped to
@@ -109,7 +106,6 @@ public class CryptogramManager
 	/**
 	 * Validates a user mapping. Valid characters are those in the range of a-z or '\0'
 	 * @param charToValidate The character to validate
-	 * @author PaymahnMoghadasian
 	 * @date June 1 2013
 	 */
 	public void validateUserMapping(char charToValidate)
@@ -123,7 +119,6 @@ public class CryptogramManager
 	/**
 	 * Validates a user mapping. Valid characters are those in the range of a-z or '\0'
 	 * @param charToValidate Single character string or empty string to be validated.
-	 * @author PaymahnMoghadasian
 	 * @date June 1 2013
 	 */
 	public void validateUserMapping(String charToValidate)

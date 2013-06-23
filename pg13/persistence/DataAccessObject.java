@@ -153,7 +153,6 @@ public class DataAccessObject implements DataAccess
 		String title, description, plaintext;
 		Category category;
 		Difficulty difficulty;
-		Date date;
 
 		puzzles = new ArrayList<Puzzle>();
 		try

@@ -7,7 +7,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for PuzzleCategoryColumnProvider
- * @category williamhumphreys-cloutier
  *
  */
 public class PuzzleCategoryColumnProviderTest extends TestCase

@@ -8,7 +8,6 @@ import junit.framework.TestCase;
 /**
  * 
  * Tests for PuzzleDifficultyColumnProvider
- * @author williamhumphreys-cloutier
  *
  */
 public class PuzzleDifficultyColumnProviderTest extends TestCase 

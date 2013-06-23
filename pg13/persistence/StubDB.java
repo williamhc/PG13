@@ -2,7 +2,6 @@ package pg13.persistence;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 
 import pg13.app.PG13;
 import pg13.models.Category;
@@ -89,7 +88,7 @@ ArrayList<Long> keys = new ArrayList<Long>();
 	@Override
 	public ArrayList<Long> getSortedPuzzleIDs()
 	{
-ArrayList<Long> keys = new ArrayList<Long>();
+		ArrayList<Long> keys = new ArrayList<Long>();
 		
 		for(Puzzle puzzle: this.puzzles)
 		{

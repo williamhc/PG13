@@ -1,8 +1,6 @@
 
 package tests.models;
 
-import java.util.Date;
-
 import junit.framework.TestCase;
 
 import pg13.models.Category;
@@ -178,17 +176,7 @@ import pg13.models.User;
 			cryptogram.setUserPlaintextForCiphertext('h', 'X');
 			assertEquals(cryptogram.getUserPlaintextFromCiphertext('X'), 'H');
 			assertNotNull(cryptogram.getUserMapping());
-		}
-		
-		private void SetPlaintextandValidateMappings(String plaintext)
-		{
-			cryptogram.setPlaintext(plaintext);
-			for(char ch = 'a'; ch < 'z'; ch++)
-			{
-				assertEquals('\0', cryptogram.getUserPlaintextFromCiphertext(ch));
-				assertEquals('\0', cryptogram.getUserPlaintextFromCiphertext(Character.toUpperCase(ch)));
-			}
-		}
+		}		
 		
 		public void testSetAndGetValidUserMappings()
 		{

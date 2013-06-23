@@ -1,10 +1,8 @@
 package pg13.models;
 
 import java.util.Arrays;
-import java.util.Date;
 
 /*
- *  @author Lauren Slusky
  *  @date May 26 2013
  *  @title Cryptogram
  *  @description Class defining cryptograms
@@ -79,7 +77,6 @@ public class Cryptogram extends Puzzle
 
 
 	/*
-	 *  @author Lauren Slusky
 	 *  @date May 26 2013
 	 *  @title getUserPlaintextFromCiphertext
 	 *  @return the UPPERCASE plaintext char that the user thinks is mapped to a given ciphertext. 
@@ -93,7 +90,6 @@ public class Cryptogram extends Puzzle
 	}
 
 	/*
-	 *  @author Lauren Slusky
 	 *  @date May 26 2013
 	 *  @title setPlainText
 	 *  @return maps the users choice of plaintext char for a given ciphertext char
@@ -107,7 +103,6 @@ public class Cryptogram extends Puzzle
 
 
 	/*
-	 *  @author Lauren Slusky
 	 *  @date May 26 2013
 	 *  @title isCompleted
 	 *  @paeam String userString
@@ -124,7 +119,6 @@ public class Cryptogram extends Puzzle
 	}
 	
 	/*
-	 *  @author Lauren Slusky
 	 *  @date May 26 2013
 	 *  @title setMappingKeys
 	 *  @return an array of type Cryptogram pair with the plain text A - Z mapped
@@ -149,7 +143,6 @@ public class Cryptogram extends Puzzle
 	}
 	
 	/*
-	 *  @author Lauren Slusky
 	 *  @date May 26 2013
 	 *  @title generateMappingKeys
 	 *  @desription Takes a randomly shuffled array of the alphabet and assigns the each char to the charMapping array[i]'s ciphertext
@@ -166,7 +159,6 @@ public class Cryptogram extends Puzzle
 	}
 
 	/*
-	 *  @author Lauren Slusky
 	 *  @date May 26 2013
 	 *  @title shuffleAlphabet
 	 *  @return a char array of the alphabet where no letter is in the same place
@@ -194,7 +186,6 @@ public class Cryptogram extends Puzzle
 	}
 
 	/*
-	 *  @author Lauren Slusky
 	 *  @date May 26 2013
 	 *  @title encrypt
 	 *  @return generates random ciphertext based on plain text and charMapping array
@@ -231,7 +222,6 @@ public class Cryptogram extends Puzzle
 	}
 
 	/*
-	 *  @author Lauren Slusky
 	 *  @date May 26 2013
 	 *  @title decrypt
 	 *  @param mapping - mapping used to decrypt the cipher text
@@ -268,7 +258,6 @@ public class Cryptogram extends Puzzle
 	}
 
 	/*
-	 *  @author Lauren Slusky
 	 *  @date May 26 2013
 	 *  @title reOrderMappingByDecrypt
 	 *  @return an array of plaintext characters that are in the position of it's paired cipher text
@@ -289,7 +278,6 @@ public class Cryptogram extends Puzzle
 	
 	
 	/**
-	 * @author PaymahnMoghadasian
 	 * @date May 31 2013
 	 * 
 	 * @param object The other (hopefully) cryptogram to compare against

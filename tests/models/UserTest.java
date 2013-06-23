@@ -21,7 +21,6 @@ public class UserTest extends TestCase
 	private final Category DEFAULT_CATEGORY = Category.Computers;
 	private final Difficulty DEFAULT_DIFFICULTY = Difficulty.Easy;
 	private final String DEFAULT_TEXT = "This is a test";
-	private final Date DEFAULT_DATE = new Date();
 	private Puzzle DEFAULT_PUZZLE;
 	
 	public UserTest(String arg0)
@@ -37,7 +36,7 @@ public class UserTest extends TestCase
 		testPuzzles.add(DEFAULT_PUZZLE);
 	
 	}
-	public void testUserConstructorNoArguments()
+	public void testDefaultUser()
 	{
 		User user = new User();
 		assertNotNull(user);
@@ -46,7 +45,7 @@ public class UserTest extends TestCase
 		assert(user.getPuzzles().size() == 0);
 	}
 	
-	public void testUserConstructorOneArguments()
+	public void testUserGivenUserName()
 	{
 		User user = new User(DEFAULT_AUTHOR);
 		assertEquals(DEFAULT_AUTHOR, user.getName());
@@ -56,7 +55,7 @@ public class UserTest extends TestCase
 		assertEquals(DEFAULT_AUTHOR, user.getName());
 	}
 	
-	public void testUserConstructorTwoArguments()
+	public void testUserGivenNameAndKey()
 	{
 		User user = new User(new Long(10), DEFAULT_AUTHOR);
 		assertEquals(DEFAULT_AUTHOR, user.getName());
@@ -64,7 +63,7 @@ public class UserTest extends TestCase
 		assert(user.getPuzzles().size() == 0);
 	}
 	
-	public void testUserConstructorThreeArguments()
+	public void testUserGivenAllUserInformation()
 	{
 		User user = new User(new Long(10), DEFAULT_AUTHOR, testPuzzles);
 		assertEquals(DEFAULT_AUTHOR, user.getName());
@@ -72,7 +71,7 @@ public class UserTest extends TestCase
 		assert(user.getPuzzles().size() > 0);
 	}
 	
-	public void testUserArrayListAddElements()
+	public void testUserListOfPuzzles()
 	{
 		User user = new User(new Long(10), DEFAULT_AUTHOR);
 		assert(user.getPuzzles().size() == 0);
@@ -85,14 +84,12 @@ public class UserTest extends TestCase
 		user.setPuzzles(testPuzzles);
 		assert(user.getPuzzles().size() == 2);
 		user.setPuzzles(null);
-		assertNull(user.getPuzzles());		
-	}
-	
-	public void testUserArrayListRemoveElements()
-	{
-		User user = new User(new Long(10), DEFAULT_AUTHOR);
+		assertNull(user.getPuzzles());	
+		
+		//test the removal (and obviously a bit more adding)
+		user = new User(new Long(10), DEFAULT_AUTHOR);
 		assert(user.getPuzzles().size() == 0);
-		Cryptogram cp = new Cryptogram(new User("Author"), "Title", DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_TEXT);
+		cp = new Cryptogram(new User("Author"), "Title", DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_TEXT);
 		user.addPuzzle(cp);
 		user.addPuzzle(cp);
 		user.addPuzzle(cp);

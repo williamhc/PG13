@@ -1,7 +1,5 @@
 package tests.business;
 
-import java.util.Date;
-
 import pg13.business.CryptogramManager;
 import pg13.models.Category;
 import pg13.models.Cryptogram;
@@ -11,7 +9,6 @@ import junit.framework.TestCase;
 
 /**
  * @date May 31 2013
- * @author PaymahnMoghadasian
  * 
  */
 public class CryptogramManagerTest extends TestCase
@@ -25,7 +22,6 @@ public class CryptogramManagerTest extends TestCase
 
 	/**
 	 * @date May 31 2013
-	 * @author PaymahnMoghadasian
 	 * 
 	 *         Test the constructors in Cryptogram manager
 	 */
@@ -50,7 +46,6 @@ public class CryptogramManagerTest extends TestCase
 	 * validatePlaintext because cm.setplaintext calls validatePlaintext before
 	 * setting it.
 	 * 
-	 * @author PaymahnMoghadasian
 	 * @date June 1 2013
 	 */
 	public void testValidPlaintext()
@@ -82,8 +77,6 @@ public class CryptogramManagerTest extends TestCase
 	 * While this specifically tests setting plaintext, it also tests
 	 * validatePlaintext because cm.setplaintext calls validatePlaintext before
 	 * setting it.
-	 * 
-	 * @author PaymahnMoghadasian
 	 * @date June 1 2013
 	 * 
 	 */
@@ -115,7 +108,6 @@ public class CryptogramManagerTest extends TestCase
 	 * 
 	 * @param plaintext
 	 *            The plaintext to set
-	 * @author PaymahnMoghadasian
 	 * @date June 1 2013
 	 */
 	private void setAndValidateInvalidPlaintext(String plaintext)
@@ -133,7 +125,6 @@ public class CryptogramManagerTest extends TestCase
 
 	/**
 	 * 
-	 * @author PaymahnMoghadasian
 	 * @date June 2 2013
 	 * 
 	 *       This is a beast of a method and is not exhaustive (I don't think).
@@ -226,7 +217,6 @@ public class CryptogramManagerTest extends TestCase
 	/**
 	 * This function and the following function test the setting methods and also the validateUserMapping method.
 	 * This is exhaustive.
-	 * @author PaymahnMoghadasian
 	 * @date June 4 2013
 	 */
 	public void testSetValidUserMapping()
@@ -254,7 +244,6 @@ public class CryptogramManagerTest extends TestCase
 	}
 	
 	/**
-	 * @author PaymahnMoghadasian
 	 * @date June 4 2013
 	 */
 	public void testSetInvalidUserMappings()
@@ -297,7 +286,6 @@ public class CryptogramManagerTest extends TestCase
 	 * Sets the plaintext of the cryptogram manager and asserts that it was correctly set
 	 * @param plaintext The plaintext to set - assumed to be valid
 	 * @param cipherChar The ciphertext to set for - assumed to be valid
-	 * @author PaymahnMoghadasian
 	 * @date June 4 2013
 	 */
 	private void setValidMapping(char plaintext, char cipherChar)

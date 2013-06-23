@@ -67,7 +67,6 @@ public class User
 	}
 	
 	/**
-	 * @author Lauren Slusky
 	 * @date June 19 2013
 	 * 
 	 * @param add a puzzle to the users list
@@ -78,7 +77,6 @@ public class User
 	}
 	
 	/**
-	 * @author Lauren Slusky
 	 * @date June 19 2013
 	 * 
 	 * @param remove a puzzle by position in the list
@@ -89,7 +87,6 @@ public class User
 	}
 	
 	/**
-	 * @author Lauren Slusky
 	 * @date June 19 2013
 	 * 
 	 * @param remove a puzzle by object

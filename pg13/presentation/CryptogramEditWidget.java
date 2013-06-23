@@ -116,7 +116,6 @@ public class CryptogramEditWidget extends Composite {
 	/**
 	 * Updates the plaintext of the working cryptogram according to what is
 	 * written in the plaintext box.  Also updates the preview.
-	 * @author Eric
 	 * @date June 19 2013
 	 */
 	private void updatePuzzlePlaintext()
@@ -137,7 +136,6 @@ public class CryptogramEditWidget extends Composite {
 	
 	/**
 	 * Sets the cryptogram for the widget to display
-	 * @author Eric
 	 * @date May 29 2013
 	 */
 	public void setCryptogram(Cryptogram newCryptogram)

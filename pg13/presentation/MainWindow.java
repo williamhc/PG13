@@ -24,7 +24,6 @@ import pg13.models.User;
 
 /**
  * The main window for the application.
- * @author Eric
  */
 public class MainWindow 
 {

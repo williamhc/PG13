@@ -15,7 +15,6 @@ import pg13.models.Puzzle;
 /**
  * A logic layer for interactions between the puzzle table GUI
  * and persistence layers. Defines how the puzzle table acts and its data.
- * @author williamhumphreys-cloutier
  */
 public class PuzzleTableDriver 
 {
@@ -26,7 +25,6 @@ public class PuzzleTableDriver
 
 	/**
 	 * Constructor -- creates a puzzle table driver instance.
-	 * @author williamhumphreys-cloutier
 	 * @date June 1 2013
 	 */
 	public PuzzleTableDriver(ArrayList<Puzzle> puzzleList)

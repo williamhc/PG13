@@ -1,7 +1,5 @@
 package pg13.models;
 
-import java.util.Date;
-
 public abstract class Puzzle
 {
 	private static final String DEFAULT_TITLE = "New Puzzle";

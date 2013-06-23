@@ -1,5 +1,6 @@
 package pg13.models;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 public enum Category implements Enumeration<Object>
@@ -25,5 +26,15 @@ public enum Category implements Enumeration<Object>
 	@Override
 	public Object nextElement() {
 		return null;
+	}
+
+	public static ArrayList<String> valuesAsStrings() {
+		Category[] vals = Category.values();
+		ArrayList<String> strs = new ArrayList<String>();
+		for(int i = 0; i < vals.length; i++)
+		{
+			strs.add(vals[i].toString());
+		}
+		return strs;
 	}
 }

@@ -21,7 +21,6 @@ import pg13.business.create.UserManager;
 import pg13.models.Cryptogram;
 import pg13.models.Puzzle;
 import pg13.models.User;
-import pg13.persistence.UserController;
 
 /**
  * The main window for the application.
@@ -62,8 +61,13 @@ public class MainWindow
 	{
         display = Display.getDefault();
         this.userManager = new UserManager();
-        loggedInUser = this.userManager.findUser(UserController.getGuestPrimaryKey()); //log in as guest
+        loggedInUser = this.userManager.findUser(userManager.getGuestPrimaryKey()); //log in as guest
 		createWindow();
+	}
+	
+	public User getLoggedInUser()
+	{
+		return this.loggedInUser;
 	}
 
 	/**

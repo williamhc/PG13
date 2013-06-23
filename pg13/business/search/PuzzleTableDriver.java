@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 
-import pg13.persistence.PuzzleController;
+import pg13.business.create.PuzzleManager;
 import pg13.models.Puzzle;
 
 
@@ -22,7 +22,7 @@ public class PuzzleTableDriver
 	
 	private Map<String, ColumnLabelProvider> columnLabels;
 	private ArrayList<Puzzle> puzzleList;
-	private PuzzleController db;
+	private PuzzleManager manager;
 
 	/**
 	 * Constructor -- creates a puzzle table driver instance.
@@ -32,7 +32,7 @@ public class PuzzleTableDriver
 	public PuzzleTableDriver(ArrayList<Puzzle> puzzleList)
 	{
 		//initialize the puzzle controller
-		this.db = PuzzleController.getInstance();
+		this.manager = new PuzzleManager();
 
 		// initialize the label providers
 		this.columnLabels = new HashMap<String, ColumnLabelProvider>();
@@ -43,7 +43,7 @@ public class PuzzleTableDriver
 
 		// set the initial puzzle list
 		this.puzzleList = puzzleList;
-		ArrayList<Puzzle> dbResponse = this.db.getAllPuzzles();
+		ArrayList<Puzzle> dbResponse = this.manager.getAllPuzzles();
 		this.puzzleList.addAll(dbResponse);
 	}
 
@@ -54,7 +54,7 @@ public class PuzzleTableDriver
 
 	public void refresh()
 	{
-		ArrayList<Puzzle> dbResponse = this.db.getAllPuzzles();
+		ArrayList<Puzzle> dbResponse = this.manager.getAllPuzzles();
 		this.puzzleList.clear();
 		this.puzzleList.addAll(dbResponse);
 	}

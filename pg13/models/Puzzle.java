@@ -7,13 +7,15 @@ public abstract class Puzzle
 	private static final String DEFAULT_TITLE = "New Puzzle";
 	private static final Category DEFAULT_CATEGORY = Category.Miscellaneous;
 	private static final Difficulty DEFAULT_DIFFICULTY = Difficulty.Easy;
+	private static final String DEFAULT_DESCRIPTION = "Describe your puzzle!";
+	public static final long DEFAULT_ID = -1;
 	
 	private String title, description;
 	private User user;
 	private Category category;
 	private Difficulty difficulty;
-	private Date dateCreated;
 	private boolean isCompleted;
+	private long id;
 
 	protected Puzzle()
 	{
@@ -22,16 +24,16 @@ public abstract class Puzzle
 		this.title = DEFAULT_TITLE;
 		this.category = DEFAULT_CATEGORY;
 		this.difficulty = DEFAULT_DIFFICULTY;
-		this.dateCreated = null;
+		this.description = DEFAULT_DESCRIPTION;
+		this.id = DEFAULT_ID;
 	}
 	
-	protected Puzzle(User user, String title, Category category, Difficulty difficulty, Date dateCreated)
+	protected Puzzle(User user, String title, Category category, Difficulty difficulty)
 	{
 		this();
 		this.user = user;
 		this.isCompleted = false;
 		this.title = title;
-		this.dateCreated = dateCreated;
 		this.difficulty = difficulty;
 		this.category = category;
 	}
@@ -105,34 +107,19 @@ public abstract class Puzzle
 	{
 		this.difficulty = difficulty;
 	}
-
-	public Date getDateCreated() 
-	{
-		return this.dateCreated;
-		}
-
-	public void setDateCreated(Date value) 
-	{
-		this.dateCreated = value;
-	}
 	
-	public void startPlaying() 
-	{
-		//empty but required to be here because of interfaces
-	}
-
-	public void finishPlaying()
-	{
-		//empty but required to be here because of interfaces
-	}
-
-	public void create()
-	{
-		//empty but required to be here because of interfaces
-	}
-
 	public void validate() throws PuzzleValidationException
 	{
-		//empty but required to be here because of interfaces
+		
+	}
+	
+	public long getID()
+	{
+		return this.id;
+	}
+	
+	public void setID(long id)
+	{
+		this.id = id;
 	}
 }

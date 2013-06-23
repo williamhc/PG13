@@ -31,7 +31,7 @@ public class UserTest extends TestCase
 	
 	public void setUp()
 	{
-		DEFAULT_PUZZLE = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_DATE, DEFAULT_TEXT);
+		DEFAULT_PUZZLE = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_TEXT);
 		testPuzzles = new ArrayList<Puzzle> ();
 		testPuzzles.add(DEFAULT_PUZZLE);
 		testPuzzles.add(DEFAULT_PUZZLE);
@@ -76,7 +76,7 @@ public class UserTest extends TestCase
 	{
 		User user = new User(new Long(10), DEFAULT_AUTHOR);
 		assert(user.getPuzzles().size() == 0);
-		Cryptogram cp = new Cryptogram(new User("Author"), "Title", DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_DATE, DEFAULT_TEXT);
+		Cryptogram cp = new Cryptogram(new User("Author"), "Title", DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_TEXT);
 		user.addPuzzle(cp);
 		assert(user.getPuzzles().size() == 1);
 		user.addPuzzle(cp);
@@ -92,7 +92,7 @@ public class UserTest extends TestCase
 	{
 		User user = new User(new Long(10), DEFAULT_AUTHOR);
 		assert(user.getPuzzles().size() == 0);
-		Cryptogram cp = new Cryptogram(new User("Author"), "Title", DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_DATE, DEFAULT_TEXT);
+		Cryptogram cp = new Cryptogram(new User("Author"), "Title", DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_TEXT);
 		user.addPuzzle(cp);
 		user.addPuzzle(cp);
 		user.addPuzzle(cp);

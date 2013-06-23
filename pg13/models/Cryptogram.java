@@ -30,14 +30,20 @@ public class Cryptogram extends Puzzle
 		this.plaintext = "";
 	}
 	
-	public Cryptogram(User user, String title, Category category, Difficulty difficulty, Date dateCreated, String plaintext)
+	public Cryptogram(User user, String title, Category category, Difficulty difficulty, String plaintext)
 	{
-		super(user, title, category, difficulty, dateCreated);
+		super(user, title, category, difficulty);
 		this.solutionMapping = setMappingKeys(false);
 		generateMappingKeys();
 		this.userMapping = setMappingKeys(true);
 		this.plaintext = plaintext;	
 		this.ciphertext = encrypt();
+	}
+	
+	public Cryptogram(User user, String title, Category category, Difficulty difficulty, String plaintext, long id)
+	{
+		this(user, title, category, difficulty, plaintext);
+		this.setID(id);
 	}
 
 	public String getCiphertext() 
@@ -53,7 +59,7 @@ public class Cryptogram extends Puzzle
 	public void setPlaintext(String plaintext)
 	{
 		this.plaintext = plaintext;
-		//TODO Remove
+		//TODO Remove. When the following two lines are commented out, go to the CryptogramTest class and find the TODO. Do what it says.
 		//generateMappingKeys();
 		//this.userMapping = setMappingKeys(true);
 		this.ciphertext = encrypt();
@@ -291,7 +297,6 @@ public class Cryptogram extends Puzzle
 		boolean equalAuthors;
 		boolean equalDifficulties;
 		boolean equalTitles;
-		boolean equalDates;
 		boolean equalCategories;
 		boolean equalPlaintext;
 		boolean equalSolutionMaps;
@@ -326,15 +331,6 @@ public class Cryptogram extends Puzzle
 		else
 		{
 			equalDifficulties = (this.getDifficulty() == null && other.getDifficulty() == null) || this.getDifficulty().equals(other.getDifficulty());
-		}		
-
-		if( this.getDateCreated() == null && other.getDateCreated() != null)
-		{
-			equalDates = false;
-		}
-		else
-		{
-			equalDates = (this.getDateCreated() == null && other.getDateCreated() == null) || this.getDateCreated().equals(other.getDateCreated());
 		}
 		
 		if( this.getCategory() == null && other.getCategory() != null)
@@ -357,7 +353,7 @@ public class Cryptogram extends Puzzle
 
 		equalSolutionMaps = Arrays.equals(this.getSolutionMapping(), other.getSolutionMapping());
 		
-		return equalAuthors && equalTitles && equalDifficulties && equalCategories && equalDates && equalPlaintext && equalSolutionMaps;
+		return equalAuthors && equalTitles && equalDifficulties && equalCategories && equalPlaintext && equalSolutionMaps;
 	}
 	
 	/**

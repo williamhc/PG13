@@ -40,7 +40,7 @@ public class CryptogramManagerTest extends TestCase
 		assertEquals(cryptogram, cm.getCryptogram());
 
 		cryptogram = new Cryptogram(new User("Someone's Name"), "Random title", Category.Animals,
-				Difficulty.Easy, new Date(), "This is the plaintext");
+				Difficulty.Easy, "This is the plaintext");
 		this.cm = new CryptogramManager(cryptogram);
 		assertEquals(cryptogram, cm.getCryptogram());
 	}

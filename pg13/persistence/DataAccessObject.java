@@ -60,11 +60,14 @@ public class DataAccessObject implements DataAccess
 		result = null;
 		try
 		{
-			values = String.format("%d, %s, %s, %s, %s, %s, %s",
-					puzzle.getID(), puzzle.getTitle(), puzzle.getDescription(),
-					puzzle.getCategory().toString(), puzzle.getDifficulty()
-							.toString(), puzzle.getDateCreated().toString(),
-					((Cryptogram) puzzle).getPlaintext());
+			long id = puzzle.getID();
+			String title = puzzle.getTitle();
+			String description = puzzle.getDescription();
+			String cat = puzzle.getCategory().toString();
+			String dif = puzzle.getDifficulty().toString();
+			String plain = ((Cryptogram) puzzle).getPlaintext();
+			values = String.format("%d, '%s', '%s', '%s', '%s', '%s'",
+					id, title, description, cat, dif, plain);
 			cmdString = "Insert into Cryptograms Values(" + values + ")";
 			System.out.println(cmdString);
 			updateCount = st1.executeUpdate(cmdString);
@@ -177,10 +180,8 @@ public class DataAccessObject implements DataAccess
 				String temp = rs3.getString("Category");
 				category = Category.valueOf(temp);
 				difficulty = Difficulty.valueOf(rs3.getString("Difficulty"));
-				date = rs3.getDate("DateCreated");
 				plaintext = rs3.getString("Plaintext");
-				cryptogram = new Cryptogram(null, title, category, difficulty,
-						date, plaintext, id);
+				cryptogram = new Cryptogram(null, title, category, difficulty, plaintext, id);
 				puzzles.add(cryptogram);
 			}
 			rs3.close();
@@ -326,7 +327,7 @@ public class DataAccessObject implements DataAccess
 		result = null;
 		try
 		{
-			values = String.format("%l, %s", user.getPrimaryKey(),
+			values = String.format("%d, %s", user.getPrimaryKey(),
 					user.getName());
 			cmdString = "Insert into Users Values(" + values + ")";
 			System.out.println(cmdString);

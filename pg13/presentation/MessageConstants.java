@@ -6,8 +6,9 @@ public class MessageConstants
 	//Welcome Message/Header
 	public static final String GUEST_LOGON 				= 			"Logged in as Guest";
 	public static final String WELCOME_HEADER 			= 			"Welcome to Puzzle Games 2013 (PG13)";
-	public static final String APPLICATION_INSTRUCTIONS = 			"Select the Create option above to begin creating a new cryptogram.  " +
-																		"You can preview and test your cryptogram by selecting the preview option therein.\r\n\r\n" +
+	public static final String APPLICATION_INSTRUCTIONS = 			"Begin your PG13 experience by logging in.  You may choose to login as a guest.\n\n" +
+																		"Select the Create option above to begin creating a new cryptogram.  " +
+																		"You can preview and test your cryptogram by selecting the preview option therein.\n\n" +
 																		"Once your cryptogram is complete and saved, you can find it among other cryptograms " +
 																		"by selecting the Play option.";
 	//Button Text

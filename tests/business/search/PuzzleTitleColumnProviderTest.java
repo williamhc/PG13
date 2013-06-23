@@ -6,7 +6,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for PuzzleTitleColumnProvider
- * @author williamhumphreys-cloutier
  */
 public class PuzzleTitleColumnProviderTest extends TestCase
 {

@@ -301,6 +301,7 @@ public class MainWindow
 		lblOr.setText("Or");
 		
 		Button btnMainLogin = new Button(cmpMainArea, SWT.NONE);
+		btnMainLogin.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		btnMainLogin.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
@@ -317,6 +318,7 @@ public class MainWindow
 		btnMainLogin.setText("Login");
 		
 		Button btnMainSignUp = new Button(cmpMainArea, SWT.NONE);
+		btnMainSignUp.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		btnMainSignUp.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override

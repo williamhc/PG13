@@ -4,10 +4,10 @@ import pg13.models.CryptogramPair;
 import junit.framework.TestCase;
 
 public class CryptogramPairTest extends TestCase
- {	
-	
+ {
+
 	CryptogramPair cp;
-	
+
 	public CryptogramPairTest(String arg0)
 	{
 		super(arg0);
@@ -18,13 +18,9 @@ public class CryptogramPairTest extends TestCase
 		cp = new CryptogramPair('L', 'L');
 		assertNotNull(cp);
 	}
-	
+
 	public void testCryptogramPairClassCharacters()
 	{
-		assertNotNull(new CryptogramPair('L', 'L'));	
-		assertNotNull(new CryptogramPair('L', 'R'));	
-		assertNotNull(new CryptogramPair('\0', '\0'));
-		assertNotNull(new CryptogramPair('L', '\0'));
 		try
 		{
 			new CryptogramPair('!', '!');
@@ -32,10 +28,10 @@ public class CryptogramPairTest extends TestCase
 		}
 		catch(IllegalArgumentException iae)
 		{
-			
+
 		}
 	}
-	
+
 	public void testValidGettersAndSetters()
 	{
 		cp = new CryptogramPair('a', 'b');
@@ -43,24 +39,24 @@ public class CryptogramPairTest extends TestCase
 		{
 			cp.setCipherc(ch1);
 			assertEquals(ch1, cp.getCipherc());
-			
+
 			cp.setCipherc(Character.toUpperCase(ch1));
 			assertEquals(Character.toUpperCase(ch1), cp.getCipherc());
-			
+
 			cp.setPlainc(ch1);
 			assertEquals(ch1, cp.getPlainc());
-			
+
 			cp.setPlainc(Character.toUpperCase(ch1));
 			assertEquals(Character.toUpperCase(ch1), cp.getPlainc());
 		}
-		
+
 		cp.setCipherc('\0');
 		assertEquals('\0', cp.getCipherc());
-		
+
 		cp.setPlainc('\0');
 		assertEquals('\0', cp.getPlainc());
 	}
-	
+
 	public void testInvalidSetters()
 	{
 		cp = new CryptogramPair('a', 'b');
@@ -86,7 +82,7 @@ public class CryptogramPairTest extends TestCase
 		this.setInvalidPlaintextCharacter((char)('z' + 1));
 		this.setInvalidPlaintextCharacter((char)('Z' + 1));
 	}
-	
+
 	private void setInvalidCiperCharacter(char toSet)
 	{
 		try
@@ -99,7 +95,7 @@ public class CryptogramPairTest extends TestCase
 			//expected
 		}
 	}
-	
+
 	private void setInvalidPlaintextCharacter(char toSet)
 	{
 		try

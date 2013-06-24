@@ -17,6 +17,9 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TableViewerColumn;
@@ -65,6 +68,7 @@ public class FindScreen extends Composite
 	private Button btnEasy;
 	private Button btnDifficult;
 	private Button btnMedium;
+	private Puzzle selectedPuzzle;
 
 	/**
 	 * Creates and populates the Find screen.
@@ -384,6 +388,20 @@ public class FindScreen extends Composite
 		this.btnEasy.addSelectionListener(SLToggleOne);
 		this.btnMedium.addSelectionListener(SLToggleOne);
 		this.btnDifficult.addSelectionListener(SLToggleOne);
+		
+		this.tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+		    public void selectionChanged(final SelectionChangedEvent event) {
+		        IStructuredSelection selection = (IStructuredSelection)event.getSelection();
+		        if(selection.size() == 1)
+		        {
+		        	selectedPuzzle = (Puzzle) selection.getFirstElement();
+		        }
+		        else
+		        {
+		        	selectedPuzzle = null;
+		        }
+		    }
+		});
 	}
 
 	private void createColumns(final Composite parent, final TableViewer viewer)
@@ -449,14 +467,9 @@ public class FindScreen extends Composite
 	 */
 	private void playPuzzlePressed()
 	{
-		int selected;	
-		
-		// get the selected puzzle from the table
-		selected = table.getSelectionIndex();
-		
-		if(selected >= 0)
+		if(this.selectedPuzzle != null)
 		{
-			MainWindow.getInstance().playPuzzle(this.puzzleResults.get(selected));
+			MainWindow.getInstance().playPuzzle(this.selectedPuzzle);
 		}
 	}
 }

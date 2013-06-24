@@ -1,14 +1,11 @@
 package tests.business;
 
-import javax.xml.crypto.Data;
-
 import pg13.app.PG13;
 import pg13.app.Services;
 import pg13.business.UserManager;
 import pg13.models.User;
 import pg13.persistence.DataAccess;
 import pg13.persistence.StubDB;
-import pg13.presentation.Constants;
 import junit.framework.TestCase;
 
 public class TestUserManager extends TestCase

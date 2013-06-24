@@ -22,7 +22,7 @@ public class UserManager
 		if(isValidUsername(name))
 		{
 			ArrayList<Long> keys = dataAccess.getSortedUserPrimaryKeys();
-			long primaryKey = keys.get(keys.size() - 1).longValue() + 1;
+			long primaryKey = keys.size() > 0 ? keys.get(keys.size() - 1).longValue() + 1 : 1;
 			user = new User(primaryKey, name);
 			this.dataAccess.saveUser(user);
 		}

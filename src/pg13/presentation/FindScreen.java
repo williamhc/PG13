@@ -66,6 +66,7 @@ public class FindScreen extends Composite
 	private Button btnDifficult;
 	private Button btnMedium;
 	private Puzzle selectedPuzzle;
+	private Composite cmpPuzzleFilter;
 
 	/**
 	 * Creates and populates the Find screen.
@@ -96,7 +97,7 @@ public class FindScreen extends Composite
 		lblFindAPuzzle.setText(Constants.FIND_PUZZLES);
 		
 		// composite that contains the radio buttons to filter puzzle search
-		Composite cmpPuzzleFilter = new Composite(this, SWT.BORDER);
+		cmpPuzzleFilter = new Composite(this, SWT.BORDER);
 		cmpPuzzleFilter.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		cmpPuzzleFilter.setLayout(new FormLayout());
 		FormData fd_cmpPuzzleFilter = new FormData();
@@ -320,6 +321,27 @@ public class FindScreen extends Composite
 			}
 		});
 		this.tableViewer.addFilter(authorFilter);
+
+		// add a special author filter to the table
+		final AuthorFilter specialAuthorFilter = new AuthorFilter();
+		btnMyPuzzles.addSelectionListener(new SelectionAdapter(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				String loggedInUsername = MainWindow.getInstance().getLoggedInUser().getName();
+				specialAuthorFilter.setAbsoluteSearchString(loggedInUsername);
+				tableViewer.refresh();
+			}
+		});
+		btnAllPuzzles.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e)
+			{
+				specialAuthorFilter.setSearchString("");
+				tableViewer.refresh();
+			}
+		});
+		this.tableViewer.addFilter(specialAuthorFilter);
 
 		// add a category filter to the table
 		final CategoryFilter categoryFilter = new CategoryFilter();

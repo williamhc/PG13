@@ -12,13 +12,11 @@ public abstract class Puzzle
 	private User user;
 	private Category category;
 	private Difficulty difficulty;
-	private boolean isCompleted;
 	private long id;
 
 	protected Puzzle()
 	{
 		this.user = new User();
-		this.isCompleted = false;
 		this.title = DEFAULT_TITLE;
 		this.category = DEFAULT_CATEGORY;
 		this.difficulty = DEFAULT_DIFFICULTY;
@@ -30,7 +28,6 @@ public abstract class Puzzle
 	{
 		this();
 		this.user = user;
-		this.isCompleted = false;
 		this.title = title;
 		this.description = description;
 		this.difficulty = difficulty;

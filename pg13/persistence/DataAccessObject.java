@@ -7,7 +7,6 @@ import java.sql.SQLWarning;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 
 import pg13.models.Category;
 import pg13.models.Cryptogram;
@@ -19,7 +18,7 @@ public class DataAccessObject implements DataAccess
 {
 	private Statement st1, st2, st3;
 	private Connection c1;
-	private ResultSet rs2, rs3, rs4, rs5;
+	private ResultSet rs2, rs3, rs4;
 
 	private String dbName;
 	private String dbType;
@@ -174,7 +173,7 @@ public class DataAccessObject implements DataAccess
 				category = Category.valueOf(temp);
 				difficulty = Difficulty.valueOf(rs3.getString("Difficulty"));
 				plaintext = rs3.getString("Plaintext");
-				cryptogram = new Cryptogram(null, title, category, difficulty, plaintext, id);
+				cryptogram = new Cryptogram(null, title, description, category, difficulty, plaintext, id);
 				puzzles.add(cryptogram);
 			}
 			rs3.close();
@@ -319,7 +318,7 @@ public class DataAccessObject implements DataAccess
 
 		try
 		{
-			values = String.format("%d, %s", user.getPrimaryKey(),
+			values = String.format("%d, '%s'", user.getPrimaryKey(),
 					user.getName());
 			cmdString = "Insert into Users Values(" + values + ")";
 			System.out.println(cmdString);

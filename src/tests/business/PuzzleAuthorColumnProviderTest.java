@@ -4,10 +4,6 @@ import pg13.business.PuzzleAuthorColumnProvider;
 import pg13.models.Cryptogram;
 import junit.framework.TestCase;
 
-/**
- * Tests for PuzzleAuthorColumnProvider
- *
- */
 public class PuzzleAuthorColumnProviderTest extends TestCase 
 {
 

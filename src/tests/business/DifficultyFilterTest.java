@@ -5,9 +5,7 @@ import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 import junit.framework.TestCase;
 
-/**
- * Tests for DifficultyFilter
- */
+
 public class DifficultyFilterTest extends TestCase {
 
 	private DifficultyFilter testDifficultyFilter;

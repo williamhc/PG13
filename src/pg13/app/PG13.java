@@ -6,11 +6,7 @@ public class PG13
 {
 	
 	public static String dbName = "PG13";
-	/**
-	 * Launches the main window.
-	 * @param args
-	 * @date May 26 2013
-	 */
+
 	public static void main(String[] args) 
 	{
 		startUp();

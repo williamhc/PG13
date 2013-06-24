@@ -66,32 +66,19 @@ public class User
 		this.userName = userName;
 	}
 	
-	/**
-	 * @date June 19 2013
-	 * 
-	 * @param add a puzzle to the users list
-	 */
+
 	public void addPuzzle(Puzzle puzzle)
 	{
 		this.puzzles.add(puzzle);
 	}
 	
-	/**
-	 * @date June 19 2013
-	 * 
-	 * @param remove a puzzle by position in the list
-	 */
+
 	public void removePuzzle(int pos)
 	{
 		this.puzzles.remove(pos);
 	}
 	
-	/**
-	 * @date June 19 2013
-	 * 
-	 * @param remove a puzzle by object
-	 * @return true is puzzle is found and removed, false otherwise
-	 */
+
 	public boolean removePuzzle(Puzzle puzzle)
 	{
 		return this.puzzles.remove(puzzle);

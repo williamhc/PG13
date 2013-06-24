@@ -10,11 +10,6 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import pg13.models.Puzzle;
 
 
-
-/**
- * A logic layer for interactions between the puzzle table GUI
- * and persistence layers. Defines how the puzzle table acts and its data.
- */
 public class PuzzleTableDriver 
 {
 	
@@ -22,10 +17,7 @@ public class PuzzleTableDriver
 	private ArrayList<Puzzle> puzzleList;
 	private PuzzleManager manager;
 
-	/**
-	 * Constructor -- creates a puzzle table driver instance.
-	 * @date June 1 2013
-	 */
+
 	public PuzzleTableDriver(ArrayList<Puzzle> puzzleList)
 	{
 		//initialize the puzzle controller

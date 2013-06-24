@@ -1,9 +1,5 @@
 package pg13.models;
 
-/*
- * @date May 28, 2013
- * Class used to house mapping between plain and cipher text characters
- */
 public class CryptogramPair
 {
 
@@ -49,11 +45,6 @@ public class CryptogramPair
 		return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '\0');
 	}
 	
-	/**
-	 * @date May 31 2013
-	 * 
-	 * @param object The other (hopefully) CryptogramPair to compare against
-	 */
 	public boolean equals(Object object)
 	{
 		if(!(object instanceof CryptogramPair))

@@ -17,12 +17,7 @@ public class CryptogramSolveWidget extends Composite
 	private ArrayList<CryptogramLetterWidget> letterWidgets;
 	private Cryptogram solvingCryptogram;
 	
-	/**
-	 * Creates and populates the cryptogram solving widget.
-	 * @param parent
-	 * @param style
-	 * @date May 29 2013
-	 */
+
 	public CryptogramSolveWidget(Composite parent, int style, Cryptogram solvingCryptogram) 
 	{
 		super(parent, style);
@@ -48,11 +43,6 @@ public class CryptogramSolveWidget extends Composite
 		// Disable the check that prevents subclassing of SWT components
 	}
 
-	/**
-	 * Sets the cryptogram we are currently solving to the specified cryptogram
-	 * @date May 29 2013
-	 * @param newCryptogram
-	 */
 	public void setCryptogram(Cryptogram newCryptogram)
 	{
 		this.solvingCryptogram = newCryptogram;
@@ -61,11 +51,6 @@ public class CryptogramSolveWidget extends Composite
 		displayCryptogram();
 	}
 	
-	/**
-	 * Displays the cryptogram in the centre of the window
-	 * @date May 29 2013
-	 * @param ciphertext
-	 */
 	public void displayCryptogram()
 	{
 		String ciphertext;
@@ -95,10 +80,6 @@ public class CryptogramSolveWidget extends Composite
 		}
 	}
 	
-	/**
-	 * Updates the organization of the letter widgets in the cryptogram to display properly
-	 * @date May 29 2013
-	 */
 	public void updateLetterWidgetLayout()
 	{
 		final int LETTER_WIDGET_WIDTH = 26;
@@ -210,10 +191,6 @@ public class CryptogramSolveWidget extends Composite
 		}
 	}
 	
-	/**
-	 * Updates the contents of all the letters according to the cryptogram's stored contents
-	 * @date May 29 2013
-	 */
 	public void updateLetterWidgetContents()
 	{
 		for(int i = 0; i < letterWidgets.size(); i++)

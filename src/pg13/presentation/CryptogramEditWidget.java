@@ -23,12 +23,6 @@ public class CryptogramEditWidget extends Composite {
 	private CryptogramSolveWidget cmpPreview; // preview area for the cryptogram
 	private CryptogramManager cm;
 
-	/**
-	 * Creates and populates the cryptogram edit widget.
-	 * @param parent
-	 * @param style
-	 * @date May 29 2013
-	 */
 	public CryptogramEditWidget(Composite parent, int style,
 			Cryptogram workingCryptogram, boolean editMode)
 		{
@@ -104,20 +98,11 @@ public class CryptogramEditWidget extends Composite {
 		this.setEditMode(editMode);
 	}
 
-	/**
-	 * Set the edit mode of the widget - if false, the cryptogram will not be changeable
-	 * @date June 4th 2013
-	 */
 	private void setEditMode(boolean editMode) 
 	{
 		this.txtPlaintext.setEnabled(editMode);
 	}
 
-	/**
-	 * Updates the plaintext of the working cryptogram according to what is
-	 * written in the plaintext box.  Also updates the preview.
-	 * @date June 19 2013
-	 */
 	private void updatePuzzlePlaintext()
 	{
 		try
@@ -133,11 +118,6 @@ public class CryptogramEditWidget extends Composite {
 		}
 	}
 	
-	
-	/**
-	 * Sets the cryptogram for the widget to display
-	 * @date May 29 2013
-	 */
 	public void setCryptogram(Cryptogram newCryptogram)
 	{
 		this.cm = new CryptogramManager(newCryptogram);

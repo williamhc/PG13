@@ -5,10 +5,6 @@ import pg13.models.Category;
 import pg13.models.Cryptogram;
 import junit.framework.TestCase;
 
-/**
- * Tests for PuzzleCategoryColumnProvider
- *
- */
 public class PuzzleCategoryColumnProviderTest extends TestCase
 {
 

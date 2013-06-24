@@ -14,12 +14,6 @@ public class CreateScreen extends Composite
 	private PuzzlePropertiesWidget cmpProperties;	// puzzle properties area
 	private CryptogramEditWidget cmpEditWidget;		// editing area
 	
-	/**
-	 * Creates and populates the create screen.
-	 * @param parent
-	 * @param style
-	 * @date May 26 2013
-	 */
 	public CreateScreen(Composite parent, int style) 
 	{
 		super(parent, style);
@@ -51,11 +45,6 @@ public class CreateScreen extends Composite
 
 	}
 	
-	/**
-	 * Sets the puzzle being created/edited
-	 * @param newPuzzle
-	 * @date June 19 2013
-	 */
 	public void setPuzzle(Cryptogram newPuzzle)
 	{
 		workingPuzzle = newPuzzle;

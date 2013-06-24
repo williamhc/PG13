@@ -5,9 +5,7 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 
-/**
- * Reports the difficulty as a string of a puzzle for displaying in a table column.
- */
+//Reports the difficulty as a string of a puzzle for displaying in a table column.
 public class PuzzleDifficultyColumnProvider extends ColumnLabelProvider 
 {
 

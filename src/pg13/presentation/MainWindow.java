@@ -22,9 +22,6 @@ import pg13.models.Puzzle;
 import pg13.models.User;
 import org.eclipse.swt.layout.GridData;
 
-/**
- * The main window for the application.
- */
 public class MainWindow 
 {
 	private static MainWindow instance;
@@ -49,10 +46,6 @@ public class MainWindow
 	private Button btnMainLogin;
 	private Label lblOr;
 
-	/**
-	 * gets the instance of the main window
-	 * @date June 19 2013
-	 */
 	public static MainWindow getInstance()
 	{
 		if (instance == null)
@@ -62,11 +55,7 @@ public class MainWindow
 		
 		return instance;
 	}
-	
-	/**
-	 * Constructor -- creates an instance of the window when it is created
-	 * @date May 26 2013
-	 */
+
 	private MainWindow()
 	{
         display = Display.getDefault();
@@ -78,10 +67,6 @@ public class MainWindow
 		return this.loggedInUser;
 	}
 
-	/**
-	 * Displays the main window.
-	 * @date May 26 2013
-	 */
     public void runWindow()
     {
 		while (!shell.isDisposed())
@@ -94,10 +79,6 @@ public class MainWindow
 		display.dispose();
     }
 
-    /**
-     * Creates and populates the main window
-     * @date May 26 2013
-     */
     public void createWindow()
 	{
 		shell = new Shell();
@@ -390,10 +371,6 @@ public class MainWindow
 		shell.open();
 	}
     
-    /**
-	 * hides the toolbar at the top of the main window.
-	 * @date June 23 2013
-	 */
     public void hideToolbar()
     {
     	this.btnConnect.setVisible(false);
@@ -411,11 +388,7 @@ public class MainWindow
 		
 		shell.layout(true);
     }
-    
-    /**
-	 * shows the toolbar at the top of the main window.
-	 * @date June 23 2013
-	 */
+
     public void showToolbar()
     {
     	this.btnConnect.setVisible(true);
@@ -433,11 +406,7 @@ public class MainWindow
 		
 		shell.layout(true);
     }
-    
-    /**
-	 * Opens up the play screen for the given puzzle, currently only cryptograms supported.
-	 * @date June 19 2013
-	 */
+
     public void playPuzzle(Puzzle puzzle)
     {
     	// currently only cryptograms supported
@@ -448,11 +417,7 @@ public class MainWindow
     	
     	switchToPlayScreen();
     }
-    
-    /**
-	 * Performs the actions for when the create button is pressed
-	 * @date June 19 2013
-	 */
+
     private void createPressed()
     {
     	// create a new puzzle to edit
@@ -461,11 +426,7 @@ public class MainWindow
     	// show the create screen and hide other screens
 		switchToCreateScreen();
     }
-    
-    /**
-	 * Performs the actions for when the play button is pressed
-	 * @date June 19 2013
-	 */
+
     private void playPressed()
     {
     	// show the find screen and hide other screens
@@ -474,11 +435,7 @@ public class MainWindow
 		// refresh find screen
 		cmpFindScreen.onLoad();
     }
-    
-    /**
-	 * hides all views in the main window
-	 * @date June 19 2013
-	 */
+
     private void hideAllViews()
     {
     	cmpCreateScreen.setVisible(false);
@@ -487,60 +444,36 @@ public class MainWindow
 		cmpSignUpScreen.setVisible(false);
 		cmpLoginScreen.setVisible(false);
     }
-    
-    /**
-	 * switches the view to the create screen
-	 * @date June 19 2013
-	 */
+
     public void switchToCreateScreen()
     {
     	hideAllViews();
     	cmpCreateScreen.setVisible(true);
     }
-    
-    /**
-	 * switches the view to the find screen
-	 * @date June 19 2013
-	 */
+
     public void switchToFindScreen()
     {
     	hideAllViews();
     	cmpFindScreen.setVisible(true);
     }
-    
-    /**
-	 * switches the view to the play screen
-	 * @date June 19 2013
-	 */
+
     public void switchToPlayScreen()
     {
     	hideAllViews();
     	cmpPlayScreen.setVisible(true);
     }
     
-    /**
-	 * switches the view to the welcome screen
-	 * @date June 19 2013
-	 */
     public void switchToWelcomeScreen()
     {
     	hideAllViews();
     }
-    
-    /**
-   	 * switches the view to the sign up screen
-   	 * @date June 23 2013
-   	 */
+
     public void switchToSignUpScreen()
     {
     	hideAllViews();
     	cmpSignUpScreen.setVisible(true);
     }
-    
-    /**
-   	 * switches the view to the log in screen
-   	 * @date June 23 2013
-   	 */
+
     public void switchToLoginScreen()
     {
     	hideAllViews();
@@ -548,10 +481,6 @@ public class MainWindow
     	cmpLoginScreen.refresh();
     }
     
-    /**
-   	 * sets the currently logged in user
-   	 * @date June 23 2013
-   	 */
     public void login(User user)
     {
     	loggedInUser = user;
@@ -563,10 +492,6 @@ public class MainWindow
     	lblWelcomeDescription.setText(MessageConstants.INSTRUCTIONS_LOGGED_IN);
     }
     
-    /**
-   	 * logs the current user out
-   	 * @date June 23 2013
-   	 */
     public void logout()
     {
     	loggedInUser = null;

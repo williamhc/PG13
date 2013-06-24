@@ -5,11 +5,6 @@ import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
 import junit.framework.TestCase;
 
-/**
- * 
- * Tests for PuzzleDifficultyColumnProvider
- *
- */
 public class PuzzleDifficultyColumnProviderTest extends TestCase 
 {
 	private Cryptogram testCryptogram;

@@ -5,9 +5,8 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import pg13.models.Puzzle;
 import pg13.persistence.DataAccess;
 
-/**
- * Reports the author of a puzzle as a string for displaying in a table column.
- */
+ //Reports the author of a puzzle as a string for displaying in a table column.
+
 public class PuzzleAuthorColumnProvider extends ColumnLabelProvider
 {
 	@Override

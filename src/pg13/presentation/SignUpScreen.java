@@ -24,12 +24,6 @@ public class SignUpScreen extends Composite
 	private ControlDecoration invalidUserDecor;
 	private Text txtLogIn;
 
-	/**
-	 * Creates and populates the sign up screen.
-	 * @param parent
-	 * @param style
-	 * @date June 23 2013
-	 */
 	public SignUpScreen(Composite parent, int style) 
 	{
 		super(parent, style);

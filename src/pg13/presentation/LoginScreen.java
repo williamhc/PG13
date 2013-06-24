@@ -25,11 +25,6 @@ public class LoginScreen extends Composite
 	private Label lblInvalidUser;
 	private ControlDecoration invalidUserDecor;
 	
-	/**
-	 * Create and populates the login screen.
-	 * @param parent
-	 * @param style
-	 */
 	public LoginScreen(Composite parent, int style) 
 	{
 		super(parent, style);

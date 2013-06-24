@@ -40,13 +40,6 @@ public class PuzzlePropertiesWidget extends Composite
 	private Button btnCheckSolution;
 	private Puzzle displayingPuzzle;
 
-
-	/**
-	 * Creates and populates the properties widget.
-	 * @param parent
-	 * @param style
-	 * @date May 29 2013
-	 */
 	public PuzzlePropertiesWidget(Composite parent, int style, Puzzle displayingPuzzle, boolean editMode)
 	{
 		super(parent, style);
@@ -225,20 +218,12 @@ public class PuzzlePropertiesWidget extends Composite
 		this.setEditMode(editMode);
 	}
 
-	/**
-	 * Sets the puzzle we are displaying.
-	 * @date June 19 2013
-	 */
 	public void setPuzzle(Cryptogram newPuzzle)
 	{
 		this.displayingPuzzle = newPuzzle;
 		updateFields();
 	}
 
-	/**
-	 * Updates all the fields to display.
-	 * @date June 19 2013
-	 */
 	private void updateFields()
 	{
 		this.txtPuzzleName.setText((displayingPuzzle.getTitle() == null? "": displayingPuzzle.getTitle()));
@@ -249,10 +234,6 @@ public class PuzzlePropertiesWidget extends Composite
 		this.lblDifficultyFixedText.setText(cmbDificulty.getText());
 	}
 
-	/**
-	 * Creates and populates the array of categories from the given enum
-	 * @date June 19, 2013
-	 */
 	@SuppressWarnings("rawtypes")
 	private String[] getCategories(Enumeration[] catEnum)
 	{
@@ -264,11 +245,7 @@ public class PuzzlePropertiesWidget extends Composite
 		}
 		return categories;
 	}
-	
-	/**
-	 * Gets the index of an enumerated type to select it in a combo box
-	 * @date June 20, 2013
-	 */
+
 	@SuppressWarnings("rawtypes")
 	private int getComboIndex(Enumeration key, Enumeration[] list)
 	{
@@ -285,11 +262,6 @@ public class PuzzlePropertiesWidget extends Composite
 		return result;
 	}
 
-	/**
-	 * Sets whether the fields in the widget are editable.
-	 * @param editMode
-	 * @date June 19 2013
-	 */
 	private void setEditMode(boolean editMode)
 	{
 		this.editMode = editMode;
@@ -306,10 +278,6 @@ public class PuzzlePropertiesWidget extends Composite
 		this.btnCheckSolution.setVisible(!this.editMode);
 	}
 
-	/**
-	 * Saves the puzzle being displayed.
-	 * @date June 19 2013
-	 */
 	private void savePuzzle()
 	{
 		MessageBox dialog;
@@ -340,48 +308,28 @@ public class PuzzlePropertiesWidget extends Composite
 		}
 	}
 
-	/**
-	 * Updates the displaying puzzle's title field.
-	 * @date June 19 2013
-	 */
 	private void updatePuzzleTitle()
 	{
 		displayingPuzzle.setTitle(txtPuzzleName.getText());
 	}
 
-	/**
-	 * Updates the displaying puzzle's description field.
-	 * @date June 19 2013
-	 */
 	private void updatePuzzleDescription()
 	{
 		displayingPuzzle.setDescription(txtDescription.getText());
 	}
 
-	/**
-	 * Updates the displaying puzzle's category field.
-	 * @date June 19 2013
-	 */
 	private void updatePuzzleCategory()
 	{
 		displayingPuzzle.setCategory(Category.valueOf(cmbCategory.getText()));
 		lblCategoryFixedText.setText(cmbCategory.getText());
 	}
 
-	/**
-	 * Updates the displaying puzzle's difficulty field.
-	 * @date June 19 2013
-	 */
 	private void updatePuzzleDifficulty()
 	{
 		displayingPuzzle.setDifficulty(Difficulty.valueOf(cmbDificulty.getText()));
 		lblDifficultyFixedText.setText(cmbDificulty.getText());
 	}
 
-	/**
-	 * Checks to see if the puzzle is solved
-	 * @date May 30 2013
-	 */
 	private void checkSolution()
 	{
 		String msg;

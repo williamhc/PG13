@@ -7,10 +7,6 @@ import pg13.models.Difficulty;
 import pg13.models.User;
 import junit.framework.TestCase;
 
-/**
- * @date May 31 2013
- *
- */
 public class CryptogramManagerTest extends TestCase
 {
 	private CryptogramManager cm;

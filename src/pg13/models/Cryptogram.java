@@ -1,10 +1,6 @@
 package pg13.models;
 
-/*
- *  @date May 26 2013
- *  @title Cryptogram
- *  @description Class defining cryptograms
- */
+
 public class Cryptogram extends Puzzle
 {
 	private static final int ALPHABET_SIZE = 26;	// Letters of the alphabet
@@ -74,38 +70,18 @@ public class Cryptogram extends Puzzle
 	}
 
 
-	/*
-	 *  @date May 26 2013
-	 *  @title getUserPlaintextFromCiphertext
-	 *  @return the UPPERCASE plaintext char that the user thinks is mapped to a given ciphertext. 
-	 *  
-	 *  This method expects a letter, not any character.
-	 */
 	public char getUserPlaintextFromCiphertext(char ciphertextc)
 	{
 		int index = Character.toUpperCase(ciphertextc) - 'A';
 		return Character.toUpperCase(this.userMapping[index].getPlainc());
 	}
 
-	/*
-	 *  @date May 26 2013
-	 *  @title setPlainText
-	 *  @return maps the users choice of plaintext char for a given ciphertext char
-	 */
 	public void setUserPlaintextForCiphertext(char plaintextc, char ciphertextc)
 	{
 		int index = Character.toUpperCase(ciphertextc) - 'A';	// spot the in the array of the plaintext ciphertext pairing
 		this.userMapping[index].setPlainc(Character.toUpperCase(plaintextc));	//map the ciphertext to the given plaintext
 	}
 	
-
-
-	/*
-	 *  @date May 26 2013
-	 *  @title isCompleted
-	 *  @paeam String userString
-	 *  @return checks if userString which is the user's plaintext, matches the original plaintext (ignorescase)
-	 */	
 	public boolean isCompleted()
 	{		
 		String userString = decrypt(this.userMapping);
@@ -116,11 +92,6 @@ public class Cryptogram extends Puzzle
 		return userString.equalsIgnoreCase(this.plaintext);
 	}
 	
-	/*
-	 *  @date May 26 2013
-	 *  @title setMappingKeys
-	 *  @return an array of type Cryptogram pair with the plain text A - Z mapped
-	 */	
 	private CryptogramPair[] setMappingKeys(boolean orderByCipherText)
 	{
 		char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
@@ -140,11 +111,6 @@ public class Cryptogram extends Puzzle
 		return map;
 	}
 	
-	/*
-	 *  @date May 26 2013
-	 *  @title generateMappingKeys
-	 *  @desription Takes a randomly shuffled array of the alphabet and assigns the each char to the charMapping array[i]'s ciphertext
-	 */	
 	private void generateMappingKeys() 
 	{	
 		char[] alphabet = shuffleAlphabet();
@@ -155,13 +121,7 @@ public class Cryptogram extends Puzzle
 			this.solutionMapping[i].setCipherc(letter);
 		}
 	}
-
-	/*
-	 *  @date May 26 2013
-	 *  @title shuffleAlphabet
-	 *  @return a char array of the alphabet where no letter is in the same place
-	 *  This Method Uses Sattolo's Algorithm URL(http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Sattolo.27s_algorithm)
-	 */	
+	
 	private char[] shuffleAlphabet() 
 	{
 		char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
@@ -183,11 +143,6 @@ public class Cryptogram extends Puzzle
 		return alphabet;
 	}
 
-	/*
-	 *  @date May 26 2013
-	 *  @title encrypt
-	 *  @return generates random ciphertext based on plain text and charMapping array
-	 */	
 	private String encrypt()
 	{
 		String ciphertext = "";
@@ -219,12 +174,6 @@ public class Cryptogram extends Puzzle
 		return ciphertext;
 	}
 
-	/*
-	 *  @date May 26 2013
-	 *  @title decrypt
-	 *  @param mapping - mapping used to decrypt the cipher text
-	 *  @return decodes messages based on charMapping and cipher text
-	 */	
 	public String decrypt(CryptogramPair[] mapping) 
 	{
 		String plaintext = "";
@@ -255,12 +204,6 @@ public class Cryptogram extends Puzzle
 		return plaintext;
 	}
 
-	/*
-	 *  @date May 26 2013
-	 *  @title reOrderMappingByDecrypt
-	 *  @return an array of plaintext characters that are in the position of it's paired cipher text
-	 *  	i.e if A plaintext maps to Z ciphertext then A is in spot 25 of this array
-	 */	
 	private char[] reOrderMappingByDecrypt(CryptogramPair[] tofix) 
 	{
 		char[] reorder = new char[ALPHABET_SIZE];
@@ -274,10 +217,6 @@ public class Cryptogram extends Puzzle
 		return reorder;
 	}
 	
-	/**
-	 * Ensures that the cryptogram is valid.
-	 * @date June 20 2013
-	 */
 	public void validate() throws PuzzleValidationException
 	{
 		if(this.plaintext == null || this.plaintext.length() == 0)
@@ -285,11 +224,7 @@ public class Cryptogram extends Puzzle
 			throw new PuzzleValidationException(INVALID_PLAINTEXT_MESSAGE);
 		}
 	}
-	
-	/**
-	 * Does some cleanup so the cryptogram can be saved.
-	 * @date June 23 2013
-	 */
+
 	public void prepareForSave()
 	{
 		this.resetUserMapping();

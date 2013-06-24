@@ -73,12 +73,6 @@ public class FindScreen extends Composite
 	
 	private AuthorFilter specialAuthorFilter;
 
-	/**
-	 * Creates and populates the Find screen.
-	 * @param parent
-	 * @param style
-	 * @date May 31 2013
-	 */
 	public FindScreen(Composite parent, int style) 
 	{
 		super(parent, style);
@@ -469,10 +463,6 @@ public class FindScreen extends Composite
 		updatePlayButtonStatus();
 	}
 	
-	/**
-	 * Sets the play button to enabled or disabled, depending on the table selection.
-	 * @date June 19 2013
-	 */
 	private void updatePlayButtonStatus()
 	{
 		int selected;
@@ -490,10 +480,6 @@ public class FindScreen extends Composite
 		}
 	}
 	
-	/**
-	 * Handles when the play puzzles button is pressed.
-	 * @date June 19 2013
-	 */
 	private void playPuzzlePressed()
 	{
 		if(this.selectedPuzzle != null)

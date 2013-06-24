@@ -17,12 +17,6 @@ public class PlayScreen extends Composite
 	private PuzzlePropertiesWidget cmpProperties;	// the properties area
 	private CryptogramSolveWidget cmpSolveWidget;	// the area to solve the puzzle
 	
-	/**
-	 * Creates and populates the play screen.
-	 * @param parent
-	 * @param style
-	 * @date June 19 2013
-	 */
 	public PlayScreen(Composite parent, int style) 
 	{
 		super(parent, style);
@@ -72,11 +66,6 @@ public class PlayScreen extends Composite
 		cmpSolveScrollable.setContent(cmpSolveWidget);
 	}
 
-	/**
-	 * Sets the puzzle being played
-	 * @param newPuzzle
-	 * @date June 19 2013
-	 */
 	public void setPuzzle(Cryptogram newPuzzle)
 	{
 		workingPuzzle = newPuzzle;

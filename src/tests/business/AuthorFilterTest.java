@@ -4,9 +4,6 @@ import pg13.models.Cryptogram;
 import pg13.models.Puzzle;
 import junit.framework.TestCase;
 
-/**
- * Tests for AuthorFilter
- */
 public class AuthorFilterTest extends TestCase {
 
 	private AuthorFilter testAuthorFilter;

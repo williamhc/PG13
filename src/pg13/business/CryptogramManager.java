@@ -3,10 +3,6 @@ package pg13.business;
 
 import pg13.models.Cryptogram;
 
-/**
- * @date May31st 2013
- *
- */
 public class CryptogramManager
 {
 
@@ -55,11 +51,6 @@ public class CryptogramManager
 		return this.cryptogram.getPlaintext();
 	}
 
-	/**
-	 * Gets the user mapping for a cipher character
-	 * @param cipherCharacter The cipher character for which we want the users' mapping
-	 * @return A single uppercase letter string of the users mapping to the ciphercharacter. If there is not mapping, returns an empty string
-	 */
 	public String getUserMapping(char cipherCharacter)
 	{
 		String result = "";
@@ -83,25 +74,14 @@ public class CryptogramManager
 
 	}
 
-	/**
-	 * Updates a user mapping for a cryptogra. IE: map X to A where X is the character the user entered and A is the
-	 * ciphertext
-	 * @date June 1 2013
-	 * @param plaintextChar The character that is being mapped
-	 * @param ciphertextChar The character being mapped to
-	 */
 	public void setUserMapping(char plaintextChar, char ciphertextChar)
 	{
+		//validates the mapping, then sets it
 		this.validateUserMapping(plaintextChar);
 		this.validateUserMapping(ciphertextChar);
 		this.cryptogram.setUserPlaintextForCiphertext(plaintextChar, ciphertextChar);
 	}
 
-	/**
-	 * Validates a user mapping. Valid characters are those in the range of a-z or '\0'
-	 * @param charToValidate The character to validate
-	 * @date June 1 2013
-	 */
 	public void validateUserMapping(char charToValidate)
 	{
 		if(charToValidate != '\0' && "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(charToValidate) < 0)
@@ -110,11 +90,6 @@ public class CryptogramManager
 		}
 	}
 
-	/**
-	 * Validates a user mapping. Valid characters are those in the range of a-z or '\0'
-	 * @param charToValidate Single character string or empty string to be validated.
-	 * @date June 1 2013
-	 */
 	public void validateUserMapping(String charToValidate)
 	{
 		if(charToValidate.length() > 1)

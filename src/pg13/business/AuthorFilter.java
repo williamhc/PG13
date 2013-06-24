@@ -26,4 +26,13 @@ public class AuthorFilter extends ViewerFilter {
 		}
 		return p.getAuthor().toLowerCase().matches(this.searchString);
 	}
+
+ 	public void setAbsoluteSearchString(String abs_str)
+	{
+		if(abs_str==null)
+		{
+			return;
+		}
+		this.searchString = abs_str.toLowerCase();
+	}
 }

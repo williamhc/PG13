@@ -67,4 +67,44 @@ public class AuthorFilterTest extends TestCase {
 		this.testAuthorFilter.setSearchString("not will at all");
 		assertFalse(this.testAuthorFilter.select(null, null, testPuzzle));
 	}
+
+	public void testAbsoluteMatchingPerfectMatch()
+	{
+		this.testAuthorFilter.setAbsoluteSearchString(AUTHOR_NAME);
+		assertTrue(this.testAuthorFilter.select(null, null, testPuzzle));
+	}
+
+	public void testAbsoluteMatchingSubstring()
+	{
+		this.testAuthorFilter.setAbsoluteSearchString(AUTHOR_NAME.substring(0, AUTHOR_NAME.length()/2));
+		assertFalse(this.testAuthorFilter.select(null, null, testPuzzle));
+	}
+
+	public void testAbsoluteMatchingWhitespace()
+	{
+		this.testAuthorFilter.setAbsoluteSearchString(" " + AUTHOR_NAME);
+		assertFalse(this.testAuthorFilter.select(null, null, testPuzzle));
+
+		this.testAuthorFilter.setAbsoluteSearchString(" " + AUTHOR_NAME + " \t");
+		assertFalse(this.testAuthorFilter.select(null, null, testPuzzle));
+
+		this.testAuthorFilter.setAbsoluteSearchString(AUTHOR_NAME + "   ");
+		assertFalse(this.testAuthorFilter.select(null, null, testPuzzle));
+	}
+
+	public void testAbsoluteMatchingNull()
+	{
+		this.testAuthorFilter.setAbsoluteSearchString(null);
+		assertTrue(this.testAuthorFilter.select(null, null, testPuzzle));
+	}
+
+	public void testAbsoluteMatchingCaseInsensitive()
+	{
+		this.testAuthorFilter.setAbsoluteSearchString(AUTHOR_NAME.toLowerCase());
+		assertTrue(this.testAuthorFilter.select(null, null, testPuzzle));
+
+		this.testAuthorFilter.setAbsoluteSearchString(AUTHOR_NAME.toUpperCase());
+		assertTrue(this.testAuthorFilter.select(null, null, testPuzzle));
+	}
+
 }

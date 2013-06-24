@@ -323,6 +323,7 @@ public class FindScreen extends Composite
 				Text source = (Text) e.getSource();
 				titleFilter.setSearchString(source.getText());
 				tableViewer.refresh();
+				updatePlayButtonStatus();
 			}
 		});
 		this.tableViewer.addFilter(titleFilter);
@@ -337,6 +338,7 @@ public class FindScreen extends Composite
 				Text source = (Text) e.getSource();
 				authorFilter.setSearchString(source.getText());
 				tableViewer.refresh();
+				updatePlayButtonStatus();
 			}
 		});
 		this.tableViewer.addFilter(authorFilter);
@@ -358,6 +360,7 @@ public class FindScreen extends Composite
 			{
 				specialAuthorFilter.setSearchString("");
 				tableViewer.refresh();
+				updatePlayButtonStatus();
 			}
 		});
 		this.tableViewer.addFilter(specialAuthorFilter);
@@ -381,6 +384,7 @@ public class FindScreen extends Composite
 				}
 				categoryFilter.setSearchValue(category);
 				tableViewer.refresh();
+				updatePlayButtonStatus();
 			}
 		});
 		this.tableViewer.addFilter(categoryFilter);
@@ -407,6 +411,7 @@ public class FindScreen extends Composite
 					}
 				}
 				tableViewer.refresh();
+				updatePlayButtonStatus();
 			}
 		};
 		SelectionAdapter SLToggleOne = new SelectionAdapter()
@@ -426,6 +431,7 @@ public class FindScreen extends Composite
 					difficultyFilter.removeValue(diff);
 				}
 				tableViewer.refresh();
+				updatePlayButtonStatus();
 			}
 		};
 		this.btnAllDifficulties.addSelectionListener(SLToggleAll);
@@ -450,6 +456,7 @@ public class FindScreen extends Composite
 						{
 							selectedPuzzle = null;
 						}
+						updatePlayButtonStatus();
 					}
 				});
 	}
@@ -525,6 +532,7 @@ public class FindScreen extends Composite
 				.getName();
 		specialAuthorFilter.setAbsoluteSearchString(loggedInUsername);
 		tableViewer.refresh();
+		updatePlayButtonStatus();
 	}
 
 	public void selectMyPuzzles()

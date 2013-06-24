@@ -20,19 +20,17 @@ import pg13.models.User;
 		private final String DEFAULT_DESCRIPTION = "Some Description";
 		private final String DEFAULT_PLAINTEXT = "This is a test.";
 		private final long DEFAULT_ID = 1;
-		
+
 		private Cryptogram cryptogram;
-		
+
 		public CryptogramTest(String arg0)
 		{
 			super(arg0);
 		}
-		
-		public void testEmptyCryptogram()
+
+		public void testValidatingNewCryptogram()
 		{
 			cryptogram = new Cryptogram();
-			assertNotNull(cryptogram);
-			
 			try
 			{
 				cryptogram.validate();
@@ -40,10 +38,39 @@ import pg13.models.User;
 			}
 			catch(PuzzleValidationException e)
 			{
-				
+				// expected
 			}
 		}
-		
+
+		public void testValidatingValidCryptogram()
+		{
+			cryptogram = new Cryptogram();
+			cryptogram.setPlaintext("Abc123");
+			try
+			{
+				cryptogram.validate();
+			}
+			catch(PuzzleValidationException e)
+			{
+				fail(); //unexpected
+			}
+		}
+
+		public void testValidatingEmptyCryptogram()
+		{
+			cryptogram = new Cryptogram();
+			cryptogram.setPlaintext("");
+			try
+			{
+				cryptogram.validate();
+				fail();
+			}
+			catch(PuzzleValidationException e)
+			{
+				//expected
+			}
+		}
+
 		public void testCryptogramGeneralData()
 		{
 			cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_PLAINTEXT, DEFAULT_ID);
@@ -66,13 +93,13 @@ import pg13.models.User;
 			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 			assertEquals(DEFAULT_ID, cryptogram.getID());
 		}
-		
-		
-		
+
+
+
 		public void testCryptogramEmptyTitle()
 		{
 			cryptogram = new Cryptogram(DEFAULT_USER, "", DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, "", DEFAULT_ID);
-			assertEquals("", cryptogram.getTitle());		
+			assertEquals("", cryptogram.getTitle());
 			assertEquals(DEFAULT_AUTHOR, cryptogram.getAuthor());
 			assertEquals("", cryptogram.getPlaintext());
 			assertEquals(DEFAULT_CATEGORY, cryptogram.getCategory());
@@ -80,7 +107,7 @@ import pg13.models.User;
 			assertEquals(DEFAULT_ID, cryptogram.getID());
 		}
 
-		
+
 		public void testNoID()
 		{
 			cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_PLAINTEXT);
@@ -91,7 +118,7 @@ import pg13.models.User;
 			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 			assertEquals(Puzzle.DEFAULT_ID, cryptogram.getID());
 		}
-		
+
 		public void testCipherTextWorksNoPunctuation()
 		{
 			cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_PLAINTEXT, DEFAULT_ID);
@@ -103,7 +130,7 @@ import pg13.models.User;
 			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 			assertEquals(DEFAULT_ID, cryptogram.getID());
 		}
-		
+
 		public void testCipherTextWorksPunctuation()
 		{
 			String plaintext =  "This. is, a! test%";
@@ -117,7 +144,7 @@ import pg13.models.User;
 			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 			assertEquals(DEFAULT_ID, cryptogram.getID());
 		}
-		
+
 		public void testCryptogramEmptyPlainText()
 		{
 			cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, "", DEFAULT_ID);
@@ -129,7 +156,7 @@ import pg13.models.User;
 			assertEquals(DEFAULT_CATEGORY, cryptogram.getCategory());
 			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 			assertEquals(DEFAULT_ID, cryptogram.getID());
-			
+
 			try
 			{
 				cryptogram.validate();
@@ -137,12 +164,12 @@ import pg13.models.User;
 			}
 			catch(PuzzleValidationException e)
 			{
-				
+				// expected
 			}
 		}
 
 		public void testCryptogramAllPuncatuationPlainText()
-		{	
+		{
 			String plaintext = "!!!!!!!!!!!!!!!!!!!!!&!!!!!!!!!!";
 			cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, plaintext, DEFAULT_ID);
 			assertEquals(plaintext, cryptogram.getPlaintext());
@@ -154,21 +181,21 @@ import pg13.models.User;
 			assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 			assertEquals(DEFAULT_ID, cryptogram.getID());
 		}
-		
+
 		public void testCryptogramCryptogramCompletion()
 		{
 			cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, "This is a test.");
 			this.setUserMappingForTest(cryptogram);
 			assertTrue(cryptogram.isCompleted());
 		}
-		
-		private void setUserMappingForTest(Cryptogram cryptogram) 
+
+		private void setUserMappingForTest(Cryptogram cryptogram)
 		{
 			for(int i = 0; i < cryptogram.getSolutionMapping().length; i++)
-			{			
+			{
 				cryptogram.setUserPlaintextForCiphertext(cryptogram.getSolutionMapping()[i].getPlainc(), cryptogram.getSolutionMapping()[i].getCipherc());
 			}
-			
+
 		}
 
 		public void testCryptogramUserUses()
@@ -177,8 +204,8 @@ import pg13.models.User;
 			cryptogram.setUserPlaintextForCiphertext('h', 'X');
 			assertEquals(cryptogram.getUserPlaintextFromCiphertext('X'), 'H');
 			assertNotNull(cryptogram.getUserMapping());
-		}		
-		
+		}
+
 		public void testSetAndGetValidUserMappings()
 		{
 			cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_PLAINTEXT);
@@ -188,16 +215,28 @@ import pg13.models.User;
 				{
 					cryptogram.setUserPlaintextForCiphertext(ch1, ch2);
 					assertEquals(Character.toUpperCase(ch1), cryptogram.getUserPlaintextFromCiphertext(ch2));
-					
+
 					cryptogram.setUserPlaintextForCiphertext(Character.toUpperCase(ch1), ch2);
 					assertEquals(Character.toUpperCase(ch1), cryptogram.getUserPlaintextFromCiphertext(ch2));
-					
+
 					cryptogram.setUserPlaintextForCiphertext(ch1, Character.toUpperCase(ch2));
 					assertEquals(Character.toUpperCase(ch1), cryptogram.getUserPlaintextFromCiphertext(ch2));
-					
+
 					cryptogram.setUserPlaintextForCiphertext(Character.toUpperCase(ch1), Character.toUpperCase(ch2));
 					assertEquals(Character.toUpperCase(ch1), cryptogram.getUserPlaintextFromCiphertext(ch2));
 				}
 			}
+		}
+
+		public void testResetUserMapping()
+		{
+			cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_PLAINTEXT);
+			char guess = 'A';
+			char encrypted = 'B';
+			this.cryptogram.setUserPlaintextForCiphertext(guess, encrypted);
+	 		assertEquals(guess, this.cryptogram.getUserPlaintextFromCiphertext(encrypted));
+			this.cryptogram.resetUserMapping();
+			assertEquals('\0', this.cryptogram.getUserPlaintextFromCiphertext(encrypted));
+
 		}
 	}

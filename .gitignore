@@ -1,5 +1,7 @@
 *.class
-
+.classpath
+*.script
+*.properties
 # Package Files #
 *.war
 *.ear

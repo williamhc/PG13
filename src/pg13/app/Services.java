@@ -30,7 +30,8 @@ public class Services
 	{
 		if (dataAccessService == null)
 		{
-			System.out.println("Connection to data access has not been established.");
+			System.out
+					.println("Connection to data access has not been established.");
 			System.exit(1);
 		}
 		return dataAccessService;

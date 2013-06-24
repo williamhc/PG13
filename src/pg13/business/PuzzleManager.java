@@ -16,19 +16,19 @@ public class PuzzleManager
 	{
 		this.dataAccess = Services.getDataAccess(PG13.dbName);
 	}
-	
+
 	public void save(Puzzle puzzle)
 	{
-		if(puzzle.getID() == Puzzle.DEFAULT_ID)
+		if (puzzle.getID() == Puzzle.DEFAULT_ID)
 		{
 			ArrayList<Long> keys = dataAccess.getSortedPuzzleIDs();
 			long nextID = keys.size() == 0 ? 1 : keys.get(keys.size() - 1) + 1;
 			puzzle.setID(nextID);
 		}
-		
+
 		this.dataAccess.savePuzzle(puzzle);
 	}
-	
+
 	public ArrayList<Puzzle> getAllPuzzles()
 	{
 		return this.dataAccess.getAllPuzzles();

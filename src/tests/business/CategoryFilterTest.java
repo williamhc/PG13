@@ -1,16 +1,19 @@
 package tests.business;
+
 import pg13.business.CategoryFilter;
 import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Puzzle;
 import junit.framework.TestCase;
 
-public class CategoryFilterTest extends TestCase {
+public class CategoryFilterTest extends TestCase
+{
 
 	private CategoryFilter testCategoryFilter;
 	private Puzzle testPuzzle;
 
-	protected void setUp() throws Exception {
+	protected void setUp() throws Exception
+	{
 		this.testCategoryFilter = new CategoryFilter();
 		this.testPuzzle = new Cryptogram();
 		this.testPuzzle.setCategory(Category.Animals);
@@ -29,7 +32,7 @@ public class CategoryFilterTest extends TestCase {
 		this.testCategoryFilter.setSearchValue(null);
 		assertTrue(this.testCategoryFilter.select(null, null, testPuzzle));
 	}
-	
+
 	public void testMatchingSearch()
 	{
 		this.testCategoryFilter.setSearchValue(Category.Animals);

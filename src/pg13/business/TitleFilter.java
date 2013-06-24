@@ -5,12 +5,14 @@ import org.eclipse.jface.viewers.ViewerFilter;
 
 import pg13.models.Puzzle;
 
-public class TitleFilter extends ViewerFilter {
+public class TitleFilter extends ViewerFilter
+{
 
 	private String searchString;
-	
-	public void setSearchString(String str){
-		if(str==null)
+
+	public void setSearchString(String str)
+	{
+		if (str == null)
 		{
 			return;
 		}
@@ -18,9 +20,10 @@ public class TitleFilter extends ViewerFilter {
 	}
 
 	@Override
-	public boolean select(Viewer viewer, Object parentElement, Object element) {			
+	public boolean select(Viewer viewer, Object parentElement, Object element)
+	{
 		Puzzle p = (Puzzle) element;
-		if(this.searchString == null || this.searchString.length() == 0)
+		if (this.searchString == null || this.searchString.length() == 0)
 		{
 			return true;
 		}

@@ -18,20 +18,23 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.custom.ScrolledComposite;
 import pg13.org.eclipse.wb.swt.SWTResourceManager;
 
-public class CryptogramEditWidget extends Composite {
+public class CryptogramEditWidget extends Composite
+{
 	private Text txtPlaintext; // plaintext used to generate cryptogram
 	private CryptogramSolveWidget cmpPreview; // preview area for the cryptogram
 	private CryptogramManager cm;
 
 	public CryptogramEditWidget(Composite parent, int style,
 			Cryptogram workingCryptogram, boolean editMode)
-		{
+	{
 		super(parent, style);
 		setLayout(new FormLayout());
 		this.cm = new CryptogramManager(workingCryptogram);
-		
-		ScrolledComposite cmpPreviewScrollable = new ScrolledComposite(this, SWT.BORDER | SWT.V_SCROLL);
-		cmpPreviewScrollable.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+
+		ScrolledComposite cmpPreviewScrollable = new ScrolledComposite(this,
+				SWT.BORDER | SWT.V_SCROLL);
+		cmpPreviewScrollable.setBackground(SWTResourceManager
+				.getColor(SWT.COLOR_WHITE));
 		FormData fd_cmpPreviewScrollable = new FormData();
 		fd_cmpPreviewScrollable.bottom = new FormAttachment(100, -10);
 		fd_cmpPreviewScrollable.right = new FormAttachment(100, -10);
@@ -41,14 +44,15 @@ public class CryptogramEditWidget extends Composite {
 		cmpPreviewScrollable.setExpandHorizontal(true);
 
 		// cryptogram preview widget
-		cmpPreview = new CryptogramSolveWidget(cmpPreviewScrollable, SWT.NONE, workingCryptogram);
+		cmpPreview = new CryptogramSolveWidget(cmpPreviewScrollable, SWT.NONE,
+				workingCryptogram);
 		FormData fd_cmpPreview = new FormData();
 		fd_cmpPreview.bottom = new FormAttachment(100, -10);
 		fd_cmpPreview.right = new FormAttachment(100, -10);
 		fd_cmpPreview.top = new FormAttachment(0, 136);
 		fd_cmpPreview.left = new FormAttachment(0, 10);
 		cmpPreview.setLayoutData(fd_cmpPreview);
-		
+
 		cmpPreviewScrollable.setContent(cmpPreview);
 
 		Label lblPlaintext = new Label(this, SWT.NONE);
@@ -66,9 +70,9 @@ public class CryptogramEditWidget extends Composite {
 		lblPreview.setText(Constants.PREVIEW);
 
 		txtPlaintext = new Text(this, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
-		txtPlaintext.addModifyListener(new ModifyListener() 
+		txtPlaintext.addModifyListener(new ModifyListener()
 		{
-			public void modifyText(ModifyEvent event) 
+			public void modifyText(ModifyEvent event)
 			{
 				updatePuzzlePlaintext();
 			}
@@ -91,14 +95,15 @@ public class CryptogramEditWidget extends Composite {
 		fd_txtPlaintext.right = new FormAttachment(100, -10);
 		fd_txtPlaintext.bottom = new FormAttachment(lblPreview, -6);
 		fd_txtPlaintext.top = new FormAttachment(lblPlaintext, 6);
-		fd_txtPlaintext.left = new FormAttachment(cmpPreviewScrollable, 0, SWT.LEFT);
+		fd_txtPlaintext.left = new FormAttachment(cmpPreviewScrollable, 0,
+				SWT.LEFT);
 		txtPlaintext.setTextLimit(Constants.MAX_PLAINTEXT_CHARS);
 		txtPlaintext.setLayoutData(fd_txtPlaintext);
 
 		this.setEditMode(editMode);
 	}
 
-	private void setEditMode(boolean editMode) 
+	private void setEditMode(boolean editMode)
 	{
 		this.txtPlaintext.setEnabled(editMode);
 	}
@@ -108,7 +113,7 @@ public class CryptogramEditWidget extends Composite {
 		try
 		{
 			this.cm.setPlaintext(txtPlaintext.getText());
-			cmpPreview.displayCryptogram();			
+			cmpPreview.displayCryptogram();
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -117,7 +122,7 @@ public class CryptogramEditWidget extends Composite {
 			dialog.setMessage(MessageConstants.INVALID_TEXT_MESSAGE);
 		}
 	}
-	
+
 	public void setCryptogram(Cryptogram newCryptogram)
 	{
 		this.cm = new CryptogramManager(newCryptogram);

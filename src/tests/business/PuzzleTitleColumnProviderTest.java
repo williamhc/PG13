@@ -12,13 +12,13 @@ public class PuzzleTitleColumnProviderTest extends TestCase
 
 	private Cryptogram testCryptogram;
 	private PuzzleTitleColumnProvider titleProvider;
-	
+
 	protected void setUp()
 	{
 		this.testCryptogram = new Cryptogram();
 		this.titleProvider = new PuzzleTitleColumnProvider();
 	}
-	
+
 	public void testEmptyTitle()
 	{
 		this.testCryptogram.setTitle("");
@@ -30,9 +30,9 @@ public class PuzzleTitleColumnProviderTest extends TestCase
 	{
 		this.testCryptogram.setTitle(null);
 		String resultTitle = this.titleProvider.getText(this.testCryptogram);
-		assertEquals(resultTitle, "Untitled");		
+		assertEquals(resultTitle, "Untitled");
 	}
-	
+
 	public void testNormalTitle()
 	{
 		String originalTitle = "Puzzle of Doom!";

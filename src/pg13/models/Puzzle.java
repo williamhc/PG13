@@ -7,7 +7,7 @@ public abstract class Puzzle
 	private static final Difficulty DEFAULT_DIFFICULTY = Difficulty.Easy;
 	private static final String DEFAULT_DESCRIPTION = "Describe your puzzle!";
 	public static final long DEFAULT_ID = -1;
-	
+
 	private String title, description;
 	private User user;
 	private Category category;
@@ -23,8 +23,9 @@ public abstract class Puzzle
 		this.description = DEFAULT_DESCRIPTION;
 		this.id = DEFAULT_ID;
 	}
-	
-	protected Puzzle(User user, String title, String description, Category category, Difficulty difficulty)
+
+	protected Puzzle(User user, String title, String description,
+			Category category, Difficulty difficulty)
 	{
 		this();
 		this.user = user;
@@ -33,7 +34,7 @@ public abstract class Puzzle
 		this.difficulty = difficulty;
 		this.category = category;
 	}
-	
+
 	public abstract boolean isCompleted();
 
 	public String getTitle()
@@ -41,12 +42,12 @@ public abstract class Puzzle
 		return this.title;
 	}
 
-	public void setTitle(String value) 
+	public void setTitle(String value)
 	{
 		this.title = value;
 	}
 
-	public String getDescription() 
+	public String getDescription()
 	{
 		return description;
 	}
@@ -56,32 +57,32 @@ public abstract class Puzzle
 		this.description = description;
 	}
 
-	public User getUser() 
+	public User getUser()
 	{
 		return user;
 	}
 
-	public void setUser(User user) 
+	public void setUser(User user)
 	{
 		this.user = user;
 	}
-	
+
 	public String getAuthor()
 	{
 		return this.user.getName();
 	}
-	
+
 	public void setAuthor(String name)
 	{
 		this.user.setName(name);
 	}
-	
-	public Category getCategory() 
+
+	public Category getCategory()
 	{
 		return category;
 	}
 
-	public void setCategory(Category category) 
+	public void setCategory(Category category)
 	{
 		this.category = category;
 	}
@@ -95,22 +96,22 @@ public abstract class Puzzle
 	{
 		this.difficulty = difficulty;
 	}
-	
+
 	public void validate() throws PuzzleValidationException
 	{
-		
+
 	}
-	
+
 	public long getID()
 	{
 		return this.id;
 	}
-	
+
 	public void setID(long id)
 	{
 		this.id = id;
 	}
-	
+
 	public void prepareForSave()
 	{
 		// do any cleanup necessary before the puzzle can be saved

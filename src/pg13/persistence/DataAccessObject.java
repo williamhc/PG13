@@ -59,13 +59,15 @@ public class DataAccessObject implements DataAccess
 			String cat = puzzle.getCategory().toString();
 			String dif = puzzle.getDifficulty().toString();
 			String plain = ((Cryptogram) puzzle).getPlaintext();
-			values = String.format("%d, '%s', '%s', '%s', '%s', '%s'",
-					id, sanitize(title), sanitize(description), sanitize(cat), sanitize(dif), sanitize(plain));
+			values = String.format("%d, '%s', '%s', '%s', '%s', '%s'", id,
+					sanitize(title), sanitize(description), sanitize(cat),
+					sanitize(dif), sanitize(plain));
 			cmdString = "Insert into Cryptograms Values(" + values + ")";
 			System.out.println(cmdString);
 			updateCount = st1.executeUpdate(cmdString);
 			checkWarning(st1, updateCount);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -76,7 +78,8 @@ public class DataAccessObject implements DataAccess
 			System.out.println(cmdString);
 			updateCount = st1.executeUpdate(cmdString);
 			checkWarning(st1, updateCount);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -111,7 +114,7 @@ public class DataAccessObject implements DataAccess
 
 	private void buildUsers()
 	{
-		
+
 		System.out.println("Building users");
 		User user;
 		String name;
@@ -122,7 +125,8 @@ public class DataAccessObject implements DataAccess
 		{
 			cmdString = "Select * from Users";
 			rs2 = st1.executeQuery(cmdString);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -136,7 +140,8 @@ public class DataAccessObject implements DataAccess
 				users.add(user);
 			}
 			rs2.close();
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -145,7 +150,7 @@ public class DataAccessObject implements DataAccess
 	private void buildCryptograms()
 	{
 		System.out.println("Building cryptograms");
-		
+
 		Cryptogram cryptogram;
 
 		long id;
@@ -158,7 +163,8 @@ public class DataAccessObject implements DataAccess
 		{
 			cmdString = "Select * from Cryptograms";
 			rs3 = st2.executeQuery(cmdString);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -173,11 +179,13 @@ public class DataAccessObject implements DataAccess
 				category = Category.valueOf(temp);
 				difficulty = Difficulty.valueOf(rs3.getString("Difficulty"));
 				plaintext = rs3.getString("Plaintext");
-				cryptogram = new Cryptogram(null, title, description, category, difficulty, plaintext, id);
+				cryptogram = new Cryptogram(null, title, description, category,
+						difficulty, plaintext, id);
 				puzzles.add(cryptogram);
 			}
 			rs3.close();
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -193,7 +201,8 @@ public class DataAccessObject implements DataAccess
 		{
 			cmdString = "Select * from UserPuzzles";
 			rs4 = st3.executeQuery(cmdString);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -210,7 +219,8 @@ public class DataAccessObject implements DataAccess
 				puzzle.setUser(user);
 			}
 			rs4.close();
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -252,22 +262,22 @@ public class DataAccessObject implements DataAccess
 	{
 		buildUsersAndPuzzles();
 		ArrayList<Long> keys = new ArrayList<Long>();
-		
-		for(User user: this.users)
+
+		for (User user : this.users)
 		{
 			keys.add(user.getPrimaryKey());
 		}
 		Collections.sort(keys);
 		return keys;
 	}
-	
+
 	@Override
 	public ArrayList<Long> getSortedPuzzleIDs()
 	{
 		buildUsersAndPuzzles();
 		ArrayList<Long> keys = new ArrayList<Long>();
-		
-		for(Puzzle puzzle: this.puzzles)
+
+		for (Puzzle puzzle : this.puzzles)
 		{
 			keys.add(puzzle.getID());
 		}
@@ -289,7 +299,8 @@ public class DataAccessObject implements DataAccess
 			st1 = c1.createStatement();
 			st2 = c1.createStatement();
 			st3 = c1.createStatement();
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -304,7 +315,8 @@ public class DataAccessObject implements DataAccess
 			cmdString = "shutdown compact";
 			rs2 = st1.executeQuery(cmdString);
 			c1.close();
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -324,7 +336,8 @@ public class DataAccessObject implements DataAccess
 			System.out.println(cmdString);
 			updateCount = st1.executeUpdate(cmdString);
 			checkWarning(st1, updateCount);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -332,14 +345,14 @@ public class DataAccessObject implements DataAccess
 		{
 			for (Puzzle puzzle : user.getPuzzles())
 			{
-				values = user.getPrimaryKey() + ", "
-						+ puzzle.getID();
+				values = user.getPrimaryKey() + ", " + puzzle.getID();
 				cmdString = "Insert into UserPuzzles Values(" + values + ")";
 				System.out.println(cmdString);
 				updateCount = st1.executeUpdate(cmdString);
 				checkWarning(st1, updateCount);
 			}
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -368,7 +381,8 @@ public class DataAccessObject implements DataAccess
 			{
 				result = warning.getMessage();
 			}
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			result = processSQLError(e);
 		}
@@ -392,7 +406,7 @@ public class DataAccessObject implements DataAccess
 		System.out.println(result);
 		return result;
 	}
-	
+
 	private String sanitize(String toSanitize)
 	{
 		return toSanitize.replaceAll("'", "''");

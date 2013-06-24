@@ -22,10 +22,10 @@ import pg13.models.Puzzle;
 import pg13.models.User;
 import org.eclipse.swt.layout.GridData;
 
-public class MainWindow 
+public class MainWindow
 {
 	private static MainWindow instance;
-	
+
 	private Display display;
 	private Shell shell;
 	private CreateScreen cmpCreateScreen;
@@ -52,23 +52,23 @@ public class MainWindow
 		{
 			instance = new MainWindow();
 		}
-		
+
 		return instance;
 	}
 
 	private MainWindow()
 	{
-        display = Display.getDefault();
+		display = Display.getDefault();
 		createWindow();
 	}
-	
+
 	public User getLoggedInUser()
 	{
 		return this.loggedInUser;
 	}
 
-    public void runWindow()
-    {
+	public void runWindow()
+	{
 		while (!shell.isDisposed())
 		{
 			if (!display.readAndDispatch())
@@ -77,23 +77,23 @@ public class MainWindow
 			}
 		}
 		display.dispose();
-    }
+	}
 
-    public void createWindow()
+	public void createWindow()
 	{
 		shell = new Shell();
 		shell.setMinimumSize(new Point(768, 576));
 		shell.setSize(774, 616);
-		shell.setLocation(150,100);
+		shell.setLocation(150, 100);
 		shell.setText(Constants.PG13);
 		shell.setLayout(new FormLayout());
-		
+
 		// play button
 		btnPlay = new Button(shell, SWT.NONE);
-		btnPlay.addSelectionListener(new SelectionAdapter() 
+		btnPlay.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
-			public void widgetSelected(SelectionEvent e) 
+			public void widgetSelected(SelectionEvent e)
 			{
 				playPressed();
 			}
@@ -104,7 +104,7 @@ public class MainWindow
 		fd_btnPlay.left = new FormAttachment(0, 5);
 		btnPlay.setLayoutData(fd_btnPlay);
 		btnPlay.setText(Constants.PLAY);
-		
+
 		// connect button
 		btnConnect = new Button(shell, SWT.NONE);
 		btnConnect.setEnabled(false);
@@ -114,13 +114,13 @@ public class MainWindow
 		fd_btnConnect.left = new FormAttachment(0, 91);
 		btnConnect.setLayoutData(fd_btnConnect);
 		btnConnect.setText(Constants.CONNECT);
-		
+
 		// create button
 		btnCreate = new Button(shell, SWT.NONE);
-		btnCreate.addSelectionListener(new SelectionAdapter() 
+		btnCreate.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
-			public void widgetSelected(SelectionEvent e) 
+			public void widgetSelected(SelectionEvent e)
 			{
 				createPressed();
 			}
@@ -131,7 +131,7 @@ public class MainWindow
 		fd_btnCreate.left = new FormAttachment(0, 177);
 		btnCreate.setLayoutData(fd_btnCreate);
 		btnCreate.setText(Constants.CREATE);
-		
+
 		// container for user login info
 		cmpLogin = new Composite(shell, SWT.BORDER);
 		FormData fd_cmpLogin = new FormData();
@@ -139,73 +139,77 @@ public class MainWindow
 		fd_cmpLogin.top = new FormAttachment(0, 5);
 		fd_cmpLogin.left = new FormAttachment(100, -392);
 		cmpLogin.setLayoutData(fd_cmpLogin);
-		cmpLogin.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND));
+		cmpLogin.setBackground(SWTResourceManager
+				.getColor(SWT.COLOR_TITLE_BACKGROUND));
 		cmpLogin.setLayout(new GridLayout(2, false));
-		
-		// label that identifies 
+
+		// label that identifies
 		lblLoggedInAs = new Label(cmpLogin, SWT.NONE);
-		GridData gd_lblLoggedInAs = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		GridData gd_lblLoggedInAs = new GridData(SWT.LEFT, SWT.CENTER, false,
+				false, 1, 1);
 		gd_lblLoggedInAs.widthHint = 185;
 		lblLoggedInAs.setLayoutData(gd_lblLoggedInAs);
-		lblLoggedInAs.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND));
+		lblLoggedInAs.setBackground(SWTResourceManager
+				.getColor(SWT.COLOR_TITLE_BACKGROUND));
 		lblLoggedInAs.setText(MessageConstants.LOGON);
-		
+
 		// toolbar that contains the user buttons
 		ToolBar toolBar = new ToolBar(cmpLogin, SWT.FLAT);
-		toolBar.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND));
-		
+		toolBar.setBackground(SWTResourceManager
+				.getColor(SWT.COLOR_TITLE_BACKGROUND));
+
 		// separator
 		ToolItem tltmSeparator1 = new ToolItem(toolBar, SWT.SEPARATOR);
 		tltmSeparator1.setText("sep");
-		
+
 		// my puzzles button
 		ToolItem tltmMyPuzzles = new ToolItem(toolBar, SWT.NONE);
 		tltmMyPuzzles.setText(Constants.MY_PUZZLES);
-		tltmMyPuzzles.addSelectionListener(new SelectionAdapter() 
+		tltmMyPuzzles.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
-			public void widgetSelected(SelectionEvent e) 
+			public void widgetSelected(SelectionEvent e)
 			{
 				switchToFindScreen();
 				cmpFindScreen.selectMyPuzzles();
 				cmpFindScreen.filterByMyPuzzles();
 			}
 		});
-		
+
 		// separator
 		ToolItem tltmSeparator2 = new ToolItem(toolBar, SWT.SEPARATOR);
 		tltmSeparator2.setText("sep");
-		
+
 		// home button
 		ToolItem tltmHome = new ToolItem(toolBar, SWT.NONE);
 		tltmHome.setText(Constants.HOME);
-		tltmHome.addSelectionListener(new SelectionAdapter() 
+		tltmHome.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
-			public void widgetSelected(SelectionEvent e) 
+			public void widgetSelected(SelectionEvent e)
 			{
 				switchToWelcomeScreen();
 			}
 		});
-		
+
 		// separator
 		ToolItem tltmSeparator3 = new ToolItem(toolBar, SWT.SEPARATOR);
 		tltmSeparator3.setSelection(true);
 		tltmSeparator3.setEnabled(true);
 		tltmSeparator3.setText("sep");
-		
+
 		// logout button
 		ToolItem tltmLogout = new ToolItem(toolBar, SWT.NONE);
 		tltmLogout.setText(Constants.LOGOUT);
-		tltmLogout.addSelectionListener(new SelectionAdapter() 
+		tltmLogout.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
-			public void widgetSelected(SelectionEvent e) 
+			public void widgetSelected(SelectionEvent e)
 			{
 				logout();
 			}
 		});
-		
+
 		// horizontal line
 		lblToolbarSeparator = new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL);
 		FormData fd_lblToolbarSeparator = new FormData();
@@ -213,7 +217,7 @@ public class MainWindow
 		fd_lblToolbarSeparator.top = new FormAttachment(0, 46);
 		fd_lblToolbarSeparator.left = new FormAttachment(0, 5);
 		lblToolbarSeparator.setLayoutData(fd_lblToolbarSeparator);
-		
+
 		// main area, where the create and play screens will be contained
 		cmpMainArea = new Composite(shell, SWT.BORDER);
 		cmpMainArea.setLayout(new FormLayout());
@@ -224,7 +228,7 @@ public class MainWindow
 		fd_cmpMainArea.left = new FormAttachment(0, 5);
 		cmpMainArea.setLayoutData(fd_cmpMainArea);
 		cmpMainArea.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		
+
 		// load the create screen, but hide it
 		cmpCreateScreen = new CreateScreen(cmpMainArea, SWT.NONE);
 		FormData fd_cmpCreateScreen = new FormData();
@@ -234,7 +238,7 @@ public class MainWindow
 		fd_cmpCreateScreen.left = new FormAttachment(0);
 		cmpCreateScreen.setLayoutData(fd_cmpCreateScreen);
 		cmpCreateScreen.setVisible(false);
-		
+
 		// load the create screen, but hide it
 		cmpFindScreen = new FindScreen(cmpMainArea, SWT.NONE);
 		FormData fd_cmpFindScreen = new FormData();
@@ -244,7 +248,7 @@ public class MainWindow
 		fd_cmpFindScreen.left = new FormAttachment(0);
 		cmpFindScreen.setLayoutData(fd_cmpFindScreen);
 		cmpFindScreen.setVisible(false);
-		
+
 		// load the play screen, but hide it
 		cmpPlayScreen = new PlayScreen(cmpMainArea, SWT.NONE);
 		FormData fd_cmpPlayScreen = new FormData();
@@ -254,7 +258,7 @@ public class MainWindow
 		fd_cmpPlayScreen.left = new FormAttachment(0);
 		cmpPlayScreen.setLayoutData(fd_cmpPlayScreen);
 		cmpPlayScreen.setVisible(false);
-		
+
 		// load the sign up screen, but hide it
 		cmpSignUpScreen = new SignUpScreen(cmpMainArea, SWT.NONE);
 		FormData fd_cmpSignUpScreen = new FormData();
@@ -264,7 +268,7 @@ public class MainWindow
 		fd_cmpSignUpScreen.left = new FormAttachment(0);
 		cmpSignUpScreen.setLayoutData(fd_cmpSignUpScreen);
 		cmpSignUpScreen.setVisible(false);
-		
+
 		// load the login screen, but hide it
 		cmpLoginScreen = new LoginScreen(cmpMainArea, SWT.NONE);
 		FormData fd_cmpLoginScreen = new FormData();
@@ -274,10 +278,11 @@ public class MainWindow
 		fd_cmpLoginScreen.left = new FormAttachment(0);
 		cmpLoginScreen.setLayoutData(fd_cmpLoginScreen);
 		cmpLoginScreen.setVisible(false);
-		
+
 		// welcome message
 		Label lblWelcome = new Label(cmpMainArea, SWT.CENTER);
-		lblWelcome.setFont(SWTResourceManager.getFont("Segoe UI", 22, SWT.NORMAL));
+		lblWelcome.setFont(SWTResourceManager.getFont("Segoe UI", 22,
+				SWT.NORMAL));
 		lblWelcome.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblWelcome = new FormData();
 		fd_lblWelcome.top = new FormAttachment(50, -130);
@@ -285,10 +290,12 @@ public class MainWindow
 		fd_lblWelcome.left = new FormAttachment(50, -220);
 		lblWelcome.setLayoutData(fd_lblWelcome);
 		lblWelcome.setText(MessageConstants.WELCOME_HEADER);
-		
+
 		lblWelcomeDescription = new Label(cmpMainArea, SWT.WRAP);
-		lblWelcomeDescription.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
-		lblWelcomeDescription.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		lblWelcomeDescription.setFont(SWTResourceManager.getFont("Segoe UI",
+				12, SWT.NORMAL));
+		lblWelcomeDescription.setBackground(SWTResourceManager
+				.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblWelcomeDescription = new FormData();
 		fd_lblWelcomeDescription.bottom = new FormAttachment(lblWelcome, 200);
 		fd_lblWelcomeDescription.top = new FormAttachment(lblWelcome, 14);
@@ -296,7 +303,7 @@ public class MainWindow
 		fd_lblWelcomeDescription.left = new FormAttachment(50, -200);
 		lblWelcomeDescription.setLayoutData(fd_lblWelcomeDescription);
 		lblWelcomeDescription.setText(MessageConstants.INSTRUCTIONS_LOGGED_OUT);
-		
+
 		lblOr = new Label(cmpMainArea, SWT.CENTER);
 		lblOr.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblOr = new FormData();
@@ -306,13 +313,14 @@ public class MainWindow
 		lblOr.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		lblOr.setLayoutData(fd_lblOr);
 		lblOr.setText("Or");
-		
+
 		btnMainLogin = new Button(cmpMainArea, SWT.NONE);
-		btnMainLogin.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		btnMainLogin.addSelectionListener(new SelectionAdapter() 
+		btnMainLogin.setFont(SWTResourceManager.getFont("Segoe UI", 11,
+				SWT.NORMAL));
+		btnMainLogin.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
-			public void widgetSelected(SelectionEvent e) 
+			public void widgetSelected(SelectionEvent e)
 			{
 				switchToLoginScreen();
 			}
@@ -323,13 +331,14 @@ public class MainWindow
 		fd_btnMainLogin.top = new FormAttachment(lblWelcomeDescription);
 		btnMainLogin.setLayoutData(fd_btnMainLogin);
 		btnMainLogin.setText("Login");
-		
+
 		btnMainSignUp = new Button(cmpMainArea, SWT.NONE);
-		btnMainSignUp.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		btnMainSignUp.addSelectionListener(new SelectionAdapter() 
+		btnMainSignUp.setFont(SWTResourceManager.getFont("Segoe UI", 11,
+				SWT.NORMAL));
+		btnMainSignUp.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
-			public void widgetSelected(SelectionEvent e) 
+			public void widgetSelected(SelectionEvent e)
 			{
 				switchToSignUpScreen();
 			}
@@ -340,13 +349,13 @@ public class MainWindow
 		fd_btnMainSignUp.top = new FormAttachment(lblWelcomeDescription);
 		btnMainSignUp.setLayoutData(fd_btnMainSignUp);
 		btnMainSignUp.setText("Sign Up");
-		
+
 		// Quit button
 		Button btnQuit = new Button(shell, SWT.NONE);
-		btnQuit.addSelectionListener(new SelectionAdapter() 
+		btnQuit.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
-			public void widgetSelected(SelectionEvent e) 
+			public void widgetSelected(SelectionEvent e)
 			{
 				shell.dispose();
 			}
@@ -357,150 +366,149 @@ public class MainWindow
 		fd_btnQuit.right = new FormAttachment(100, -5);
 		btnQuit.setLayoutData(fd_btnQuit);
 		btnQuit.setText(Constants.QUIT);
-		
+
 		Label lblVersion = new Label(shell, SWT.NONE);
 		FormData fd_lblVersion = new FormData();
 		fd_lblVersion.bottom = new FormAttachment(btnQuit, 0, SWT.BOTTOM);
 		fd_lblVersion.left = new FormAttachment(0, 10);
 		lblVersion.setLayoutData(fd_lblVersion);
 		lblVersion.setText(Constants.VERSION);
-		
+
 		hideToolbar();
-		
+
 		// show the window
 		shell.open();
 	}
-    
-    public void hideToolbar()
-    {
-    	this.btnConnect.setVisible(false);
-    	this.btnCreate.setVisible(false);
-    	this.btnPlay.setVisible(false);
-    	this.cmpLogin.setVisible(false);
-    	this.lblToolbarSeparator.setVisible(false);
-    	
-    	FormData fd_cmpMainArea = new FormData();
+
+	public void hideToolbar()
+	{
+		this.btnConnect.setVisible(false);
+		this.btnCreate.setVisible(false);
+		this.btnPlay.setVisible(false);
+		this.cmpLogin.setVisible(false);
+		this.lblToolbarSeparator.setVisible(false);
+
+		FormData fd_cmpMainArea = new FormData();
 		fd_cmpMainArea.bottom = new FormAttachment(100, -35);
 		fd_cmpMainArea.right = new FormAttachment(100, -5);
 		fd_cmpMainArea.top = new FormAttachment(0, 5);
 		fd_cmpMainArea.left = new FormAttachment(0, 5);
 		cmpMainArea.setLayoutData(fd_cmpMainArea);
-		
-		shell.layout(true);
-    }
 
-    public void showToolbar()
-    {
-    	this.btnConnect.setVisible(true);
-    	this.btnCreate.setVisible(true);
-    	this.btnPlay.setVisible(true);
-    	this.cmpLogin.setVisible(true);
-    	this.lblToolbarSeparator.setVisible(true);
-    	
-    	FormData fd_cmpMainArea = new FormData();
+		shell.layout(true);
+	}
+
+	public void showToolbar()
+	{
+		this.btnConnect.setVisible(true);
+		this.btnCreate.setVisible(true);
+		this.btnPlay.setVisible(true);
+		this.cmpLogin.setVisible(true);
+		this.lblToolbarSeparator.setVisible(true);
+
+		FormData fd_cmpMainArea = new FormData();
 		fd_cmpMainArea.bottom = new FormAttachment(100, -35);
 		fd_cmpMainArea.right = new FormAttachment(100, -5);
 		fd_cmpMainArea.top = new FormAttachment(0, 50);
 		fd_cmpMainArea.left = new FormAttachment(0, 5);
 		cmpMainArea.setLayoutData(fd_cmpMainArea);
-		
+
 		shell.layout(true);
-    }
+	}
 
-    public void playPuzzle(Puzzle puzzle)
-    {
-    	// currently only cryptograms supported
-    	if(puzzle instanceof Cryptogram)
-    	{
-    		cmpPlayScreen.setPuzzle((Cryptogram) puzzle);
-    	}
-    	
-    	switchToPlayScreen();
-    }
+	public void playPuzzle(Puzzle puzzle)
+	{
+		// currently only cryptograms supported
+		if (puzzle instanceof Cryptogram)
+		{
+			cmpPlayScreen.setPuzzle((Cryptogram) puzzle);
+		}
 
-    private void createPressed()
-    {
-    	// create a new puzzle to edit
-    	cmpCreateScreen.setPuzzle(new Cryptogram());
-    	
-    	// show the create screen and hide other screens
+		switchToPlayScreen();
+	}
+
+	private void createPressed()
+	{
+		// create a new puzzle to edit
+		cmpCreateScreen.setPuzzle(new Cryptogram());
+
+		// show the create screen and hide other screens
 		switchToCreateScreen();
-    }
+	}
 
-    private void playPressed()
-    {
-    	// show the find screen and hide other screens
+	private void playPressed()
+	{
+		// show the find screen and hide other screens
 		switchToFindScreen();
-		
+
 		// refresh find screen
 		cmpFindScreen.onLoad();
-    }
+	}
 
-    private void hideAllViews()
-    {
-    	cmpCreateScreen.setVisible(false);
+	private void hideAllViews()
+	{
+		cmpCreateScreen.setVisible(false);
 		cmpFindScreen.setVisible(false);
 		cmpPlayScreen.setVisible(false);
 		cmpSignUpScreen.setVisible(false);
 		cmpLoginScreen.setVisible(false);
-    }
+	}
 
-    public void switchToCreateScreen()
-    {
-    	hideAllViews();
-    	cmpCreateScreen.setVisible(true);
-    }
+	public void switchToCreateScreen()
+	{
+		hideAllViews();
+		cmpCreateScreen.setVisible(true);
+	}
 
-    public void switchToFindScreen()
-    {
-    	hideAllViews();
-    	cmpFindScreen.setVisible(true);
-    }
+	public void switchToFindScreen()
+	{
+		hideAllViews();
+		cmpFindScreen.setVisible(true);
+	}
 
-    public void switchToPlayScreen()
-    {
-    	hideAllViews();
-    	cmpPlayScreen.setVisible(true);
-    }
-    
-    public void switchToWelcomeScreen()
-    {
-    	hideAllViews();
-    }
+	public void switchToPlayScreen()
+	{
+		hideAllViews();
+		cmpPlayScreen.setVisible(true);
+	}
 
-    public void switchToSignUpScreen()
-    {
-    	hideAllViews();
-    	cmpSignUpScreen.setVisible(true);
-    }
+	public void switchToWelcomeScreen()
+	{
+		hideAllViews();
+	}
 
-    public void switchToLoginScreen()
-    {
-    	hideAllViews();
-    	cmpLoginScreen.setVisible(true);
-    	cmpLoginScreen.refresh();
-    }
-    
-    public void login(User user)
-    {
-    	loggedInUser = user;
-    	showToolbar();
-    	btnMainSignUp.setVisible(false);
-    	btnMainLogin.setVisible(false);
-    	lblOr.setVisible(false);
-    	lblLoggedInAs.setText(MessageConstants.LOGON + user.getName());
-    	lblWelcomeDescription.setText(MessageConstants.INSTRUCTIONS_LOGGED_IN);
-    }
-    
-    public void logout()
-    {
-    	loggedInUser = null;
-    	hideToolbar();
-    	btnMainSignUp.setVisible(true);
-    	btnMainLogin.setVisible(true);
-    	lblOr.setVisible(true);
-    	lblWelcomeDescription.setText(MessageConstants.INSTRUCTIONS_LOGGED_OUT);
-    	switchToWelcomeScreen();
-    }
+	public void switchToSignUpScreen()
+	{
+		hideAllViews();
+		cmpSignUpScreen.setVisible(true);
+	}
+
+	public void switchToLoginScreen()
+	{
+		hideAllViews();
+		cmpLoginScreen.setVisible(true);
+		cmpLoginScreen.refresh();
+	}
+
+	public void login(User user)
+	{
+		loggedInUser = user;
+		showToolbar();
+		btnMainSignUp.setVisible(false);
+		btnMainLogin.setVisible(false);
+		lblOr.setVisible(false);
+		lblLoggedInAs.setText(MessageConstants.LOGON + user.getName());
+		lblWelcomeDescription.setText(MessageConstants.INSTRUCTIONS_LOGGED_IN);
+	}
+
+	public void logout()
+	{
+		loggedInUser = null;
+		hideToolbar();
+		btnMainSignUp.setVisible(true);
+		btnMainLogin.setVisible(true);
+		lblOr.setVisible(true);
+		lblWelcomeDescription.setText(MessageConstants.INSTRUCTIONS_LOGGED_OUT);
+		switchToWelcomeScreen();
+	}
 }
-

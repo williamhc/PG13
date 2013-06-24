@@ -4,7 +4,7 @@ import pg13.models.CryptogramPair;
 import junit.framework.TestCase;
 
 public class CryptogramPairTest extends TestCase
- {
+{
 
 	CryptogramPair cp;
 
@@ -26,7 +26,7 @@ public class CryptogramPairTest extends TestCase
 			new CryptogramPair('!', '!');
 			fail();
 		}
-		catch(IllegalArgumentException iae)
+		catch (IllegalArgumentException iae)
 		{
 
 		}
@@ -35,7 +35,7 @@ public class CryptogramPairTest extends TestCase
 	public void testValidGettersAndSetters()
 	{
 		cp = new CryptogramPair('a', 'b');
-		for(char ch1 = 'a'; ch1 < 'z'; ch1++)
+		for (char ch1 = 'a'; ch1 < 'z'; ch1++)
 		{
 			cp.setCipherc(ch1);
 			assertEquals(ch1, cp.getCipherc());
@@ -66,10 +66,10 @@ public class CryptogramPairTest extends TestCase
 		this.setInvalidCiperCharacter('/');
 		this.setInvalidCiperCharacter('\\');
 		this.setInvalidCiperCharacter('\n');
-		this.setInvalidCiperCharacter((char)('a' - 1));
-		this.setInvalidCiperCharacter((char)('A' - 1));
-		this.setInvalidCiperCharacter((char)('z' + 1));
-		this.setInvalidCiperCharacter((char)('Z' + 1));
+		this.setInvalidCiperCharacter((char) ('a' - 1));
+		this.setInvalidCiperCharacter((char) ('A' - 1));
+		this.setInvalidCiperCharacter((char) ('z' + 1));
+		this.setInvalidCiperCharacter((char) ('Z' + 1));
 
 		this.setInvalidPlaintextCharacter('4');
 		this.setInvalidPlaintextCharacter('[');
@@ -77,10 +77,10 @@ public class CryptogramPairTest extends TestCase
 		this.setInvalidPlaintextCharacter('/');
 		this.setInvalidPlaintextCharacter('\\');
 		this.setInvalidPlaintextCharacter('\n');
-		this.setInvalidPlaintextCharacter((char)('a' - 1));
-		this.setInvalidPlaintextCharacter((char)('A' - 1));
-		this.setInvalidPlaintextCharacter((char)('z' + 1));
-		this.setInvalidPlaintextCharacter((char)('Z' + 1));
+		this.setInvalidPlaintextCharacter((char) ('a' - 1));
+		this.setInvalidPlaintextCharacter((char) ('A' - 1));
+		this.setInvalidPlaintextCharacter((char) ('z' + 1));
+		this.setInvalidPlaintextCharacter((char) ('Z' + 1));
 	}
 
 	private void setInvalidCiperCharacter(char toSet)
@@ -90,9 +90,9 @@ public class CryptogramPairTest extends TestCase
 			cp.setCipherc(toSet);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch (IllegalArgumentException e)
 		{
-			//expected
+			// expected
 		}
 	}
 
@@ -103,9 +103,9 @@ public class CryptogramPairTest extends TestCase
 			cp.setPlainc(toSet);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch (IllegalArgumentException e)
 		{
-			//expected
+			// expected
 		}
 	}
 }

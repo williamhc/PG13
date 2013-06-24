@@ -1,17 +1,19 @@
 package tests.business;
+
 import pg13.business.DifficultyFilter;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 import junit.framework.TestCase;
 
-
-public class DifficultyFilterTest extends TestCase {
+public class DifficultyFilterTest extends TestCase
+{
 
 	private DifficultyFilter testDifficultyFilter;
 	private Puzzle testPuzzle;
 
-	protected void setUp() throws Exception {
+	protected void setUp() throws Exception
+	{
 		this.testDifficultyFilter = new DifficultyFilter();
 		this.testPuzzle = new Cryptogram();
 		this.testPuzzle.setDifficulty(Difficulty.Easy);
@@ -32,7 +34,7 @@ public class DifficultyFilterTest extends TestCase {
 		this.testDifficultyFilter.addValue(null);
 		assertTrue(this.testDifficultyFilter.select(null, null, testPuzzle));
 	}
-	
+
 	public void testMatchingSearch()
 	{
 		this.testDifficultyFilter.addValue(Difficulty.Easy);

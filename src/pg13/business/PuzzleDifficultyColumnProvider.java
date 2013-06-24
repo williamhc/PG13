@@ -6,7 +6,7 @@ import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 
 //Reports the difficulty as a string of a puzzle for displaying in a table column.
-public class PuzzleDifficultyColumnProvider extends ColumnLabelProvider 
+public class PuzzleDifficultyColumnProvider extends ColumnLabelProvider
 {
 
 	@Override
@@ -14,7 +14,7 @@ public class PuzzleDifficultyColumnProvider extends ColumnLabelProvider
 	{
 		Puzzle p = (Puzzle) obj;
 		Difficulty difficulty = p.getDifficulty();
-		return difficulty != null  ? difficulty.toString() : "Unrated";
+		return difficulty != null ? difficulty.toString() : "Unrated";
 	}
 
 }

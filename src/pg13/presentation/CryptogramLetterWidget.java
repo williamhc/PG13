@@ -76,7 +76,7 @@ public class CryptogramLetterWidget extends Composite
 		{
 			txtPlaintextChar.setEditable(false);
 			txtPlaintextChar.setText("" + ciphertextChar);
-		} 
+		}
 		else
 		{
 			// limit characters that can be entered
@@ -90,7 +90,7 @@ public class CryptogramLetterWidget extends Composite
 						event.text = event.text.toLowerCase();
 						cm.validateUserMapping(event.text);
 					}
-					catch(IllegalArgumentException e)
+					catch (IllegalArgumentException e)
 					{
 						event.doit = false;
 					}
@@ -119,7 +119,7 @@ public class CryptogramLetterWidget extends Composite
 
 			String textBoxContents = this.txtPlaintextChar.getText();
 			char plaintextChar;
-			if(textBoxContents.length() > 0)
+			if (textBoxContents.length() > 0)
 			{
 				plaintextChar = textBoxContents.charAt(0);
 			}
@@ -144,8 +144,7 @@ public class CryptogramLetterWidget extends Composite
 
 		if (txtPlaintextChar.getEditable() == true)
 		{
-			plaintextChar = this.cm
-					.getUserMapping(this.ciphertextChar);
+			plaintextChar = this.cm.getUserMapping(this.ciphertextChar);
 
 			this.updateOnTxtChange = false;
 			this.txtPlaintextChar.setText(plaintextChar);

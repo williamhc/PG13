@@ -1,6 +1,5 @@
 package pg13.business;
 
-
 import pg13.models.Cryptogram;
 
 public class CryptogramManager
@@ -31,17 +30,20 @@ public class CryptogramManager
 
 	public void validatePlaintext(String string)
 	{
-		if(string == null)
+		if (string == null)
 		{
-			throw new IllegalArgumentException(String.format("PlainText for cryptogram cannot be null!"));
+			throw new IllegalArgumentException(
+					String.format("PlainText for cryptogram cannot be null!"));
 		}
 		char[] characters = string.toCharArray();
 		for (int i = 0; i < characters.length; i++)
 		{
 			char curr = characters[i];
-			if ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,:;- !?()&#$%'\"".indexOf(curr) < 0)
+			if ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,:;- !?()&#$%'\""
+					.indexOf(curr) < 0)
 			{
-				throw new IllegalArgumentException(String.format("Invalid character (%c) in plaintext", curr));
+				throw new IllegalArgumentException(String.format(
+						"Invalid character (%c) in plaintext", curr));
 			}
 		}
 	}
@@ -58,14 +60,15 @@ public class CryptogramManager
 		{
 			this.validateUserMapping(cipherCharacter);
 		}
-		catch(IllegalArgumentException iae)
+		catch (IllegalArgumentException iae)
 		{
 			return result;
 		}
 
-		char userChar = this.cryptogram.getUserPlaintextFromCiphertext(cipherCharacter);
+		char userChar = this.cryptogram
+				.getUserPlaintextFromCiphertext(cipherCharacter);
 
-		if(userChar != '\0')
+		if (userChar != '\0')
 		{
 			result += userChar;
 		}
@@ -76,27 +79,33 @@ public class CryptogramManager
 
 	public void setUserMapping(char plaintextChar, char ciphertextChar)
 	{
-		//validates the mapping, then sets it
+		// validates the mapping, then sets it
 		this.validateUserMapping(plaintextChar);
 		this.validateUserMapping(ciphertextChar);
-		this.cryptogram.setUserPlaintextForCiphertext(plaintextChar, ciphertextChar);
+		this.cryptogram.setUserPlaintextForCiphertext(plaintextChar,
+				ciphertextChar);
 	}
 
 	public void validateUserMapping(char charToValidate)
 	{
-		if(charToValidate != '\0' && "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(charToValidate) < 0)
+		if (charToValidate != '\0'
+				&& "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+						.indexOf(charToValidate) < 0)
 		{
-			throw new IllegalArgumentException(String.format("Illegal character %c", charToValidate));
+			throw new IllegalArgumentException(String.format(
+					"Illegal character %c", charToValidate));
 		}
 	}
 
 	public void validateUserMapping(String charToValidate)
 	{
-		if(charToValidate.length() > 1)
+		if (charToValidate.length() > 1)
 		{
-			throw new IllegalArgumentException(String.format("Illegal length. The string, %s, must of length 0 or 1", charToValidate));
+			throw new IllegalArgumentException(String.format(
+					"Illegal length. The string, %s, must of length 0 or 1",
+					charToValidate));
 		}
-		if(charToValidate.length() == 0)
+		if (charToValidate.length() == 0)
 		{
 			return;
 		}

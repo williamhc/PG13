@@ -1,4 +1,5 @@
 package tests.business;
+
 import pg13.business.TitleFilter;
 import pg13.models.Cryptogram;
 import pg13.models.Puzzle;
@@ -7,13 +8,15 @@ import junit.framework.TestCase;
 /**
  * Tests for TitleFilter
  */
-public class TitleFilterTest extends TestCase {
+public class TitleFilterTest extends TestCase
+{
 
 	private TitleFilter testTitleFilter;
 	private Puzzle testPuzzle;
 	private static String TITLE = "The Title of The Puzzle";
 
-	protected void setUp() throws Exception {
+	protected void setUp() throws Exception
+	{
 		this.testTitleFilter = new TitleFilter();
 		this.testPuzzle = new Cryptogram();
 		this.testPuzzle.setTitle(TitleFilterTest.TITLE);
@@ -25,37 +28,38 @@ public class TitleFilterTest extends TestCase {
 		this.testTitleFilter.setSearchString(null);
 		assertTrue(this.testTitleFilter.select(null, null, testPuzzle));
 	}
-	
+
 	public void testEmptySearchString()
 	{
 		this.testTitleFilter.setSearchString("");
 		assertTrue(this.testTitleFilter.select(null, null, testPuzzle));
 	}
-	
+
 	public void testPerfectMatchingSearch()
 	{
 		this.testTitleFilter.setSearchString(TitleFilterTest.TITLE);
 		assertTrue(this.testTitleFilter.select(null, null, testPuzzle));
 	}
-	
+
 	public void testLowerCaseSearch()
 	{
-		this.testTitleFilter.setSearchString(TitleFilterTest.TITLE.toLowerCase());
+		this.testTitleFilter.setSearchString(TitleFilterTest.TITLE
+				.toLowerCase());
 		assertTrue(this.testTitleFilter.select(null, null, testPuzzle));
 	}
-	
+
 	public void testMismatchCaseSearch()
 	{
 		this.testTitleFilter.setSearchString("ThE tItle of THE puzZlE");
 		assertTrue(this.testTitleFilter.select(null, null, testPuzzle));
 	}
-	
+
 	public void testPartialSearch()
 	{
 		this.testTitleFilter.setSearchString("title of");
 		assertTrue(this.testTitleFilter.select(null, null, testPuzzle));
 	}
-	
+
 	public void testPartialSearchExtraWhitespaceAtEnds()
 	{
 		this.testTitleFilter.setSearchString(" title of   ");
@@ -68,5 +72,4 @@ public class TitleFilterTest extends TestCase {
 		assertFalse(this.testTitleFilter.select(null, null, testPuzzle));
 	}
 
-	
 }

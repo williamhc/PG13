@@ -9,6 +9,7 @@ SET SCHEMA PUBLIC
 INSERT INTO USERS VALUES(1,'Guest')
 INSERT INTO USERS VALUES(2,'Joe')
 INSERT INTO USERS VALUES(3,'will')
+INSERT INTO USERS VALUES(4,'lauren22')
 INSERT INTO CRYPTOGRAMS VALUES(1,'My first puzzle','','Miscellaneous','Hard','Fake!')
 INSERT INTO CRYPTOGRAMS VALUES(2,'another puzzle','','Animals','Medium','Butterflies')
 INSERT INTO CRYPTOGRAMS VALUES(3,'New Puzzle','Describe your puzzle!','Miscellaneous','Easy','testing')

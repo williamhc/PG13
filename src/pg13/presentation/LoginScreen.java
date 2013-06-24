@@ -55,12 +55,12 @@ public class LoginScreen extends Composite
 		fd_lblLoginInfo.left = new FormAttachment(0, 162);
 		fd_lblLoginInfo.right = new FormAttachment(100, -162);
 		lblLoginInfo.setLayoutData(fd_lblLoginInfo);
-		lblLoginInfo.setText("Select your username from the list below. If you do not have a username you may click cancel and go sign up or select Guest from the drop down.");
+		lblLoginInfo.setText(MessageConstants.LOGIN_INFO);
 		
 		ControlDecoration controlDecoration = new ControlDecoration(lblLoginInfo, SWT.LEFT | SWT.TOP);
 		controlDecoration.setMarginWidth(10);
 		controlDecoration.setImage(SWTResourceManager.getImage(SignUpScreen.class, "/javax/swing/plaf/metal/icons/Inform.gif"));
-		controlDecoration.setDescriptionText("Some description");
+		controlDecoration.setDescriptionText("Some description");	//THIS TEXT DOES NOTHING
 		
 		Button btnLogMeIn = new Button(this, SWT.NONE);
 		btnLogMeIn.addSelectionListener(new SelectionAdapter() 
@@ -75,7 +75,7 @@ public class LoginScreen extends Composite
 		FormData fd_btnLogMeIn = new FormData();
 		fd_btnLogMeIn.left = new FormAttachment(cmbUsernames, 0, SWT.LEFT);
 		btnLogMeIn.setLayoutData(fd_btnLogMeIn);
-		btnLogMeIn.setText("Log Me In!");
+		btnLogMeIn.setText(Constants.LOGIN_BUTTON);
 		
 		Button btnCancel = new Button(this, SWT.NONE);
 		btnCancel.addSelectionListener(new SelectionAdapter() 
@@ -92,7 +92,7 @@ public class LoginScreen extends Composite
 		fd_btnCancel.bottom = new FormAttachment(0, 330);
 		fd_btnCancel.right = new FormAttachment(cmbUsernames, 0, SWT.RIGHT);
 		btnCancel.setLayoutData(fd_btnCancel);
-		btnCancel.setText("Cancel");
+		btnCancel.setText(Constants.CANCEL_BUTTON);
 
 	}
 

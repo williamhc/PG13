@@ -7,6 +7,12 @@ public class Constants
 	public static final String QUIT 				= 			"Quit";
 	public static final String VERSION 				= 			"Version 2.00";
 	
+	//Logon/Signup Screen
+	public static final String LOGIN_BUTTON 		= 			"Log Me In!";
+	public static final String CANCEL_BUTTON 		= 			"Cancel";
+	public static final String SIGNUP_BUTTON 		= 			"Sign Me Up!";
+	public static final String SUCCESS 				= 			"Success!";	
+	
 	//Header Bar
 	public static final String PLAY 				= 			"Play";
 	public static final String CONNECT 				= 			"Connect";
@@ -38,5 +44,6 @@ public class Constants
 	//Find Screen Constants
 	public static final String FIND_PUZZLES			= 			"Find Puzzles:";
 	public static final String ALL_PUZZLES 			= 			"All Puzzles";
-	public static final String FRIENDS_PUZZLES 		= 			"My Friends' Puzzles";	
+	public static final String FRIENDS_PUZZLES 		= 			"My Friends' Puzzles";
+	
 }

@@ -58,12 +58,12 @@ public class SignUpScreen extends Composite
 		fd_lblLoginInfo.left = new FormAttachment(0, 162);
 		fd_lblLoginInfo.right = new FormAttachment(100, -162);
 		lblLoginInfo.setLayoutData(fd_lblLoginInfo);
-		lblLoginInfo.setText("Create a Username with 1 - 15 characters.  Valid characters include A-Z, a-z, 0-9.  No spaces are allowed.");
+		lblLoginInfo.setText(MessageConstants.SIGNUP_INFO);
 		
 		ControlDecoration signUpInfoImage = new ControlDecoration(lblLoginInfo, SWT.LEFT | SWT.TOP);
 		signUpInfoImage.setMarginWidth(10);
 		signUpInfoImage.setImage(SWTResourceManager.getImage(SignUpScreen.class, "/javax/swing/plaf/metal/icons/Inform.gif"));
-		signUpInfoImage.setDescriptionText("Some description");
+		signUpInfoImage.setDescriptionText("Some description"); //This text does nothing
 		
 		lblInvalidUser = new Label(this, SWT.WRAP);
 		lblInvalidUser.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
@@ -75,7 +75,7 @@ public class SignUpScreen extends Composite
 		fd_lblInvalidUser.top = new FormAttachment(txtLogIn, 19);
 		fd_lblInvalidUser.left = new FormAttachment(txtLogIn, 0, SWT.LEFT);
 		lblInvalidUser.setLayoutData(fd_lblInvalidUser);
-		lblInvalidUser.setText("That username is already taken or is invalid.");
+		lblInvalidUser.setText(MessageConstants.INVALID_USERNAME);
 		lblInvalidUser.setVisible(false);
 		
 		
@@ -94,7 +94,7 @@ public class SignUpScreen extends Composite
 		fd_btnSignMeUp.top = new FormAttachment(txtLogIn, 110);
 		fd_btnSignMeUp.left = new FormAttachment(txtLogIn, 0, SWT.LEFT);
 		btnSignMeUp.setLayoutData(fd_btnSignMeUp);
-		btnSignMeUp.setText("Sign Me Up!");
+		btnSignMeUp.setText(Constants.SIGNUP_BUTTON);
 		
 		Button btnCancel = new Button(this, SWT.NONE);
 		btnCancel.addSelectionListener(new SelectionAdapter() 
@@ -111,12 +111,12 @@ public class SignUpScreen extends Composite
 		fd_btnCancel.bottom = new FormAttachment(btnSignMeUp, 0, SWT.BOTTOM);
 		fd_btnCancel.right = new FormAttachment(txtLogIn, 0, SWT.RIGHT);
 		btnCancel.setLayoutData(fd_btnCancel);
-		btnCancel.setText("Cancel");
+		btnCancel.setText(Constants.CANCEL_BUTTON);
 	
 		invalidUserDecor = new ControlDecoration(lblInvalidUser, SWT.LEFT | SWT.TOP);
 		invalidUserDecor.setMarginWidth(10);
 		invalidUserDecor.setImage(SWTResourceManager.getImage(SignUpScreen.class, "/javax/swing/plaf/metal/icons/Error.gif"));
-		invalidUserDecor.setDescriptionText("Some description");
+		invalidUserDecor.setDescriptionText("Some description");	//This text does nothing
 
 	}
 	
@@ -134,8 +134,8 @@ public class SignUpScreen extends Composite
 		{
 			clearLoginScreen();
 			MessageBox dialog = new MessageBox(this.getShell() , SWT.ICON_INFORMATION | SWT.OK);
-			dialog.setText("Success!");
-			dialog.setMessage("Successfully Created a user");
+			dialog.setText(Constants.SUCCESS);
+			dialog.setMessage(MessageConstants.LOGON_SUCCESS);
 			dialog.open(); 
 			MainWindow.getInstance().login(user);
 			MainWindow.getInstance().switchToWelcomeScreen();

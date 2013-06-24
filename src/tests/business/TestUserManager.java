@@ -12,32 +12,52 @@ public class TestUserManager extends TestCase
 {
 	private UserManager manager;
 	
+	public void testInvalidUserNames()
+	{
+		Services.createDataAccess(new StubDB(PG13.dbName));
+		manager = new UserManager();
+		
+		assertNull(manager.addUser(""));
+		assertNull(manager.addUser("-"));
+		assertNull(manager.addUser("This has spaces"));
+		assertNull(manager.addUser("thisIsTooLongblaaaaaaah"));
+		assertNull(manager.addUser("moreBadPunct!-qz.#"));
+		
+		// duplicates
+		manager.addUser("JohnBraico");
+		assertNull(manager.addUser("JohnBraico"));
+		assertNull(manager.addUser("johnbraico"));
+		assertNull(manager.addUser("jOHnbRaiCo"));
+	}
+	
 	public void testFindingUsers()
 	{
 		Services.createDataAccess(new StubDB(PG13.dbName));
 		manager = new UserManager();
 		
+		int numInitialUsers = manager.getNamesOfAllUsers().size();
+		
 		assertNotNull(manager.findUser(DataAccess.GUEST_PRIMARY_KEY));
 		
-		for(int i = 2; i <= DataAccess.NUM_INITIAL_USERS; i++)
+		for(int i = 2; i <= numInitialUsers; i++)
 			assertNotNull(manager.findUser(i));
 		
 		assertNull(manager.findUser(DataAccess.GUEST_PRIMARY_KEY - 1));
-		assertEquals(DataAccess.NUM_INITIAL_USERS, manager.getNamesOfAllUsers().size());
+		assertEquals(numInitialUsers, manager.getNamesOfAllUsers().size());
 		this.checkForUnwantedUsers();
 		
 		User user1 = manager.addUser("Paymahn");
 		
 		assertNotNull(manager.findUser(DataAccess.GUEST_PRIMARY_KEY));
 		assertEquals(user1, manager.findUser(user1));
-		assertEquals(DataAccess.NUM_INITIAL_USERS + 1, manager.getNamesOfAllUsers().size());
+		assertEquals(numInitialUsers + 1, manager.getNamesOfAllUsers().size());
 		this.checkForUnwantedUsers();
 		
 		User user2 = manager.addUser("Anotherauthor");
 		assertNotNull(manager.findUser(DataAccess.GUEST_PRIMARY_KEY));
 		assertEquals(user1, manager.findUser(user1));
 		assertEquals(user2, manager.findUser(user2));
-		assertEquals(DataAccess.NUM_INITIAL_USERS + 2, manager.getNamesOfAllUsers().size());
+		assertEquals(numInitialUsers + 2, manager.getNamesOfAllUsers().size());
 		this.checkForUnwantedUsers();
 		
 		assertEquals("Paymahn", manager.getNameOfUser(user1.getPrimaryKey()));
@@ -49,7 +69,7 @@ public class TestUserManager extends TestCase
 		assertEquals(user1, manager.findUser(user1));
 		assertEquals(user2, manager.findUser(user2));
 		assertNull(user3);
-		assertEquals(DataAccess.NUM_INITIAL_USERS + 2, manager.getNamesOfAllUsers().size());
+		assertEquals(numInitialUsers + 2, manager.getNamesOfAllUsers().size());
 		this.checkForUnwantedUsers();
 	}
 	

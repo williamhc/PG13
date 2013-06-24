@@ -22,6 +22,9 @@ public class LoginScreen extends Composite
 {
 	private UserManager userManager;
 	private Combo cmbUsernames;
+	private Label lblInvalidUser;
+	private ControlDecoration invalidUserDecor;
+	
 	/**
 	 * Create and populates the login screen.
 	 * @param parent
@@ -46,6 +49,18 @@ public class LoginScreen extends Composite
 		fd_cmbUsernames.right = new FormAttachment(50, 100);
 		cmbUsernames.setLayoutData(fd_cmbUsernames);
 		
+		lblInvalidUser = new Label(this, SWT.WRAP);
+		lblInvalidUser.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
+		lblInvalidUser.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		lblInvalidUser.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
+		FormData fd_lblInvalidUser = new FormData();
+		fd_lblInvalidUser.right = new FormAttachment(50, 100);
+		fd_lblInvalidUser.left = new FormAttachment(50, -100);
+		fd_lblInvalidUser.top = new FormAttachment(0, 250);
+		lblInvalidUser.setLayoutData(fd_lblInvalidUser);
+		lblInvalidUser.setText(MessageConstants.BLANK_USERNAME);
+		lblInvalidUser.setVisible(false);
+		
 		Label lblLoginInfo = new Label(this, SWT.WRAP | SWT.SHADOW_IN);
 		lblLoginInfo.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		lblLoginInfo.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
@@ -57,12 +72,16 @@ public class LoginScreen extends Composite
 		lblLoginInfo.setLayoutData(fd_lblLoginInfo);
 		lblLoginInfo.setText(MessageConstants.LOGIN_INFO);
 		
-		ControlDecoration controlDecoration = new ControlDecoration(lblLoginInfo, SWT.LEFT | SWT.TOP);
-		controlDecoration.setMarginWidth(10);
-		controlDecoration.setImage(SWTResourceManager.getImage(SignUpScreen.class, "/javax/swing/plaf/metal/icons/Inform.gif"));
-		controlDecoration.setDescriptionText("Some description");	//THIS TEXT DOES NOTHING
-		
 		Button btnLogMeIn = new Button(this, SWT.NONE);
+		FormData fd_btnLogMeIn = new FormData();
+		fd_btnLogMeIn.left = new FormAttachment(50, -100);
+		fd_btnLogMeIn.top = new FormAttachment(0, 300);
+		btnLogMeIn.setLayoutData(fd_btnLogMeIn);
+		
+		invalidUserDecor = new ControlDecoration(lblInvalidUser, SWT.LEFT | SWT.TOP);
+		invalidUserDecor.setMarginWidth(10);
+		invalidUserDecor.setImage(SWTResourceManager.getImage(SignUpScreen.class, "/javax/swing/plaf/metal/icons/Error.gif"));
+		invalidUserDecor.setDescriptionText("Some description");
 		btnLogMeIn.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
@@ -72,26 +91,23 @@ public class LoginScreen extends Composite
 			}
 		});
 		btnLogMeIn.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		FormData fd_btnLogMeIn = new FormData();
-		fd_btnLogMeIn.left = new FormAttachment(cmbUsernames, 0, SWT.LEFT);
-		btnLogMeIn.setLayoutData(fd_btnLogMeIn);
 		btnLogMeIn.setText(Constants.LOGIN_BUTTON);
 		
 		Button btnCancel = new Button(this, SWT.NONE);
+		FormData fd_btnCancel = new FormData();
+		fd_btnCancel.right = new FormAttachment(50, 100);
+		fd_btnCancel.top = new FormAttachment(0, 300);
+		btnCancel.setLayoutData(fd_btnCancel);
 		btnCancel.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
+				clearScreen();
 				MainWindow.getInstance().switchToWelcomeScreen();
 			}
 		});
-		fd_btnLogMeIn.top = new FormAttachment(btnCancel, 0, SWT.TOP);
 		btnCancel.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		FormData fd_btnCancel = new FormData();
-		fd_btnCancel.bottom = new FormAttachment(0, 330);
-		fd_btnCancel.right = new FormAttachment(cmbUsernames, 0, SWT.RIGHT);
-		btnCancel.setLayoutData(fd_btnCancel);
 		btnCancel.setText(Constants.CANCEL_BUTTON);
 
 	}
@@ -116,9 +132,21 @@ public class LoginScreen extends Composite
 		
 		if(selected >= 0)
 		{
+			clearScreen();
 			MainWindow.getInstance().login(allUsers.get(selected));
-			MainWindow.getInstance().switchToWelcomeScreen();
+			MainWindow.getInstance().switchToWelcomeScreen();			
 		}
+		else	//-1 it's blank, lets show an error message
+		{
+			lblInvalidUser.setVisible(true);
+			this.redraw();
+		}
+	}
+
+	private void clearScreen()
+	{
+		lblInvalidUser.setVisible(false);
+		
 	}
 
 	@Override

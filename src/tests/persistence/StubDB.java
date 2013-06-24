@@ -1,4 +1,4 @@
-package pg13.persistence;
+package tests.persistence;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +9,7 @@ import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 import pg13.models.User;
+import pg13.persistence.DataAccess;
 
 public class StubDB implements DataAccess
 {

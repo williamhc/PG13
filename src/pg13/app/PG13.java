@@ -8,7 +8,6 @@ public class PG13
 	public static String dbName = "PG13";
 	/**
 	 * Launches the main window.
-	 * @author Eric
 	 * @param args
 	 * @date May 26 2013
 	 */

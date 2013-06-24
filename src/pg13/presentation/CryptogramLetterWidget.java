@@ -119,7 +119,7 @@ public class CryptogramLetterWidget extends Composite
 
 			String textBoxContents = this.txtPlaintextChar.getText();
 			char plaintextChar;
-			if(textBoxContents.length() == 0)
+			if(textBoxContents.length() > 0)
 			{
 				plaintextChar = textBoxContents.charAt(0);
 			}

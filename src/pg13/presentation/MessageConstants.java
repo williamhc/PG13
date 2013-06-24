@@ -36,5 +36,6 @@ public class MessageConstants
 	public static final String INVALID_TEXT 			= 			"Invalid text";
 	public static final String INVALID_TEXT_MESSAGE	 	= 			"The text you have entered is invalid. Please modify the text.";
 	public static final String SAVE_ERROR				=			"Save Puzzle Error";
+	public static final String BLANK_USERNAME 			= 			"No username selected.";
 
 }

@@ -1,10 +1,10 @@
-package tests.business.create;
+package tests.business;
 
 import javax.xml.crypto.Data;
 
 import pg13.app.PG13;
 import pg13.app.Services;
-import pg13.business.create.UserManager;
+import pg13.business.UserManager;
 import pg13.models.User;
 import pg13.persistence.DataAccess;
 import pg13.persistence.StubDB;
@@ -29,30 +29,30 @@ public class TestUserManager extends TestCase
 		assertEquals(DataAccess.NUM_INITIAL_USERS, manager.getNamesOfAllUsers().size());
 		this.checkForUnwantedUsers();
 		
-		User user1 = manager.addUser(Constants.AUTHOR);
+		User user1 = manager.addUser("Paymahn");
 		
 		assertNotNull(manager.findUser(DataAccess.GUEST_PRIMARY_KEY));
 		assertEquals(user1, manager.findUser(user1));
 		assertEquals(DataAccess.NUM_INITIAL_USERS + 1, manager.getNamesOfAllUsers().size());
 		this.checkForUnwantedUsers();
 		
-		User user2 = manager.addUser("Another author");
+		User user2 = manager.addUser("Anotherauthor");
 		assertNotNull(manager.findUser(DataAccess.GUEST_PRIMARY_KEY));
 		assertEquals(user1, manager.findUser(user1));
 		assertEquals(user2, manager.findUser(user2));
 		assertEquals(DataAccess.NUM_INITIAL_USERS + 2, manager.getNamesOfAllUsers().size());
 		this.checkForUnwantedUsers();
 		
-		assertEquals(Constants.AUTHOR, manager.getNameOfUser(user1.getPrimaryKey()));
-		assertEquals("Another author", manager.getNameOfUser(user2.getPrimaryKey()));
+		assertEquals("Paymahn", manager.getNameOfUser(user1.getPrimaryKey()));
+		assertEquals("Anotherauthor", manager.getNameOfUser(user2.getPrimaryKey()));
 	
 		//test adding person with same name
-		User user3 = manager.addUser(Constants.AUTHOR);
+		User user3 = manager.addUser("pAYMAHN");
 		assertNotNull(manager.findUser(DataAccess.GUEST_PRIMARY_KEY));
 		assertEquals(user1, manager.findUser(user1));
 		assertEquals(user2, manager.findUser(user2));
-		assertEquals(user3, manager.findUser(user3));
-		assertEquals(DataAccess.NUM_INITIAL_USERS + 3, manager.getNamesOfAllUsers().size());
+		assertNull(user3);
+		assertEquals(DataAccess.NUM_INITIAL_USERS + 2, manager.getNamesOfAllUsers().size());
 		this.checkForUnwantedUsers();
 	}
 	

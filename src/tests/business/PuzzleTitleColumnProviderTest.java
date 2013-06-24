@@ -1,6 +1,6 @@
-package tests.business.search;
+package tests.business;
 
-import pg13.business.search.PuzzleTitleColumnProvider;
+import pg13.business.PuzzleTitleColumnProvider;
 import pg13.models.Cryptogram;
 import junit.framework.TestCase;
 

@@ -1,6 +1,6 @@
 package tests.business;
 
-import pg13.business.search.CryptogramManager;
+import pg13.business.CryptogramManager;
 import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
@@ -36,7 +36,7 @@ public class CryptogramManagerTest extends TestCase
 
 	public void testNonDefaultInitializedCryptogramManager()
 	{
-		cryptogram = new Cryptogram(new User("Someone's Name"), "Random title", "Put some curse words in there.", Category.Animals,
+		Cryptogram crypto = new Cryptogram(new User("Someone's Name"), "Random title", "Put some curse words in there.", Category.Animals,
 				Difficulty.Easy, "This is the plaintext");
 		this.cm = new CryptogramManager(crypto);
 		assertEquals(crypto, cm.getCryptogram());

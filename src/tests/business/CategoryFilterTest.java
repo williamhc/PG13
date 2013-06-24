@@ -1,5 +1,5 @@
-package tests.business.search;
-import pg13.business.search.CategoryFilter;
+package tests.business;
+import pg13.business.CategoryFilter;
 import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Puzzle;

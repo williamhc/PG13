@@ -1,15 +1,15 @@
 package tests;
 
+import tests.business.AuthorFilterTest;
+import tests.business.CategoryFilterTest;
 import tests.business.CryptogramManagerTest;
-import tests.business.create.TestUserManager;
-import tests.business.search.AuthorFilterTest;
-import tests.business.search.CategoryFilterTest;
-import tests.business.search.DifficultyFilterTest;
-import tests.business.search.PuzzleAuthorColumnProviderTest;
-import tests.business.search.PuzzleCategoryColumnProviderTest;
-import tests.business.search.PuzzleDifficultyColumnProviderTest;
-import tests.business.search.PuzzleTitleColumnProviderTest;
-import tests.business.search.TitleFilterTest;
+import tests.business.DifficultyFilterTest;
+import tests.business.PuzzleAuthorColumnProviderTest;
+import tests.business.PuzzleCategoryColumnProviderTest;
+import tests.business.PuzzleDifficultyColumnProviderTest;
+import tests.business.PuzzleTitleColumnProviderTest;
+import tests.business.TestUserManager;
+import tests.business.TitleFilterTest;
 import tests.models.CryptogramPairTest;
 import tests.models.CryptogramTest;
 import tests.models.UserTest;

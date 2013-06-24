@@ -11,7 +11,7 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.VerifyListener;
 
-import pg13.business.search.CryptogramManager;
+import pg13.business.CryptogramManager;
 import pg13.models.Cryptogram;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;

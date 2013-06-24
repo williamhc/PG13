@@ -1,11 +1,11 @@
-package pg13.business.search;
+package pg13.business;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
 import pg13.models.Puzzle;
 
-public class TitleFilter extends ViewerFilter {
+public class AuthorFilter extends ViewerFilter {
 
 	private String searchString;
 	
@@ -24,7 +24,6 @@ public class TitleFilter extends ViewerFilter {
 		{
 			return true;
 		}
-		return p.getTitle().toLowerCase().matches(this.searchString);
+		return p.getAuthor().toLowerCase().matches(this.searchString);
 	}
-
 }

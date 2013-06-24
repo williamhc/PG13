@@ -1,5 +1,5 @@
-package tests.business.search;
-import pg13.business.search.AuthorFilter;
+package tests.business;
+import pg13.business.AuthorFilter;
 import pg13.models.Cryptogram;
 import pg13.models.Puzzle;
 import junit.framework.TestCase;

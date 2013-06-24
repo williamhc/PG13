@@ -22,11 +22,11 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 
-import pg13.business.search.AuthorFilter;
-import pg13.business.search.CategoryFilter;
-import pg13.business.search.DifficultyFilter;
-import pg13.business.search.PuzzleTableDriver;
-import pg13.business.search.TitleFilter;
+import pg13.business.AuthorFilter;
+import pg13.business.CategoryFilter;
+import pg13.business.DifficultyFilter;
+import pg13.business.PuzzleTableDriver;
+import pg13.business.TitleFilter;
 import pg13.models.Category;
 import pg13.models.Difficulty;
 import pg13.models.Puzzle;

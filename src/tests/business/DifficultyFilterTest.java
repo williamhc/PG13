@@ -1,5 +1,5 @@
-package tests.business.search;
-import pg13.business.search.DifficultyFilter;
+package tests.business;
+import pg13.business.DifficultyFilter;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
 import pg13.models.Puzzle;

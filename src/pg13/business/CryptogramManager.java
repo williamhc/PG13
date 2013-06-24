@@ -1,4 +1,4 @@
-package pg13.business.search;
+package pg13.business;
 
 
 import pg13.models.Cryptogram;

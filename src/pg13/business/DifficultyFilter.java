@@ -1,4 +1,4 @@
-package pg13.business.search;
+package pg13.business;
 import java.util.ArrayList;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;

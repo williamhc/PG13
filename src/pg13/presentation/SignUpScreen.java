@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
-import pg13.business.create.UserManager;
+import pg13.business.UserManager;
 import pg13.models.User;
 
 public class SignUpScreen extends Composite 

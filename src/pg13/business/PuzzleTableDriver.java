@@ -1,5 +1,5 @@
 
-package pg13.business.search;
+package pg13.business;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 
-import pg13.business.create.PuzzleManager;
 import pg13.models.Puzzle;
 
 

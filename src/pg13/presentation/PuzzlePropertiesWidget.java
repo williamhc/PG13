@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.MessageBox;
 
-import pg13.business.create.PuzzleManager;
+import pg13.business.PuzzleManager;
 import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;

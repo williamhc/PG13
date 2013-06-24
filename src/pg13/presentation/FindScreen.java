@@ -32,9 +32,6 @@ import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 import pg13.org.eclipse.wb.swt.SWTResourceManager;
 
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-
 public class FindScreen extends Composite 
 {
 	private static class ContentProvider implements IStructuredContentProvider 

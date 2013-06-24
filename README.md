@@ -1,4 +1,4 @@
-**Group 4 - Puzzle Games 2013 (PG13)**
+Group 4 - Puzzle Games 2013 (PG13)
 -------------------------------------------------------------------------------
 #### Paymahn M., Eric H., Will H-C., Lauren S.
 
@@ -10,15 +10,19 @@
 
 Project description
 -------------------------------------------------------------------------------
-PG13 is a social puzzle making and playing software. In this iteration you, our users, can create a puzzle by clicking the create button. Currently, we only have cryptograms. The preview of your puzzle is automatically generated as you type your plain text in. "Save this Puzzle" will allow you to store the puzzle you made in a database. You can also click the "Find and Play" button, which will display all the puzzles that have been created (including yours, if you saved it). You have a few dummy puzzles that populate this screen right now from our database.
+PG13 is a social puzzle making and playing software. In this iteration you, our users, can create a puzzle by clicking the create button. Currently, we only have cryptograms. The preview of your puzzle is automatically generated as you type your plain text in. 
 
-The blue header bar, "Connect" has been made uninteractable for this iteration as it is not fully implemented.
+"Save this Puzzle" will allow you to store the puzzle you made in a database. You can also click the "Find and Play" button, which will display all the puzzles that have been created (including yours, if you saved it). You have a few dummy puzzles that populate this screen right now from our database.
+
+The "Connect" button has been made uninteractable for this iteration as it is not fully implemented.
 
 Enjoy the program :)
 
 Getting the code
 -------------------------------------------------------------------------------
-The repository is a git repository under the root directory of an Amazon EC2 instance. The authorized user is ubuntu. The SSH key required will be included in the .zip - `comp3350.pem`.
+The repository is a git repository under the root directory of an Amazon EC2 instance. The authorized user is ubuntu. The SSH key 
+
+required will be included in the .zip - `comp3350.pem`.
 
 To clone the repo, use the ssh (via `chmod` and `ssh-add`) key and then:
 `git clone ubuntu@ec2-54-245-216-243.us-west-2.compute.amazonaws.com:PG13.git`
@@ -42,6 +46,7 @@ Our project is contained in the package, pg13. Our main function can be found in
 Additional Notes
 -------------------------------------------------------------------------------
 Included in our electronic handin are the following:
+
  - our source code
  - this readme file
  - a copy of our log file

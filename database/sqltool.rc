@@ -1,3 +1,0 @@
-# A personal Memory-Only database.
-urlid PG13
-url jdbc:hsqldb:PG13

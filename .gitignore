@@ -1,7 +1,7 @@
 *.class
 .classpath
-*.script
-*.properties
+database/*
+
 # Package Files #
 *.war
 *.ear

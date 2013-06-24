@@ -1,6 +1,7 @@
 package pg13.app;
 
 import pg13.presentation.MainWindow;
+import tests.persistence.StubDB;
 
 public class PG13 
 {

@@ -60,7 +60,7 @@ public class DataAccessObject implements DataAccess
 			String dif = puzzle.getDifficulty().toString();
 			String plain = ((Cryptogram) puzzle).getPlaintext();
 			values = String.format("%d, '%s', '%s', '%s', '%s', '%s'",
-					id, title, description, cat, dif, plain);
+					id, sanitize(title), sanitize(description), sanitize(cat), sanitize(dif), sanitize(plain));
 			cmdString = "Insert into Cryptograms Values(" + values + ")";
 			System.out.println(cmdString);
 			updateCount = st1.executeUpdate(cmdString);
@@ -319,7 +319,7 @@ public class DataAccessObject implements DataAccess
 		try
 		{
 			values = String.format("%d, '%s'", user.getPrimaryKey(),
-					user.getName());
+					sanitize(user.getName()));
 			cmdString = "Insert into Users Values(" + values + ")";
 			System.out.println(cmdString);
 			updateCount = st1.executeUpdate(cmdString);
@@ -391,5 +391,10 @@ public class DataAccessObject implements DataAccess
 		// e.printStackTrace();
 		System.out.println(result);
 		return result;
+	}
+	
+	private String sanitize(String toSanitize)
+	{
+		return toSanitize.replaceAll("'", "''");
 	}
 }

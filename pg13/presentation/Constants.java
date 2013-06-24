@@ -5,7 +5,7 @@ public class Constants
 	//Welcome Screen/General
 	public static final String PG13 				= 			"PG13";
 	public static final String QUIT 				= 			"Quit";
-	public static final String VERSION 				= 			"Version 1.00";
+	public static final String VERSION 				= 			"Version 2.00";
 	
 	//Header Bar
 	public static final String PLAY 				= 			"Play";

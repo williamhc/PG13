@@ -230,13 +230,22 @@ import pg13.models.User;
 
 		public void testResetUserMapping()
 		{
-			cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY, DEFAULT_PLAINTEXT);
+			cryptogram = new Cryptogram();
 			char guess = 'A';
 			char encrypted = 'B';
 			this.cryptogram.setUserPlaintextForCiphertext(guess, encrypted);
 	 		assertEquals(guess, this.cryptogram.getUserPlaintextFromCiphertext(encrypted));
 			this.cryptogram.resetUserMapping();
 			assertEquals('\0', this.cryptogram.getUserPlaintextFromCiphertext(encrypted));
+		}
 
+		public void testSavePreparation()
+		{
+			cryptogram = new Cryptogram();
+			char guess = 'A';
+			char encrypted = 'B';
+			this.cryptogram.setUserPlaintextForCiphertext(guess, encrypted);
+			this.cryptogram.prepareForSave();
+			assertEquals('\0', this.cryptogram.getUserPlaintextFromCiphertext(encrypted));
 		}
 	}

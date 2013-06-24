@@ -2,17 +2,17 @@
 -------------------------------------------------------------------------------
 #### Paymahn M., Eric H., Will H-C., Lauren S.
 
-**Version 1.00**
+**Version 2.00**
 
-**Iteration 1:** 06/06/2013
+**Iteration 2:** 06/25/2013
 
 **Project state:** stable
 
 Project description
 -------------------------------------------------------------------------------
-PG13 is a social puzzle making and playing software. In this iteration you, our users, can create a puzzle by clicking the create button. Currently, we only have cryptograms. Clicking the generate preview allows you to play the cryptogram in the preview screen. "Save this Puzzle" will allow you to store the puzzle you made for the length of the lifetime of the application. You can also click the "Play" button, which will display all the puzzles that have been created (including yours, if you saved it). You have a few dummy puzzles that populate this screen right now from our stub database.
+PG13 is a social puzzle making and playing software. In this iteration you, our users, can create a puzzle by clicking the create button. Currently, we only have cryptograms. The preview of your puzzle is automatically generated as you type your plain text in. "Save this Puzzle" will allow you to store the puzzle you made in a database. You can also click the "Find and Play" button, which will display all the puzzles that have been created (including yours, if you saved it). You have a few dummy puzzles that populate this screen right now from our database.
 
-The yellow header bar, "Connect", and the filter options on the play screen have been made uninteractable for this iteration as they are not fully implemented.
+The blue header bar, "Connect" has been made uninteractable for this iteration as it is not fully implemented.
 
 Enjoy the program :)
 
@@ -30,13 +30,14 @@ Getting up and running
 -------------------------------------------------------------------------------
 **Note:** you must have javac and java in your PATH
 
- 1. Run `Compile.bat`.
- 2. Run `Run.bat`.
- 3. To run tests, run `RunAllTests.bat`
+ 1. Run 'Compile.bat'.
+ 2. Run 'Run.bat'.
+ 3. To run tests, run 'RunAllTests.bat'
+ 4. To restore the database to its original state, run 'RestoreDB.bat'. This bat file can be found in the 'database' folder
 
 Project File Contents
 -------------------------------------------------------------------------------
-Our project is contained in the package, pg13. Our main function can be found in the pg13.app package. pg13.presentation contains the GUI component of our project. pg13.business contains all the data processing and logic. pg13.persistence contains our stub database required for this iteration. pg13.models is our domain specific data objects, puzzles. We also have test package that contains all of our JUNIT tests. tests.models contains the files that thoroughly test our data objects. tests.business tests all the data processing and logic.
+Our project is contained in the package, pg13. Our main function can be found in the pg13.app package. The file our main is contained in is PG13.java. pg13.presentation contains the GUI components of our project It also contained 2 java files that list String and Message Constants used throughout the GUI. pg13.business contains all the data processing and logic. pg13.persistence contains the controller and the SQL implementation file for the persistant database. pg13.models is our domain specific data objects, puzzles and users. We also have test package that contains all of our JUNIT tests. tests.models contains the files that thoroughly test our data objects. tests.business tests all the data processing and logic. tests.persistance tests the persistance interface using the Stub database (StubDB.java is in this package).
 
 Additional Notes
 -------------------------------------------------------------------------------
@@ -44,5 +45,6 @@ Included in our electronic handin are the following:
  - our source code
  - this readme file
  - a copy of our log file
+ - a copy of our user stories implemented during this iteration
  - an excel spreadsheet file outlining our developer tasks for this iteration their current state, and estimated times
  - AllTests.txt that contains the output of our RunTests script

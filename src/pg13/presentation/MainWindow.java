@@ -313,6 +313,7 @@ public class MainWindow
 		fd_lblOr.right = new FormAttachment(50, 10);
 		fd_lblOr.left = new FormAttachment(50, -10);
 		fd_lblOr.top = new FormAttachment(lblWelcomeDescription, 6);
+		lblOr.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		lblOr.setLayoutData(fd_lblOr);
 		lblOr.setText("Or");
 		

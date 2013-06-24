@@ -8,7 +8,7 @@ public class MessageConstants
 	public static final String WELCOME_HEADER 			= 			"Welcome to Puzzle Games 2013 (PG13)";
 	public static final String INSTRUCTIONS_LOGGED_OUT 	= 			"Begin your PG13 experience by logging in.  You may choose to login as a guest.\n\n";																		
 	public static final String INSTRUCTIONS_LOGGED_IN	=			"Select the Create option above to begin creating a new cryptogram.  " +
-																		"You can preview and test your cryptogram by selecting the preview option therein.\n\n" +
+																		"You can preview and test your cryptogram in the preview area therein.\n\n" +
 																		"Once your cryptogram is complete and saved, you can find it among other cryptograms " +
 																		"by selecting the Play option.";
 	

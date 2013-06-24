@@ -37,15 +37,7 @@ public abstract class Puzzle
 		this.category = category;
 	}
 	
-	public boolean isCompleted() 
-	{
-		return this.isCompleted;
-	}
-
-	public void setIsCompleted(boolean value)
-	{
-		this.isCompleted = value;
-	}
+	public abstract boolean isCompleted();
 
 	public String getTitle()
 	{

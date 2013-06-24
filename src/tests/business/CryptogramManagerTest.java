@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 /**
  * @date May 31 2013
- * 
+ *
  */
 public class CryptogramManagerTest extends TestCase
 {
@@ -20,299 +20,132 @@ public class CryptogramManagerTest extends TestCase
 		this.cm = new CryptogramManager();
 	}
 
-	/**
-	 * @date May 31 2013
-	 * 
-	 *         Test the constructors in Cryptogram manager
-	 */
-	public void testConstructors()
+	public void testEmptyCryptoManager()
 	{
-		Cryptogram cryptogram = new Cryptogram();
+		Cryptogram crypto = this.cm.getCryptogram();
+		assertNotNull(crypto);
+	}
 
-		this.cm = new CryptogramManager();
-		assertNotNull(cm.getCryptogram());
+	public void testInitializedCryptogramManager()
+	{
+		Cryptogram crypto = new Cryptogram();
+		this.cm = new CryptogramManager(crypto);
+		assertEquals(this.cm.getCryptogram(), crypto);
+	}
 
-		this.cm = new CryptogramManager(cryptogram);
-		assertEquals(cryptogram, cm.getCryptogram());
 
+	public void testNonDefaultInitializedCryptogramManager()
+	{
 		cryptogram = new Cryptogram(new User("Someone's Name"), "Random title", "Put some curse words in there.", Category.Animals,
 				Difficulty.Easy, "This is the plaintext");
-		this.cm = new CryptogramManager(cryptogram);
-		assertEquals(cryptogram, cm.getCryptogram());
+		this.cm = new CryptogramManager(crypto);
+		assertEquals(crypto, cm.getCryptogram());
 	}
 
-	/**
-	 * While this specifically tests setting plaintext, it also tests
-	 * validatePlaintext because cm.setplaintext calls validatePlaintext before
-	 * setting it.
-	 * 
-	 * @date June 1 2013
-	 */
 	public void testValidPlaintext()
 	{
-		this.cm = new CryptogramManager();
-
-		this.setAndValidateValidPlainText("a");
-		this.setAndValidateValidPlainText("g");
-		this.setAndValidateValidPlainText("abcdefghijklmnopqrstuvwxyz");
-		this.setAndValidateValidPlainText("G");
-		this.setAndValidateValidPlainText("Z");
-		this.setAndValidateValidPlainText("A!");
-		this.setAndValidateValidPlainText("AAAAAAABBBBBCCCCCCCC");
-		this.setAndValidateValidPlainText("abcdefgHIJKL");
-		this.setAndValidateValidPlainText("A b c d some phrase");
-		this.setAndValidateValidPlainText("A large bear appeared!");
-		this.setAndValidateValidPlainText("a!!!!!!??!?!");
-		this.setAndValidateValidPlainText("A large & vicious animal!   Attack? ATTACK! ...");
-		this.setAndValidateValidPlainText("");
+		this.setValidPlainText("a");
+		this.setValidPlainText("abcdefghijklmnopqrstuvwxyz");
+		this.setValidPlainText("G");
+		this.setValidPlainText("AAAAAAABBBBBCCCCCCCC");
+		this.setValidPlainText("abcdefgHIJKL");
+		this.setValidPlainText("A large bear appeared!");
+		this.setValidPlainText("a!!!!!!??!?!");
+		this.setValidPlainText("A large & vicious animal!   Attack? ATTACK! ...");
+		this.setValidPlainText("");
 	}
 
-	private void setAndValidateValidPlainText(String plainText)
+	private void setValidPlainText(String plainText)
 	{
+		Cryptogram crypto = this.cm.getCryptogram();
 		this.cm.setPlaintext(plainText);
 		assertEquals(plainText, this.cm.getPlaintext());
+		// check that the actual cryptogram was affected as well
+		assertEquals(plainText, crypto.getPlaintext());
 	}
 
-	/**
-	 * While this specifically tests setting plaintext, it also tests
-	 * validatePlaintext because cm.setplaintext calls validatePlaintext before
-	 * setting it.
-	 * @date June 1 2013
-	 * 
-	 */
 	public void testInvalidPlaintext()
 	{
-		this.setAndValidateInvalidPlaintext("~");
-		this.setAndValidateInvalidPlaintext("mid`dle");
-		this.setAndValidateInvalidPlaintext("~begin");
-		this.setAndValidateInvalidPlaintext("end~");
-		this.setAndValidateInvalidPlaintext("test invalid with spaces~");
-		this.setAndValidateInvalidPlaintext("~~~~~~~~~~~~~~~~`````````````");
-		this.setAndValidateInvalidPlaintext("[");
-		this.setAndValidateInvalidPlaintext("}");
-		this.setAndValidateInvalidPlaintext("\\");
-		try
-		{
-			this.cm.setPlaintext(null);
-			fail();
-		} catch (NullPointerException e)
-		{
-			// expected
-		}
+		this.setInvalidPlaintext("~");
+		this.setInvalidPlaintext("mid`dle");
+		this.setInvalidPlaintext("~begin");
+		this.setInvalidPlaintext("end~");
+		this.setInvalidPlaintext("test invalid with spaces~");
+		this.setInvalidPlaintext("~~~~~~~`````");
+		this.setInvalidPlaintext("[");
+		this.setInvalidPlaintext("}");
+		this.setInvalidPlaintext("\\");
+		this.setInvalidPlaintext(null);
 	}
 
-	/**
-	 * Try to set the plaintext of a crayptogram. An exception should be raised
-	 * by the CryptogramManager because the plaintext is (expected to be)
-	 * invalid.
-	 * 
-	 * @param plaintext
-	 *            The plaintext to set
-	 * @date June 1 2013
-	 */
-	private void setAndValidateInvalidPlaintext(String plaintext)
+	private void setInvalidPlaintext(String plaintext)
 	{
 		try
 		{
 			this.cm.setPlaintext(plaintext);
 			fail();
-		} 
+		}
 		catch (IllegalArgumentException e)
 		{
 			// expected
 		}
 	}
 
-	/**
-	 * 
-	 * @date June 2 2013
-	 * 
-	 *       This is a beast of a method and is not exhaustive (I don't think).
-	 *       Someone should look over it and see if there's a better way to
-	 *       approach testing the method this method tests.
-	 */
-	public void testGetUserMapping()
+	public void testUserMappingSimple()
 	{
-		String plaintext = "testing stuff";
-		cm.setPlaintext(plaintext);
-		String cipherText = cm.getCryptogram().getCiphertext();
-		assertFalse(cipherText.equals(""));
-
-		// test none mapped
-		for (int i = 0; i < cipherText.length(); i++)
-		{
-			char currentChar = cipherText.charAt(i);
-			if (Character.isLetter(currentChar))
-			{
-				String userChar = cm.getUserMapping(currentChar);
-				assertEquals("", userChar);
-			}
-		}
-
-		// test one mapped
-		cm.getCryptogram().setUserPlaintextForCiphertext(plaintext.charAt(0),
-				cipherText.charAt(0));
-		for (int i = 0; i < cipherText.length(); i++)
-		{
-			char currentChar = cipherText.charAt(i);
-			if (Character.isLetter(currentChar))
-			{
-				String userChar = cm.getUserMapping(currentChar);
-				if (plaintext.charAt(i) == 't')
-				{
-					assertEquals("T", userChar);
-				} 
-				else
-				{
-					assertEquals("", userChar);
-				}
-			}
-		}
-
-		// test two mapped
-		cm.getCryptogram().setUserPlaintextForCiphertext(plaintext.charAt(1),
-				cipherText.charAt(1));
-		for (int i = 0; i < cipherText.length(); i++)
-		{
-			char currentChar = cipherText.charAt(i);
-			if (Character.isLetter(currentChar))
-			{
-				String userChar = cm.getUserMapping(currentChar);
-				if (plaintext.charAt(i) == 't')
-				{
-					assertEquals("T", userChar);
-				} 
-				else if (plaintext.charAt(i) == 'e')
-				{
-					assertEquals("E", userChar);
-				} 
-				else
-				{
-					assertEquals("", userChar);
-				}
-			}
-		}
-
-		// test all mapped
-		for (int i = 0; i < plaintext.length(); i++)
-		{
-			if (Character.isLetter(plaintext.charAt(i)))
-			{
-				cm.setUserMapping(plaintext.charAt(i), cipherText.charAt(i));
-			}
-		}
-		for (int i = 0; i < cipherText.length(); i++)
-		{
-			char currentChar = cipherText.charAt(i);
-			if (Character.isLetter(currentChar))
-			{
-				String userChar = cm.getUserMapping(currentChar);
-				assertEquals(Character.toString(Character.toUpperCase(plaintext
-						.charAt(i))), userChar);
-			}
-		}
-
+		assertEquals(this.cm.getUserMapping('N'), "");
+		this.cm.setUserMapping('X', 'N');
+		assertEquals(this.cm.getUserMapping('N'), "X");
+		this.cm.setUserMapping('Y', 'N');
+		assertEquals(this.cm.getUserMapping('N'), "Y");
+		assertEquals(this.cm.getUserMapping('M'), "");
+		this.cm.setUserMapping('Z', 'M');
+		assertEquals(this.cm.getUserMapping('M'), "Z");
 	}
 
-	/**
-	 * This function and the following function test the setting methods and also the validateUserMapping method.
-	 * This is exhaustive.
-	 * @date June 4 2013
-	 */
-	public void testSetValidUserMapping()
+	public void testUserMappingCapitalLettersNotDistinct()
 	{
-		// valid mappings
-		for(char ch1 = 'a'; ch1 <= 'z'; ch1++)
-		{
-			for(char ch2='a'; ch2 <= 'z'; ch2++)
-			{
-				//char versions
-				this.setValidMapping(ch1, ch2);
-				this.setValidMapping(ch1, Character.toUpperCase(ch2));
-				this.setValidMapping(Character.toUpperCase(ch1), ch2);
-				this.setValidMapping(Character.toUpperCase(ch1), Character.toUpperCase(ch2));
-				this.setValidMapping('\0', ch2);
-				
-				//string versions
-				this.setValidMapping("" + ch1,ch2);
-				this.setValidMapping("" + ch1, Character.toUpperCase(ch2));
-				this.setValidMapping("" + Character.toUpperCase(ch1), ch2);
-				this.setValidMapping("" + Character.toUpperCase(ch1), Character.toUpperCase(ch2));
-				this.setValidMapping("", ch2);
-			}
-		}
-	}
-	
-	/**
-	 * @date June 4 2013
-	 */
-	public void testSetInvalidUserMappings()
-	{
-		for(char ch = 'a'; ch <= 'z'; ch++)
-		{
-			this.setInvalidMapping(ch, '0');
-			this.setInvalidMapping(ch, '5');
-			this.setInvalidMapping(ch, '9');
-			this.setInvalidMapping('0', ch);
-			this.setInvalidMapping('5', ch);
-			this.setInvalidMapping('9', ch);
-			
-			this.setInvalidMapping(Character.toUpperCase(ch), '0');
-			this.setInvalidMapping(Character.toUpperCase(ch), '5');
-			this.setInvalidMapping(Character.toUpperCase(ch), '9');
-			this.setInvalidMapping('0', Character.toUpperCase(ch));
-			this.setInvalidMapping('5', Character.toUpperCase(ch));
-			this.setInvalidMapping('9', Character.toUpperCase(ch));
-			
-			this.setInvalidMapping(ch, '.');
-			this.setInvalidMapping(ch, '[');
-			this.setInvalidMapping(ch, '!');
-			this.setInvalidMapping('\f', ch);
-			this.setInvalidMapping('\n', ch);
-			this.setInvalidMapping(':', ch);
-			
-			this.setInvalidMapping(Character.toUpperCase(ch), '.');
-			this.setInvalidMapping(Character.toUpperCase(ch), '[');
-			this.setInvalidMapping(Character.toUpperCase(ch), '!');
-			this.setInvalidMapping('*', Character.toUpperCase(ch));
-			this.setInvalidMapping('\\', Character.toUpperCase(ch));
-			this.setInvalidMapping(':', Character.toUpperCase(ch));		
-		}
-		
-		this.setInvalidMapping('\0', ']');
+		this.cm.setUserMapping('x', 'n');
+		assertEquals(this.cm.getUserMapping('n'), "X");
+		assertEquals(this.cm.getUserMapping('N'), "X");
+		this.cm.setUserMapping('X', 'N');
+		assertEquals(this.cm.getUserMapping('n'), "X");
+		assertEquals(this.cm.getUserMapping('N'), "X");
+		this.cm.setUserMapping('X', 'n');
+		assertEquals(this.cm.getUserMapping('n'), "X");
+		assertEquals(this.cm.getUserMapping('N'), "X");
+		this.cm.setUserMapping('x', 'N');
+		assertEquals(this.cm.getUserMapping('n'), "X");
+		assertEquals(this.cm.getUserMapping('N'), "X");
 	}
 
-	/**
-	 * Sets the plaintext of the cryptogram manager and asserts that it was correctly set
-	 * @param plaintext The plaintext to set - assumed to be valid
-	 * @param cipherChar The ciphertext to set for - assumed to be valid
-	 * @date June 4 2013
-	 */
-	private void setValidMapping(char plaintext, char cipherChar)
+	public void testUserMappingNullCharacter()
 	{
-		cm.setUserMapping(plaintext, cipherChar);
-		if (plaintext == '\0')
-		{
-			assertEquals("", cm.getUserMapping(cipherChar));
-		} 
-		else
-		{
-			assertEquals(Character.toString(Character.toUpperCase(plaintext)),
-					cm.getUserMapping(cipherChar));
-		}
+		assertEquals(this.cm.getUserMapping('X'), "");
+		this.cm.setUserMapping('\0', 'X');
+		assertEquals(this.cm.getUserMapping('X'), "");
 	}
 
-	/**
-	 * Sets the plaintext of the cryptogram manager and asserts that it was set correctly
-	 * @param plaintext The text to set - assumed to be valid
-	 * @param cipherChar the ciphertext to set for
-	 */
-	private void setValidMapping(String plaintext, char cipherChar)
+	public void testUserMappingNumber()
 	{
-		cm.setUserMapping(plaintext, cipherChar);
-		assertEquals(plaintext.toUpperCase(), cm.getUserMapping(cipherChar));
+		assertEquals(this.cm.getUserMapping('6'), "");
+		this.setInvalidMapping('X', '6');
+		assertEquals(this.cm.getUserMapping('6'), "");
 	}
-	
+
+	public void testUserMappingSpecialChar()
+	{
+		assertEquals(this.cm.getUserMapping('\\'), "");
+		assertEquals(this.cm.getUserMapping(']'), "");
+		assertEquals(this.cm.getUserMapping('#'), "");
+		this.setInvalidMapping('X', '\\');
+		this.setInvalidMapping('X', ']');
+		this.setInvalidMapping('X', '#');
+		assertEquals(this.cm.getUserMapping('\\'), "");
+		assertEquals(this.cm.getUserMapping(']'), "");
+		assertEquals(this.cm.getUserMapping('#'), "");
+	}
+
 	private void setInvalidMapping(char plaintext, char cipherChar)
 	{
 		//try the char version
@@ -325,18 +158,5 @@ public class CryptogramManagerTest extends TestCase
 		{
 			//expected
 		}
-		
-		//try the string version
-		try
-		{
-			cm.setUserMapping("" + plaintext, cipherChar);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			//expected
-		}
 	}
-	
-
 }

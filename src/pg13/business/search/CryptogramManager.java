@@ -7,11 +7,11 @@ import pg13.models.Cryptogram;
  * @date May31st 2013
  *
  */
-public class CryptogramManager 
+public class CryptogramManager
 {
 
 	Cryptogram cryptogram;
-	
+
 	public CryptogramManager()
 	{
 		this.cryptogram = new Cryptogram();
@@ -22,7 +22,7 @@ public class CryptogramManager
 		this.cryptogram = cryptogram;
 	}
 
-	public Cryptogram getCryptogram() 
+	public Cryptogram getCryptogram()
 	{
 		return cryptogram;
 	}
@@ -35,6 +35,10 @@ public class CryptogramManager
 
 	public void validatePlaintext(String string)
 	{
+		if(string == null)
+		{
+			throw new IllegalArgumentException(String.format("PlainText for cryptogram cannot be null!"));
+		}
 		char[] characters = string.toCharArray();
 		for (int i = 0; i < characters.length; i++)
 		{
@@ -43,14 +47,14 @@ public class CryptogramManager
 			{
 				throw new IllegalArgumentException(String.format("Invalid character (%c) in plaintext", curr));
 			}
-		}		
+		}
 	}
 
 	public String getPlaintext()
 	{
 		return this.cryptogram.getPlaintext();
 	}
-	
+
 	/**
 	 * Gets the user mapping for a cipher character
 	 * @param cipherCharacter The cipher character for which we want the users' mapping
@@ -59,17 +63,26 @@ public class CryptogramManager
 	public String getUserMapping(char cipherCharacter)
 	{
 		String result = "";
+		try
+		{
+			this.validateUserMapping(cipherCharacter);
+		}
+		catch(IllegalArgumentException iae)
+		{
+			return result;
+		}
+
 		char userChar = this.cryptogram.getUserPlaintextFromCiphertext(cipherCharacter);
-		
+
 		if(userChar != '\0')
 		{
 			result += userChar;
 		}
-		
+
 		return result;
-		
+
 	}
-	
+
 	/**
 	 * Updates a user mapping for a cryptogra. IE: map X to A where X is the character the user entered and A is the
 	 * ciphertext
@@ -83,26 +96,7 @@ public class CryptogramManager
 		this.validateUserMapping(ciphertextChar);
 		this.cryptogram.setUserPlaintextForCiphertext(plaintextChar, ciphertextChar);
 	}
-	
-	/**
-	 * Updates a user mapping for a cryptogram. IE: map X to A where X is the character the user entered and A is the
-	 * ciphertext
-	 * @date June 1 2013
-	 * @param plaintextChar A single character string or empty string to be assigned. If empty, the character '\0' will be assigned
-	 * @param ciphertextChar The character being mapped to
-	 */
-	public void setUserMapping(String plaintextChar, char ciphertextChar)
-	{
-		if(plaintextChar.length() > 0)
-		{
-			this.setUserMapping(plaintextChar.charAt(0), ciphertextChar);
-		}
-		else
-		{
-			this.setUserMapping('\0', ciphertextChar);
-		}
-	}
-	
+
 	/**
 	 * Validates a user mapping. Valid characters are those in the range of a-z or '\0'
 	 * @param charToValidate The character to validate
@@ -115,7 +109,7 @@ public class CryptogramManager
 			throw new IllegalArgumentException(String.format("Illegal character %c", charToValidate));
 		}
 	}
-	
+
 	/**
 	 * Validates a user mapping. Valid characters are those in the range of a-z or '\0'
 	 * @param charToValidate Single character string or empty string to be validated.

@@ -133,7 +133,18 @@ public class CryptogramLetterWidget extends Composite
 				&& this.txtPlaintextChar.getEditable() == true)
 		{
 
-			this.cm.setUserMapping(txtPlaintextChar.getText(), this.ciphertextChar);
+			String textBoxContents = this.txtPlaintextChar.getText();
+			char plaintextChar;
+			if(textBoxContents.length() == 0)
+			{
+				plaintextChar = textBoxContents.charAt(0);
+			}
+			else
+			{
+				plaintextChar = '\0';
+			}
+
+			this.cm.setUserMapping(plaintextChar, this.ciphertextChar);
 
 			if (this.parent instanceof CryptogramSolveWidget)
 			{

@@ -17,10 +17,10 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.graphics.Point;
 
-import pg13.business.create.UserManager;
 import pg13.models.Cryptogram;
 import pg13.models.Puzzle;
 import pg13.models.User;
+import org.eclipse.swt.layout.GridData;
 
 /**
  * The main window for the application.
@@ -34,9 +34,20 @@ public class MainWindow
 	private CreateScreen cmpCreateScreen;
 	private FindScreen cmpFindScreen;
 	private PlayScreen cmpPlayScreen;
+	private SignUpScreen cmpSignUpScreen;
+	private LoginScreen cmpLoginScreen;
 	private Label lblLoggedInAs;
-	private UserManager userManager;
 	private User loggedInUser;
+	private Button btnPlay;
+	private Button btnConnect;
+	private Button btnCreate;
+	private Composite cmpLogin;
+	private Label lblToolbarSeparator;
+	private Composite cmpMainArea;
+	private Label lblWelcomeDescription;
+	private Button btnMainSignUp;
+	private Button btnMainLogin;
+	private Label lblOr;
 
 	/**
 	 * gets the instance of the main window
@@ -59,8 +70,6 @@ public class MainWindow
 	private MainWindow()
 	{
         display = Display.getDefault();
-        this.userManager = new UserManager();
-        loggedInUser = this.userManager.findUser(userManager.getGuestPrimaryKey()); //log in as guest
 		createWindow();
 	}
 	
@@ -92,14 +101,14 @@ public class MainWindow
     public void createWindow()
 	{
 		shell = new Shell();
-		shell.setMinimumSize(new Point(640, 480));
-		shell.setSize(692, 616);
+		shell.setMinimumSize(new Point(768, 576));
+		shell.setSize(774, 616);
 		shell.setLocation(150,100);
 		shell.setText(Constants.PG13);
 		shell.setLayout(new FormLayout());
 		
 		// play button
-		Button btnPlay = new Button(shell, SWT.NONE);
+		btnPlay = new Button(shell, SWT.NONE);
 		btnPlay.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
@@ -116,7 +125,7 @@ public class MainWindow
 		btnPlay.setText(Constants.PLAY);
 		
 		// connect button
-		Button btnConnect = new Button(shell, SWT.NONE);
+		btnConnect = new Button(shell, SWT.NONE);
 		btnConnect.setEnabled(false);
 		FormData fd_btnConnect = new FormData();
 		fd_btnConnect.right = new FormAttachment(0, 172);
@@ -126,7 +135,7 @@ public class MainWindow
 		btnConnect.setText(Constants.CONNECT);
 		
 		// create button
-		Button btnCreate = new Button(shell, SWT.NONE);
+		btnCreate = new Button(shell, SWT.NONE);
 		btnCreate.addSelectionListener(new SelectionAdapter() 
 		{
 			@Override
@@ -143,20 +152,22 @@ public class MainWindow
 		btnCreate.setText(Constants.CREATE);
 		
 		// container for user login info
-		Composite cmpLogin = new Composite(shell, SWT.BORDER);
+		cmpLogin = new Composite(shell, SWT.BORDER);
 		FormData fd_cmpLogin = new FormData();
 		fd_cmpLogin.right = new FormAttachment(100, -5);
 		fd_cmpLogin.top = new FormAttachment(0, 5);
-		fd_cmpLogin.left = new FormAttachment(100, -350);
+		fd_cmpLogin.left = new FormAttachment(100, -392);
 		cmpLogin.setLayoutData(fd_cmpLogin);
 		cmpLogin.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND));
 		cmpLogin.setLayout(new GridLayout(2, false));
 		
 		// label that identifies 
 		lblLoggedInAs = new Label(cmpLogin, SWT.NONE);
+		GridData gd_lblLoggedInAs = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_lblLoggedInAs.widthHint = 185;
+		lblLoggedInAs.setLayoutData(gd_lblLoggedInAs);
 		lblLoggedInAs.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND));
-		//TODO change this to pull from user
-		lblLoggedInAs.setText(MessageConstants.GUEST_LOGON);
+		lblLoggedInAs.setText(MessageConstants.LOGON);
 		
 		// toolbar that contains the user buttons
 		ToolBar toolBar = new ToolBar(cmpLogin, SWT.FLAT);
@@ -175,10 +186,17 @@ public class MainWindow
 		ToolItem tltmSeparator2 = new ToolItem(toolBar, SWT.SEPARATOR);
 		tltmSeparator2.setText("sep");
 		
-		// mystery button
-		ToolItem tltmMystery = new ToolItem(toolBar, SWT.NONE);
-		tltmMystery.setEnabled(false);
-		tltmMystery.setText(Constants.SOMETHING_ELSE);
+		// home button
+		ToolItem tltmHome = new ToolItem(toolBar, SWT.NONE);
+		tltmHome.setText(Constants.HOME);
+		tltmHome.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				switchToWelcomeScreen();
+			}
+		});
 		
 		// separator
 		ToolItem tltmSeparator3 = new ToolItem(toolBar, SWT.SEPARATOR);
@@ -186,21 +204,28 @@ public class MainWindow
 		tltmSeparator3.setEnabled(true);
 		tltmSeparator3.setText("sep");
 		
-		// login button
-		ToolItem tltmLogin = new ToolItem(toolBar, SWT.NONE);
-		tltmLogin.setEnabled(false);
-		tltmLogin.setText(Constants.LOGIN);
+		// logout button
+		ToolItem tltmLogout = new ToolItem(toolBar, SWT.NONE);
+		tltmLogout.setText(Constants.LOGOUT);
+		tltmLogout.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				logout();
+			}
+		});
 		
 		// horizontal line
-		Label label = new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL);
-		FormData fd_label = new FormData();
-		fd_label.right = new FormAttachment(100, -5);
-		fd_label.top = new FormAttachment(0, 46);
-		fd_label.left = new FormAttachment(0, 5);
-		label.setLayoutData(fd_label);
+		lblToolbarSeparator = new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL);
+		FormData fd_lblToolbarSeparator = new FormData();
+		fd_lblToolbarSeparator.right = new FormAttachment(100, -5);
+		fd_lblToolbarSeparator.top = new FormAttachment(0, 46);
+		fd_lblToolbarSeparator.left = new FormAttachment(0, 5);
+		lblToolbarSeparator.setLayoutData(fd_lblToolbarSeparator);
 		
 		// main area, where the create and play screens will be contained
-		Composite cmpMainArea = new Composite(shell, SWT.BORDER);
+		cmpMainArea = new Composite(shell, SWT.BORDER);
 		cmpMainArea.setLayout(new FormLayout());
 		FormData fd_cmpMainArea = new FormData();
 		fd_cmpMainArea.bottom = new FormAttachment(100, -35);
@@ -240,6 +265,26 @@ public class MainWindow
 		cmpPlayScreen.setLayoutData(fd_cmpPlayScreen);
 		cmpPlayScreen.setVisible(false);
 		
+		// load the sign up screen, but hide it
+		cmpSignUpScreen = new SignUpScreen(cmpMainArea, SWT.NONE);
+		FormData fd_cmpSignUpScreen = new FormData();
+		fd_cmpSignUpScreen.bottom = new FormAttachment(100);
+		fd_cmpSignUpScreen.right = new FormAttachment(100);
+		fd_cmpSignUpScreen.top = new FormAttachment(0);
+		fd_cmpSignUpScreen.left = new FormAttachment(0);
+		cmpSignUpScreen.setLayoutData(fd_cmpSignUpScreen);
+		cmpSignUpScreen.setVisible(false);
+		
+		// load the login screen, but hide it
+		cmpLoginScreen = new LoginScreen(cmpMainArea, SWT.NONE);
+		FormData fd_cmpLoginScreen = new FormData();
+		fd_cmpLoginScreen.bottom = new FormAttachment(100);
+		fd_cmpLoginScreen.right = new FormAttachment(100);
+		fd_cmpLoginScreen.top = new FormAttachment(0);
+		fd_cmpLoginScreen.left = new FormAttachment(0);
+		cmpLoginScreen.setLayoutData(fd_cmpLoginScreen);
+		cmpLoginScreen.setVisible(false);
+		
 		// welcome message
 		Label lblWelcome = new Label(cmpMainArea, SWT.CENTER);
 		lblWelcome.setFont(SWTResourceManager.getFont("Segoe UI", 22, SWT.NORMAL));
@@ -251,16 +296,59 @@ public class MainWindow
 		lblWelcome.setLayoutData(fd_lblWelcome);
 		lblWelcome.setText(MessageConstants.WELCOME_HEADER);
 		
-		Label lblWelcomeDescription = new Label(cmpMainArea, SWT.WRAP);
+		lblWelcomeDescription = new Label(cmpMainArea, SWT.WRAP);
 		lblWelcomeDescription.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		lblWelcomeDescription.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblWelcomeDescription = new FormData();
-		fd_lblWelcomeDescription.top = new FormAttachment(lblWelcome, 14);
 		fd_lblWelcomeDescription.bottom = new FormAttachment(lblWelcome, 200);
+		fd_lblWelcomeDescription.top = new FormAttachment(lblWelcome, 14);
 		fd_lblWelcomeDescription.right = new FormAttachment(50, 200);
 		fd_lblWelcomeDescription.left = new FormAttachment(50, -200);
 		lblWelcomeDescription.setLayoutData(fd_lblWelcomeDescription);
-		lblWelcomeDescription.setText(MessageConstants.APPLICATION_INSTRUCTIONS);
+		lblWelcomeDescription.setText(MessageConstants.INSTRUCTIONS_LOGGED_OUT);
+		
+		lblOr = new Label(cmpMainArea, SWT.CENTER);
+		lblOr.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		FormData fd_lblOr = new FormData();
+		fd_lblOr.right = new FormAttachment(50, 10);
+		fd_lblOr.left = new FormAttachment(50, -10);
+		fd_lblOr.top = new FormAttachment(lblWelcomeDescription, 6);
+		lblOr.setLayoutData(fd_lblOr);
+		lblOr.setText("Or");
+		
+		btnMainLogin = new Button(cmpMainArea, SWT.NONE);
+		btnMainLogin.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
+		btnMainLogin.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				switchToLoginScreen();
+			}
+		});
+		FormData fd_btnMainLogin = new FormData();
+		fd_btnMainLogin.right = new FormAttachment(50, -50);
+		fd_btnMainLogin.left = new FormAttachment(50, -140);
+		fd_btnMainLogin.top = new FormAttachment(lblWelcomeDescription);
+		btnMainLogin.setLayoutData(fd_btnMainLogin);
+		btnMainLogin.setText("Login");
+		
+		btnMainSignUp = new Button(cmpMainArea, SWT.NONE);
+		btnMainSignUp.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
+		btnMainSignUp.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				switchToSignUpScreen();
+			}
+		});
+		FormData fd_btnMainSignUp = new FormData();
+		fd_btnMainSignUp.right = new FormAttachment(50, 140);
+		fd_btnMainSignUp.left = new FormAttachment(50, 50);
+		fd_btnMainSignUp.top = new FormAttachment(lblWelcomeDescription);
+		btnMainSignUp.setLayoutData(fd_btnMainSignUp);
+		btnMainSignUp.setText("Sign Up");
 		
 		// Quit button
 		Button btnQuit = new Button(shell, SWT.NONE);
@@ -286,10 +374,55 @@ public class MainWindow
 		lblVersion.setLayoutData(fd_lblVersion);
 		lblVersion.setText(Constants.VERSION);
 		
+		hideToolbar();
 		
 		// show the window
 		shell.open();
 	}
+    
+    /**
+	 * hides the toolbar at the top of the main window.
+	 * @date June 23 2013
+	 */
+    public void hideToolbar()
+    {
+    	this.btnConnect.setVisible(false);
+    	this.btnCreate.setVisible(false);
+    	this.btnPlay.setVisible(false);
+    	this.cmpLogin.setVisible(false);
+    	this.lblToolbarSeparator.setVisible(false);
+    	
+    	FormData fd_cmpMainArea = new FormData();
+		fd_cmpMainArea.bottom = new FormAttachment(100, -35);
+		fd_cmpMainArea.right = new FormAttachment(100, -5);
+		fd_cmpMainArea.top = new FormAttachment(0, 5);
+		fd_cmpMainArea.left = new FormAttachment(0, 5);
+		cmpMainArea.setLayoutData(fd_cmpMainArea);
+		
+		shell.layout(true);
+    }
+    
+    /**
+	 * shows the toolbar at the top of the main window.
+	 * @date June 23 2013
+	 */
+    public void showToolbar()
+    {
+    	this.btnConnect.setVisible(true);
+    	this.btnCreate.setVisible(true);
+    	this.btnPlay.setVisible(true);
+    	this.cmpLogin.setVisible(true);
+    	this.lblToolbarSeparator.setVisible(true);
+    	
+    	FormData fd_cmpMainArea = new FormData();
+		fd_cmpMainArea.bottom = new FormAttachment(100, -35);
+		fd_cmpMainArea.right = new FormAttachment(100, -5);
+		fd_cmpMainArea.top = new FormAttachment(0, 50);
+		fd_cmpMainArea.left = new FormAttachment(0, 5);
+		cmpMainArea.setLayoutData(fd_cmpMainArea);
+		
+		shell.layout(true);
+    }
     
     /**
 	 * Opens up the play screen for the given puzzle, currently only cryptograms supported.
@@ -341,6 +474,8 @@ public class MainWindow
     	cmpCreateScreen.setVisible(false);
 		cmpFindScreen.setVisible(false);
 		cmpPlayScreen.setVisible(false);
+		cmpSignUpScreen.setVisible(false);
+		cmpLoginScreen.setVisible(false);
     }
     
     /**
@@ -380,6 +515,57 @@ public class MainWindow
     public void switchToWelcomeScreen()
     {
     	hideAllViews();
+    }
+    
+    /**
+   	 * switches the view to the sign up screen
+   	 * @date June 23 2013
+   	 */
+    public void switchToSignUpScreen()
+    {
+    	hideAllViews();
+    	cmpSignUpScreen.setVisible(true);
+    }
+    
+    /**
+   	 * switches the view to the log in screen
+   	 * @date June 23 2013
+   	 */
+    public void switchToLoginScreen()
+    {
+    	hideAllViews();
+    	cmpLoginScreen.setVisible(true);
+    	cmpLoginScreen.refresh();
+    }
+    
+    /**
+   	 * sets the currently logged in user
+   	 * @date June 23 2013
+   	 */
+    public void login(User user)
+    {
+    	loggedInUser = user;
+    	showToolbar();
+    	btnMainSignUp.setVisible(false);
+    	btnMainLogin.setVisible(false);
+    	lblOr.setVisible(false);
+    	lblLoggedInAs.setText(MessageConstants.LOGON + user.getName());
+    	lblWelcomeDescription.setText(MessageConstants.INSTRUCTIONS_LOGGED_IN);
+    }
+    
+    /**
+   	 * logs the current user out
+   	 * @date June 23 2013
+   	 */
+    public void logout()
+    {
+    	loggedInUser = null;
+    	hideToolbar();
+    	btnMainSignUp.setVisible(true);
+    	btnMainLogin.setVisible(true);
+    	lblOr.setVisible(true);
+    	lblWelcomeDescription.setText(MessageConstants.INSTRUCTIONS_LOGGED_OUT);
+    	switchToWelcomeScreen();
     }
 }
 

@@ -96,6 +96,7 @@ public class PuzzlePropertiesWidget extends Composite
 				updatePuzzleDescription();
 			}
 		});
+		txtDescription.setTextLimit(Constants.MAX_DESCRIPTION_CHARS);
 
 		// category label
 		lblCategory = new Label(this, SWT.NONE);

@@ -119,10 +119,10 @@ ArrayList<Long> keys = new ArrayList<Long>();
 		users.add(joe);
 		
 		puzzles = new ArrayList<Puzzle>();
-		puzzle = new Cryptogram(joe, "My first puzzle", Category.Miscellaneous, Difficulty.Hard, "Fake!", 1);
+		puzzle = new Cryptogram(joe, "My first puzzle", "A puzzle", Category.Miscellaneous, Difficulty.Hard, "Fake!", 1);
 		joe.addPuzzle(puzzle);
 		puzzles.add(puzzle);
-		puzzle = new Cryptogram(joe, "another puzzle", Category.Animals, Difficulty.Medium, "Butterflies", 2);
+		puzzle = new Cryptogram(joe, "another puzzle", "Another puzzle", Category.Animals, Difficulty.Medium, "Butterflies", 2);
 		joe.addPuzzle(puzzle);
 		puzzles.add(puzzle);
 	

@@ -18,10 +18,14 @@ public class UserManager
 	
 	public User addUser(String name)
 	{
-		ArrayList<Long> keys = dataAccess.getSortedUserPrimaryKeys();
-		long primaryKey = keys.get(keys.size() - 1).longValue() + 1;
-		User user = new User(primaryKey, name);
-		this.dataAccess.saveUser(user);
+		User user = null;
+		if(isValidUsername(name))
+		{
+			ArrayList<Long> keys = dataAccess.getSortedUserPrimaryKeys();
+			long primaryKey = keys.get(keys.size() - 1).longValue() + 1;
+			user = new User(primaryKey, name);
+			this.dataAccess.saveUser(user);
+		}
 		return user;
 	}
 	
@@ -42,7 +46,7 @@ public class UserManager
 		return user.getName();
 	}
 	
-	public ArrayList<String> getNameOfAllUsers()
+	public ArrayList<String> getNamesOfAllUsers()
 	{
 		ArrayList<User> users = this.dataAccess.getUsers();
 		ArrayList<String> names = new ArrayList<String>();
@@ -55,8 +59,49 @@ public class UserManager
 		return names;
 	}
 	
+	public ArrayList<User> getAllUsers()
+	{
+		return this.dataAccess.getUsers();
+	}
+	
 	public long getGuestPrimaryKey()
 	{
 		return this.dataAccess.getGuestPrimaryKey();
+	}
+	
+	private boolean isValidUsername(String name)
+	{
+		boolean valid = true;
+		
+		if(name.length() >= 1 && name.length() <= 15)
+		{
+			ArrayList <String> currentUsers = getNamesOfAllUsers();
+			
+			for(int i = 0; i < currentUsers.size() && valid; i++)
+			{
+				if(name.equalsIgnoreCase(currentUsers.get(i)))
+				{
+					valid = false;
+				}
+			}
+			
+			//valid characters
+			if(valid)
+			{
+				for(int i = 0; i < name.length(); i++)
+				{
+					if(!Character.isLetterOrDigit(name.charAt(i)))
+					{
+						valid = false;
+					}
+				}
+			}
+		}
+		else
+		{
+			valid = false;
+		}
+		
+		return valid;
 	}
 }

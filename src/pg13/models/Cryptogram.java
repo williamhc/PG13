@@ -28,9 +28,9 @@ public class Cryptogram extends Puzzle
 		this.plaintext = "";
 	}
 	
-	public Cryptogram(User user, String title, Category category, Difficulty difficulty, String plaintext)
+	public Cryptogram(User user, String title, String description, Category category, Difficulty difficulty, String plaintext)
 	{
-		super(user, title, category, difficulty);
+		super(user, title, description, category, difficulty);
 		this.solutionMapping = setMappingKeys(false);
 		generateMappingKeys();
 		this.userMapping = setMappingKeys(true);
@@ -38,9 +38,9 @@ public class Cryptogram extends Puzzle
 		this.ciphertext = encrypt();
 	}
 	
-	public Cryptogram(User user, String title, Category category, Difficulty difficulty, String plaintext, long id)
+	public Cryptogram(User user, String title, String description, Category category, Difficulty difficulty, String plaintext, long id)
 	{
-		this(user, title, category, difficulty, plaintext);
+		this(user, title, description, category, difficulty, plaintext);
 		this.setID(id);
 	}
 

@@ -26,12 +26,13 @@ public abstract class Puzzle
 		this.id = DEFAULT_ID;
 	}
 	
-	protected Puzzle(User user, String title, Category category, Difficulty difficulty)
+	protected Puzzle(User user, String title, String description, Category category, Difficulty difficulty)
 	{
 		this();
 		this.user = user;
 		this.isCompleted = false;
 		this.title = title;
+		this.description = description;
 		this.difficulty = difficulty;
 		this.category = category;
 	}

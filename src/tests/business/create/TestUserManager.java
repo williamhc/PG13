@@ -26,21 +26,21 @@ public class TestUserManager extends TestCase
 			assertNotNull(manager.findUser(i));
 		
 		assertNull(manager.findUser(DataAccess.GUEST_PRIMARY_KEY - 1));
-		assertEquals(DataAccess.NUM_INITIAL_USERS, manager.getNameOfAllUsers().size());
+		assertEquals(DataAccess.NUM_INITIAL_USERS, manager.getNamesOfAllUsers().size());
 		this.checkForUnwantedUsers();
 		
 		User user1 = manager.addUser(Constants.AUTHOR);
 		
 		assertNotNull(manager.findUser(DataAccess.GUEST_PRIMARY_KEY));
 		assertEquals(user1, manager.findUser(user1));
-		assertEquals(DataAccess.NUM_INITIAL_USERS + 1, manager.getNameOfAllUsers().size());
+		assertEquals(DataAccess.NUM_INITIAL_USERS + 1, manager.getNamesOfAllUsers().size());
 		this.checkForUnwantedUsers();
 		
 		User user2 = manager.addUser("Another author");
 		assertNotNull(manager.findUser(DataAccess.GUEST_PRIMARY_KEY));
 		assertEquals(user1, manager.findUser(user1));
 		assertEquals(user2, manager.findUser(user2));
-		assertEquals(DataAccess.NUM_INITIAL_USERS + 2, manager.getNameOfAllUsers().size());
+		assertEquals(DataAccess.NUM_INITIAL_USERS + 2, manager.getNamesOfAllUsers().size());
 		this.checkForUnwantedUsers();
 		
 		assertEquals(Constants.AUTHOR, manager.getNameOfUser(user1.getPrimaryKey()));
@@ -52,7 +52,7 @@ public class TestUserManager extends TestCase
 		assertEquals(user1, manager.findUser(user1));
 		assertEquals(user2, manager.findUser(user2));
 		assertEquals(user3, manager.findUser(user3));
-		assertEquals(DataAccess.NUM_INITIAL_USERS + 3, manager.getNameOfAllUsers().size());
+		assertEquals(DataAccess.NUM_INITIAL_USERS + 3, manager.getNamesOfAllUsers().size());
 		this.checkForUnwantedUsers();
 	}
 	

@@ -98,7 +98,7 @@ public class CryptogramEditWidget extends Composite {
 		fd_txtPlaintext.bottom = new FormAttachment(lblPreview, -6);
 		fd_txtPlaintext.top = new FormAttachment(lblPlaintext, 6);
 		fd_txtPlaintext.left = new FormAttachment(cmpPreviewScrollable, 0, SWT.LEFT);
-		txtPlaintext.setTextLimit(Constants.MAX_PLAINTEXT_CHAR);
+		txtPlaintext.setTextLimit(Constants.MAX_PLAINTEXT_CHARS);
 		txtPlaintext.setLayoutData(fd_txtPlaintext);
 
 		this.setEditMode(editMode);

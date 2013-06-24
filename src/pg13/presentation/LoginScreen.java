@@ -80,7 +80,7 @@ public class LoginScreen extends Composite
 		
 		invalidUserDecor = new ControlDecoration(lblInvalidUser, SWT.LEFT | SWT.TOP);
 		invalidUserDecor.setMarginWidth(10);
-		invalidUserDecor.setImage(org.eclipse.wb.swt.SWTResourceManager.getImage(LoginScreen.class, "/javax/swing/plaf/metal/icons/Error.gif"));
+		invalidUserDecor.setImage(SWTResourceManager.getImage(SignUpScreen.class, "/javax/swing/plaf/metal/icons/Error.gif"));
 		invalidUserDecor.setDescriptionText("Some description");
 		btnLogMeIn.addSelectionListener(new SelectionAdapter() 
 		{

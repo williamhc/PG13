@@ -179,8 +179,17 @@ public class MainWindow
 		
 		// my puzzles button
 		ToolItem tltmMyPuzzles = new ToolItem(toolBar, SWT.NONE);
-		tltmMyPuzzles.setEnabled(false);
 		tltmMyPuzzles.setText(Constants.MY_PUZZLES);
+		tltmMyPuzzles.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				switchToFindScreen();
+				cmpFindScreen.selectMyPuzzles();
+				cmpFindScreen.filterByMyPuzzles();
+			}
+		});
 		
 		// separator
 		ToolItem tltmSeparator2 = new ToolItem(toolBar, SWT.SEPARATOR);

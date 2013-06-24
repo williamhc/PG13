@@ -65,8 +65,13 @@ public class FindScreen extends Composite
 	private Button btnEasy;
 	private Button btnDifficult;
 	private Button btnMedium;
+	private Button btnAllPuzzles;
+	private Button btnFriendsPuzzles;
+	private Button btnMyPuzzles;
 	private Puzzle selectedPuzzle;
 	private Composite cmpPuzzleFilter;
+	
+	private AuthorFilter specialAuthorFilter;
 
 	/**
 	 * Creates and populates the Find screen.
@@ -107,7 +112,7 @@ public class FindScreen extends Composite
 		fd_cmpPuzzleFilter.left = new FormAttachment(0, 10);
 		cmpPuzzleFilter.setLayoutData(fd_cmpPuzzleFilter);
 		
-		Button btnAllPuzzles = new Button(cmpPuzzleFilter, SWT.RADIO);
+		btnAllPuzzles = new Button(cmpPuzzleFilter, SWT.RADIO);
 		btnAllPuzzles.setSelection(true);
 		FormData fd_btnAllPuzzles = new FormData();
 		fd_btnAllPuzzles.right = new FormAttachment(100, -6);
@@ -117,7 +122,7 @@ public class FindScreen extends Composite
 		btnAllPuzzles.setText(Constants.ALL_PUZZLES);
 		btnAllPuzzles.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
-		Button btnFriendsPuzzles = new Button(cmpPuzzleFilter, SWT.RADIO);
+		btnFriendsPuzzles = new Button(cmpPuzzleFilter, SWT.RADIO);
 		btnFriendsPuzzles.setEnabled(false);
 		FormData fd_btnFriendsPuzzles = new FormData();
 		fd_btnFriendsPuzzles.top = new FormAttachment(0, 28);
@@ -127,7 +132,7 @@ public class FindScreen extends Composite
 		btnFriendsPuzzles.setText(Constants.FRIENDS_PUZZLES);
 		btnFriendsPuzzles.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		
-		Button btnMyPuzzles = new Button(cmpPuzzleFilter, SWT.RADIO);
+		btnMyPuzzles = new Button(cmpPuzzleFilter, SWT.RADIO);
 		FormData fd_btnMyPuzzles = new FormData();
 		fd_btnMyPuzzles.right = new FormAttachment(100, -6);
 		fd_btnMyPuzzles.top = new FormAttachment(0, 50);
@@ -300,9 +305,11 @@ public class FindScreen extends Composite
 
 		// add a title filter to the table
 		final TitleFilter titleFilter = new TitleFilter();
-		this.txtTitle.addModifyListener(new ModifyListener(){
+		this.txtTitle.addModifyListener(new ModifyListener()
+		{
 			@Override
-			public void modifyText(ModifyEvent e) {
+			public void modifyText(ModifyEvent e) 
+			{
 				Text source = (Text) e.getSource();
 				titleFilter.setSearchString(source.getText());
 				tableViewer.refresh();
@@ -312,9 +319,11 @@ public class FindScreen extends Composite
 
 		// add an author filter to the table
 		final AuthorFilter authorFilter = new AuthorFilter();
-		this.txtAuthor.addModifyListener(new ModifyListener(){
+		this.txtAuthor.addModifyListener(new ModifyListener()
+		{
 			@Override
-			public void modifyText(ModifyEvent e) {
+			public void modifyText(ModifyEvent e) 
+			{
 				Text source = (Text) e.getSource();
 				authorFilter.setSearchString(source.getText());
 				tableViewer.refresh();
@@ -323,13 +332,12 @@ public class FindScreen extends Composite
 		this.tableViewer.addFilter(authorFilter);
 
 		// add a special author filter to the table
-		final AuthorFilter specialAuthorFilter = new AuthorFilter();
+		specialAuthorFilter = new AuthorFilter();
 		btnMyPuzzles.addSelectionListener(new SelectionAdapter(){
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-				String loggedInUsername = MainWindow.getInstance().getLoggedInUser().getName();
-				specialAuthorFilter.setAbsoluteSearchString(loggedInUsername);
-				tableViewer.refresh();
+			public void widgetSelected(SelectionEvent e) 
+			{
+				filterByMyPuzzles();
 			}
 		});
 		btnAllPuzzles.addSelectionListener(new SelectionAdapter()
@@ -345,10 +353,12 @@ public class FindScreen extends Composite
 
 		// add a category filter to the table
 		final CategoryFilter categoryFilter = new CategoryFilter();
-		this.cmbCategory.addSelectionListener(new SelectionAdapter(){
+		this.cmbCategory.addSelectionListener(new SelectionAdapter()
+		{
 
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) 
+			{
 				Combo source = (Combo) e.getSource();
 				int index = source.getSelectionIndex();
 				String selection = source.getItem(index);
@@ -490,5 +500,19 @@ public class FindScreen extends Composite
 		{
 			MainWindow.getInstance().playPuzzle(this.selectedPuzzle);
 		}
+	}
+	
+	public void filterByMyPuzzles() 
+	{
+		String loggedInUsername = MainWindow.getInstance().getLoggedInUser().getName();
+		specialAuthorFilter.setAbsoluteSearchString(loggedInUsername);
+		tableViewer.refresh();
+	}
+	
+	public void selectMyPuzzles()
+	{
+		this.btnMyPuzzles.setSelection(true);
+		this.btnAllPuzzles.setSelection(false);
+		this.btnFriendsPuzzles.setSelection(false);
 	}
 }

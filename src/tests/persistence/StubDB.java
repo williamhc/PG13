@@ -128,8 +128,6 @@ public class StubDB implements DataAccess
 		joe.addPuzzle(puzzle);
 		puzzles.add(puzzle);
 
-		System.out.println("Opened " + dbType + " database " + dbName);
-
 	}
 
 	@Override

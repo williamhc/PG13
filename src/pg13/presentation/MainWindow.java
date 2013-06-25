@@ -95,7 +95,7 @@ public class MainWindow
 			@Override
 			public void widgetSelected(SelectionEvent e)
 			{
-				switchToFindScreen();
+				playPressed();
 			}
 		});
 		FormData fd_btnPlay = new FormData();

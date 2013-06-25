@@ -1,15 +1,18 @@
 
-C:\Users\Lauren Slusky\Documents\GitHub\PG13>REM @echo on
+C:\Users\Eric\Documents\GitHub\PG13>REM @echo on
 
-C:\Users\Lauren Slusky\Documents\GitHub\PG13>java junit.textui.TestRunner tests.
-AllTests
+C:\Users\Eric\Documents\GitHub\PG13>java junit.textui.TestRunner tests.AllTests
 .........................................
-.Opened stub database PG13
-..........................
-Time: 0.207
+.........................................
+...Closed stub database testing
+.Closed stub database testing
+.Closed stub database testing
+.Closed stub database testing
+.Closed stub database testing
 
-OK (68 tests)
+Time: 0.288
+
+OK (89 tests)
 
 
-C:\Users\Lauren Slusky\Documents\GitHub\PG13>REM java junit.swingui.TestRunner t
-ests.AllTests
+C:\Users\Eric\Documents\GitHub\PG13>REM java junit.swingui.TestRunner tests.AllTests

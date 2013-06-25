@@ -33,7 +33,6 @@ public class DataAccessObject implements DataAccess
 
 	public DataAccessObject(String dbName)
 	{
-		System.out.println("creating dataaccessobject");
 		this.dbName = dbName;
 		this.beingBuilt = false;
 	}
@@ -41,7 +40,6 @@ public class DataAccessObject implements DataAccess
 	@Override
 	public ArrayList<Puzzle> getAllPuzzles()
 	{
-		System.out.println("Getting all puzzles");
 		buildUsersAndPuzzles();
 		return puzzles;
 	}
@@ -63,7 +61,6 @@ public class DataAccessObject implements DataAccess
 					sanitize(title), sanitize(description), sanitize(cat),
 					sanitize(dif), sanitize(plain));
 			cmdString = "Insert into Cryptograms Values(" + values + ")";
-			System.out.println(cmdString);
 			updateCount = st1.executeUpdate(cmdString);
 			checkWarning(st1, updateCount);
 		}
@@ -75,7 +72,6 @@ public class DataAccessObject implements DataAccess
 		{
 			values = puzzle.getUser().getPrimaryKey() + ", " + puzzle.getID();
 			cmdString = "Insert into UserPuzzles Values(" + values + ")";
-			System.out.println(cmdString);
 			updateCount = st1.executeUpdate(cmdString);
 			checkWarning(st1, updateCount);
 		}
@@ -103,7 +99,6 @@ public class DataAccessObject implements DataAccess
 	{
 		if (!this.beingBuilt)
 		{
-			System.out.println("Building users and puzzles");
 			this.beingBuilt = true;
 			buildUsers();
 			buildCryptograms();
@@ -114,8 +109,6 @@ public class DataAccessObject implements DataAccess
 
 	private void buildUsers()
 	{
-
-		System.out.println("Building users");
 		User user;
 		String name;
 		long id;
@@ -149,7 +142,6 @@ public class DataAccessObject implements DataAccess
 
 	private void buildCryptograms()
 	{
-		System.out.println("Building cryptograms");
 
 		Cryptogram cryptogram;
 
@@ -401,8 +393,6 @@ public class DataAccessObject implements DataAccess
 	{
 		String result;
 		result = "*** SQL Error: " + e.getMessage();
-		// e.printStackTrace();
-		System.out.println(result);
 		return result;
 	}
 

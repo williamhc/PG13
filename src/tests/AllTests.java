@@ -7,6 +7,7 @@ import tests.business.DifficultyFilterTest;
 import tests.business.PuzzleAuthorColumnProviderTest;
 import tests.business.PuzzleCategoryColumnProviderTest;
 import tests.business.PuzzleDifficultyColumnProviderTest;
+import tests.business.PuzzleManagerTest;
 import tests.business.PuzzleTableDriverTest;
 import tests.business.PuzzleTitleColumnProviderTest;
 import tests.business.TestUserManager;
@@ -39,6 +40,7 @@ public class AllTests
 	private static void testBusiness()
 	{
 		suite.addTestSuite(CryptogramManagerTest.class);
+		suite.addTestSuite(PuzzleManagerTest.class);
 		suite.addTestSuite(PuzzleAuthorColumnProviderTest.class);
 		suite.addTestSuite(PuzzleCategoryColumnProviderTest.class);
 		suite.addTestSuite(PuzzleDifficultyColumnProviderTest.class);

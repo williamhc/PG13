@@ -1,6 +1,5 @@
 *.class
 .classpath
-database/*
 
 # Package Files #
 *.war

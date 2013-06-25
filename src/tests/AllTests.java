@@ -15,6 +15,7 @@ import tests.business.TitleFilterTest;
 import tests.models.CryptogramPairTest;
 import tests.models.CryptogramTest;
 import tests.models.UserTest;
+import tests.persistence.TestStubDB;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 

@@ -17,29 +17,23 @@ import org.eclipse.swt.events.SelectionEvent;
 import pg13.business.UserManager;
 import pg13.models.User;
 
-public class SignUpScreen extends Composite 
+public class SignUpScreen extends Composite
 {
 	private UserManager userManager;
 	private Label lblInvalidUser;
 	private ControlDecoration invalidUserDecor;
 	private Text txtLogIn;
 
-	/**
-	 * Creates and populates the sign up screen.
-	 * @param parent
-	 * @param style
-	 * @date June 23 2013
-	 */
-	public SignUpScreen(Composite parent, int style) 
+	public SignUpScreen(Composite parent, int style)
 	{
 		super(parent, style);
-		
+
 		userManager = new UserManager();
-		
+
 		setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		setLayout(new FormLayout());
-		
+
 		txtLogIn = new Text(this, SWT.BORDER);
 		txtLogIn.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
 		txtLogIn.setTextLimit(15);
@@ -48,10 +42,12 @@ public class SignUpScreen extends Composite
 		fd_txtLogIn.bottom = new FormAttachment(0, 192);
 		fd_txtLogIn.right = new FormAttachment(100, -162);
 		txtLogIn.setLayoutData(fd_txtLogIn);
-		
+
 		Label lblLoginInfo = new Label(this, SWT.WRAP | SWT.SHADOW_IN);
-		lblLoginInfo.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
-		lblLoginInfo.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		lblLoginInfo.setFont(SWTResourceManager.getFont("Segoe UI", 12,
+				SWT.NORMAL));
+		lblLoginInfo
+				.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblLoginInfo = new FormData();
 		fd_lblLoginInfo.top = new FormAttachment(0, 75);
 		fd_lblLoginInfo.bottom = new FormAttachment(0, 150);
@@ -59,16 +55,23 @@ public class SignUpScreen extends Composite
 		fd_lblLoginInfo.right = new FormAttachment(100, -162);
 		lblLoginInfo.setLayoutData(fd_lblLoginInfo);
 		lblLoginInfo.setText(MessageConstants.SIGNUP_INFO);
-		
-		ControlDecoration signUpInfoImage = new ControlDecoration(lblLoginInfo, SWT.LEFT | SWT.TOP);
+
+		ControlDecoration signUpInfoImage = new ControlDecoration(lblLoginInfo,
+				SWT.LEFT | SWT.TOP);
 		signUpInfoImage.setMarginWidth(10);
-		signUpInfoImage.setImage(SWTResourceManager.getImage(SignUpScreen.class, "/javax/swing/plaf/metal/icons/Inform.gif"));
-		signUpInfoImage.setDescriptionText("Some description"); //This text does nothing
-		
+		signUpInfoImage
+				.setImage(SWTResourceManager.getImage(SignUpScreen.class,
+						"/javax/swing/plaf/metal/icons/Inform.gif"));
+		signUpInfoImage.setDescriptionText("Some description"); // This text
+																// does nothing
+
 		lblInvalidUser = new Label(this, SWT.WRAP);
-		lblInvalidUser.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
-		lblInvalidUser.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		lblInvalidUser.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
+		lblInvalidUser
+				.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
+		lblInvalidUser.setBackground(SWTResourceManager
+				.getColor(SWT.COLOR_WHITE));
+		lblInvalidUser.setFont(SWTResourceManager.getFont("Segoe UI", 12,
+				SWT.NORMAL));
 		FormData fd_lblInvalidUser = new FormData();
 		fd_lblInvalidUser.bottom = new FormAttachment(txtLogIn, 93, SWT.BOTTOM);
 		fd_lblInvalidUser.right = new FormAttachment(txtLogIn, 0, SWT.RIGHT);
@@ -77,66 +80,71 @@ public class SignUpScreen extends Composite
 		lblInvalidUser.setLayoutData(fd_lblInvalidUser);
 		lblInvalidUser.setText(MessageConstants.INVALID_USERNAME);
 		lblInvalidUser.setVisible(false);
-		
-		
-		
+
 		Button btnSignMeUp = new Button(this, SWT.NONE);
-		btnSignMeUp.addSelectionListener(new SelectionAdapter() 
+		btnSignMeUp.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
-			public void widgetSelected(SelectionEvent e) 
+			public void widgetSelected(SelectionEvent e)
 			{
 				createUser();
 			}
 		});
-		btnSignMeUp.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
+		btnSignMeUp.setFont(SWTResourceManager.getFont("Segoe UI", 11,
+				SWT.NORMAL));
 		FormData fd_btnSignMeUp = new FormData();
 		fd_btnSignMeUp.top = new FormAttachment(txtLogIn, 110);
 		fd_btnSignMeUp.left = new FormAttachment(txtLogIn, 0, SWT.LEFT);
 		btnSignMeUp.setLayoutData(fd_btnSignMeUp);
 		btnSignMeUp.setText(Constants.SIGNUP_BUTTON);
-		
+
 		Button btnCancel = new Button(this, SWT.NONE);
-		btnCancel.addSelectionListener(new SelectionAdapter() 
+		btnCancel.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
-			public void widgetSelected(SelectionEvent e) 
+			public void widgetSelected(SelectionEvent e)
 			{
 				MainWindow.getInstance().switchToWelcomeScreen();
 				clearLoginScreen();
 			}
 		});
-		btnCancel.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
+		btnCancel.setFont(SWTResourceManager
+				.getFont("Segoe UI", 11, SWT.NORMAL));
 		FormData fd_btnCancel = new FormData();
 		fd_btnCancel.bottom = new FormAttachment(btnSignMeUp, 0, SWT.BOTTOM);
 		fd_btnCancel.right = new FormAttachment(txtLogIn, 0, SWT.RIGHT);
 		btnCancel.setLayoutData(fd_btnCancel);
 		btnCancel.setText(Constants.CANCEL_BUTTON);
-	
-		invalidUserDecor = new ControlDecoration(lblInvalidUser, SWT.LEFT | SWT.TOP);
+
+		invalidUserDecor = new ControlDecoration(lblInvalidUser, SWT.LEFT
+				| SWT.TOP);
 		invalidUserDecor.setMarginWidth(10);
-		invalidUserDecor.setImage(SWTResourceManager.getImage(SignUpScreen.class, "/javax/swing/plaf/metal/icons/Error.gif"));
-		invalidUserDecor.setDescriptionText("Some description");	//This text does nothing
+		invalidUserDecor.setImage(SWTResourceManager.getImage(
+				SignUpScreen.class, "/javax/swing/plaf/metal/icons/Error.gif"));
+		invalidUserDecor.setDescriptionText("Some description"); // This text
+																	// does
+																	// nothing
 
 	}
-	
-	private void clearLoginScreen() 
+
+	private void clearLoginScreen()
 	{
 		txtLogIn.setText("");
 		lblInvalidUser.setVisible(false);
 	}
-	
+
 	private void createUser()
 	{
 		String name = txtLogIn.getText();
 		User user = userManager.addUser(name);
-		if(user != null)
+		if (user != null)
 		{
 			clearLoginScreen();
-			MessageBox dialog = new MessageBox(this.getShell() , SWT.ICON_INFORMATION | SWT.OK);
+			MessageBox dialog = new MessageBox(this.getShell(),
+					SWT.ICON_INFORMATION | SWT.OK);
 			dialog.setText(Constants.SUCCESS);
 			dialog.setMessage(MessageConstants.LOGON_SUCCESS);
-			dialog.open(); 
+			dialog.open();
 			MainWindow.getInstance().login(user);
 			MainWindow.getInstance().switchToWelcomeScreen();
 		}
@@ -144,10 +152,11 @@ public class SignUpScreen extends Composite
 		{
 			lblInvalidUser.setVisible(true);
 			this.redraw();
-		}		
+		}
 	}
+
 	@Override
-	protected void checkSubclass() 
+	protected void checkSubclass()
 	{
 		// Disable the check that prevents subclassing of SWT components
 	}

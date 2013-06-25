@@ -7,10 +7,6 @@ import pg13.models.Difficulty;
 import pg13.models.User;
 import junit.framework.TestCase;
 
-/**
- * @date May 31 2013
- *
- */
 public class CryptogramManagerTest extends TestCase
 {
 	private CryptogramManager cm;
@@ -33,11 +29,11 @@ public class CryptogramManagerTest extends TestCase
 		assertEquals(this.cm.getCryptogram(), crypto);
 	}
 
-
 	public void testNonDefaultInitializedCryptogramManager()
 	{
-		Cryptogram crypto = new Cryptogram(new User("Someone's Name"), "Random title", "Put some curse words in there.", Category.Animals,
-				Difficulty.Easy, "This is the plaintext");
+		Cryptogram crypto = new Cryptogram(new User("Someone's Name"),
+				"Random title", "Put some curse words in there.",
+				Category.Animals, Difficulty.Easy, "This is the plaintext");
 		this.cm = new CryptogramManager(crypto);
 		assertEquals(crypto, cm.getCryptogram());
 	}
@@ -148,15 +144,15 @@ public class CryptogramManagerTest extends TestCase
 
 	private void setInvalidMapping(char plaintext, char cipherChar)
 	{
-		//try the char version
+		// try the char version
 		try
 		{
 			cm.setUserMapping(plaintext, cipherChar);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch (IllegalArgumentException e)
 		{
-			//expected
+			// expected
 		}
 	}
 }

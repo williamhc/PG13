@@ -4,22 +4,18 @@ import pg13.business.PuzzleAuthorColumnProvider;
 import pg13.models.Cryptogram;
 import junit.framework.TestCase;
 
-/**
- * Tests for PuzzleAuthorColumnProvider
- *
- */
-public class PuzzleAuthorColumnProviderTest extends TestCase 
+public class PuzzleAuthorColumnProviderTest extends TestCase
 {
 
 	private Cryptogram testCryptogram;
 	private PuzzleAuthorColumnProvider authorProvider;
-	
+
 	protected void setUp()
 	{
 		this.testCryptogram = new Cryptogram();
 		this.authorProvider = new PuzzleAuthorColumnProvider();
 	}
-	
+
 	public void testEmptyAuthor()
 	{
 		this.testCryptogram.setAuthor("");
@@ -31,9 +27,9 @@ public class PuzzleAuthorColumnProviderTest extends TestCase
 	{
 		this.testCryptogram.setAuthor(null);
 		String resultAuthor = this.authorProvider.getText(this.testCryptogram);
-		assertEquals(resultAuthor, "Guest");		
+		assertEquals(resultAuthor, "Guest");
 	}
-	
+
 	public void testNormalAuthor()
 	{
 		String originalAuthor = "Will Coolcat";

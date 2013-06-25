@@ -14,7 +14,7 @@ public class Constants
 	public static final String SUCCESS 				= 			"Success!";	
 	
 	//Header Bar
-	public static final String PLAY 				= 			"Play";
+	public static final String PLAY 				= 			"Find and Play";
 	public static final String CONNECT 				= 			"Connect";
 	public static final String CREATE 				= 			"Create";
 	public static final String HOME 				= 			"Home";

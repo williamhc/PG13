@@ -1,21 +1,20 @@
-
 package pg13.models;
 
 import java.util.Enumeration;
 
 public enum Difficulty implements Enumeration<Object>
 {
-	Easy,
-	Medium,
-	Hard;
+	Easy, Medium, Hard;
 
 	@Override
-	public boolean hasMoreElements() {
+	public boolean hasMoreElements()
+	{
 		return false;
 	}
 
 	@Override
-	public Object nextElement() {
+	public Object nextElement()
+	{
 		return null;
 	}
 }

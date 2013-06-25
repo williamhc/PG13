@@ -6,21 +6,25 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import pg13.models.Category;
 import pg13.models.Puzzle;
 
-public class CategoryFilter extends ViewerFilter {
+public class CategoryFilter extends ViewerFilter
+{
 
 	private Category searchValue;
-	
-	public void setSearchValue(Category category) {
+
+	public void setSearchValue(Category category)
+	{
 		this.searchValue = category;
 	}
 
 	@Override
-	public boolean select(Viewer viewer, Object parentElement, Object element) {			
+	public boolean select(Viewer viewer, Object parentElement, Object element)
+	{
 		Puzzle p = (Puzzle) element;
 		return this.searchValue == null || p.getCategory() == this.searchValue;
 	}
 
-	public Category getSearchValue() {
+	public Category getSearchValue()
+	{
 		return this.searchValue;
 	}
 }

@@ -18,7 +18,7 @@ public class StubDB implements DataAccess
 
 	private ArrayList<Puzzle> puzzles;
 	private ArrayList<User> users;
-	
+
 	public StubDB(String dbName)
 	{
 		this.dbName = dbName;
@@ -28,10 +28,9 @@ public class StubDB implements DataAccess
 	{
 		this(PG13.dbName);
 	}
-	
-	
+
 	@Override
-	public ArrayList<Puzzle> getAllPuzzles()
+	public ArrayList<Puzzle> getPuzzles()
 	{
 		return this.puzzles;
 	}
@@ -39,6 +38,7 @@ public class StubDB implements DataAccess
 	@Override
 	public void savePuzzle(Puzzle puzzle)
 	{
+		//don't bother checking for duplicates.
 		this.puzzles.add(puzzle);
 	}
 
@@ -47,7 +47,7 @@ public class StubDB implements DataAccess
 	{
 		return DataAccess.GUEST_PRIMARY_KEY;
 	}
-	
+
 	@Override
 	public String getGuestName()
 	{
@@ -63,39 +63,39 @@ public class StubDB implements DataAccess
 	@Override
 	public User findUser(long primaryKey)
 	{
-		for(int i =0; i < this.users.size(); i++)
+		for (int i = 0; i < this.users.size(); i++)
 		{
-			if(users.get(i).getPrimaryKey() == primaryKey)
+			if (users.get(i).getPrimaryKey() == primaryKey)
 				return this.users.get(i);
 		}
-		
+
 		return null;
 	}
 
 	@Override
-	public ArrayList<Long> getSortedUserPrimaryKeys()
+	public ArrayList<Long> getSortedUserIDs()
 	{
-ArrayList<Long> keys = new ArrayList<Long>();
-		
-		for(User user: this.users)
+		ArrayList<Long> keys = new ArrayList<Long>();
+
+		for (User user : this.users)
 		{
 			keys.add(user.getPrimaryKey());
 		}
-		
+
 		Collections.sort(keys);
 		return keys;
 	}
-	
+
 	@Override
 	public ArrayList<Long> getSortedPuzzleIDs()
 	{
 		ArrayList<Long> keys = new ArrayList<Long>();
-		
-		for(Puzzle puzzle: this.puzzles)
+
+		for (Puzzle puzzle : this.puzzles)
 		{
 			keys.add(puzzle.getID());
 		}
-		
+
 		Collections.sort(keys);
 		return keys;
 	}
@@ -103,38 +103,41 @@ ArrayList<Long> keys = new ArrayList<Long>();
 	@Override
 	public void saveUser(User user)
 	{
+		//don't bother checking for duplicates
 		this.users.add(user);
 	}
-	
+
 	@Override
 	public void open(String string)
 	{
 		Puzzle puzzle;
-		
+
 		long guestKey = this.getGuestPrimaryKey();
-		
+
 		users = new ArrayList<User>();
 		User guest = new User(guestKey, this.getGuestName());
 		users.add(guest);
 		User joe = new User(guestKey + 1, "Joe");
 		users.add(joe);
-		
+
 		puzzles = new ArrayList<Puzzle>();
-		puzzle = new Cryptogram(joe, "My first puzzle", "A puzzle", Category.Miscellaneous, Difficulty.Hard, "Fake!", 1);
+		puzzle = new Cryptogram(joe, "My first puzzle", "A puzzle",
+				Category.Miscellaneous, Difficulty.Hard, "Fake!", 1);
 		joe.addPuzzle(puzzle);
 		puzzles.add(puzzle);
-		puzzle = new Cryptogram(joe, "another puzzle", "Another puzzle", Category.Animals, Difficulty.Medium, "Butterflies", 2);
+		puzzle = new Cryptogram(joe, "another puzzle", "Another puzzle",
+				Category.Animals, Difficulty.Medium, "Butterflies", 2);
 		joe.addPuzzle(puzzle);
 		puzzles.add(puzzle);
-	
-		System.out.println("Opened " +dbType +" database " +dbName);
+
+		System.out.println("Opened " + dbType + " database " + dbName);
 
 	}
 
 	@Override
 	public void close()
 	{
-		System.out.println("Closed " +dbType +" database " +dbName);
+		System.out.println("Closed " + dbType + " database " + dbName);
 	}
 
 }

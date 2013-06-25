@@ -24,12 +24,6 @@ public class CryptogramLetterWidget extends Composite
 	private Composite parent;
 	private boolean updateOnTxtChange;
 
-	/**
-	 * Creates and populates the letter widget.
-	 * @date May 29 2013
-	 * @param parent
-	 * @param style
-	 */
 	public CryptogramLetterWidget(Composite parent, int style,
 			Cryptogram parentCryptogram, char ciphertextChar)
 	{
@@ -82,7 +76,7 @@ public class CryptogramLetterWidget extends Composite
 		{
 			txtPlaintextChar.setEditable(false);
 			txtPlaintextChar.setText("" + ciphertextChar);
-		} 
+		}
 		else
 		{
 			// limit characters that can be entered
@@ -96,7 +90,7 @@ public class CryptogramLetterWidget extends Composite
 						event.text = event.text.toLowerCase();
 						cm.validateUserMapping(event.text);
 					}
-					catch(IllegalArgumentException e)
+					catch (IllegalArgumentException e)
 					{
 						event.doit = false;
 					}
@@ -112,21 +106,11 @@ public class CryptogramLetterWidget extends Composite
 		// Disable the check that prevents subclassing of SWT components
 	}
 
-	/**
-	 * Indicates whether or not this widget contains a space
-	 * @date May 29 2013
-	 * @return true if the widget contains a space, false otherwise
-	 */
 	public boolean isSpace()
 	{
 		return ciphertextChar == ' ';
 	}
 
-	/**
-	 * Updates the values in the cryptogram according to the value stored in
-	 * this widget 
-	 * @date May 29 2013
-	 */
 	private void updateCryptogram()
 	{
 		if (this.updateOnTxtChange == true
@@ -135,7 +119,7 @@ public class CryptogramLetterWidget extends Composite
 
 			String textBoxContents = this.txtPlaintextChar.getText();
 			char plaintextChar;
-			if(textBoxContents.length() == 0)
+			if (textBoxContents.length() > 0)
 			{
 				plaintextChar = textBoxContents.charAt(0);
 			}
@@ -154,19 +138,13 @@ public class CryptogramLetterWidget extends Composite
 		}
 	}
 
-	/**
-	 * Updates the contents of the widget according to the mapping stored in the
-	 * cryptogram
-	 * @date May 29 2013
-	 */
 	public void updateContents()
 	{
 		String plaintextChar;
 
 		if (txtPlaintextChar.getEditable() == true)
 		{
-			plaintextChar = this.cm
-					.getUserMapping(this.ciphertextChar);
+			plaintextChar = this.cm.getUserMapping(this.ciphertextChar);
 
 			this.updateOnTxtChange = false;
 			this.txtPlaintextChar.setText(plaintextChar);

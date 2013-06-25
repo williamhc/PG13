@@ -20,32 +20,32 @@ public class AllTests
 {
 	public static TestSuite suite;
 
-    public static Test suite()
-    {
-        suite = new TestSuite("All tests");
-        testModels();
-        testBusiness();
-        return suite;
-    }
+	public static Test suite()
+	{
+		suite = new TestSuite("All tests");
+		testModels();
+		testBusiness();
+		return suite;
+	}
 
-    private static void testModels()
-    {
-        suite.addTestSuite(CryptogramPairTest.class);
-        suite.addTestSuite(CryptogramTest.class);
-        suite.addTestSuite(UserTest.class);
-    }
+	private static void testModels()
+	{
+		suite.addTestSuite(CryptogramPairTest.class);
+		suite.addTestSuite(CryptogramTest.class);
+		suite.addTestSuite(UserTest.class);
+	}
 
-    private static void testBusiness()
-    {
-        suite.addTestSuite(CryptogramManagerTest.class);
-        suite.addTestSuite(PuzzleAuthorColumnProviderTest.class);
-        suite.addTestSuite(PuzzleCategoryColumnProviderTest.class);
-        suite.addTestSuite(PuzzleDifficultyColumnProviderTest.class);
-        suite.addTestSuite(PuzzleTitleColumnProviderTest.class);
-        suite.addTestSuite(TestUserManager.class);
-        suite.addTestSuite(TitleFilterTest.class);
-        suite.addTestSuite(AuthorFilterTest.class);
-        suite.addTestSuite(CategoryFilterTest.class);
-        suite.addTestSuite(DifficultyFilterTest.class);
-    }
+	private static void testBusiness()
+	{
+		suite.addTestSuite(CryptogramManagerTest.class);
+		suite.addTestSuite(PuzzleAuthorColumnProviderTest.class);
+		suite.addTestSuite(PuzzleCategoryColumnProviderTest.class);
+		suite.addTestSuite(PuzzleDifficultyColumnProviderTest.class);
+		suite.addTestSuite(PuzzleTitleColumnProviderTest.class);
+		suite.addTestSuite(TestUserManager.class);
+		suite.addTestSuite(TitleFilterTest.class);
+		suite.addTestSuite(AuthorFilterTest.class);
+		suite.addTestSuite(CategoryFilterTest.class);
+		suite.addTestSuite(DifficultyFilterTest.class);
+	}
 }

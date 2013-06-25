@@ -142,6 +142,32 @@ public class CryptogramManagerTest extends TestCase
 		assertEquals(this.cm.getUserMapping('#'), "");
 	}
 
+	public void testUserMappingStringTooLong()
+	{
+		try
+		{
+			this.cm.validateUserMapping("more than one char");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			//expected
+		}
+	}
+
+	public void testUserMappingStringRightLength()
+	{
+		try
+		{
+			this.cm.validateUserMapping("c");
+			this.cm.validateUserMapping("");
+		}
+		catch(IllegalArgumentException e)
+		{
+			fail(); //unexpected
+		}
+	}
+
 	private void setInvalidMapping(char plaintext, char cipherChar)
 	{
 		// try the char version

@@ -304,7 +304,6 @@ public class DataAccessObject implements DataAccess
 		{
 			processSQLError(e);
 		}
-		System.out.println("Opened " + dbType + " database " + dbName);
 	}
 
 	@Override

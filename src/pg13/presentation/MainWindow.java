@@ -95,7 +95,7 @@ public class MainWindow
 			@Override
 			public void widgetSelected(SelectionEvent e)
 			{
-				playPressed();
+				switchToFindScreen();
 			}
 		});
 		FormData fd_btnPlay = new FormData();
@@ -440,9 +440,6 @@ public class MainWindow
 	{
 		// show the find screen and hide other screens
 		switchToFindScreen();
-
-		// refresh find screen
-		cmpFindScreen.onLoad();
 	}
 
 	private void hideAllViews()
@@ -464,6 +461,7 @@ public class MainWindow
 	{
 		hideAllViews();
 		cmpFindScreen.setVisible(true);
+		cmpFindScreen.onLoad();
 	}
 
 	public void switchToPlayScreen()

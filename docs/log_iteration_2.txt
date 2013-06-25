@@ -1,0 +1,155 @@
+Date: 2013-06-12
+Person: Lauren Slusky
+Task: Meeting about It 2 tasks
+Hours: 1
+Description: self explanatory
+
+Date: 2013-06-12
+Person: Eric Himbeault
+Task: Meeting about It 2 tasks
+Hours: 1
+Description: I was at this meeting.
+
+Date: 2013-06-19
+Person: Lauren Slusky
+Task: Create user class
+Hours: 1
+Description: added the user class and mushed it into to our existing code
+
+Date: 2013-06-19
+Person: Lauren Slusky
+Task: Refactoring & Bugs
+Hours: 2
+Description: Spent a good portion of this afternoon refactoring code fixing crashes, and adding some classes to house our constants"
+
+Date: 2013-06-19
+Person: Eric Himbeault
+Task: Add Solve Screen
+Hours: 3
+Description: Made some progress towards this.  Did some major refactoring of some of the GUI widgets to support this screen and the possiblity of editing puzzles in the future.\n\nStarted implementing and rigging up a play screen to link from the find screen.  Some kinks and display issues to iron out."
+
+Date: 2013-06-20
+Person: Paymahn Moghadasian
+Task: Make difficulty and category
+Hours: 1
+Description: Retroactive logging
+
+Date: 2013-06-20
+Person: Eric Himbeault
+Task: Add Solve Screen
+Hours: 1
+Description: This should up and running now.
+
+Date: 2013-06-20
+Person: Eric Himbeault
+Task: Adress GUI Issues (See Description)
+Hours: 1.5
+Description: Check Solution moved so that it no longer appears in the preview screen.\nSave button now validates a puzzle before saving it and displays an error message if it failed.\nSave button now displays a message when a save is successful, and takes the user back to the welcome screen.\nCreating a new puzzle populates some of the fields with default values."
+
+Date: 2013-06-20
+Person: Eric Himbeault
+Task: Scrolling in Cryptogram Solve Widget
+Hours: 1
+Description: The cryptogram solve view now has a scrollbar.\n\nThere is an issue which causes the cryptogram to tend to attach to the top of the screen rather than the centre so this is still outstanding."
+
+Date: 2013-06-20
+Person: Paymahn Moghadasian
+Task: Business layer for login
+Hours: 3
+Description: Initial version
+
+Date: 2013-06-21
+Person: Paymahn Moghadasian
+Task: Add a database.
+Hours: 1
+Description: Checked out the HSQL documentation. Reviewed the sample project. I'm starting to get a feel for how to approach this.
+
+Date: 2013-06-21
+Person: William Humphreys-Cloutier
+Task: Make filters work on the find screen
+Hours: 6
+Description: This took a while but it works and is pretty cool. Only thing that could be re-evaluated would be the UX of the checkboxes.
+
+Date: 2013-06-22
+Person: Paymahn Moghadasian
+Task: Add a database.
+Hours: 2.5
+Description: Made stub with dependency injection
+
+Date: 2013-06-23
+Person: Eric Himbeault
+Task: Play selected puzzle bug
+Hours: 0.25
+Description: Fixed.
+
+Date: 2013-06-23
+Person: Lauren Slusky
+Task: Refactoring & Bugs
+Hours: 1
+Description:
+
+Date: 2013-06-23
+Person: Eric Himbeault
+Task: Create a login sreen GUI
+Hours: 4
+Description: GUI for the login and signup screens created and rigged up.  Did most of it pair-programming with Lauren.
+
+Date: 2013-06-23
+Person: Lauren Slusky
+Task: Refactoring & Bugs
+Hours: 3
+Description:
+
+Date: 2013-06-23
+Person: Lauren Slusky
+Task: Create a login sreen GUI
+Hours: 4
+Description: I pair programmed dis with Eric
+
+Date: 2013-06-24
+Person: William Humphreys-Cloutier
+Task: My puzzles button
+Hours: 1.5
+Description: Got the radio button working
+
+Date: 2013-06-23
+Person: William Humphreys-Cloutier
+Task: Add a database.
+Hours: 4
+Description: Fixed project setup to allow for a database to be in the project folder
+
+Date: 2013-06-24
+Person: William Humphreys-Cloutier
+Task: Refactoring & Bugs
+Hours: 3
+Description: Silly refactoring of tests and added more tests
+
+Date: 2013-06-23
+Person: Eric Himbeault
+Task: Refactoring & Bugs
+Hours: 4
+Description: Spent time with the rest of the group identifying and fixing bugs with the functionality and display.  Added some testing as well.
+
+Date: 2013-06-24
+Person: Lauren Slusky
+Task: Iteration 2 final prep
+Hours: 1
+Description: Updated AllTests.txt\nUpdated ReadMe\nDeveloper Tasks Lists\n\nHelped Eric compiling our Big and detailed user stories
+
+Date: 2013-06-24
+Person: Paymahn Moghadasian
+Task: Add a database.
+Hours: 4
+Description: Retroactive logging
+
+Date: 2013-06-24
+Person: William Humphreys-Cloutier
+Task: Iteration 2 final prep
+Hours: 1.5
+Description: Wrote more tests. Coverage looking good now.
+
+Date: 2013-06-24
+Person: William Humphreys-Cloutier
+Task: Refactoring & Bugs
+Hours: 0.5
+Description: Bit more QA and a fixed bug or two.

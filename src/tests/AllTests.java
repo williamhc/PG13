@@ -15,6 +15,7 @@ import tests.business.TitleFilterTest;
 import tests.models.CryptogramPairTest;
 import tests.models.CryptogramTest;
 import tests.models.UserTest;
+import tests.persistence.TestStubDB;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -27,6 +28,7 @@ public class AllTests
 		suite = new TestSuite("All tests");
 		testModels();
 		testBusiness();
+		testPersistence();
 		return suite;
 	}
 
@@ -51,5 +53,10 @@ public class AllTests
 		suite.addTestSuite(AuthorFilterTest.class);
 		suite.addTestSuite(CategoryFilterTest.class);
 		suite.addTestSuite(DifficultyFilterTest.class);
+	}
+	
+	private static void testPersistence()
+	{
+		suite.addTestSuite(TestStubDB.class);
 	}
 }

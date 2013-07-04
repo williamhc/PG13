@@ -45,6 +45,9 @@ public class MainWindow
 	private Button btnMainSignUp;
 	private Button btnMainLogin;
 	private Label lblOr;
+	private ToolItem tltmMyPuzzles;
+	private ToolItem tltmHome;
+	private ToolItem tltmLogout;
 
 	public static MainWindow getInstance()
 	{
@@ -145,25 +148,22 @@ public class MainWindow
 
 		// label that identifies
 		lblLoggedInAs = new Label(cmpLogin, SWT.NONE);
-		GridData gd_lblLoggedInAs = new GridData(SWT.LEFT, SWT.CENTER, false,
-				false, 1, 1);
+		GridData gd_lblLoggedInAs = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_lblLoggedInAs.widthHint = 185;
 		lblLoggedInAs.setLayoutData(gd_lblLoggedInAs);
-		lblLoggedInAs.setBackground(SWTResourceManager
-				.getColor(SWT.COLOR_TITLE_BACKGROUND));
+		lblLoggedInAs.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND));
 		lblLoggedInAs.setText(MessageConstants.LOGON);
 
 		// toolbar that contains the user buttons
 		ToolBar toolBar = new ToolBar(cmpLogin, SWT.FLAT);
-		toolBar.setBackground(SWTResourceManager
-				.getColor(SWT.COLOR_TITLE_BACKGROUND));
+		toolBar.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND));
 
 		// separator
 		ToolItem tltmSeparator1 = new ToolItem(toolBar, SWT.SEPARATOR);
 		tltmSeparator1.setText("sep");
 
 		// my puzzles button
-		ToolItem tltmMyPuzzles = new ToolItem(toolBar, SWT.NONE);
+		tltmMyPuzzles = new ToolItem(toolBar, SWT.NONE);
 		tltmMyPuzzles.setText(Constants.MY_PUZZLES);
 		tltmMyPuzzles.addSelectionListener(new SelectionAdapter()
 		{
@@ -181,7 +181,7 @@ public class MainWindow
 		tltmSeparator2.setText("sep");
 
 		// home button
-		ToolItem tltmHome = new ToolItem(toolBar, SWT.NONE);
+		tltmHome = new ToolItem(toolBar, SWT.NONE);
 		tltmHome.setText(Constants.HOME);
 		tltmHome.addSelectionListener(new SelectionAdapter()
 		{
@@ -199,7 +199,7 @@ public class MainWindow
 		tltmSeparator3.setText("sep");
 
 		// logout button
-		ToolItem tltmLogout = new ToolItem(toolBar, SWT.NONE);
+		tltmLogout = new ToolItem(toolBar, SWT.NONE);
 		tltmLogout.setText(Constants.LOGOUT);
 		tltmLogout.addSelectionListener(new SelectionAdapter()
 		{
@@ -281,8 +281,7 @@ public class MainWindow
 
 		// welcome message
 		Label lblWelcome = new Label(cmpMainArea, SWT.CENTER);
-		lblWelcome.setFont(SWTResourceManager.getFont("Segoe UI", 22,
-				SWT.NORMAL));
+		lblWelcome.setFont(SWTResourceManager.getFont("Segoe UI", 22, SWT.NORMAL));
 		lblWelcome.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblWelcome = new FormData();
 		fd_lblWelcome.top = new FormAttachment(50, -130);
@@ -292,10 +291,8 @@ public class MainWindow
 		lblWelcome.setText(MessageConstants.WELCOME_HEADER);
 
 		lblWelcomeDescription = new Label(cmpMainArea, SWT.WRAP);
-		lblWelcomeDescription.setFont(SWTResourceManager.getFont("Segoe UI",
-				12, SWT.NORMAL));
-		lblWelcomeDescription.setBackground(SWTResourceManager
-				.getColor(SWT.COLOR_WHITE));
+		lblWelcomeDescription.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
+		lblWelcomeDescription.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblWelcomeDescription = new FormData();
 		fd_lblWelcomeDescription.bottom = new FormAttachment(lblWelcome, 200);
 		fd_lblWelcomeDescription.top = new FormAttachment(lblWelcome, 14);
@@ -315,8 +312,7 @@ public class MainWindow
 		lblOr.setText("Or");
 
 		btnMainLogin = new Button(cmpMainArea, SWT.NONE);
-		btnMainLogin.setFont(SWTResourceManager.getFont("Segoe UI", 11,
-				SWT.NORMAL));
+		btnMainLogin.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		btnMainLogin.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
@@ -333,8 +329,7 @@ public class MainWindow
 		btnMainLogin.setText("Login");
 
 		btnMainSignUp = new Button(cmpMainArea, SWT.NONE);
-		btnMainSignUp.setFont(SWTResourceManager.getFont("Segoe UI", 11,
-				SWT.NORMAL));
+		btnMainSignUp.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		btnMainSignUp.addSelectionListener(new SelectionAdapter()
 		{
 			@Override

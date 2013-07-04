@@ -25,8 +25,7 @@ public class CreateScreen extends Composite
 		setLayout(new FormLayout());
 
 		// puzzle's general properties
-		cmpProperties = new PuzzlePropertiesWidget(this, SWT.NONE,
-				workingPuzzle, true);
+		cmpProperties = new PuzzlePropertiesWidget(this, SWT.NONE, workingPuzzle, true);
 		FormData fd_cmpProperties = new FormData();
 		fd_cmpProperties.top = new FormAttachment(0);
 		fd_cmpProperties.left = new FormAttachment(0);
@@ -35,8 +34,7 @@ public class CreateScreen extends Composite
 		cmpProperties.setLayoutData(fd_cmpProperties);
 
 		// puzzle edit widget, for now is only cryptogram
-		cmpEditWidget = new CryptogramEditWidget(this, SWT.NONE, workingPuzzle,
-				true);
+		cmpEditWidget = new CryptogramEditWidget(this, SWT.NONE, workingPuzzle, true);
 		FormData fd_composite = new FormData();
 		fd_composite.bottom = new FormAttachment(100);
 		fd_composite.right = new FormAttachment(100);

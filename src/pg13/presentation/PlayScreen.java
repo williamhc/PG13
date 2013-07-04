@@ -15,8 +15,8 @@ public class PlayScreen extends Composite
 {
 	private Cryptogram workingPuzzle; // the puzzle we are playing
 	private PuzzlePropertiesWidget cmpProperties; // the properties area
-	private CryptogramSolveWidget cmpSolveWidget; // the area to solve the
-													// puzzle
+	private CryptogramSolveWidget cmpSolveWidget; // the area to solve the puzzle
+	private ScrolledComposite cmpSolveScrollable;
 
 	public PlayScreen(Composite parent, int style)
 	{
@@ -37,8 +37,7 @@ public class PlayScreen extends Composite
 		separator.setLayoutData(fd_separator);
 
 		// puzzle's general properties
-		cmpProperties = new PuzzlePropertiesWidget(this, SWT.NONE,
-				workingPuzzle, false);
+		cmpProperties = new PuzzlePropertiesWidget(this, SWT.NONE, workingPuzzle, false);
 		FormData fd_cmpProperties = new FormData();
 		fd_cmpProperties.top = new FormAttachment(0);
 		fd_cmpProperties.left = new FormAttachment(0);
@@ -46,10 +45,8 @@ public class PlayScreen extends Composite
 		fd_cmpProperties.right = new FormAttachment(33);
 		cmpProperties.setLayoutData(fd_cmpProperties);
 
-		ScrolledComposite cmpSolveScrollable = new ScrolledComposite(this,
-				SWT.BORDER | SWT.V_SCROLL);
-		cmpSolveScrollable.setBackground(SWTResourceManager
-				.getColor(SWT.COLOR_WHITE));
+		cmpSolveScrollable = new ScrolledComposite(this, SWT.BORDER | SWT.V_SCROLL);
+		cmpSolveScrollable.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_cmpSolveScrollable = new FormData();
 		fd_cmpSolveScrollable.bottom = new FormAttachment(100);
 		fd_cmpSolveScrollable.right = new FormAttachment(100);
@@ -59,8 +56,7 @@ public class PlayScreen extends Composite
 		cmpSolveScrollable.setExpandHorizontal(true);
 
 		// puzzle solve widget, for now is only cryptogram
-		cmpSolveWidget = new CryptogramSolveWidget(cmpSolveScrollable,
-				SWT.NONE, workingPuzzle);
+		cmpSolveWidget = new CryptogramSolveWidget(cmpSolveScrollable, SWT.NONE, workingPuzzle);
 		FormData fd_composite = new FormData();
 		fd_composite.bottom = new FormAttachment(100);
 		fd_composite.right = new FormAttachment(100);

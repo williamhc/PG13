@@ -22,6 +22,9 @@ import pg13.models.Puzzle;
 import pg13.models.User;
 import org.eclipse.swt.layout.GridData;
 
+import acceptanceTests.Register;
+import acceptanceTests.EventLoop;
+
 public class MainWindow
 {
 	private static MainWindow instance;
@@ -61,6 +64,8 @@ public class MainWindow
 
 	private MainWindow()
 	{
+		Register.newWindow(this);
+		
 		display = Display.getDefault();
 		createWindow();
 	}
@@ -72,14 +77,17 @@ public class MainWindow
 
 	public void runWindow()
 	{
-		while (!shell.isDisposed())
+		if (EventLoop.isEnabled())
 		{
-			if (!display.readAndDispatch())
+			while (!shell.isDisposed())
 			{
-				display.sleep();
+				if (!display.readAndDispatch())
+				{
+					display.sleep();
+				}
 			}
+			display.dispose();
 		}
-		display.dispose();
 	}
 
 	public void createWindow()

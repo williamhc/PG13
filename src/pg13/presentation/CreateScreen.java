@@ -8,6 +8,8 @@ import org.eclipse.swt.layout.FormAttachment;
 import pg13.models.Cryptogram;
 import org.eclipse.swt.widgets.Control;
 
+import acceptanceTests.Register;
+
 public class CreateScreen extends Composite
 {
 	private Cryptogram workingPuzzle; // the puzzle we are working on
@@ -17,6 +19,7 @@ public class CreateScreen extends Composite
 	public CreateScreen(Composite parent, int style)
 	{
 		super(parent, style);
+		Register.newWindow(this);
 
 		// create new puzzle to edit
 		workingPuzzle = new Cryptogram();

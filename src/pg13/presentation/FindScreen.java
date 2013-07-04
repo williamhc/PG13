@@ -35,6 +35,8 @@ import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 import pg13.org.eclipse.wb.swt.SWTResourceManager;
 
+import acceptanceTests.Register;
+
 public class FindScreen extends Composite
 {
 	private static class ContentProvider implements IStructuredContentProvider
@@ -80,6 +82,8 @@ public class FindScreen extends Composite
 	public FindScreen(Composite parent, int style)
 	{
 		super(parent, style);
+		Register.newWindow(this);
+		
 		setLayout(new FormLayout());
 
 		// separates the left information from the results table

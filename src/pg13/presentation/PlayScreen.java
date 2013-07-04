@@ -11,6 +11,8 @@ import pg13.models.Cryptogram;
 import org.eclipse.swt.widgets.Label;
 import pg13.org.eclipse.wb.swt.SWTResourceManager;
 
+import acceptanceTests.Register;
+
 public class PlayScreen extends Composite
 {
 	private Cryptogram workingPuzzle; // the puzzle we are playing
@@ -21,6 +23,7 @@ public class PlayScreen extends Composite
 	public PlayScreen(Composite parent, int style)
 	{
 		super(parent, style);
+		Register.newWindow(this);
 
 		// create new puzzle to edit
 		workingPuzzle = new Cryptogram();

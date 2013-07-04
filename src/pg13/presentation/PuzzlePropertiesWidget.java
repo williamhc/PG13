@@ -25,6 +25,8 @@ import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 import pg13.models.PuzzleValidationException;
 
+import acceptanceTests.Register;
+
 public class PuzzlePropertiesWidget extends Composite
 {
 	boolean editMode; // can we edit the properties of the puzzle?
@@ -43,6 +45,8 @@ public class PuzzlePropertiesWidget extends Composite
 	public PuzzlePropertiesWidget(Composite parent, int style, Puzzle displayingPuzzle, boolean editMode)
 	{
 		super(parent, style);
+		Register.newWindow(this);
+		
 		this.displayingPuzzle = displayingPuzzle;
 		setLayout(new FormLayout());
 

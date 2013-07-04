@@ -16,6 +16,8 @@ import pg13.models.Cryptogram;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
 
+import acceptanceTests.Register;
+
 public class CryptogramLetterWidget extends Composite
 {
 	private Text txtPlaintextChar;
@@ -28,6 +30,8 @@ public class CryptogramLetterWidget extends Composite
 	public CryptogramLetterWidget(Composite parent, int style, Cryptogram parentCryptogram, char ciphertextChar)
 	{
 		super(parent, SWT.NONE);
+		Register.newWindow(this);
+		
 		setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormLayout formLayout = new FormLayout();
 		setLayout(formLayout);

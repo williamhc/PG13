@@ -18,6 +18,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import pg13.business.UserManager;
 import pg13.models.User;
 
+import acceptanceTests.Register;
+
 public class LoginScreen extends Composite
 {
 	private UserManager userManager;
@@ -30,6 +32,8 @@ public class LoginScreen extends Composite
 	public LoginScreen(Composite parent, int style)
 	{
 		super(parent, style);
+		Register.newWindow(this);
+		
 		userManager = new UserManager();
 		setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		setLayout(new FormLayout());

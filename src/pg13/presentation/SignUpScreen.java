@@ -17,6 +17,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import pg13.business.UserManager;
 import pg13.models.User;
 
+import acceptanceTests.Register;
+
 public class SignUpScreen extends Composite
 {
 	private UserManager userManager;
@@ -29,6 +31,7 @@ public class SignUpScreen extends Composite
 	public SignUpScreen(Composite parent, int style)
 	{
 		super(parent, style);
+		Register.newWindow(this);
 
 		userManager = new UserManager();
 

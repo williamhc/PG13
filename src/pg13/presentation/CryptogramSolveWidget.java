@@ -12,15 +12,17 @@ import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import pg13.models.Cryptogram;
 
+import acceptanceTests.Register;
+
 public class CryptogramSolveWidget extends Composite
 {
 	private ArrayList<CryptogramLetterWidget> letterWidgets;
 	private Cryptogram solvingCryptogram;
 
-	public CryptogramSolveWidget(Composite parent, int style,
-			Cryptogram solvingCryptogram)
+	public CryptogramSolveWidget(Composite parent, int style, Cryptogram solvingCryptogram)
 	{
 		super(parent, style);
+		Register.newWindow(this);
 
 		this.solvingCryptogram = solvingCryptogram;
 

@@ -18,6 +18,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.custom.ScrolledComposite;
 import pg13.org.eclipse.wb.swt.SWTResourceManager;
 
+import acceptanceTests.Register;
+
 public class CryptogramEditWidget extends Composite
 {
 	private Text txtPlaintext; // plaintext used to generate cryptogram
@@ -28,6 +30,8 @@ public class CryptogramEditWidget extends Composite
 	public CryptogramEditWidget(Composite parent, int style, Cryptogram workingCryptogram, boolean editMode)
 	{
 		super(parent, style);
+		Register.newWindow(this);
+		
 		setLayout(new FormLayout());
 		this.cm = new CryptogramManager(workingCryptogram);
 

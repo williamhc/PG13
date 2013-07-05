@@ -56,7 +56,7 @@ public class MainWindow
 	{
 		if (instance == null)
 		{
-			instance = new MainWindow();
+			new MainWindow();
 		}
 
 		return instance;
@@ -69,6 +69,7 @@ public class MainWindow
 		display = Display.getDefault();
 		Register.newWindow(this);
 		createWindow();
+		instance = this;
 	}
 
 	public User getLoggedInUser()

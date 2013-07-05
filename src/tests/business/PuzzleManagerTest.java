@@ -20,9 +20,12 @@ public class PuzzleManagerTest extends TestCase {
 		Cryptogram newPuzz = new Cryptogram();
 		int origSize = this.pm.getAllPuzzles().size();
 		assertFalse(this.pm.getAllPuzzles().contains(newPuzz));
-		this.pm.save(newPuzz);
+		assertTrue(this.pm.save(newPuzz));
 		assertTrue(this.pm.getAllPuzzles().contains(newPuzz));
 		assertEquals(this.pm.getAllPuzzles().size(), origSize + 1);
+		
+		assertTrue(this.pm.deletePuzzle(newPuzz));
+		assertEquals(origSize, this.pm.getAllPuzzles().size());
 	}
 	
 	public void testSavingNullPuzzle()
@@ -36,6 +39,23 @@ public class PuzzleManagerTest extends TestCase {
 		{
 			// expected
 		}
+	}
+	
+	public void testDeletingAllUsers()
+	{
+		int origSize = this.pm.getAllPuzzles().size();
+		
+		assertTrue(this.pm.deletePuzzle(1));
+		assertEquals(origSize - 1, this.pm.getAllPuzzles().size());
+		
+		assertTrue(this.pm.deletePuzzle(2));
+		assertEquals(origSize - 2, this.pm.getAllPuzzles().size());
+		
+		assertFalse(this.pm.deletePuzzle(1));
+		assertEquals(origSize - 2, this.pm.getAllPuzzles().size());
+		
+		assertFalse(this.pm.deletePuzzle(new Cryptogram()));
+		assertEquals(origSize - 2, this.pm.getAllPuzzles().size());
 	}
 
 }

@@ -569,8 +569,10 @@ public class FindScreen extends Composite
 		if (selectedPuzzle != null)
 		{
 			PuzzleManager pm = new PuzzleManager();
-			pm.deletePuzzle(selectedPuzzle.getID());
+			System.out.println(pm.deletePuzzle(selectedPuzzle.getID()));
 		}
+
+		tableDriver.refresh();
 		tableViewer.refresh();
 		updateActionButtonsStatus();
 	}

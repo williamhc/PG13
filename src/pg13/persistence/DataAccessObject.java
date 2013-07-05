@@ -91,15 +91,16 @@ public class DataAccessObject implements DataAccess
 		{
 			String cmdString = "Delete from %s where PuzzleID=%d"; 
 			st1.executeUpdate(String.format(cmdString, "UserPuzzles", puzzleID));
-			st1.executeUpdate(String.format(cmdString, "Puzzles", puzzleID));
+			st1.executeUpdate(String.format(cmdString, "Cryptograms", puzzleID));
 			
 		}catch(Exception e)
 		{
 			processSQLError(e);
-			return true;
+			
+			return false;
 		}
 		
-		return false;
+		return true;
 	}
 
 	@Override

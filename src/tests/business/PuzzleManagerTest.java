@@ -70,39 +70,16 @@ public class PuzzleManagerTest extends TestCase
 		Cryptogram updatedCryptogram = new Cryptogram(null, "updated title", "new description", Category.Geography, Difficulty.Medium, "new plaintext", cm.getID());
 
 		assertTrue(this.pm.save(updatedCryptogram));
-		
-//		assertTrue(this.pm.updateCategory(id, "Animals"));
-//		assertEquals(Category.Animals, cm.getCategory());
-//
-//		assertTrue(this.pm.updateCategory(id, Category.Geography));
 		assertEquals(Category.Geography, cm.getCategory());
-
-//		assertTrue(this.pm.updateDescription(id, "new description"));
 		assertEquals("new description", cm.getDescription());
-
-//		assertTrue(this.pm.updateDifficulty(id, "Hard"));
-//		assertEquals(Difficulty.Hard, cm.getDifficulty());
-//
-//		assertTrue(this.pm.updateDifficulty(id, Difficulty.Easy));
 		assertEquals(Difficulty.Medium, cm.getDifficulty());
-
-//		assertTrue(this.pm.updatePlaintext(id, "new plaintext"));
 		assertEquals("new plaintext", cm.getPlaintext());
-
-//		assertTrue(this.pm.updateTitle(id, "updated title"));
 		assertEquals("updated title", cm.getTitle());
 	}
 
 	public void testUpdatingInvalidPuzzle()
 	{
 		Cryptogram cm = new Cryptogram(null, "A title", "some description", Category.Computers, Difficulty.Medium, "new plaintext", 14);
-//		assertFalse(this.pm.updateCategory(-1, "Animals"));
-//		assertFalse(this.pm.updateCategory(12, Category.Geography));
-//		assertFalse(this.pm.updateDescription(1394, "new description"));
-//		assertFalse(this.pm.updateDifficulty(15, "Hard"));
-//		assertFalse(this.pm.updateDifficulty(23, Difficulty.Easy));
-//		assertFalse(this.pm.updatePlaintext(314, "new plaintext"));
-//		assertFalse(this.pm.updateTitle(271, "updated title"));
 		assertFalse(this.pm.save(cm));
 	}
 

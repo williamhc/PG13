@@ -16,7 +16,6 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.MessageBox;
 
 import pg13.business.PuzzleManager;
 import pg13.models.Category;
@@ -285,8 +284,6 @@ public class PuzzlePropertiesWidget extends Composite
 
 	private void savePuzzle()
 	{
-		MessageBox dialog;
-
 		try
 		{
 			// make sure the puzzle is valid to save
@@ -295,21 +292,13 @@ public class PuzzlePropertiesWidget extends Composite
 			displayingPuzzle.prepareForSave();
 			new PuzzleManager().save(displayingPuzzle);
 
-			dialog = new MessageBox(this.getShell(), SWT.ICON_INFORMATION | SWT.OK);
-			dialog.setText(MessageConstants.SAVE_SUCCESS);
-			dialog.setMessage(MessageConstants.SAVE_SUCCESS_MSG);
-
-			dialog.open();
+			MainWindow.getInstance().showInfoMessage(MessageConstants.SAVE_SUCCESS, MessageConstants.SAVE_SUCCESS_MSG);
 
 			MainWindow.getInstance().switchToWelcomeScreen();
 		}
 		catch (PuzzleValidationException e)
 		{
-			dialog = new MessageBox(this.getShell(), SWT.ICON_ERROR | SWT.OK);
-			dialog.setText(MessageConstants.SAVE_ERROR);
-			dialog.setMessage(e.getMessage());
-
-			dialog.open();
+			MainWindow.getInstance().showErrorMessage(MessageConstants.SAVE_ERROR, e.getMessage());
 		}
 	}
 
@@ -339,7 +328,6 @@ public class PuzzlePropertiesWidget extends Composite
 	private void checkSolution()
 	{
 		String msg;
-		MessageBox dialog;
 
 		if (this.displayingPuzzle != null
 				&& this.displayingPuzzle.isCompleted())
@@ -351,11 +339,7 @@ public class PuzzlePropertiesWidget extends Composite
 			msg = MessageConstants.PUZZLE_UNSOLVED;
 		}
 
-		dialog = new MessageBox(this.getShell(), SWT.ICON_QUESTION | SWT.OK);
-		dialog.setText(Constants.PUZZLE_SOLUTION);
-		dialog.setMessage(msg);
-
-		dialog.open();
+		MainWindow.getInstance().showInfoMessage(Constants.PUZZLE_SOLUTION, msg);
 	}
 
 	@Override

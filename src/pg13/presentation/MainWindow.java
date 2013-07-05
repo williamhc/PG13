@@ -29,6 +29,8 @@ public class MainWindow
 {
 	private static MainWindow instance;
 
+	private IMessageBoxStrategy messageBoxStrategy;
+	
 	private Display display;
 	private Shell shell;
 	private CreateScreen cmpCreateScreen;
@@ -68,6 +70,7 @@ public class MainWindow
 			throw new RuntimeException("Too many main windows.");
 		display = Display.getDefault();
 		Register.newWindow(this);
+		this.messageBoxStrategy = new MessageBoxMaker();
 		createWindow();
 		instance = this;
 	}
@@ -513,5 +516,20 @@ public class MainWindow
 		lblOr.setVisible(true);
 		lblWelcomeDescription.setText(MessageConstants.INSTRUCTIONS_LOGGED_OUT);
 		switchToWelcomeScreen();
+	}
+	
+	public void showInfoMessage(String header, String message)
+	{
+		this.messageBoxStrategy.infoMessage(shell, header, message);
+	}
+	
+	public void showErrorMessage(String header, String message)
+	{
+		this.messageBoxStrategy.errorMessage(shell, header, message);
+	}
+	
+	public void setMessageBoxStrategy(IMessageBoxStrategy newStrategy)
+	{
+		this.messageBoxStrategy = newStrategy;
 	}
 }

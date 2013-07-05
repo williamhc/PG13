@@ -597,6 +597,10 @@ public class FindScreen extends Composite
 		{
 			MainWindow.getInstance().editPuzzle((Cryptogram) selectedPuzzle);
 		}
+
+		tableDriver.refresh();
+		tableViewer.refresh();
+		updateActionButtonsStatus();
 	}
 
 

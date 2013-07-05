@@ -43,6 +43,83 @@ public class StubDB implements DataAccess
 	}
 
 	@Override
+	public boolean deletePuzzle(long puzzleID)
+	{
+		Puzzle puz = this.findPuzzle(puzzleID);
+		if (puz != null)
+		{
+			this.puzzles.remove(puz);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updateDescription(long id, String newDescription)
+	{
+		Puzzle puz = this.findPuzzle(id);
+		if (puz == null)
+		{
+			return false;
+		}
+
+		puz.setDescription(newDescription);
+		return true;
+	}
+
+	@Override
+	public boolean updateTitle(long id, String newTitle)
+	{
+		Puzzle puz = this.findPuzzle(id);
+		if (puz == null)
+		{
+			return false;
+		}
+
+		puz.setTitle(newTitle);
+		return true;
+	}
+
+	@Override
+	public boolean updateCategory(long id, Category newCategory)
+	{
+		Puzzle puz = this.findPuzzle(id);
+		if (puz == null)
+		{
+			return false;
+		}
+
+		puz.setCategory(newCategory);
+		return true;
+	}
+
+	@Override
+	public boolean updateDifficulty(long id, Difficulty newDifficulty)
+	{
+		Puzzle puz = this.findPuzzle(id);
+		if (puz == null)
+		{
+			return false;
+		}
+
+		puz.setDifficulty(newDifficulty);
+		return true;
+	}
+
+	@Override
+	public boolean updatePlaintext(long id, String newPlaintext)
+	{
+		Puzzle puz = this.findPuzzle(id);
+		if (puz == null)
+		{
+			return false;
+		}
+
+		((Cryptogram) puz).setPlaintext(newPlaintext);
+		return true;
+	}
+
+	@Override
 	public long getGuestPrimaryKey()
 	{
 		return DataAccess.GUEST_PRIMARY_KEY;
@@ -138,19 +215,17 @@ public class StubDB implements DataAccess
 		System.out.println("Closed " + dbType + " database " + dbName);
 	}
 
-	@Override
-	public boolean deletePuzzle(long puzzleID)
+	private Puzzle findPuzzle(long id)
 	{
-		for(int i = 0; i < puzzles.size(); i++)
+
+		for (Puzzle puz : this.puzzles)
 		{
-			if(puzzles.get(i).getID() == puzzleID)
+			if (puz.getID() == id)
 			{
-				puzzles.remove(puzzles.get(i));
-				return true;
+				return puz;
 			}
 		}
-		
-		return false;
+		return null;
 	}
 
 }

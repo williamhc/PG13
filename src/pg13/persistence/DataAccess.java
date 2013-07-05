@@ -2,6 +2,8 @@ package pg13.persistence;
 
 import java.util.ArrayList;
 
+import pg13.models.Category;
+import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 import pg13.models.User;
 
@@ -16,6 +18,16 @@ public interface DataAccess
 	public boolean savePuzzle(Puzzle puzzle);
 	
 	public boolean deletePuzzle(long puzzleID);
+	
+	public boolean updateDescription(long id, String newDescription);
+	
+	public boolean updateTitle(long id, String newTitle);
+	
+	public boolean updateCategory(long id, Category newCategory);
+	
+	public boolean updateDifficulty(long id, Difficulty newDifficulty);
+	
+	public boolean updatePlaintext(long id, String newPlaintext);
 
 	public ArrayList<Long> getSortedPuzzleIDs();
 	

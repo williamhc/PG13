@@ -45,7 +45,7 @@ public class PuzzlePropertiesWidget extends Composite
 	public PuzzlePropertiesWidget(Composite parent, int style, Puzzle displayingPuzzle, boolean editMode)
 	{
 		super(parent, style);
-		Register.newWindow(this);
+		Register.newWindow(this, "PuzzlePropertiesWidget" + (editMode == true? "Edit" : "View" ));
 		
 		this.displayingPuzzle = displayingPuzzle;
 		setLayout(new FormLayout());

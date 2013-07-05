@@ -32,6 +32,7 @@ import pg13.business.PuzzleManager;
 import pg13.business.PuzzleTableDriver;
 import pg13.business.TitleFilter;
 import pg13.models.Category;
+import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 import pg13.org.eclipse.wb.swt.SWTResourceManager;
@@ -339,6 +340,20 @@ public class FindScreen extends Composite
 		fd_btnEdit.left = new FormAttachment(btnDelete, 2);
 		fd_btnEdit.top = new FormAttachment(btnPlaySelectedPuzzle, 1);
 		btnEdit.setLayoutData(fd_btnEdit);
+		btnEdit.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e)
+			{
+				editPuzzlePressed();
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e)
+			{
+				editPuzzlePressed();
+			}
+		});
 
 		// add a content provider
 		this.tableViewer.setContentProvider(new ContentProvider());
@@ -569,12 +584,19 @@ public class FindScreen extends Composite
 		if (selectedPuzzle != null)
 		{
 			PuzzleManager pm = new PuzzleManager();
-			System.out.println(pm.deletePuzzle(selectedPuzzle.getID()));
+			pm.deletePuzzle(selectedPuzzle.getID());
+			tableDriver.refresh();
+			tableViewer.refresh();
+			updateActionButtonsStatus();
 		}
-
-		tableDriver.refresh();
-		tableViewer.refresh();
-		updateActionButtonsStatus();
+	}
+	
+	private void editPuzzlePressed() {
+		Puzzle selectedPuzzle = this.getSelectedPuzzle();
+		if (selectedPuzzle != null)
+		{
+			MainWindow.getInstance().editPuzzle((Cryptogram) selectedPuzzle);
+		}
 	}
 
 

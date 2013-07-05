@@ -5,12 +5,41 @@ import junit.framework.TestCase;
 import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
+import pg13.models.IRandomNumberGenerator;
 import pg13.models.Puzzle;
 import pg13.models.PuzzleValidationException;
 import pg13.models.User;
 
 public class CryptogramTest extends TestCase
 {
+	private class RightShiftGenerator implements IRandomNumberGenerator
+	{
+		public RightShiftGenerator()
+		{
+			
+		}
+		
+		@Override
+		public int random(int max) 
+		{
+			return 0;
+		}
+	}
+	
+	private class LeftShiftGenerator implements IRandomNumberGenerator
+	{
+		public LeftShiftGenerator()
+		{
+			
+		}
+		
+		@Override
+		public int random(int max) 
+		{
+			return max;
+		}
+	}
+	
 	private final String DEFAULT_TITLE = "Practice Cryptogram";
 	private final String DEFAULT_AUTHOR = "Lauren Slusky";
 	private final User DEFAULT_USER = new User("Lauren Slusky");
@@ -18,6 +47,8 @@ public class CryptogramTest extends TestCase
 	private final Difficulty DEFAULT_DIFFICULTY = Difficulty.Easy;
 	private final String DEFAULT_DESCRIPTION = "Some Description";
 	private final String DEFAULT_PLAINTEXT = "This is a test.";
+	private final String DEFAULT_PLAINTEXT_RIGHTSHIFT = "UIJT JT B UFTU.";
+	private final String DEFAULT_PLAINTEXT_LEFTSHIFT = "SGHR HR Z SDRS.";
 	private final long DEFAULT_ID = 1;
 
 	private Cryptogram cryptogram;
@@ -127,38 +158,79 @@ public class CryptogramTest extends TestCase
 		cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE,
 				DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY,
 				DEFAULT_PLAINTEXT, DEFAULT_ID);
-		assertEquals(DEFAULT_PLAINTEXT, cryptogram.getPlaintext());
-		assertNotSame(DEFAULT_PLAINTEXT, cryptogram.getCiphertext());
-		assertFalse(DEFAULT_PLAINTEXT.equals(cryptogram.getCiphertext())); // for
-																			// some
-																			// reason
-																			// there
-																			// isn't
-																			// assertNotEquals
-																			// in
-																			// JUnit
-		assertTrue((cryptogram.decrypt(cryptogram.getSolutionMapping()))
-				.equalsIgnoreCase(DEFAULT_PLAINTEXT));
+		
 		assertEquals(DEFAULT_CATEGORY, cryptogram.getCategory());
 		assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 		assertEquals(DEFAULT_ID, cryptogram.getID());
+		
+		assertEquals(DEFAULT_PLAINTEXT, cryptogram.getPlaintext());
+		assertNotSame(DEFAULT_PLAINTEXT, cryptogram.getCiphertext());
+		assertFalse(DEFAULT_PLAINTEXT.equals(cryptogram.getCiphertext())); 
+		assertTrue((cryptogram.decrypt(cryptogram.getSolutionMapping())).equalsIgnoreCase(DEFAULT_PLAINTEXT));
+		
+		// in order to test the encryption more thoroughly, test the encryption
+		// with stubbed out random number generators
+		
+		// with this generator, it should generate a left shift cipher
+		cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE,
+				DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY,
+				DEFAULT_PLAINTEXT, DEFAULT_ID, new LeftShiftGenerator());
+		
+		assertEquals(DEFAULT_PLAINTEXT, cryptogram.getPlaintext());
+		assertNotSame(DEFAULT_PLAINTEXT, cryptogram.getCiphertext());
+		assertFalse(DEFAULT_PLAINTEXT.equals(cryptogram.getCiphertext())); 
+		
+		assertEquals(DEFAULT_PLAINTEXT_LEFTSHIFT, cryptogram.getCiphertext());
+		assertTrue((cryptogram.decrypt(cryptogram.getSolutionMapping())).equalsIgnoreCase(DEFAULT_PLAINTEXT));
+		
+		// with this generator, it should generate a right shift cipher
+		cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE,
+				DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY,
+				DEFAULT_PLAINTEXT, DEFAULT_ID, new RightShiftGenerator());
+		
+		assertEquals(DEFAULT_PLAINTEXT, cryptogram.getPlaintext());
+		assertNotSame(DEFAULT_PLAINTEXT, cryptogram.getCiphertext());
+		assertFalse(DEFAULT_PLAINTEXT.equals(cryptogram.getCiphertext())); 
+		
+		assertEquals(DEFAULT_PLAINTEXT_RIGHTSHIFT, cryptogram.getCiphertext());
+		assertTrue((cryptogram.decrypt(cryptogram.getSolutionMapping())).equalsIgnoreCase(DEFAULT_PLAINTEXT));
+		
 	}
 
 	public void testCipherTextWorksPunctuation()
 	{
 		String plaintext = "This. is, a! test%";
+		String rightShift = "UIJT. JT, B! UFTU%";
+		String leftShift = "SGHR. HR, Z! SDRS%";
+		
 		cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE,
 				DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY,
 				plaintext, DEFAULT_ID);
 		assertEquals(plaintext, cryptogram.getPlaintext());
 		assertNotSame(plaintext, cryptogram.getCiphertext());
-		assertTrue((cryptogram.decrypt(cryptogram.getSolutionMapping()))
-				.equalsIgnoreCase(plaintext));
+		assertTrue((cryptogram.decrypt(cryptogram.getSolutionMapping())).equalsIgnoreCase(plaintext));
 		assertEquals(DEFAULT_AUTHOR, cryptogram.getAuthor());
 		assertEquals(DEFAULT_TITLE, cryptogram.getTitle());
 		assertEquals(DEFAULT_CATEGORY, cryptogram.getCategory());
 		assertEquals(DEFAULT_DIFFICULTY, cryptogram.getDifficulty());
 		assertEquals(DEFAULT_ID, cryptogram.getID());
+		
+		// test encryption directly with stubbed out generators
+		cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE,
+				DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY,
+				plaintext, DEFAULT_ID, new RightShiftGenerator());
+		assertEquals(plaintext, cryptogram.getPlaintext());
+		assertNotSame(plaintext, cryptogram.getCiphertext());
+		assertEquals(rightShift, cryptogram.getCiphertext());
+		assertTrue((cryptogram.decrypt(cryptogram.getSolutionMapping())).equalsIgnoreCase(plaintext));
+		
+		cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE,
+				DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY,
+				plaintext, DEFAULT_ID, new LeftShiftGenerator());
+		assertEquals(plaintext, cryptogram.getPlaintext());
+		assertNotSame(plaintext, cryptogram.getCiphertext());
+		assertEquals(leftShift, cryptogram.getCiphertext());
+		assertTrue((cryptogram.decrypt(cryptogram.getSolutionMapping())).equalsIgnoreCase(plaintext));
 	}
 
 	public void testCryptogramEmptyPlainText()
@@ -231,6 +303,31 @@ public class CryptogramTest extends TestCase
 		cryptogram.setUserPlaintextForCiphertext('h', 'X');
 		assertEquals(cryptogram.getUserPlaintextFromCiphertext('X'), 'H');
 		assertNotNull(cryptogram.getUserMapping());
+		
+		// test to full solution using the stubbed out generators
+		cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE,
+				DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY,
+				"This is a test.", new RightShiftGenerator());
+		cryptogram.setUserPlaintextForCiphertext('t', 'U');
+		cryptogram.setUserPlaintextForCiphertext('h', 'I');
+		cryptogram.setUserPlaintextForCiphertext('i', 'J');
+		cryptogram.setUserPlaintextForCiphertext('s', 'T');
+		cryptogram.setUserPlaintextForCiphertext('a', 'B');
+		cryptogram.setUserPlaintextForCiphertext('e', 'F');
+		assertNotNull(cryptogram.getUserMapping());
+		assertTrue(cryptogram.isCompleted());
+		
+		cryptogram = new Cryptogram(DEFAULT_USER, DEFAULT_TITLE,
+				DEFAULT_DESCRIPTION, DEFAULT_CATEGORY, DEFAULT_DIFFICULTY,
+				"This is a test.", new LeftShiftGenerator());
+		cryptogram.setUserPlaintextForCiphertext('t', 'S');
+		cryptogram.setUserPlaintextForCiphertext('h', 'G');
+		cryptogram.setUserPlaintextForCiphertext('i', 'H');
+		cryptogram.setUserPlaintextForCiphertext('s', 'R');
+		cryptogram.setUserPlaintextForCiphertext('a', 'Z');
+		cryptogram.setUserPlaintextForCiphertext('e', 'D');
+		assertNotNull(cryptogram.getUserMapping());
+		assertTrue(cryptogram.isCompleted());
 	}
 
 	public void testSetAndGetValidUserMappings()
@@ -270,11 +367,9 @@ public class CryptogramTest extends TestCase
 		char guess = 'A';
 		char encrypted = 'B';
 		this.cryptogram.setUserPlaintextForCiphertext(guess, encrypted);
-		assertEquals(guess,
-				this.cryptogram.getUserPlaintextFromCiphertext(encrypted));
+		assertEquals(guess,	this.cryptogram.getUserPlaintextFromCiphertext(encrypted));
 		this.cryptogram.resetUserMapping();
-		assertEquals('\0',
-				this.cryptogram.getUserPlaintextFromCiphertext(encrypted));
+		assertEquals('\0', this.cryptogram.getUserPlaintextFromCiphertext(encrypted));
 	}
 
 	public void testSavePreparation()

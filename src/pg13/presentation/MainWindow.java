@@ -62,11 +62,12 @@ public class MainWindow
 		return instance;
 	}
 
-	private MainWindow()
-	{
-		Register.newWindow(this);
-		
+	public MainWindow()
+	{	
+		if (instance != null)
+			throw new RuntimeException("Too many main windows.");
 		display = Display.getDefault();
+		Register.newWindow(this);
 		createWindow();
 	}
 
@@ -78,7 +79,7 @@ public class MainWindow
 	public void runWindow()
 	{
 		if (EventLoop.isEnabled())
-		{
+    	{
 			while (!shell.isDisposed())
 			{
 				if (!display.readAndDispatch())
@@ -87,7 +88,7 @@ public class MainWindow
 				}
 			}
 			display.dispose();
-		}
+    	}
 	}
 
 	public void createWindow()

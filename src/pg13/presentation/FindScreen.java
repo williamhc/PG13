@@ -28,6 +28,7 @@ import org.eclipse.jface.viewers.Viewer;
 import pg13.business.AuthorFilter;
 import pg13.business.CategoryFilter;
 import pg13.business.DifficultyFilter;
+import pg13.business.PuzzleManager;
 import pg13.business.PuzzleTableDriver;
 import pg13.business.TitleFilter;
 import pg13.models.Category;
@@ -73,7 +74,6 @@ public class FindScreen extends Composite
 	private Button btnAllPuzzles;
 	private Button btnFriendsPuzzles;
 	private Button btnMyPuzzles;
-	private Puzzle selectedPuzzle;
 	private Composite cmpPuzzleFilter;
 	private Composite cmpPuzzleSearch;
 
@@ -309,6 +309,20 @@ public class FindScreen extends Composite
 		fd_btnDelete.left = new FormAttachment(lblFindAPuzzle, 0, SWT.LEFT);
 		btnDelete.setLayoutData(fd_btnDelete);
 		btnDelete.setText("Delete");
+		btnDelete.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e)
+			{
+				deletePuzzlePressed();
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e)
+			{
+				deletePuzzlePressed();
+			}
+		});
 		
 		btnEdit = new Button(this, SWT.NONE);
 		btnEdit.setText("Edit");
@@ -453,17 +467,6 @@ public class FindScreen extends Composite
 					public void selectionChanged(
 							final SelectionChangedEvent event)
 					{
-						IStructuredSelection selection = (IStructuredSelection) event
-								.getSelection();
-						if (selection.size() == 1)
-						{
-							selectedPuzzle = (Puzzle) selection
-									.getFirstElement();
-						}
-						else
-						{
-							selectedPuzzle = null;
-						}
 						updateActionButtonsStatus();
 					}
 				});
@@ -513,14 +516,12 @@ public class FindScreen extends Composite
 		this.btnDelete.setVisible(false);
 		
 		// get the selected puzzle from the table
-		Object selection = ((IStructuredSelection) this.tableViewer.getSelection()).getFirstElement();
-		
-		if (selection == null)
+		Puzzle selectedPuzzle = getSelectedPuzzle();
+		if (selectedPuzzle == null)
 		{
 			return;
 		}
 		
-		Puzzle selectedPuzzle = (Puzzle) selection;
 		btnPlaySelectedPuzzle.setEnabled(true);
 		if (selectedPuzzle.getAuthor().equals(MainWindow.getInstance().getLoggedInUser().getName()))
 		{
@@ -528,14 +529,39 @@ public class FindScreen extends Composite
 			this.btnDelete.setVisible(true);
 		}
 	}
+	
+	private Puzzle getSelectedPuzzle()
+	{
+		Object selection = ((IStructuredSelection) this.tableViewer.getSelection()).getFirstElement();
+		
+		if (selection == null)
+		{
+			return null;
+		}
+		
+		return (Puzzle) selection;
+	}
 
 	private void playPuzzlePressed()
 	{
-		if (this.selectedPuzzle != null)
+		Puzzle selectedPuzzle = this.getSelectedPuzzle();
+		if (selectedPuzzle != null)
 		{
-			MainWindow.getInstance().playPuzzle(this.selectedPuzzle);
+			MainWindow.getInstance().playPuzzle(selectedPuzzle);
 		}
 	}
+	
+	private void deletePuzzlePressed() {
+		Puzzle selectedPuzzle = this.getSelectedPuzzle();
+		if (selectedPuzzle != null)
+		{
+			PuzzleManager pm = new PuzzleManager();
+			pm.deletePuzzle(selectedPuzzle.getID());
+		}
+		tableViewer.refresh();
+		updateActionButtonsStatus();
+	}
+
 
 	public void filterByMyPuzzles()
 	{

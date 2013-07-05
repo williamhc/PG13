@@ -63,8 +63,7 @@ public class DataAccessObject implements DataAccess
 			cmdString = "Insert into Cryptograms Values(" + values + ")";
 			updateCount = st1.executeUpdate(cmdString);
 			checkWarning(st1, updateCount);
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			processSQLError(e);
 			return false;
@@ -75,8 +74,7 @@ public class DataAccessObject implements DataAccess
 			cmdString = "Insert into UserPuzzles Values(" + values + ")";
 			updateCount = st1.executeUpdate(cmdString);
 			checkWarning(st1, updateCount);
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			processSQLError(e);
 			return false;
@@ -84,22 +82,80 @@ public class DataAccessObject implements DataAccess
 
 		return true;
 	}
-	
+
+	@Override
 	public boolean deletePuzzle(long puzzleID)
 	{
 		try
 		{
-			String cmdString = "Delete from %s where PuzzleID=%d"; 
+			String cmdString = "Delete from %s where PuzzleID=%d";
 			st1.executeUpdate(String.format(cmdString, "UserPuzzles", puzzleID));
 			st1.executeUpdate(String.format(cmdString, "Puzzles", puzzleID));
-			
-		}catch(Exception e)
+
+		} catch (Exception e)
 		{
 			processSQLError(e);
 			return true;
 		}
-		
+
 		return false;
+	}
+
+	@Override
+	public boolean updateDescription(long id, String newDescription)
+	{
+		String sanitized = this.sanitize(newDescription);
+
+		return this.updatePuzzle("Description", sanitized, id);
+	}
+
+	@Override
+	public boolean updateTitle(long id, String newTitle)
+	{
+		String sanitized = this.sanitize(newTitle);
+
+		return this.updatePuzzle("Title", sanitized, id);
+	}
+
+	@Override
+	public boolean updateCategory(long id, Category newCategory)
+	{
+		String sanitized = this.sanitize(newCategory.toString());
+
+		return this.updatePuzzle("Category", sanitized, id);
+	}
+
+	@Override
+	public boolean updateDifficulty(long id, Difficulty newDifficulty)
+	{
+		String sanitized = this.sanitize(newDifficulty.toString());
+
+		return this.updatePuzzle("Title", sanitized, id);
+	}
+
+	@Override
+	public boolean updatePlaintext(long id, String newPlaintext)
+	{
+		String sanitized = this.sanitize(newPlaintext);
+
+		return this.updatePuzzle("Plaintext", sanitized, id);
+	}
+
+	private boolean updatePuzzle(String columnName, String newValue,
+			long puzzleID)
+	{
+		try
+		{
+			cmdString = String.format("Update CRYPTOGRAMS  Set %s='%s' where PuzzleID=%d", columnName, newValue, puzzleID);
+			st1.executeUpdate(cmdString);
+		}
+		catch(Exception e)
+		{
+			processSQLError(e);
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
@@ -138,8 +194,7 @@ public class DataAccessObject implements DataAccess
 		{
 			cmdString = "Select * from Users";
 			rs2 = st1.executeQuery(cmdString);
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -153,8 +208,7 @@ public class DataAccessObject implements DataAccess
 				users.add(user);
 			}
 			rs2.close();
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -175,8 +229,7 @@ public class DataAccessObject implements DataAccess
 		{
 			cmdString = "Select * from Cryptograms";
 			rs3 = st2.executeQuery(cmdString);
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -196,8 +249,7 @@ public class DataAccessObject implements DataAccess
 				puzzles.add(cryptogram);
 			}
 			rs3.close();
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -213,8 +265,7 @@ public class DataAccessObject implements DataAccess
 		{
 			cmdString = "Select * from UserPuzzles";
 			rs4 = st3.executeQuery(cmdString);
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -231,8 +282,7 @@ public class DataAccessObject implements DataAccess
 				puzzle.setUser(user);
 			}
 			rs4.close();
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -311,8 +361,7 @@ public class DataAccessObject implements DataAccess
 			st1 = c1.createStatement();
 			st2 = c1.createStatement();
 			st3 = c1.createStatement();
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -326,8 +375,7 @@ public class DataAccessObject implements DataAccess
 			cmdString = "shutdown compact";
 			rs2 = st1.executeQuery(cmdString);
 			c1.close();
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			processSQLError(e);
 		}
@@ -347,8 +395,7 @@ public class DataAccessObject implements DataAccess
 			System.out.println(cmdString);
 			updateCount = st1.executeUpdate(cmdString);
 			checkWarning(st1, updateCount);
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			processSQLError(e);
 			return false;
@@ -363,8 +410,7 @@ public class DataAccessObject implements DataAccess
 				updateCount = st1.executeUpdate(cmdString);
 				checkWarning(st1, updateCount);
 			}
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			processSQLError(e);
 			return false;
@@ -395,8 +441,7 @@ public class DataAccessObject implements DataAccess
 			{
 				result = warning.getMessage();
 			}
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			result = processSQLError(e);
 		}

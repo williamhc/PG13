@@ -78,6 +78,8 @@ public class FindScreen extends Composite
 	private Composite cmpPuzzleSearch;
 
 	private AuthorFilter specialAuthorFilter;
+	private Button btnDelete;
+	private Button btnEdit;
 
 	public FindScreen(Composite parent, int style)
 	{
@@ -149,7 +151,7 @@ public class FindScreen extends Composite
 		cmpPuzzleSearch.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		cmpPuzzleSearch.setLayout(new FormLayout());
 		FormData fd_cmpPuzzleSearch = new FormData();
-		fd_cmpPuzzleSearch.bottom = new FormAttachment(100, -40);
+		fd_cmpPuzzleSearch.bottom = new FormAttachment(100, -71);
 		fd_cmpPuzzleSearch.right = new FormAttachment(separator, -10);
 		fd_cmpPuzzleSearch.top = new FormAttachment(cmpPuzzleFilter, 8);
 		fd_cmpPuzzleSearch.left = new FormAttachment(0, 10);
@@ -265,10 +267,10 @@ public class FindScreen extends Composite
 		});
 
 		FormData fd_btnPlaySelectedPuzzle = new FormData();
+		fd_btnPlaySelectedPuzzle.top = new FormAttachment(cmpPuzzleSearch, 6);
 		fd_btnPlaySelectedPuzzle.right = new FormAttachment(separator, -10);
-		fd_btnPlaySelectedPuzzle.bottom = new FormAttachment(100, -10);
-		fd_btnPlaySelectedPuzzle.top = new FormAttachment(100, -36);
 		fd_btnPlaySelectedPuzzle.left = new FormAttachment(lblFindAPuzzle, 0, SWT.LEFT);
+		fd_btnPlaySelectedPuzzle.bottom = new FormAttachment(100, -39);
 		btnPlaySelectedPuzzle.setLayoutData(fd_btnPlaySelectedPuzzle);
 		btnPlaySelectedPuzzle.setText(MessageConstants.SOLVE_SELECTED);
 
@@ -280,7 +282,7 @@ public class FindScreen extends Composite
 			@Override
 			public void widgetSelected(SelectionEvent e)
 			{
-				updatePlayButtonStatus();
+				updateActionButtonsStatus();
 			}
 		});
 		FormData fd_table = new FormData();
@@ -299,6 +301,22 @@ public class FindScreen extends Composite
 
 		// make the columns
 		this.createColumns(this, this.tableViewer);
+		
+		btnDelete = new Button(this, SWT.NONE);
+		FormData fd_btnDelete = new FormData();
+		fd_btnDelete.right = new FormAttachment(lblFindAPuzzle, 89);
+		fd_btnDelete.top = new FormAttachment(btnPlaySelectedPuzzle, 1);
+		fd_btnDelete.left = new FormAttachment(lblFindAPuzzle, 0, SWT.LEFT);
+		btnDelete.setLayoutData(fd_btnDelete);
+		btnDelete.setText("Delete");
+		
+		btnEdit = new Button(this, SWT.NONE);
+		btnEdit.setText("Edit");
+		FormData fd_btnEdit = new FormData();
+		fd_btnEdit.right = new FormAttachment(separator, -10);
+		fd_btnEdit.left = new FormAttachment(btnDelete, 2);
+		fd_btnEdit.top = new FormAttachment(btnPlaySelectedPuzzle, 1);
+		btnEdit.setLayoutData(fd_btnEdit);
 
 		// add a content provider
 		this.tableViewer.setContentProvider(new ContentProvider());
@@ -314,7 +332,7 @@ public class FindScreen extends Composite
 				Text source = (Text) e.getSource();
 				titleFilter.setSearchString(source.getText());
 				tableViewer.refresh();
-				updatePlayButtonStatus();
+				updateActionButtonsStatus();
 			}
 		});
 		this.tableViewer.addFilter(titleFilter);
@@ -329,7 +347,7 @@ public class FindScreen extends Composite
 				Text source = (Text) e.getSource();
 				authorFilter.setSearchString(source.getText());
 				tableViewer.refresh();
-				updatePlayButtonStatus();
+				updateActionButtonsStatus();
 			}
 		});
 		this.tableViewer.addFilter(authorFilter);
@@ -351,7 +369,7 @@ public class FindScreen extends Composite
 			{
 				specialAuthorFilter.setSearchString("");
 				tableViewer.refresh();
-				updatePlayButtonStatus();
+				updateActionButtonsStatus();
 			}
 		});
 		this.tableViewer.addFilter(specialAuthorFilter);
@@ -375,7 +393,7 @@ public class FindScreen extends Composite
 				}
 				categoryFilter.setSearchValue(category);
 				tableViewer.refresh();
-				updatePlayButtonStatus();
+				updateActionButtonsStatus();
 			}
 		});
 		this.tableViewer.addFilter(categoryFilter);
@@ -402,7 +420,7 @@ public class FindScreen extends Composite
 					}
 				}
 				tableViewer.refresh();
-				updatePlayButtonStatus();
+				updateActionButtonsStatus();
 			}
 		};
 		SelectionAdapter SLToggleOne = new SelectionAdapter()
@@ -422,7 +440,7 @@ public class FindScreen extends Composite
 					difficultyFilter.removeValue(diff);
 				}
 				tableViewer.refresh();
-				updatePlayButtonStatus();
+				updateActionButtonsStatus();
 			}
 		};
 		this.btnAllDifficulties.addSelectionListener(SLToggleAll);
@@ -446,7 +464,7 @@ public class FindScreen extends Composite
 						{
 							selectedPuzzle = null;
 						}
-						updatePlayButtonStatus();
+						updateActionButtonsStatus();
 					}
 				});
 	}
@@ -484,23 +502,30 @@ public class FindScreen extends Composite
 	{
 		this.tableDriver.refresh();
 		this.tableViewer.setInput(this.puzzleResults);
-		updatePlayButtonStatus();
+		updateActionButtonsStatus();
 	}
 
-	private void updatePlayButtonStatus()
+	private void updateActionButtonsStatus()
 	{
-		int selected;
-
+		//disable everything - we'll re-enable what we need
+		btnPlaySelectedPuzzle.setEnabled(false);
+		this.btnEdit.setVisible(false);
+		this.btnDelete.setVisible(false);
+		
 		// get the selected puzzle from the table
-		selected = table.getSelectionIndex();
-
-		if (selected < 0)
+		Object selection = ((IStructuredSelection) this.tableViewer.getSelection()).getFirstElement();
+		
+		if (selection == null)
 		{
-			btnPlaySelectedPuzzle.setEnabled(false);
+			return;
 		}
-		else
+		
+		Puzzle selectedPuzzle = (Puzzle) selection;
+		btnPlaySelectedPuzzle.setEnabled(true);
+		if (selectedPuzzle.getAuthor().equals(MainWindow.getInstance().getLoggedInUser().getName()))
 		{
-			btnPlaySelectedPuzzle.setEnabled(true);
+			this.btnEdit.setVisible(true);
+			this.btnDelete.setVisible(true);
 		}
 	}
 
@@ -517,7 +542,7 @@ public class FindScreen extends Composite
 		String loggedInUsername = MainWindow.getInstance().getLoggedInUser().getName();
 		specialAuthorFilter.setAbsoluteSearchString(loggedInUsername);
 		tableViewer.refresh();
-		updatePlayButtonStatus();
+		updateActionButtonsStatus();
 	}
 
 	public void selectMyPuzzles()

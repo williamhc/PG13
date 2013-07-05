@@ -14,9 +14,13 @@ public class Cryptogram extends Puzzle
 											// when solving a cryptogram ordered
 											// by ciphertext
 
+	private IRandomNumberGenerator randomNumberGenerator;
+	
 	public Cryptogram()
 	{
 		super();
+		this.randomNumberGenerator = new RealRandomNumberGenerator();
+		
 		this.solutionMapping = setMappingKeys(false);
 		generateMappingKeys();
 		this.userMapping = setMappingKeys(true);
@@ -25,22 +29,37 @@ public class Cryptogram extends Puzzle
 	}
 
 	public Cryptogram(User user, String title, String description,
-			Category category, Difficulty difficulty, String plaintext)
+			Category category, Difficulty difficulty, String plaintext, IRandomNumberGenerator generator)
 	{
 		super(user, title, description, category, difficulty);
+		this.randomNumberGenerator = generator;
+		
 		this.solutionMapping = setMappingKeys(false);
 		generateMappingKeys();
 		this.userMapping = setMappingKeys(true);
 		this.plaintext = plaintext;
 		this.ciphertext = encrypt();
 	}
+	
+	public Cryptogram(User user, String title, String description,
+			Category category, Difficulty difficulty, String plaintext)
+	{
+		this(user, title, description, category, difficulty, plaintext, new RealRandomNumberGenerator());
+	}
 
+	public Cryptogram(User user, String title, String description,
+			Category category, Difficulty difficulty, String plaintext, long id, IRandomNumberGenerator generator)
+	{
+		this(user, title, description, category, difficulty, plaintext, generator);
+		this.setID(id);
+	}
+	
 	public Cryptogram(User user, String title, String description,
 			Category category, Difficulty difficulty, String plaintext, long id)
 	{
-		this(user, title, description, category, difficulty, plaintext);
-		this.setID(id);
+		this(user, title, description, category, difficulty, plaintext, id, new RealRandomNumberGenerator());
 	}
+	
 
 	public String getCiphertext()
 	{
@@ -153,7 +172,7 @@ public class Cryptogram extends Puzzle
 			posn = posn - 1;
 			// we use posn - 1 so that way there is no chance of the random
 			// element being posn and the element swapping places with itself
-			newPosn = (int) (Math.random() * (posn - 1));
+			newPosn = randomNumberGenerator.random(posn - 1);
 
 			// regular old swapskie
 			temp = alphabet[posn];

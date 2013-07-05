@@ -1,0 +1,40 @@
+Package				pg13.presentation
+
+InvokeMethod        pg13.app.PG13						startUp
+
+// go to the login screen
+Click				MainWindow							btnMainLogin
+
+// select Guest and checked that we're logged in as guest
+SelectComboByIndex			LoginScreen					cmbUsernames 0	
+TestComboValue				LoginScreen					cmbUsernames "Guest"
+Click						LoginScreen					btnLogMeIn	
+Test						MainWindow					lblLoggedInAs "Logged in as Guest"		
+
+//Click create Puzzle button and create me a puzzle
+Click						MainWindow					btnCreate
+
+Set							PuzzlePropertiesWidget		txtPuzzleName "Default Puzzle Name"
+InvokeMethod        		PuzzlePropertiesWidget		updatePuzzleTitle
+Test						PuzzlePropertiesWidget		txtPuzzleName "Default Puzzle Name"
+
+Set							PuzzlePropertiesWidget		txtDescription "This is a Default Puzzle test description"
+InvokeMethod        		PuzzlePropertiesWidget		updatePuzzleDescription
+Test						PuzzlePropertiesWidget		txtDescription "This is a Default Puzzle test description"
+
+SelectComboByIndex			PuzzlePropertiesWidget		cmbCategory 0	
+InvokeMethod        		PuzzlePropertiesWidget		updatePuzzleCategory
+TestComboValue				PuzzlePropertiesWidget		cmbCategory "Animals"
+
+SelectComboByIndex			PuzzlePropertiesWidget		cmbDificulty 0	
+InvokeMethod        		PuzzlePropertiesWidget		updatePuzzleCategory
+TestComboValue				PuzzlePropertiesWidget		cmbDificulty "Easy"
+
+Set							CryptogramEditWidget		txtPlaintext "This is a test cryptogram"
+Test						CryptogramEditWidget		txtPlaintext "This is a test cryptogram"
+InvokeMethod        		CryptogramEditWidget		updatePuzzlePlaintext
+
+Click						PuzzlePropertiesWidget		btnSavePuzzle
+
+Click						MainWindow					tltmLogout
+

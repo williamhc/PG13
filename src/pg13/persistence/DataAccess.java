@@ -13,21 +13,24 @@ public interface DataAccess
 
 	public ArrayList<Puzzle> getAllPuzzles();
 
-	public void savePuzzle(Puzzle puzzle);
+	public boolean savePuzzle(Puzzle puzzle);
+	
+	public boolean deletePuzzle(long puzzleID);
 
+	public ArrayList<Long> getSortedPuzzleIDs();
+	
 	public long getGuestPrimaryKey();
 
 	public String getGuestName();
 
 	public ArrayList<User> getUsers();
 
-	public void saveUser(User user);
+	public boolean saveUser(User user);
 
 	public User findUser(long primaryKey);
 
 	public ArrayList<Long> getSortedUserPrimaryKeys();
 
-	public ArrayList<Long> getSortedPuzzleIDs();
 
 	public void open(String string);
 

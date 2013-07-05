@@ -36,9 +36,10 @@ public class StubDB implements DataAccess
 	}
 
 	@Override
-	public void savePuzzle(Puzzle puzzle)
+	public boolean savePuzzle(Puzzle puzzle)
 	{
 		this.puzzles.add(puzzle);
+		return true;
 	}
 
 	@Override
@@ -100,9 +101,10 @@ public class StubDB implements DataAccess
 	}
 
 	@Override
-	public void saveUser(User user)
+	public boolean saveUser(User user)
 	{
 		this.users.add(user);
+		return true;
 	}
 
 	@Override
@@ -134,6 +136,21 @@ public class StubDB implements DataAccess
 	public void close()
 	{
 		System.out.println("Closed " + dbType + " database " + dbName);
+	}
+
+	@Override
+	public boolean deletePuzzle(long puzzleID)
+	{
+		for(int i = 0; i < puzzles.size(); i++)
+		{
+			if(puzzles.get(i).getID() == puzzleID)
+			{
+				puzzles.remove(puzzles.get(i));
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 }

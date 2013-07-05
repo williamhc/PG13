@@ -45,7 +45,7 @@ public class DataAccessObject implements DataAccess
 	}
 
 	@Override
-	public void savePuzzle(Puzzle puzzle)
+	public boolean savePuzzle(Puzzle puzzle)
 	{
 		String values;
 
@@ -67,6 +67,7 @@ public class DataAccessObject implements DataAccess
 		catch (Exception e)
 		{
 			processSQLError(e);
+			return false;
 		}
 		try
 		{
@@ -78,8 +79,27 @@ public class DataAccessObject implements DataAccess
 		catch (Exception e)
 		{
 			processSQLError(e);
+			return false;
 		}
 
+		return true;
+	}
+	
+	public boolean deletePuzzle(long puzzleID)
+	{
+		try
+		{
+			String cmdString = "Delete from %s where PuzzleID=%d"; 
+			st1.executeUpdate(String.format(cmdString, "UserPuzzles", puzzleID));
+			st1.executeUpdate(String.format(cmdString, "Puzzles", puzzleID));
+			
+		}catch(Exception e)
+		{
+			processSQLError(e);
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override
@@ -315,7 +335,7 @@ public class DataAccessObject implements DataAccess
 	}
 
 	@Override
-	public void saveUser(User user)
+	public boolean saveUser(User user)
 	{
 		String values;
 
@@ -331,6 +351,7 @@ public class DataAccessObject implements DataAccess
 		catch (Exception e)
 		{
 			processSQLError(e);
+			return false;
 		}
 		try
 		{
@@ -346,7 +367,9 @@ public class DataAccessObject implements DataAccess
 		catch (Exception e)
 		{
 			processSQLError(e);
+			return false;
 		}
+		return true;
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class PuzzleManager
 		this.dataAccess = Services.getDataAccess(PG13.dbName);
 	}
 
-	public void save(Puzzle puzzle)
+	public boolean save(Puzzle puzzle)
 	{
 		if (puzzle.getID() == Puzzle.DEFAULT_ID)
 		{
@@ -26,7 +26,17 @@ public class PuzzleManager
 			puzzle.setID(nextID);
 		}
 
-		this.dataAccess.savePuzzle(puzzle);
+		return this.dataAccess.savePuzzle(puzzle);
+	}
+	
+	public boolean deletePuzzle(Puzzle puzzle)
+	{
+		return this.deletePuzzle(puzzle.getID());
+	}
+	
+	public boolean deletePuzzle(long puzzleID)
+	{
+		return this.dataAccess.deletePuzzle(puzzleID);
 	}
 
 	public ArrayList<Puzzle> getAllPuzzles()

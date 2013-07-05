@@ -28,16 +28,21 @@ public class TestStubDB extends TestCase
 		assertEquals(db.getSortedPuzzleIDs().size(),numPuzzles);
 		
 		Cryptogram cr = new Cryptogram(null, "Title1", "Description1", Category.Biology, Difficulty.Easy, "No plaintext", 10);
-		db.savePuzzle(cr);
+		assertTrue(db.savePuzzle(cr));
 		assertEquals(numPuzzles + 1, db.getAllPuzzles().size());
 		assertEquals(numPuzzles + 1, db.getSortedPuzzleIDs().size());
 		numPuzzles = db.getAllPuzzles().size();
 		
 		cr = new Cryptogram(null, "Title2", "Description2", Category.Games, Difficulty.Hard, "hard", 11);
-		db.savePuzzle(cr);
+		assertTrue(db.savePuzzle(cr));
 		assertEquals(numPuzzles + 1, db.getAllPuzzles().size());
 		assertEquals(numPuzzles + 1, db.getSortedPuzzleIDs().size());
 		numPuzzles = db.getAllPuzzles().size();
+		
+		assertTrue(db.deletePuzzle(10));
+		assertEquals(numPuzzles - 1, db.getAllPuzzles().size());
+		assertTrue(db.deletePuzzle(11));
+		assertEquals(numPuzzles - 2, db.getAllPuzzles().size());
 	}
 	
 	public void testAddingSamePuzzle()
@@ -47,16 +52,25 @@ public class TestStubDB extends TestCase
 		assertEquals(db.getSortedPuzzleIDs().size(),numPuzzles);
 		
 		Cryptogram cr = new Cryptogram(null, "Title1", "Description1", Category.Biology, Difficulty.Easy, "No plaintext", 10);
-		db.savePuzzle(cr);
+		assertTrue(db.savePuzzle(cr));
 		assertEquals(numPuzzles + 1, db.getAllPuzzles().size());
 		assertEquals(numPuzzles + 1, db.getSortedPuzzleIDs().size());
 		numPuzzles = db.getAllPuzzles().size();
 		
 		//add the same puzzle again
-		db.savePuzzle(cr);
+		assertTrue(db.savePuzzle(cr));
 		assertEquals(numPuzzles + 1, db.getAllPuzzles().size());
 		assertEquals(numPuzzles + 1, db.getSortedPuzzleIDs().size());
 		numPuzzles = db.getAllPuzzles().size();
+	}
+	
+	public void testDeletingAllPuzzles()
+	{
+		assertTrue(db.deletePuzzle(1));
+		assertTrue(db.deletePuzzle(2));
+		assertFalse(db.deletePuzzle(1));
+		
+		assertEquals(0, db.getAllPuzzles().size());
 	}
 	
 	public void testAddingUniqueUsers()
@@ -66,7 +80,7 @@ public class TestStubDB extends TestCase
 		assertEquals(db.getSortedUserPrimaryKeys().size(), numUsers);
 		
 		User u = new User(10l, "TestUser");
-		db.saveUser(u);
+		assertTrue(db.saveUser(u));
 		assertEquals(numUsers + 1, db.getUsers().size());
 		assertEquals(numUsers + 1, db.getSortedUserPrimaryKeys().size());
 		assertEquals(u, db.findUser(u.getPrimaryKey()));
@@ -74,7 +88,7 @@ public class TestStubDB extends TestCase
 		numUsers = db.getUsers().size();
 		
 		u = new User(11l, "TestUser2");
-		db.saveUser(u);
+		assertTrue(db.saveUser(u));
 		assertEquals(numUsers + 1, db.getUsers().size());
 		assertEquals(numUsers + 1, db.getSortedUserPrimaryKeys().size());
 		assertEquals(u, db.findUser(u.getPrimaryKey()));
@@ -86,13 +100,13 @@ public class TestStubDB extends TestCase
 		int numUsers = db.getUsers().size();
 		
 		User u = new User(10l, "TestUser");
-		db.saveUser(u);
+		assertTrue(db.saveUser(u));
 		assertEquals(numUsers + 1, db.getUsers().size());
 		assertEquals(numUsers + 1, db.getSortedUserPrimaryKeys().size());
 		assertEquals(u, db.findUser(u.getPrimaryKey()));
 		numUsers = db.getUsers().size();
 		
-		db.saveUser(u);
+		assertTrue(db.saveUser(u));
 		assertEquals(numUsers + 1, db.getUsers().size());
 		assertEquals(numUsers + 1, db.getSortedUserPrimaryKeys().size());
 		assertEquals(u, db.findUser(u.getPrimaryKey()));
@@ -103,7 +117,7 @@ public class TestStubDB extends TestCase
 		assertNull(db.findUser(-1));
 		assertNull(db.findUser(11l));
 		
-		db.saveUser(new User(10l, "James"));
+		assertTrue(db.saveUser(new User(10l, "James")));
 		assertNull(db.findUser(-1));
 		assertNull(db.findUser(11l));
 		

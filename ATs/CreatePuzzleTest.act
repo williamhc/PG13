@@ -34,5 +34,15 @@ Click						PuzzlePropertiesWidgetEdit		btnSavePuzzle
 
 // go to the find screen and ensure that the puzzle is there
 Click						MainWindow						btnPlay
+SelectTableByRowValue 		FindScreen						table "Title" "Default Puzzle Name"
+Click						FindScreen						btnPlaySelectedPuzzle
+Click						PuzzlePropertiesWidgetView		btnCheckSolution	
 
+//Test play screen is populated correctly
+Test						PuzzlePropertiesWidgetView		txtPuzzleName "Default Puzzle Name"
+Test						PuzzlePropertiesWidgetView		txtDescription "This is a Default Puzzle test description"
+Test						PuzzlePropertiesWidgetView		lblCategoryFixedText "Animals"
+Test						PuzzlePropertiesWidgetView		lblDifficultyFixedText "Easy"
 
+//exit the application
+Click						MainWindow						btnQuit

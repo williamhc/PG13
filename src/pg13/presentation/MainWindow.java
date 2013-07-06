@@ -53,6 +53,7 @@ public class MainWindow
 	private ToolItem tltmMyPuzzles;
 	private ToolItem tltmHome;
 	private ToolItem tltmLogout;
+	private Button btnQuit;
 
 	public static MainWindow getInstance()
 	{
@@ -359,7 +360,7 @@ public class MainWindow
 		btnMainSignUp.setText("Sign Up");
 
 		// Quit button
-		Button btnQuit = new Button(shell, SWT.NONE);
+		btnQuit = new Button(shell, SWT.NONE);
 		btnQuit.addSelectionListener(new SelectionAdapter()
 		{
 			@Override

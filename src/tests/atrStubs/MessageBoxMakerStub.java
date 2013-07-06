@@ -11,27 +11,33 @@ import pg13.presentation.IMessageBoxStrategy;
 
 public class MessageBoxMakerStub implements IMessageBoxStrategy
 {
-	private Label lblMessage;
+	Label lblMessage;
 	
 	public MessageBoxMakerStub()
-	{
-		//super(null, SWT.NONE);
-		//this.lblMessage = new Label(null, SWT.NONE);	
+	{	
 		Register.newWindow(this);		
 	}
 
 	@Override
 	public void errorMessage(Shell shell, String header, String message) 
 	{
-		//lblMessage.setText(message);
-		
+		if (lblMessage == null)
+		{
+			lblMessage = new Label(shell, SWT.NONE);
+			lblMessage.setVisible(false);
+		}
+		lblMessage.setText(message);
 	}
 
 	@Override
 	public void infoMessage(Shell shell, String header, String message) 
 	{
-		//lblMessage.setText(message);
-		
+		if (lblMessage == null)
+		{
+			lblMessage = new Label(shell, SWT.NONE);
+			lblMessage.setVisible(false);
+		}
+		lblMessage.setText(message);
 	}
 
 }

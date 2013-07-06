@@ -130,10 +130,9 @@ public class SignUpScreen extends Composite
 		if (user != null)
 		{
 			clearLoginScreen();
-			MessageBox dialog = new MessageBox(this.getShell(),	SWT.ICON_INFORMATION | SWT.OK);
-			dialog.setText(Constants.SUCCESS);
-			dialog.setMessage(MessageConstants.LOGON_SUCCESS);
-			dialog.open();
+			
+			MainWindow.getInstance().showInfoMessage(Constants.SUCCESS, MessageConstants.LOGON_SUCCESS);
+			
 			MainWindow.getInstance().login(user);
 			MainWindow.getInstance().switchToWelcomeScreen();
 		}

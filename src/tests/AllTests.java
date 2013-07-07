@@ -26,6 +26,7 @@ public class AllTests
 	public static Test suite()
 	{
 		suite = new TestSuite("All tests");
+		DBResetter.ResetHSQLDB();
 		testModels();
 		testBusiness();
 		testPersistence();

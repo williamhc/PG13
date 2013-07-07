@@ -103,10 +103,10 @@ public class DataAccessObject implements DataAccess
 		} catch (Exception e)
 		{
 			processSQLError(e);
-			return true;
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	@Override
@@ -155,15 +155,14 @@ public class DataAccessObject implements DataAccess
 		try
 		{
 			cmdString = String.format("Update CRYPTOGRAMS  Set %s='%s' where PuzzleID=%d", columnName, newValue, puzzleID);
-			st1.executeUpdate(cmdString);
+			updateCount = st1.executeUpdate(cmdString);
 		}
 		catch(Exception e)
 		{
 			processSQLError(e);
 			return false;
 		}
-		
-		return true;
+		return updateCount == 1;
 	}
 
 	@Override
@@ -469,6 +468,7 @@ public class DataAccessObject implements DataAccess
 	{
 		String result;
 		result = "*** SQL Error: " + e.getMessage();
+		System.out.println(result);
 		return result;
 	}
 

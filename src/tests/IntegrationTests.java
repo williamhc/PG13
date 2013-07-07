@@ -13,6 +13,7 @@ public class IntegrationTests
 		suite = new TestSuite("All tests");
 		DBResetter.ResetHSQLDB();
 		suite.addTestSuite(PuzzleManagerDBSeamTest.class);
+		suite.addTestSuite(UserManagerDBSeamTest.class);
 		return suite;
 	}
 }

@@ -2,7 +2,7 @@ package tests;
 
 import acceptanceTests.TestRunner;
 
-public class RunAcceptanceTests
+public class AcceptanceTestsRunner
 {
     public static void main(String[] args) throws Exception
     {

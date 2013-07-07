@@ -41,7 +41,6 @@ public class MainWindow
 	private Label lblLoggedInAs;
 	private User loggedInUser;
 	private Button btnPlay;
-	private Button btnConnect;
 	private Button btnCreate;
 	private Composite cmpLogin;
 	private Label lblToolbarSeparator;
@@ -129,16 +128,6 @@ public class MainWindow
 		fd_btnPlay.left = new FormAttachment(0, 5);
 		btnPlay.setLayoutData(fd_btnPlay);
 		btnPlay.setText(Constants.PLAY);
-
-		// connect button
-		btnConnect = new Button(shell, SWT.NONE);
-		btnConnect.setEnabled(false);
-		FormData fd_btnConnect = new FormData();
-		fd_btnConnect.right = new FormAttachment(0, 172);
-		fd_btnConnect.top = new FormAttachment(0, 11);
-		fd_btnConnect.left = new FormAttachment(0, 91);
-		btnConnect.setLayoutData(fd_btnConnect);
-		btnConnect.setText(Constants.CONNECT);
 
 		// create button
 		btnCreate = new Button(shell, SWT.NONE);
@@ -431,7 +420,6 @@ public class MainWindow
 
 	public void hideToolbar()
 	{
-		this.btnConnect.setVisible(false);
 		this.btnCreate.setVisible(false);
 		this.btnPlay.setVisible(false);
 		this.cmpLogin.setVisible(false);
@@ -449,7 +437,6 @@ public class MainWindow
 
 	public void showToolbar()
 	{
-		this.btnConnect.setVisible(true);
 		this.btnCreate.setVisible(true);
 		this.btnPlay.setVisible(true);
 		this.cmpLogin.setVisible(true);

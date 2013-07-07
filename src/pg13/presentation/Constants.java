@@ -16,7 +16,6 @@ public class Constants
 	
 	//Header Bar
 	public static final String PLAY 				= 			"Find and Play";
-	public static final String CONNECT 				= 			"Connect";
 	public static final String CREATE 				= 			"Create";
 	public static final String HOME 				= 			"Home";
 	public static final String MY_PUZZLES 			= 			"My Puzzles";

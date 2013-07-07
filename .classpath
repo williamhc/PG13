@@ -17,5 +17,6 @@
 	<classpathentry kind="lib" path="jars/org.eclipse.text_3.5.200.v20120523-1310.jar"/>
 	<classpathentry kind="lib" path="jars/org.eclipse.ui.forms_3.5.200.v20120705-114351.jar"/>
 	<classpathentry kind="lib" path="jars/org.eclipse.ui.workbench_3.104.0.v20130204-164612.jar"/>
+	<classpathentry kind="lib" path="jars/atr-1.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

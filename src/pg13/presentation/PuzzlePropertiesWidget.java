@@ -16,7 +16,6 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.MessageBox;
 
 import pg13.business.PuzzleManager;
 import pg13.models.Category;
@@ -24,6 +23,8 @@ import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
 import pg13.models.Puzzle;
 import pg13.models.PuzzleValidationException;
+
+import acceptanceTests.Register;
 
 public class PuzzlePropertiesWidget extends Composite
 {
@@ -40,17 +41,17 @@ public class PuzzlePropertiesWidget extends Composite
 	private Button btnCheckSolution;
 	private Puzzle displayingPuzzle;
 
-	public PuzzlePropertiesWidget(Composite parent, int style,
-			Puzzle displayingPuzzle, boolean editMode)
+	public PuzzlePropertiesWidget(Composite parent, int style, Puzzle displayingPuzzle, boolean editMode)
 	{
 		super(parent, style);
+		Register.newWindow(this, "PuzzlePropertiesWidget" + (editMode == true? "Edit" : "View" ));
+		
 		this.displayingPuzzle = displayingPuzzle;
 		setLayout(new FormLayout());
 
 		// puzzle name
 		txtPuzzleName = new Text(this, SWT.BORDER);
-		txtPuzzleName.setFont(SWTResourceManager.getFont("Segoe UI", 16,
-				SWT.NORMAL));
+		txtPuzzleName.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
 		FormData fd_txtPuzzleName = new FormData();
 		fd_txtPuzzleName.top = new FormAttachment(0, 10);
 		fd_txtPuzzleName.left = new FormAttachment(0, 10);
@@ -103,8 +104,7 @@ public class PuzzlePropertiesWidget extends Composite
 
 		// category selection box
 		cmbCategory = new Combo(this, SWT.READ_ONLY);
-		cmbCategory.setFont(SWTResourceManager.getFont("Segoe UI", 9,
-				SWT.NORMAL));
+		cmbCategory.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.NORMAL));
 		cmbCategory.setItems(getCategories(Category.values()));
 		FormData fd_cmbCategory = new FormData();
 		fd_cmbCategory.right = new FormAttachment(60);
@@ -123,8 +123,7 @@ public class PuzzlePropertiesWidget extends Composite
 
 		// category fixed label
 		lblCategoryFixedText = new Label(this, SWT.BORDER);
-		lblCategoryFixedText.setFont(SWTResourceManager.getFont("Segoe UI", 11,
-				SWT.NORMAL));
+		lblCategoryFixedText.setFont(SWTResourceManager.getFont("Segoe UI", 11,	SWT.NORMAL));
 		FormData fd_lblCategoryFixedText = new FormData();
 		fd_lblCategoryFixedText.height = 21;
 		fd_lblCategoryFixedText.right = new FormAttachment(60);
@@ -142,8 +141,7 @@ public class PuzzlePropertiesWidget extends Composite
 
 		// difficulty selection box
 		cmbDificulty = new Combo(this, SWT.READ_ONLY);
-		cmbDificulty.setFont(SWTResourceManager.getFont("Segoe UI", 9,
-				SWT.NORMAL));
+		cmbDificulty.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.NORMAL));
 		cmbDificulty.setItems(getCategories(Difficulty.values()));
 		FormData fd_cmbDificulty = new FormData();
 		fd_cmbDificulty.right = new FormAttachment(60);
@@ -232,16 +230,11 @@ public class PuzzlePropertiesWidget extends Composite
 
 	private void updateFields()
 	{
-		this.txtPuzzleName.setText((displayingPuzzle.getTitle() == null ? ""
-				: displayingPuzzle.getTitle()));
-		this.txtDescription
-				.setText((displayingPuzzle.getDescription() == null ? ""
-						: displayingPuzzle.getDescription()));
-		this.cmbCategory.select(getComboIndex(displayingPuzzle.getCategory(),
-				Category.values()));
+		this.txtPuzzleName.setText((displayingPuzzle.getTitle() == null ? "" : displayingPuzzle.getTitle()));
+		this.txtDescription.setText((displayingPuzzle.getDescription() == null ? "" : displayingPuzzle.getDescription()));
+		this.cmbCategory.select(getComboIndex(displayingPuzzle.getCategory(), Category.values()));
 		this.lblCategoryFixedText.setText(cmbCategory.getText());
-		this.cmbDificulty.select(getComboIndex(
-				displayingPuzzle.getDifficulty(), Difficulty.values()));
+		this.cmbDificulty.select(getComboIndex(displayingPuzzle.getDifficulty(), Difficulty.values()));
 		this.lblDifficultyFixedText.setText(cmbDificulty.getText());
 	}
 
@@ -291,33 +284,21 @@ public class PuzzlePropertiesWidget extends Composite
 
 	private void savePuzzle()
 	{
-		MessageBox dialog;
-
 		try
 		{
 			// make sure the puzzle is valid to save
 			displayingPuzzle.validate();
-			displayingPuzzle
-					.setUser(MainWindow.getInstance().getLoggedInUser());
+			displayingPuzzle.setUser(MainWindow.getInstance().getLoggedInUser());
 			displayingPuzzle.prepareForSave();
 			new PuzzleManager().save(displayingPuzzle);
 
-			dialog = new MessageBox(this.getShell(), SWT.ICON_INFORMATION
-					| SWT.OK);
-			dialog.setText(MessageConstants.SAVE_SUCCESS);
-			dialog.setMessage(MessageConstants.SAVE_SUCCESS_MSG);
-
-			dialog.open();
+			MainWindow.getInstance().showInfoMessage(MessageConstants.SAVE_SUCCESS, MessageConstants.SAVE_SUCCESS_MSG);
 
 			MainWindow.getInstance().switchToWelcomeScreen();
 		}
 		catch (PuzzleValidationException e)
 		{
-			dialog = new MessageBox(this.getShell(), SWT.ICON_ERROR | SWT.OK);
-			dialog.setText(MessageConstants.SAVE_ERROR);
-			dialog.setMessage(e.getMessage());
-
-			dialog.open();
+			MainWindow.getInstance().showErrorMessage(MessageConstants.SAVE_ERROR, e.getMessage());
 		}
 	}
 
@@ -347,7 +328,6 @@ public class PuzzlePropertiesWidget extends Composite
 	private void checkSolution()
 	{
 		String msg;
-		MessageBox dialog;
 
 		if (this.displayingPuzzle != null
 				&& this.displayingPuzzle.isCompleted())
@@ -359,11 +339,7 @@ public class PuzzlePropertiesWidget extends Composite
 			msg = MessageConstants.PUZZLE_UNSOLVED;
 		}
 
-		dialog = new MessageBox(this.getShell(), SWT.ICON_QUESTION | SWT.OK);
-		dialog.setText(Constants.PUZZLE_SOLUTION);
-		dialog.setMessage(msg);
-
-		dialog.open();
+		MainWindow.getInstance().showInfoMessage(Constants.PUZZLE_SOLUTION, msg);
 	}
 
 	@Override

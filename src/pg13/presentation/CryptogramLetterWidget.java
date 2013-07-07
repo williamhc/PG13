@@ -16,18 +16,22 @@ import pg13.models.Cryptogram;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
 
+import acceptanceTests.Register;
+
 public class CryptogramLetterWidget extends Composite
 {
 	private Text txtPlaintextChar;
+	private Label lblCiphertextChar;
 	private char ciphertextChar;
 	private CryptogramManager cm;
 	private Composite parent;
 	private boolean updateOnTxtChange;
 
-	public CryptogramLetterWidget(Composite parent, int style,
-			Cryptogram parentCryptogram, char ciphertextChar)
+	public CryptogramLetterWidget(Composite parent, int style, Cryptogram parentCryptogram, char ciphertextChar)
 	{
 		super(parent, SWT.NONE);
+		Register.newWindow(this);
+		
 		setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormLayout formLayout = new FormLayout();
 		setLayout(formLayout);
@@ -37,9 +41,8 @@ public class CryptogramLetterWidget extends Composite
 		updateOnTxtChange = true;
 
 		// ciphertext character
-		Label lblCiphertextChar = new Label(this, SWT.NONE);
-		lblCiphertextChar.setBackground(SWTResourceManager
-				.getColor(SWT.COLOR_WHITE));
+		lblCiphertextChar = new Label(this, SWT.NONE);
+		lblCiphertextChar.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblCiphertextChar = new FormData();
 		fd_lblCiphertextChar.bottom = new FormAttachment(100);
 		fd_lblCiphertextChar.right = new FormAttachment(100);
@@ -47,8 +50,7 @@ public class CryptogramLetterWidget extends Composite
 		fd_lblCiphertextChar.left = new FormAttachment(0);
 		lblCiphertextChar.setLayoutData(fd_lblCiphertextChar);
 		lblCiphertextChar.setAlignment(SWT.CENTER);
-		lblCiphertextChar.setFont(SWTResourceManager.getFont("Segoe UI", 16,
-				SWT.NORMAL));
+		lblCiphertextChar.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
 		lblCiphertextChar.setText("" + ciphertextChar);
 
 		// area for the plaintext character entered by user
@@ -60,8 +62,7 @@ public class CryptogramLetterWidget extends Composite
 				updateCryptogram();
 			}
 		});
-		txtPlaintextChar.setFont(SWTResourceManager.getFont("Segoe UI", 14,
-				SWT.NORMAL));
+		txtPlaintextChar.setFont(SWTResourceManager.getFont("Segoe UI", 14,	SWT.NORMAL));
 		// txtPlaintextChar.set
 		FormData fd_txtPlaintextChar = new FormData();
 		fd_txtPlaintextChar.top = new FormAttachment(0);
@@ -132,8 +133,7 @@ public class CryptogramLetterWidget extends Composite
 
 			if (this.parent instanceof CryptogramSolveWidget)
 			{
-				((CryptogramSolveWidget) this.parent)
-						.updateLetterWidgetContents();
+				((CryptogramSolveWidget) this.parent).updateLetterWidgetContents();
 			}
 		}
 	}
@@ -151,5 +151,10 @@ public class CryptogramLetterWidget extends Composite
 			this.updateOnTxtChange = true;
 
 		}
+	}
+	
+	public void setText(String text)
+	{
+		txtPlaintextChar.setText(text);
 	}
 }

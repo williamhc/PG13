@@ -22,10 +22,15 @@ import pg13.models.Puzzle;
 import pg13.models.User;
 import org.eclipse.swt.layout.GridData;
 
+import acceptanceTests.Register;
+import acceptanceTests.EventLoop;
+
 public class MainWindow
 {
 	private static MainWindow instance;
 
+	private IMessageBoxStrategy messageBoxStrategy;
+	
 	private Display display;
 	private Shell shell;
 	private CreateScreen cmpCreateScreen;
@@ -45,20 +50,37 @@ public class MainWindow
 	private Button btnMainSignUp;
 	private Button btnMainLogin;
 	private Label lblOr;
+	private ToolItem tltmMyPuzzles;
+	private ToolItem tltmHome;
+	private ToolItem tltmLogout;
+	private Button btnQuit;
+	
+	// these buttons are here as duplicates of the ToolItems, as
+	// a workaround for ATR, since it cannot interact with ToolItems
+	private Button btnHome;
+	private Button btnMyPuzzles;
+	private Button btnLogout;
 
 	public static MainWindow getInstance()
 	{
-		if (instance == null)
+		if (instance == null || instance.isDisposed())
 		{
-			instance = new MainWindow();
+			new MainWindow();
 		}
 
 		return instance;
 	}
 
-	private MainWindow()
-	{
+	public MainWindow()
+	{	
+		if (instance != null && !instance.isDisposed())
+			throw new RuntimeException("Too many main windows.");
+		
+		instance = this;
+		
 		display = Display.getDefault();
+		Register.newWindow(this);
+		this.messageBoxStrategy = new MessageBoxMaker();
 		createWindow();
 	}
 
@@ -69,14 +91,17 @@ public class MainWindow
 
 	public void runWindow()
 	{
-		while (!shell.isDisposed())
-		{
-			if (!display.readAndDispatch())
+		if (EventLoop.isEnabled())
+    	{
+			while (!shell.isDisposed())
 			{
-				display.sleep();
+				if (!display.readAndDispatch())
+				{
+					display.sleep();
+				}
 			}
-		}
-		display.dispose();
+			display.dispose();
+    	}
 	}
 
 	public void createWindow()
@@ -145,34 +170,29 @@ public class MainWindow
 
 		// label that identifies
 		lblLoggedInAs = new Label(cmpLogin, SWT.NONE);
-		GridData gd_lblLoggedInAs = new GridData(SWT.LEFT, SWT.CENTER, false,
-				false, 1, 1);
+		GridData gd_lblLoggedInAs = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_lblLoggedInAs.widthHint = 185;
 		lblLoggedInAs.setLayoutData(gd_lblLoggedInAs);
-		lblLoggedInAs.setBackground(SWTResourceManager
-				.getColor(SWT.COLOR_TITLE_BACKGROUND));
+		lblLoggedInAs.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND));
 		lblLoggedInAs.setText(MessageConstants.LOGON);
 
 		// toolbar that contains the user buttons
 		ToolBar toolBar = new ToolBar(cmpLogin, SWT.FLAT);
-		toolBar.setBackground(SWTResourceManager
-				.getColor(SWT.COLOR_TITLE_BACKGROUND));
+		toolBar.setBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_BACKGROUND));
 
 		// separator
 		ToolItem tltmSeparator1 = new ToolItem(toolBar, SWT.SEPARATOR);
 		tltmSeparator1.setText("sep");
 
 		// my puzzles button
-		ToolItem tltmMyPuzzles = new ToolItem(toolBar, SWT.NONE);
+		tltmMyPuzzles = new ToolItem(toolBar, SWT.NONE);
 		tltmMyPuzzles.setText(Constants.MY_PUZZLES);
 		tltmMyPuzzles.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
 			public void widgetSelected(SelectionEvent e)
 			{
-				switchToFindScreen();
-				cmpFindScreen.selectMyPuzzles();
-				cmpFindScreen.filterByMyPuzzles();
+				goToMyPuzzles();
 			}
 		});
 
@@ -181,7 +201,7 @@ public class MainWindow
 		tltmSeparator2.setText("sep");
 
 		// home button
-		ToolItem tltmHome = new ToolItem(toolBar, SWT.NONE);
+		tltmHome = new ToolItem(toolBar, SWT.NONE);
 		tltmHome.setText(Constants.HOME);
 		tltmHome.addSelectionListener(new SelectionAdapter()
 		{
@@ -199,7 +219,7 @@ public class MainWindow
 		tltmSeparator3.setText("sep");
 
 		// logout button
-		ToolItem tltmLogout = new ToolItem(toolBar, SWT.NONE);
+		tltmLogout = new ToolItem(toolBar, SWT.NONE);
 		tltmLogout.setText(Constants.LOGOUT);
 		tltmLogout.addSelectionListener(new SelectionAdapter()
 		{
@@ -281,8 +301,7 @@ public class MainWindow
 
 		// welcome message
 		Label lblWelcome = new Label(cmpMainArea, SWT.CENTER);
-		lblWelcome.setFont(SWTResourceManager.getFont("Segoe UI", 22,
-				SWT.NORMAL));
+		lblWelcome.setFont(SWTResourceManager.getFont("Segoe UI", 22, SWT.NORMAL));
 		lblWelcome.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblWelcome = new FormData();
 		fd_lblWelcome.top = new FormAttachment(50, -130);
@@ -292,10 +311,8 @@ public class MainWindow
 		lblWelcome.setText(MessageConstants.WELCOME_HEADER);
 
 		lblWelcomeDescription = new Label(cmpMainArea, SWT.WRAP);
-		lblWelcomeDescription.setFont(SWTResourceManager.getFont("Segoe UI",
-				12, SWT.NORMAL));
-		lblWelcomeDescription.setBackground(SWTResourceManager
-				.getColor(SWT.COLOR_WHITE));
+		lblWelcomeDescription.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
+		lblWelcomeDescription.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblWelcomeDescription = new FormData();
 		fd_lblWelcomeDescription.bottom = new FormAttachment(lblWelcome, 200);
 		fd_lblWelcomeDescription.top = new FormAttachment(lblWelcome, 14);
@@ -315,8 +332,7 @@ public class MainWindow
 		lblOr.setText("Or");
 
 		btnMainLogin = new Button(cmpMainArea, SWT.NONE);
-		btnMainLogin.setFont(SWTResourceManager.getFont("Segoe UI", 11,
-				SWT.NORMAL));
+		btnMainLogin.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		btnMainLogin.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
@@ -333,8 +349,7 @@ public class MainWindow
 		btnMainLogin.setText("Login");
 
 		btnMainSignUp = new Button(cmpMainArea, SWT.NONE);
-		btnMainSignUp.setFont(SWTResourceManager.getFont("Segoe UI", 11,
-				SWT.NORMAL));
+		btnMainSignUp.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		btnMainSignUp.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
@@ -351,13 +366,13 @@ public class MainWindow
 		btnMainSignUp.setText("Sign Up");
 
 		// Quit button
-		Button btnQuit = new Button(shell, SWT.NONE);
+		btnQuit = new Button(shell, SWT.NONE);
 		btnQuit.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
 			public void widgetSelected(SelectionEvent e)
 			{
-				shell.dispose();
+				quit();
 			}
 		});
 		FormData fd_btnQuit = new FormData();
@@ -375,6 +390,40 @@ public class MainWindow
 		lblVersion.setText(Constants.VERSION);
 
 		hideToolbar();
+		
+		// these widgets are here because ATR cannot interact with ToolItems
+		btnHome = new Button(shell, SWT.NONE);
+		btnHome.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e)
+			{
+				switchToWelcomeScreen();
+			}
+		});
+		btnHome.setVisible(false);
+		
+		btnLogout = new Button(shell, SWT.NONE);
+		btnLogout.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e)
+			{
+				logout();
+			}
+		});
+		btnLogout.setVisible(false);
+		
+		btnMyPuzzles = new Button(shell, SWT.NONE);
+		btnMyPuzzles.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e)
+			{
+				goToMyPuzzles();
+			}
+		});
+		btnMyPuzzles.setVisible(false);
 
 		// show the window
 		shell.open();
@@ -508,5 +557,37 @@ public class MainWindow
 		lblOr.setVisible(true);
 		lblWelcomeDescription.setText(MessageConstants.INSTRUCTIONS_LOGGED_OUT);
 		switchToWelcomeScreen();
+	}
+	
+	public void showInfoMessage(String header, String message)
+	{
+		this.messageBoxStrategy.infoMessage(shell, header, message);
+	}
+	
+	public void showErrorMessage(String header, String message)
+	{
+		this.messageBoxStrategy.errorMessage(shell, header, message);
+	}
+	
+	public void setMessageBoxStrategy(IMessageBoxStrategy newStrategy)
+	{
+		this.messageBoxStrategy = newStrategy;
+	}
+	
+	private void goToMyPuzzles() 
+	{
+		switchToFindScreen();
+		cmpFindScreen.selectMyPuzzles();
+		cmpFindScreen.filterByMyPuzzles();
+	}
+	
+	public boolean isDisposed()
+	{
+		return shell.isDisposed();
+	}
+	
+	private void quit()
+	{
+		shell.dispose();
 	}
 }

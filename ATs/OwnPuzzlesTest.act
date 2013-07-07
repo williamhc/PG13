@@ -1,0 +1,139 @@
+Package						pg13.presentation
+
+InvokeMethod        		pg13.app.PG13						startUp
+InvokeMethod				tests.atrStubs.StubInjector			injectMessageBoxStub
+
+// go to the sign up screen
+Click						MainWindow							btnMainSignUp
+
+// create a new user and log in
+Set							SignUpScreen						txtLogIn "TestingSteve"
+Test						SignUpScreen						txtLogIn "TestingSteve"
+
+Click						SignUpScreen						btnSignMeUp
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Successfully Created a user"
+Package						pg13.presentation
+
+Test						MainWindow							lblLoggedInAs "Logged in as TestingSteve"
+
+//Click create Puzzle button and create first puzzle
+Click						MainWindow							btnCreate
+
+Set							PuzzlePropertiesWidgetEdit			txtPuzzleName "First Puzzle"
+Test						PuzzlePropertiesWidgetEdit			txtPuzzleName "First Puzzle"
+
+Set							PuzzlePropertiesWidgetEdit			txtDescription "This is a puzzle that TestingSteve owns."
+Test						PuzzlePropertiesWidgetEdit			txtDescription "This is a puzzle that TestingSteve owns."
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbCategory 10	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbCategory "Space"
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbDificulty 2	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbDificulty "Hard"
+
+Set							CryptogramEditWidget				txtPlaintext "TestingSteve is the best!"
+Test						CryptogramEditWidget				txtPlaintext "TestingSteve is the best!"
+
+Click						PuzzlePropertiesWidgetEdit			btnSavePuzzle
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle saved!"
+Package						pg13.presentation
+
+//Click create Puzzle button and create second puzzle
+Click						MainWindow							btnCreate
+
+Set							PuzzlePropertiesWidgetEdit			txtPuzzleName "Second Puzzle"
+Test						PuzzlePropertiesWidgetEdit			txtPuzzleName "Second Puzzle"
+
+Set							PuzzlePropertiesWidgetEdit			txtDescription "This is a puzzle that TestingSteve owns."
+Test						PuzzlePropertiesWidgetEdit			txtDescription "This is a puzzle that TestingSteve owns."
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbCategory 1	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbCategory "Biology"
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbDificulty 1	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbDificulty "Medium"
+
+Set							CryptogramEditWidget				txtPlaintext "TestingSteve is the best!"
+Test						CryptogramEditWidget				txtPlaintext "TestingSteve is the best!"
+
+Click						PuzzlePropertiesWidgetEdit			btnSavePuzzle
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle saved!"
+Package						pg13.presentation
+
+//Click create Puzzle button and create third puzzle
+Click						MainWindow							btnCreate
+
+Set							PuzzlePropertiesWidgetEdit			txtPuzzleName "Third Puzzle"
+Test						PuzzlePropertiesWidgetEdit			txtPuzzleName "Third Puzzle"
+
+Set							PuzzlePropertiesWidgetEdit			txtDescription "This is a puzzle that TestingSteve owns."
+Test						PuzzlePropertiesWidgetEdit			txtDescription "This is a puzzle that TestingSteve owns."
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbCategory 4	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbCategory "Trivia"
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbDificulty 0	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbDificulty "Easy"
+
+Set							CryptogramEditWidget				txtPlaintext "TestingSteve is the best!"
+Test						CryptogramEditWidget				txtPlaintext "TestingSteve is the best!"
+
+Click						PuzzlePropertiesWidgetEdit			btnSavePuzzle
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle saved!"
+Package						pg13.presentation
+
+//Click create Puzzle button and create fourth puzzle
+Click						MainWindow							btnCreate
+
+Set							PuzzlePropertiesWidgetEdit			txtPuzzleName "Fourth Puzzle"
+Test						PuzzlePropertiesWidgetEdit			txtPuzzleName "Fourth Puzzle"
+
+Set							PuzzlePropertiesWidgetEdit			txtDescription "This is a puzzle that TestingSteve owns."
+Test						PuzzlePropertiesWidgetEdit			txtDescription "This is a puzzle that TestingSteve owns."
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbCategory 6	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbCategory "History"
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbDificulty 2	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbDificulty "Hard"
+
+Set							CryptogramEditWidget				txtPlaintext "TestingSteve is the best!"
+Test						CryptogramEditWidget				txtPlaintext "TestingSteve is the best!"
+
+Click						PuzzlePropertiesWidgetEdit			btnSavePuzzle
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle saved!"
+Package						pg13.presentation
+
+
+// hit the "My Puzzles" button, and view only puzzles created by TestingSteve
+Click						MainWindow							btnMyPuzzles
+
+// there should be exactly four entries in this table, 
+// and they should all have "Author" set to TestingSteve
+SelectTableByRowIndex 		FindScreen							table 0
+TestTableByColumnLabel		FindScreen							table "Author" "TestingSteve"
+
+SelectTableByRowIndex 		FindScreen							table 1
+TestTableByColumnLabel		FindScreen							table "Author" "TestingSteve"
+
+SelectTableByRowIndex 		FindScreen							table 2
+TestTableByColumnLabel		FindScreen							table "Author" "TestingSteve"
+
+SelectTableByRowIndex 		FindScreen							table 3
+TestTableByColumnLabel		FindScreen							table "Author" "TestingSteve"
+
+// log out
+Click						MainWindow							btnLogout
+
+//exit the application
+Click						MainWindow							btnQuit
+
+InvokeMethod        		pg13.app.PG13						shutDown
+
+Close 						MainWindow							shell
+				

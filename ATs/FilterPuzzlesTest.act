@@ -1,0 +1,205 @@
+Package						pg13.presentation
+
+InvokeMethod        		pg13.app.PG13						startUp
+InvokeMethod				tests.atrStubs.StubInjector			injectMessageBoxStub
+
+// go to the sign up screen
+Click						MainWindow							btnMainSignUp
+
+// create a new user and log in
+Set							SignUpScreen						txtLogIn "PickyOwen"
+Test						SignUpScreen						txtLogIn "PickyOwen"
+
+Click						SignUpScreen						btnSignMeUp
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Successfully Created a user"
+Package						pg13.presentation
+
+Test						MainWindow							lblLoggedInAs "Logged in as PickyOwen"
+
+//Click create Puzzle button and create first puzzle
+Click						MainWindow							btnCreate
+
+Set							PuzzlePropertiesWidgetEdit			txtPuzzleName "Hard Space Puzzle"
+Test						PuzzlePropertiesWidgetEdit			txtPuzzleName "Hard Space Puzzle"
+
+Set							PuzzlePropertiesWidgetEdit			txtDescription "This is a hard puzzle about space."
+Test						PuzzlePropertiesWidgetEdit			txtDescription "This is a hard puzzle about space."
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbCategory 10	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbCategory "Space"
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbDificulty 2	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbDificulty "Hard"
+
+Set							CryptogramEditWidget				txtPlaintext "PickyOwen likes space."
+Test						CryptogramEditWidget				txtPlaintext "PickyOwen likes space."
+
+Click						PuzzlePropertiesWidgetEdit			btnSavePuzzle
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle saved!"
+Package						pg13.presentation
+
+//Click create Puzzle button and create second puzzle
+Click						MainWindow							btnCreate
+
+Set							PuzzlePropertiesWidgetEdit			txtPuzzleName "Medium Biology Puzzle"
+Test						PuzzlePropertiesWidgetEdit			txtPuzzleName "Medium Biology Puzzle"
+
+Set							PuzzlePropertiesWidgetEdit			txtDescription "This is a medium puzzle about biology."
+Test						PuzzlePropertiesWidgetEdit			txtDescription "This is a medium puzzle about biology."
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbCategory 1	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbCategory "Biology"
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbDificulty 1	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbDificulty "Medium"
+
+Set							CryptogramEditWidget				txtPlaintext "PickyOwen likes biology."
+Test						CryptogramEditWidget				txtPlaintext "PickyOwen likes biology."
+
+Click						PuzzlePropertiesWidgetEdit			btnSavePuzzle
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle saved!"
+Package						pg13.presentation
+
+//Click create Puzzle button and create third puzzle
+Click						MainWindow							btnCreate
+
+Set							PuzzlePropertiesWidgetEdit			txtPuzzleName "Easy Trivia Puzzle"
+Test						PuzzlePropertiesWidgetEdit			txtPuzzleName "Easy Trivia Puzzle"
+
+Set							PuzzlePropertiesWidgetEdit			txtDescription "This is an easy puzzle about trivia."
+Test						PuzzlePropertiesWidgetEdit			txtDescription "This is an easy puzzle about trivia."
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbCategory 4	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbCategory "Trivia"
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbDificulty 0	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbDificulty "Easy"
+
+Set							CryptogramEditWidget				txtPlaintext "PickyOwen likes trivia."
+Test						CryptogramEditWidget				txtPlaintext "PickyOwen likes trivia."
+
+Click						PuzzlePropertiesWidgetEdit			btnSavePuzzle
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle saved!"
+Package						pg13.presentation
+
+//Click create Puzzle button and create fourth puzzle
+Click						MainWindow							btnCreate
+
+Set							PuzzlePropertiesWidgetEdit			txtPuzzleName "Hard History Puzzle"
+Test						PuzzlePropertiesWidgetEdit			txtPuzzleName "Hard History Puzzle"
+
+Set							PuzzlePropertiesWidgetEdit			txtDescription "This is a hard puzzle about history."
+Test						PuzzlePropertiesWidgetEdit			txtDescription "This is a hard puzzle about history."
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbCategory 6	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbCategory "History"
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbDificulty 2	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbDificulty "Hard"
+
+Set							CryptogramEditWidget				txtPlaintext "PickyOwen likes history."
+Test						CryptogramEditWidget				txtPlaintext "PickyOwen likes history."
+
+Click						PuzzlePropertiesWidgetEdit			btnSavePuzzle
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle saved!"
+Package						pg13.presentation
+
+//Click create Puzzle button and create fifth puzzle
+Click						MainWindow							btnCreate
+
+Set							PuzzlePropertiesWidgetEdit			txtPuzzleName "Easy Space Puzzle"
+Test						PuzzlePropertiesWidgetEdit			txtPuzzleName "Easy Space Puzzle"
+
+Set							PuzzlePropertiesWidgetEdit			txtDescription "This is an easy puzzle about space."
+Test						PuzzlePropertiesWidgetEdit			txtDescription "This is an easy puzzle about space."
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbCategory 10	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbCategory "Space"
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbDificulty 0	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbDificulty "Easy"
+
+Set							CryptogramEditWidget				txtPlaintext "PickyOwen likes space."
+Test						CryptogramEditWidget				txtPlaintext "PickyOwen likes space."
+
+Click						PuzzlePropertiesWidgetEdit			btnSavePuzzle
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle saved!"
+Package						pg13.presentation
+
+
+
+// hit the "My Puzzles" button, so that only puzzles created by PickyOwen will be shown.
+// this way, we know exactly how many to expect from each filter
+Click						MainWindow							btnMyPuzzles
+
+// test category filters
+
+// all categories, should be five
+SelectComboByIndex			FindScreen							cmbCategory 0	
+TestComboValue				FindScreen							cmbCategory "All Categories"
+
+SelectTableByRowIndex 		FindScreen							table 0
+TestTableByColumnLabel		FindScreen							table "Author" "PickyOwen"
+SelectTableByRowIndex 		FindScreen							table 1
+TestTableByColumnLabel		FindScreen							table "Author" "PickyOwen"
+SelectTableByRowIndex 		FindScreen							table 2
+TestTableByColumnLabel		FindScreen							table "Author" "PickyOwen"
+SelectTableByRowIndex 		FindScreen							table 3
+TestTableByColumnLabel		FindScreen							table "Author" "PickyOwen"
+SelectTableByRowIndex 		FindScreen							table 4
+TestTableByColumnLabel		FindScreen							table "Author" "PickyOwen"
+
+// space, should be two
+SelectComboByIndex			FindScreen							cmbCategory 11	
+TestComboValue				FindScreen							cmbCategory "Space"
+
+SelectTableByRowIndex 		FindScreen							table 0
+TestTableByColumnLabel		FindScreen							table "Category" "Space"
+SelectTableByRowIndex 		FindScreen							table 1
+TestTableByColumnLabel		FindScreen							table "Category" "Space"
+
+// biology, should be one
+SelectComboByIndex			FindScreen							cmbCategory 2	
+TestComboValue				FindScreen							cmbCategory "Biology"
+
+SelectTableByRowIndex 		FindScreen							table 0
+TestTableByColumnLabel		FindScreen							table "Category" "Biology"
+
+// trivia, should be one
+SelectComboByIndex			FindScreen							cmbCategory 5	
+TestComboValue				FindScreen							cmbCategory "Trivia"
+
+SelectTableByRowIndex 		FindScreen							table 0
+TestTableByColumnLabel		FindScreen							table "Category" "Trivia"
+
+// history, should be one
+SelectComboByIndex			FindScreen							cmbCategory 7	
+TestComboValue				FindScreen							cmbCategory "History"
+
+SelectTableByRowIndex 		FindScreen							table 0
+TestTableByColumnLabel		FindScreen							table "Category" "History"
+
+// test difficulty filter
+
+// easy, should be two
+
+// medium, should be one
+
+// hard, should be two
+
+// log out
+Click						MainWindow							btnLogout
+
+//exit the application
+Click						MainWindow							btnQuit
+
+InvokeMethod        		pg13.app.PG13						shutDown
+
+Close 						MainWindow							shell
+				

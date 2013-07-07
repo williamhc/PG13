@@ -18,23 +18,28 @@ import org.eclipse.swt.events.SelectionEvent;
 import pg13.business.UserManager;
 import pg13.models.User;
 
+import acceptanceTests.Register;
+
 public class LoginScreen extends Composite
 {
 	private UserManager userManager;
 	private Combo cmbUsernames;
 	private Label lblInvalidUser;
 	private ControlDecoration invalidUserDecor;
+	private Button btnLogMeIn;
+	private Button btnCancel;
 
 	public LoginScreen(Composite parent, int style)
 	{
 		super(parent, style);
+		Register.newWindow(this);
+		
 		userManager = new UserManager();
 		setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		setLayout(new FormLayout());
 
 		cmbUsernames = new Combo(this, SWT.READ_ONLY);
-		cmbUsernames.setFont(SWTResourceManager.getFont("Segoe UI", 14,
-				SWT.NORMAL));
+		cmbUsernames.setFont(SWTResourceManager.getFont("Segoe UI", 14,	SWT.NORMAL));
 
 		populateUserList();
 
@@ -46,12 +51,9 @@ public class LoginScreen extends Composite
 		cmbUsernames.setLayoutData(fd_cmbUsernames);
 
 		lblInvalidUser = new Label(this, SWT.WRAP);
-		lblInvalidUser
-				.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
-		lblInvalidUser.setBackground(SWTResourceManager
-				.getColor(SWT.COLOR_WHITE));
-		lblInvalidUser.setFont(SWTResourceManager.getFont("Segoe UI", 12,
-				SWT.NORMAL));
+		lblInvalidUser.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
+		lblInvalidUser.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		lblInvalidUser.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		FormData fd_lblInvalidUser = new FormData();
 		fd_lblInvalidUser.right = new FormAttachment(50, 100);
 		fd_lblInvalidUser.left = new FormAttachment(50, -100);
@@ -61,10 +63,8 @@ public class LoginScreen extends Composite
 		lblInvalidUser.setVisible(false);
 
 		Label lblLoginInfo = new Label(this, SWT.WRAP | SWT.SHADOW_IN);
-		lblLoginInfo.setFont(SWTResourceManager.getFont("Segoe UI", 12,
-				SWT.NORMAL));
-		lblLoginInfo
-				.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		lblLoginInfo.setFont(SWTResourceManager.getFont("Segoe UI", 12,	SWT.NORMAL));
+		lblLoginInfo.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblLoginInfo = new FormData();
 		fd_lblLoginInfo.top = new FormAttachment(0, 75);
 		fd_lblLoginInfo.bottom = new FormAttachment(0, 175);
@@ -73,17 +73,15 @@ public class LoginScreen extends Composite
 		lblLoginInfo.setLayoutData(fd_lblLoginInfo);
 		lblLoginInfo.setText(MessageConstants.LOGIN_INFO);
 
-		Button btnLogMeIn = new Button(this, SWT.NONE);
+		btnLogMeIn = new Button(this, SWT.NONE);
 		FormData fd_btnLogMeIn = new FormData();
 		fd_btnLogMeIn.left = new FormAttachment(50, -100);
 		fd_btnLogMeIn.top = new FormAttachment(0, 300);
 		btnLogMeIn.setLayoutData(fd_btnLogMeIn);
 
-		invalidUserDecor = new ControlDecoration(lblInvalidUser, SWT.LEFT
-				| SWT.TOP);
+		invalidUserDecor = new ControlDecoration(lblInvalidUser, SWT.LEFT | SWT.TOP);
 		invalidUserDecor.setMarginWidth(10);
-		invalidUserDecor.setImage(SWTResourceManager.getImage(
-				SignUpScreen.class, "/javax/swing/plaf/metal/icons/Error.gif"));
+		invalidUserDecor.setImage(SWTResourceManager.getImage(SignUpScreen.class, "/javax/swing/plaf/metal/icons/Error.gif"));
 		invalidUserDecor.setDescriptionText("Some description");
 		btnLogMeIn.addSelectionListener(new SelectionAdapter()
 		{
@@ -93,11 +91,10 @@ public class LoginScreen extends Composite
 				loginPressed();
 			}
 		});
-		btnLogMeIn.setFont(SWTResourceManager.getFont("Segoe UI", 11,
-				SWT.NORMAL));
+		btnLogMeIn.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		btnLogMeIn.setText(Constants.LOGIN_BUTTON);
 
-		Button btnCancel = new Button(this, SWT.NONE);
+		btnCancel = new Button(this, SWT.NONE);
 		FormData fd_btnCancel = new FormData();
 		fd_btnCancel.right = new FormAttachment(50, 100);
 		fd_btnCancel.top = new FormAttachment(0, 300);
@@ -111,8 +108,7 @@ public class LoginScreen extends Composite
 				MainWindow.getInstance().switchToWelcomeScreen();
 			}
 		});
-		btnCancel.setFont(SWTResourceManager
-				.getFont("Segoe UI", 11, SWT.NORMAL));
+		btnCancel.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		btnCancel.setText(Constants.CANCEL_BUTTON);
 
 	}

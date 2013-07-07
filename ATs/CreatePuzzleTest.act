@@ -1,0 +1,57 @@
+Package						pg13.presentation
+
+InvokeMethod        		pg13.app.PG13						startUp
+InvokeMethod				tests.atrStubs.StubInjector			injectMessageBoxStub
+
+// go to the login screen
+Click						MainWindow							btnMainLogin
+
+
+// select Guest and checked that we're logged in as guest
+SelectComboByIndex			LoginScreen							cmbUsernames 0	
+TestComboValue				LoginScreen							cmbUsernames "Guest"
+Click						LoginScreen							btnLogMeIn	
+Test						MainWindow							lblLoggedInAs "Logged in as Guest"		
+
+//Click create Puzzle button and create me a puzzle
+Click						MainWindow							btnCreate
+
+Set							PuzzlePropertiesWidgetEdit			txtPuzzleName "Default Puzzle Name"
+Test						PuzzlePropertiesWidgetEdit			txtPuzzleName "Default Puzzle Name"
+
+Set							PuzzlePropertiesWidgetEdit			txtDescription "This is a Default Puzzle test description"
+Test						PuzzlePropertiesWidgetEdit			txtDescription "This is a Default Puzzle test description"
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbCategory 0	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbCategory "Animals"
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbDificulty 0	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbDificulty "Easy"
+
+Set							CryptogramEditWidget				txtPlaintext "This is a test cryptogram"
+Test						CryptogramEditWidget				txtPlaintext "This is a test cryptogram"
+
+Click						PuzzlePropertiesWidgetEdit			btnSavePuzzle
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle saved!"
+Package						pg13.presentation
+
+// go to the find screen and ensure that the puzzle is there
+Click						MainWindow							btnPlay
+SelectTableByRowValue 		FindScreen							table "Title" "Default Puzzle Name"
+Click						FindScreen							btnPlaySelectedPuzzle
+Click						PuzzlePropertiesWidgetView			btnCheckSolution	
+
+//Test play screen is populated correctly
+Test						PuzzlePropertiesWidgetView			txtPuzzleName "Default Puzzle Name"
+Test						PuzzlePropertiesWidgetView			txtDescription "This is a Default Puzzle test description"
+Test						PuzzlePropertiesWidgetView			lblCategoryFixedText "Animals"
+Test						PuzzlePropertiesWidgetView			lblDifficultyFixedText "Easy"
+
+//exit the application
+Click						MainWindow							btnQuit
+
+InvokeMethod        		pg13.app.PG13						shutDown
+
+Close 						MainWindow							shell
+				

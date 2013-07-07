@@ -12,15 +12,27 @@ import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import pg13.models.Cryptogram;
 
+import acceptanceTests.Register;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+
 public class CryptogramSolveWidget extends Composite
 {
 	private ArrayList<CryptogramLetterWidget> letterWidgets;
 	private Cryptogram solvingCryptogram;
+	
+	// these widgets are only here as a workaround to allow ATR to interact with the
+	// widgets in the letterWidgets data structure
+	private Text txtLetterWidgetValue;
+	private Text txtLetterWidgetID;
+	private Button btnSubmitLetterWidget;
 
-	public CryptogramSolveWidget(Composite parent, int style,
-			Cryptogram solvingCryptogram)
+	public CryptogramSolveWidget(Composite parent, int style, Cryptogram solvingCryptogram, String windowIdentifier)
 	{
 		super(parent, style);
+		Register.newWindow(this, "CryptogramSolveWidget" + windowIdentifier);
 
 		this.solvingCryptogram = solvingCryptogram;
 
@@ -34,6 +46,41 @@ public class CryptogramSolveWidget extends Composite
 		});
 		setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		setLayout(new FormLayout());
+		
+		
+		// these widgets are only here as a workaround to allow ATR to interact with the
+		// widgets in the letterWidgets data structure
+		txtLetterWidgetValue = new Text(this, SWT.BORDER);
+		FormData fd_txtLetterWidgetValue = new FormData();
+		fd_txtLetterWidgetValue.top = new FormAttachment(0, 10);
+		fd_txtLetterWidgetValue.left = new FormAttachment(0, 10);
+		txtLetterWidgetValue.setLayoutData(fd_txtLetterWidgetValue);
+		txtLetterWidgetValue.setVisible(false);
+		
+		txtLetterWidgetID = new Text(this, SWT.BORDER);
+		FormData fd_txtLetterWidgetID = new FormData();
+		fd_txtLetterWidgetID.top = new FormAttachment(0, 40);
+		fd_txtLetterWidgetID.left = new FormAttachment(0, 10);
+		txtLetterWidgetID.setLayoutData(fd_txtLetterWidgetID);
+		txtLetterWidgetID.setVisible(false);
+		
+		btnSubmitLetterWidget = new Button(this, SWT.NONE);
+		btnSubmitLetterWidget.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				int letterWidgetID = Integer.parseInt(txtLetterWidgetID.getText());
+				
+				letterWidgets.get(letterWidgetID).setText(txtLetterWidgetValue.getText());
+			}
+		});
+		FormData fd_btnSubmitLetterWidget = new FormData();
+		fd_btnSubmitLetterWidget.top = new FormAttachment(txtLetterWidgetID, 6);
+		fd_btnSubmitLetterWidget.left = new FormAttachment(txtLetterWidgetValue, 0, SWT.LEFT);
+		btnSubmitLetterWidget.setLayoutData(fd_btnSubmitLetterWidget);
+		btnSubmitLetterWidget.setText("Submit");
+		btnSubmitLetterWidget.setVisible(false);
 
 	}
 
@@ -72,8 +119,7 @@ public class CryptogramSolveWidget extends Composite
 			letterWidgets = new ArrayList<CryptogramLetterWidget>();
 			for (int i = 0; i < ciphertext.length(); i++)
 			{
-				letterWidgets.add(new CryptogramLetterWidget(this, SWT.NONE,
-						solvingCryptogram, ciphertext.charAt(i)));
+				letterWidgets.add(new CryptogramLetterWidget(this, SWT.NONE, solvingCryptogram, ciphertext.charAt(i)));
 			}
 
 			// call the update function which organizes all the widgets
@@ -109,19 +155,15 @@ public class CryptogramSolveWidget extends Composite
 			// calculate the y-offset
 			if (letterWidgets.size() > widthInLetters)
 			{
-				expectedNumLines = ((int) (letterWidgets.size()
-						* LETTER_WIDGET_WIDTH * 1.3))
-						/ (this.getBounds().width - 2 * MARGIN) + 1;
-				verticalOffset = ((expectedNumLines - 1) * LETTER_WIDGET_HEIGHT + (expectedNumLines - 1)
-						* LINE_SPACING) / 2;
+				expectedNumLines = ((int) (letterWidgets.size()	* LETTER_WIDGET_WIDTH * 1.3)) / (this.getBounds().width - 2 * MARGIN) + 1;
+				verticalOffset = ((expectedNumLines - 1) * LETTER_WIDGET_HEIGHT + (expectedNumLines - 1) * LINE_SPACING) / 2;
 				horizontalOffset = 0;
 			}
 			else
 			{
 				expectedNumLines = 1;
 				verticalOffset = 0;
-				horizontalOffset = (this.getBounds().width - 2 * MARGIN - letterWidgets
-						.size() * LETTER_WIDGET_WIDTH) / 2;
+				horizontalOffset = (this.getBounds().width - 2 * MARGIN - letterWidgets.size() * LETTER_WIDGET_WIDTH) / 2;
 			}
 
 			line = 0;
@@ -134,8 +176,7 @@ public class CryptogramSolveWidget extends Composite
 			for (int i = 0; i < letterWidgets.size(); i++)
 			{
 				// check if we would go past the end of the form
-				if (MARGIN + (leftPos + 1) * LETTER_WIDGET_WIDTH >= this
-						.getBounds().width - MARGIN)
+				if (MARGIN + (leftPos + 1) * LETTER_WIDGET_WIDTH >= this.getBounds().width - MARGIN)
 				{
 					// if a space was seen on this line
 					if (lastSeenSpace >= 0 && lastSeenSpaceLine == line)
@@ -152,27 +193,10 @@ public class CryptogramSolveWidget extends Composite
 						for (int j = lastSeenSpace + 1; j < i; j++)
 						{
 							fd_letterWidget = new FormData();
-							fd_letterWidget.right = new FormAttachment(0,
-									MARGIN + (leftPos + 1)
-											* LETTER_WIDGET_WIDTH
-											+ horizontalOffset);
-							fd_letterWidget.bottom = new FormAttachment(
-									50,
-									LETTER_WIDGET_HEIGHT
-											/ 2
-											+ line
-											* (LETTER_WIDGET_HEIGHT + LINE_SPACING)
-											- verticalOffset);
-							fd_letterWidget.top = new FormAttachment(
-									50,
-									-(LETTER_WIDGET_HEIGHT + 1)
-											/ 2
-											+ line
-											* (LETTER_WIDGET_HEIGHT + LINE_SPACING)
-											- verticalOffset);
-							fd_letterWidget.left = new FormAttachment(0, MARGIN
-									+ leftPos * LETTER_WIDGET_WIDTH
-									+ horizontalOffset);
+							fd_letterWidget.right = new FormAttachment(0, MARGIN + (leftPos + 1) * LETTER_WIDGET_WIDTH + horizontalOffset);
+							fd_letterWidget.bottom = new FormAttachment(50,	LETTER_WIDGET_HEIGHT / 2 + line	* (LETTER_WIDGET_HEIGHT + LINE_SPACING)	- verticalOffset);
+							fd_letterWidget.top = new FormAttachment(50,-(LETTER_WIDGET_HEIGHT + 1)	/ 2	+ line * (LETTER_WIDGET_HEIGHT + LINE_SPACING) - verticalOffset);
+							fd_letterWidget.left = new FormAttachment(0, MARGIN	+ leftPos * LETTER_WIDGET_WIDTH	+ horizontalOffset);
 							letterWidgets.get(j).setLayoutData(fd_letterWidget);
 
 							leftPos++;
@@ -187,19 +211,10 @@ public class CryptogramSolveWidget extends Composite
 				}
 
 				fd_letterWidget = new FormData();
-				fd_letterWidget.right = new FormAttachment(0, MARGIN
-						+ (leftPos + 1) * LETTER_WIDGET_WIDTH
-						+ horizontalOffset);
-				fd_letterWidget.bottom = new FormAttachment(50,
-						LETTER_WIDGET_HEIGHT / 2 + line
-								* (LETTER_WIDGET_HEIGHT + LINE_SPACING)
-								- verticalOffset);
-				fd_letterWidget.top = new FormAttachment(50,
-						-(LETTER_WIDGET_HEIGHT + 1) / 2 + line
-								* (LETTER_WIDGET_HEIGHT + LINE_SPACING)
-								- verticalOffset);
-				fd_letterWidget.left = new FormAttachment(0, MARGIN + leftPos
-						* LETTER_WIDGET_WIDTH + horizontalOffset);
+				fd_letterWidget.right = new FormAttachment(0, MARGIN + (leftPos + 1) * LETTER_WIDGET_WIDTH + horizontalOffset);
+				fd_letterWidget.bottom = new FormAttachment(50,	LETTER_WIDGET_HEIGHT / 2 + line	* (LETTER_WIDGET_HEIGHT + LINE_SPACING)	- verticalOffset);
+				fd_letterWidget.top = new FormAttachment(50, -(LETTER_WIDGET_HEIGHT + 1) / 2 + line	* (LETTER_WIDGET_HEIGHT + LINE_SPACING)	- verticalOffset);
+				fd_letterWidget.left = new FormAttachment(0, MARGIN + leftPos * LETTER_WIDGET_WIDTH + horizontalOffset);
 				letterWidgets.get(i).setLayoutData(fd_letterWidget);
 				letterWidgets.get(i).setVisible(true);
 
@@ -212,16 +227,13 @@ public class CryptogramSolveWidget extends Composite
 				leftPos++;
 			}
 
-			finalHeight = (expectedNumLines) * LETTER_WIDGET_HEIGHT
-					+ (expectedNumLines - 1) * LINE_SPACING;
+			finalHeight = (expectedNumLines) * LETTER_WIDGET_HEIGHT	+ (expectedNumLines - 1) * LINE_SPACING;
 			if (expectedNumLines <= line)
 			{
 				finalHeight += 2 * (LETTER_WIDGET_HEIGHT + LINE_SPACING);
 			}
-			finalHeight = Math.max(this.getParent().getBounds().height - 4,
-					finalHeight);
-			this.setBounds(this.getBounds().x, this.getBounds().y,
-					this.getBounds().width, finalHeight);
+			finalHeight = Math.max(this.getParent().getBounds().height - 4,	finalHeight);
+			this.setBounds(this.getBounds().x, this.getBounds().y, this.getBounds().width, finalHeight);
 
 			// indicate that the layout has changed
 			this.layout(true);

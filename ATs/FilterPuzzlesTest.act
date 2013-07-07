@@ -224,5 +224,7 @@ Click						MainWindow							btnQuit
 
 InvokeMethod        		pg13.app.PG13						shutDown
 
+InvokeMethod				tests.DBResetter					ResetHSQLDB
+
 Close 						MainWindow							shell
 				

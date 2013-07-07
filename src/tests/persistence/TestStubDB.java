@@ -29,6 +29,8 @@ public class TestStubDB extends TestCase
 
 		Cryptogram cr = new Cryptogram(null, "Title1", "Description1",
 				Category.Biology, Difficulty.Easy, "No plaintext", 10);
+		assertFalse(db.savePuzzle(cr));
+		cr.setUser(new User("Joe"));
 		assertTrue(db.savePuzzle(cr));
 		assertEquals(numPuzzles + 1, db.getAllPuzzles().size());
 		assertEquals(numPuzzles + 1, db.getSortedPuzzleIDs().size());
@@ -36,6 +38,7 @@ public class TestStubDB extends TestCase
 
 		cr = new Cryptogram(null, "Title2", "Description2", Category.Games,
 				Difficulty.Hard, "hard", 11);
+		cr.setUser(new User("Joe"));
 		assertTrue(db.savePuzzle(cr));
 		assertEquals(numPuzzles + 1, db.getAllPuzzles().size());
 		assertEquals(numPuzzles + 1, db.getSortedPuzzleIDs().size());
@@ -53,7 +56,7 @@ public class TestStubDB extends TestCase
 
 		assertEquals(db.getSortedPuzzleIDs().size(), numPuzzles);
 
-		Cryptogram cr = new Cryptogram(null, "Title1", "Description1",
+		Cryptogram cr = new Cryptogram(new User("Joe"), "Title1", "Description1",
 				Category.Biology, Difficulty.Easy, "No plaintext", 10);
 		assertTrue(db.savePuzzle(cr));
 		assertEquals(numPuzzles + 1, db.getAllPuzzles().size());
@@ -78,10 +81,10 @@ public class TestStubDB extends TestCase
 
 	public void testModifyingPuzzlesThatExist()
 	{
-		Cryptogram cr1 = new Cryptogram(null, "Title1", "Description1",
+		Cryptogram cr1 = new Cryptogram(new User("Joe"), "Title1", "Description1",
 				Category.Biology, Difficulty.Easy, "No plaintext", 10);
 		db.savePuzzle(cr1);
-		Cryptogram cr2 = new Cryptogram(null, "Title2", "Description2",
+		Cryptogram cr2 = new Cryptogram(new User("Jane"), "Title2", "Description2",
 				Category.Games, Difficulty.Hard, "hard", 11);
 		db.savePuzzle(cr2);
 

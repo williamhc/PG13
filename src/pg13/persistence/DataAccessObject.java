@@ -12,6 +12,7 @@ import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
 import pg13.models.Puzzle;
+import pg13.models.PuzzleValidationException;
 import pg13.models.User;
 
 public class DataAccessObject implements DataAccess
@@ -48,6 +49,13 @@ public class DataAccessObject implements DataAccess
 	public boolean savePuzzle(Puzzle puzzle)
 	{
 		String values;
+		try
+		{
+			puzzle.validate();
+		}  catch (PuzzleValidationException pve)
+		{
+			return false;
+		}
 
 		try
 		{
@@ -90,15 +98,15 @@ public class DataAccessObject implements DataAccess
 		{
 			String cmdString = "Delete from %s where PuzzleID=%d";
 			st1.executeUpdate(String.format(cmdString, "UserPuzzles", puzzleID));
-			st1.executeUpdate(String.format(cmdString, "Cryptograms", puzzleID));
+			updateCount = st1.executeUpdate(String.format(cmdString, "Cryptograms", puzzleID));
 
 		} catch (Exception e)
 		{
 			processSQLError(e);
-			return true;
+			return false;
 		}
 
-		return false;
+		return updateCount == 1;
 	}
 
 	@Override
@@ -147,15 +155,14 @@ public class DataAccessObject implements DataAccess
 		try
 		{
 			cmdString = String.format("Update CRYPTOGRAMS  Set %s='%s' where PuzzleID=%d", columnName, newValue, puzzleID);
-			st1.executeUpdate(cmdString);
+			updateCount = st1.executeUpdate(cmdString);
 		}
 		catch(Exception e)
 		{
 			processSQLError(e);
 			return false;
 		}
-		
-		return true;
+		return updateCount == 1;
 	}
 
 	@Override
@@ -461,6 +468,7 @@ public class DataAccessObject implements DataAccess
 	{
 		String result;
 		result = "*** SQL Error: " + e.getMessage();
+		System.out.println(result);
 		return result;
 	}
 

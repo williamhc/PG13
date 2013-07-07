@@ -27,7 +27,13 @@ public class PuzzleManager
 			ArrayList<Long> keys = dataAccess.getSortedPuzzleIDs();
 			long nextID = keys.size() == 0 ? 1 : keys.get(keys.size() - 1) + 1;
 			puzzle.setID(nextID);
-			return this.dataAccess.savePuzzle(puzzle);
+			boolean saved = this.dataAccess.savePuzzle(puzzle);
+			if(!saved)
+			{
+				// if it didn't save, we'll do a rollback
+				puzzle.setID(Puzzle.DEFAULT_ID);
+			}
+			return saved;
 		}
 		else
 		{

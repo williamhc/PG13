@@ -270,6 +270,7 @@ public class Cryptogram extends Puzzle
 
 	public void validate() throws PuzzleValidationException
 	{
+		super.validate();
 		if (this.plaintext == null || this.plaintext.length() == 0)
 		{
 			throw new PuzzleValidationException(INVALID_PLAINTEXT_MESSAGE);

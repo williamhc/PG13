@@ -5,6 +5,7 @@ import pg13.business.PuzzleManager;
 import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
+import pg13.models.User;
 import tests.persistence.StubDB;
 import junit.framework.TestCase;
 
@@ -24,6 +25,9 @@ public class PuzzleManagerTest extends TestCase
 		Cryptogram newPuzz = new Cryptogram();
 		int origSize = this.pm.getAllPuzzles().size();
 		assertFalse(this.pm.getAllPuzzles().contains(newPuzz));
+		assertFalse(this.pm.save(newPuzz));
+		newPuzz.setUser(new User("Joe"));
+		newPuzz.setPlaintext("ABC123");
 		assertTrue(this.pm.save(newPuzz));
 		assertTrue(this.pm.getAllPuzzles().contains(newPuzz));
 		assertEquals(this.pm.getAllPuzzles().size(), origSize + 1);
@@ -65,6 +69,8 @@ public class PuzzleManagerTest extends TestCase
 	public void testUpdatingValidPuzzle()
 	{
 		Cryptogram cm = new Cryptogram();
+		cm.setUser(new User("Joe"));
+		cm.setPlaintext("ABC123");
 		assertTrue(this.pm.save(cm));
 		
 		Cryptogram updatedCryptogram = new Cryptogram(null, "updated title", "new description", Category.Geography, Difficulty.Medium, "new plaintext", cm.getID());

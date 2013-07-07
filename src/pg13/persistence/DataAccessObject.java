@@ -98,7 +98,7 @@ public class DataAccessObject implements DataAccess
 		{
 			String cmdString = "Delete from %s where PuzzleID=%d";
 			st1.executeUpdate(String.format(cmdString, "UserPuzzles", puzzleID));
-			st1.executeUpdate(String.format(cmdString, "Cryptograms", puzzleID));
+			updateCount = st1.executeUpdate(String.format(cmdString, "Cryptograms", puzzleID));
 
 		} catch (Exception e)
 		{
@@ -106,7 +106,7 @@ public class DataAccessObject implements DataAccess
 			return false;
 		}
 
-		return true;
+		return updateCount == 1;
 	}
 
 	@Override

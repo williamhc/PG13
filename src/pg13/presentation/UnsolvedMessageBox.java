@@ -58,7 +58,7 @@ public class UnsolvedMessageBox extends Dialog
 		shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		shell.setImage(SWTResourceManager.getImage(UnsolvedMessageBox.class, "/junit/swingui/icons/error.gif"));
 		shell.setSize(320, 200);
-		shell.setText(MessageConstants.PUZZLE_SOLVED);
+		shell.setText(MessageConstants.PUZZLE_UNSOLVED);
 		shell.setLayout(null);
 		
 		sadOctocat = new Label(shell, SWT.WRAP);

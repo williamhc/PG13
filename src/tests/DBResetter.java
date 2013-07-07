@@ -30,7 +30,6 @@ public class DBResetter
 			
 		}catch(Exception e)
 		{
-			System.out.println(e.getMessage());
 		}
 		
 		//COPY NEW FILE WITH LIVE_NAME 

@@ -386,7 +386,6 @@ public class DataAccessObject implements DataAccess
 		{
 			processSQLError(e);
 		}
-		System.out.println("Closed " + dbType + " database " + dbName);
 	}
 
 	@Override
@@ -399,7 +398,6 @@ public class DataAccessObject implements DataAccess
 			values = String.format("%d, '%s'", user.getPrimaryKey(),
 					sanitize(user.getName()));
 			cmdString = "Insert into Users Values(" + values + ")";
-			System.out.println(cmdString);
 			updateCount = st1.executeUpdate(cmdString);
 			checkWarning(st1, updateCount);
 		} catch (Exception e)
@@ -413,7 +411,6 @@ public class DataAccessObject implements DataAccess
 			{
 				values = user.getPrimaryKey() + ", " + puzzle.getID();
 				cmdString = "Insert into UserPuzzles Values(" + values + ")";
-				System.out.println(cmdString);
 				updateCount = st1.executeUpdate(cmdString);
 				checkWarning(st1, updateCount);
 			}
@@ -468,7 +465,6 @@ public class DataAccessObject implements DataAccess
 	{
 		String result;
 		result = "*** SQL Error: " + e.getMessage();
-		System.out.println(result);
 		return result;
 	}
 

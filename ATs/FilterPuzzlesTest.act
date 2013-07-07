@@ -185,13 +185,36 @@ TestComboValue				FindScreen							cmbCategory "History"
 SelectTableByRowIndex 		FindScreen							table 0
 TestTableByColumnLabel		FindScreen							table "Category" "History"
 
-// test difficulty filter
+SelectComboByIndex			FindScreen							cmbCategory 0	
+TestComboValue				FindScreen							cmbCategory "All Categories"
 
 // easy, should be two
+Click						FindScreen							btnEasy
+
+SelectTableByRowIndex 		FindScreen							table 0
+TestTableByColumnLabel		FindScreen							table "Difficulty" "Easy"
+SelectTableByRowIndex 		FindScreen							table 1
+TestTableByColumnLabel		FindScreen							table "Difficulty" "Easy"
+
+Click						FindScreen							btnEasy
 
 // medium, should be one
+Click						FindScreen							btnMedium
+
+SelectTableByRowIndex 		FindScreen							table 0
+TestTableByColumnLabel		FindScreen							table "Difficulty" "Medium"
+
+Click						FindScreen							btnMedium
 
 // hard, should be two
+Click						FindScreen							btnDifficult
+
+SelectTableByRowIndex 		FindScreen							table 0
+TestTableByColumnLabel		FindScreen							table "Difficulty" "Hard"
+SelectTableByRowIndex 		FindScreen							table 1
+TestTableByColumnLabel		FindScreen							table "Difficulty" "Hard"
+
+Click						FindScreen							btnDifficult
 
 // log out
 Click						MainWindow							btnLogout

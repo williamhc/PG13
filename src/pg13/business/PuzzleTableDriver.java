@@ -25,8 +25,7 @@ public class PuzzleTableDriver
 		this.columnLabels.put("Title", new PuzzleTitleColumnProvider());
 		this.columnLabels.put("Author", new PuzzleAuthorColumnProvider());
 		this.columnLabels.put("Category", new PuzzleCategoryColumnProvider());
-		this.columnLabels.put("Difficulty",
-				new PuzzleDifficultyColumnProvider());
+		this.columnLabels.put("Difficulty", new PuzzleDifficultyColumnProvider());
 
 		// set the initial puzzle list
 		this.puzzleList = puzzleList;

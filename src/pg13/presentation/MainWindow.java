@@ -123,7 +123,7 @@ public class MainWindow
 			}
 		});
 		FormData fd_btnPlay = new FormData();
-		fd_btnPlay.right = new FormAttachment(0, 86);
+		fd_btnPlay.right = new FormAttachment(0, 135);
 		fd_btnPlay.top = new FormAttachment(0, 11);
 		fd_btnPlay.left = new FormAttachment(0, 5);
 		btnPlay.setLayoutData(fd_btnPlay);
@@ -140,9 +140,9 @@ public class MainWindow
 			}
 		});
 		FormData fd_btnCreate = new FormData();
-		fd_btnCreate.right = new FormAttachment(0, 258);
+		fd_btnCreate.right = new FormAttachment(0, 270);
 		fd_btnCreate.top = new FormAttachment(0, 11);
-		fd_btnCreate.left = new FormAttachment(0, 177);
+		fd_btnCreate.left = new FormAttachment(0, 140);
 		btnCreate.setLayoutData(fd_btnCreate);
 		btnCreate.setText(Constants.CREATE);
 

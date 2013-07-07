@@ -327,8 +327,6 @@ public class PuzzlePropertiesWidget extends Composite
 
 	private void checkSolution()
 	{
-		String msg;
-
 		if (this.displayingPuzzle != null
 				&& this.displayingPuzzle.isCompleted())
 		{

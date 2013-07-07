@@ -1,0 +1,82 @@
+Package						pg13.presentation
+
+InvokeMethod        		pg13.app.PG13						startUp
+InvokeMethod				tests.atrStubs.StubInjector			injectMessageBoxStub
+
+// go to the login screen
+Click						MainWindow							btnMainLogin
+
+
+// select Guest and checked that we're logged in as guest
+SelectComboByIndex			LoginScreen							cmbUsernames 0	
+TestComboValue				LoginScreen							cmbUsernames "Guest"
+Click						LoginScreen							btnLogMeIn	
+Test						MainWindow							lblLoggedInAs "Logged in as Guest"		
+
+//Click create Puzzle button and create a puzzle
+Click						MainWindow							btnCreate
+
+Set							PuzzlePropertiesWidgetEdit			txtPuzzleName "Original Puzzle Name"
+Test						PuzzlePropertiesWidgetEdit			txtPuzzleName "Original Puzzle Name"
+
+Set							PuzzlePropertiesWidgetEdit			txtDescription "This description will be modified."
+Test						PuzzlePropertiesWidgetEdit			txtDescription "This description will be modified."
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbCategory 0	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbCategory "Animals"
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbDificulty 0	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbDificulty "Easy"
+
+Set							CryptogramEditWidget				txtPlaintext "This plaintext will be modified."
+Test						CryptogramEditWidget				txtPlaintext "This plaintext will be modified."
+
+Click						PuzzlePropertiesWidgetEdit			btnSavePuzzle
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle saved!"
+Package						pg13.presentation
+
+// go to the find screen and select the puzzle to edit it
+Click						MainWindow							btnPlay
+SelectTableByRowValue 		FindScreen							table "Title" "Original Puzzle Name"
+Click						FindScreen							btnEdit	
+
+// modify all the fields
+Set							PuzzlePropertiesWidgetEdit			txtPuzzleName "New Puzzle Name"
+Test						PuzzlePropertiesWidgetEdit			txtPuzzleName "New Puzzle Name"
+
+Set							PuzzlePropertiesWidgetEdit			txtDescription "This description is much better."
+Test						PuzzlePropertiesWidgetEdit			txtDescription "This description is much better."
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbCategory 1	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbCategory "Biology"
+
+SelectComboByIndex			PuzzlePropertiesWidgetEdit			cmbDificulty 1	
+TestComboValue				PuzzlePropertiesWidgetEdit			cmbDificulty "Medium"
+
+Set							CryptogramEditWidget				txtPlaintext "This plaintext is brand new!"
+Test						CryptogramEditWidget				txtPlaintext "This plaintext is brand new!"
+
+Click						PuzzlePropertiesWidgetEdit			btnSavePuzzle
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle saved!"
+Package						pg13.presentation
+
+// go to the find screen and select the puzzle to edit it
+Click						MainWindow							btnPlay
+SelectTableByRowValue 		FindScreen							table "Title" "New Puzzle Name"
+Click						FindScreen							btnPlaySelectedPuzzle	
+
+//Test play screen is populated correctly
+Test						PuzzlePropertiesWidgetView			txtPuzzleName "New Puzzle Name"
+Test						PuzzlePropertiesWidgetView			txtDescription "This description is much better."
+Test						PuzzlePropertiesWidgetView			lblCategoryFixedText "Biology"
+Test						PuzzlePropertiesWidgetView			lblDifficultyFixedText "Medium"
+
+//exit the application
+Click						MainWindow							btnQuit
+
+InvokeMethod        		pg13.app.PG13						shutDown
+
+Close 						MainWindow							shell
+				

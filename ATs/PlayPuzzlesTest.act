@@ -61,7 +61,7 @@ Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
 // correct solution
 Click						PuzzlePropertiesWidgetView			btnCheckSolution
 Package						tests.atrStubs
-Test						MessageBoxMakerStub					lblMessage "Puzzle solved!"
+Test						MessageBoxMakerStub					lblMessage "Congrats! You solved it! You are the best! Why not try another one?"
 Package						pg13.presentation
 
 
@@ -125,7 +125,7 @@ Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
 // correct solution
 Click						PuzzlePropertiesWidgetView			btnCheckSolution
 Package						tests.atrStubs
-Test						MessageBoxMakerStub					lblMessage "Puzzle solved!"
+Test						MessageBoxMakerStub					lblMessage "Congrats! You solved it! You are the best! Why not try another one?"
 Package						pg13.presentation
 
 //exit the application

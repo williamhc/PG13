@@ -596,4 +596,9 @@ public class MainWindow
 	{
 		shell.dispose();
 	}
+
+	public void hurrayMessage()
+	{
+		this.messageBoxStrategy.hurrayMessage(shell);
+	}
 }

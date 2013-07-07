@@ -6,6 +6,7 @@ public class Constants
 	public static final String PG13 				= 			"PG13";
 	public static final String QUIT 				= 			"Quit";
 	public static final String VERSION 				= 			"Version 2.00";
+	public static final String OK 					= 			"Ok";
 	
 	//Logon/Signup Screen
 	public static final String LOGIN_BUTTON 		= 			"Log Me In!";

@@ -332,14 +332,14 @@ public class PuzzlePropertiesWidget extends Composite
 		if (this.displayingPuzzle != null
 				&& this.displayingPuzzle.isCompleted())
 		{
-			msg = MessageConstants.PUZZLE_SOLVED;
+			MainWindow.getInstance().hurrayMessage();
 		}
 		else
 		{
 			msg = MessageConstants.PUZZLE_UNSOLVED;
+			MainWindow.getInstance().showInfoMessage(Constants.PUZZLE_SOLUTION, msg);
 		}
 
-		MainWindow.getInstance().showInfoMessage(Constants.PUZZLE_SOLUTION, msg);
 	}
 
 	@Override

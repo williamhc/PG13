@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Shell;
 import acceptanceTests.Register;
 
 import pg13.presentation.IMessageBoxStrategy;
+import pg13.presentation.MessageConstants;
 
 public class MessageBoxMakerStub implements IMessageBoxStrategy
 {	
@@ -37,6 +38,18 @@ public class MessageBoxMakerStub implements IMessageBoxStrategy
 			lblMessage.setVisible(false);
 		}
 		lblMessage.setText(message);
+	}
+
+	@Override
+	public void hurrayMessage(Shell shell)
+	{
+		if (lblMessage == null)
+		{
+			lblMessage = new Label(shell, SWT.NONE);
+			lblMessage.setVisible(false);
+		}
+		lblMessage.setText(MessageConstants.SOLVED_PUZZLE_MESSAGE);
+		
 	}
 
 }

@@ -34,4 +34,9 @@ public class MessageBoxMaker implements IMessageBoxStrategy
 
 		dialog.open();
 	}
+	
+	public void hurrayMessage(Shell shell)
+	{
+		new SolvedMessageBox(shell).open();
+	}
 }

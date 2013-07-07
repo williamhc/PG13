@@ -36,6 +36,97 @@ Package						tests.atrStubs
 Test						MessageBoxMakerStub					lblMessage "Puzzle NOT solved!"
 Package						pg13.presentation
 
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "r"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "2"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "t"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "3"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+// incorrect solution
+Click						PuzzlePropertiesWidgetView			btnCheckSolution
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle NOT solved!"
+Package						pg13.presentation
+
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "k"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "2"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "e"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "3"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+// correct solution
+Click						PuzzlePropertiesWidgetView			btnCheckSolution
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle solved!"
+Package						pg13.presentation
+
+
+// go to the find screen and select the next puzzle to play
+Click						MainWindow							btnPlay
+SelectTableByRowValue 		FindScreen							table "Title" "another puzzle"
+Click						FindScreen							btnPlaySelectedPuzzle	
+
+// ensure we picked the right puzzle
+Test						PuzzlePropertiesWidgetView			txtPuzzleName "another puzzle"
+
+// fill in the letters, longer puzzle, jumbled order
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "e"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "4"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "t"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "2"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "b"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "0"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "u"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "1"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+// partially complete solution
+Click						PuzzlePropertiesWidgetView			btnCheckSolution
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle NOT solved!"
+Package						pg13.presentation
+
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "l"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "7"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "r"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "5"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+// partially complete solution
+Click						PuzzlePropertiesWidgetView			btnCheckSolution
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle NOT solved!"
+Package						pg13.presentation
+
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "i"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "8"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "s"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "10"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "f"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "6"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+// correct solution
+Click						PuzzlePropertiesWidgetView			btnCheckSolution
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle solved!"
+Package						pg13.presentation
 
 //exit the application
 Click						MainWindow							btnQuit

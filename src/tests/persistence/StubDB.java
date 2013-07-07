@@ -8,6 +8,7 @@ import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
 import pg13.models.Puzzle;
+import pg13.models.PuzzleValidationException;
 import pg13.models.User;
 import pg13.persistence.DataAccess;
 
@@ -38,6 +39,14 @@ public class StubDB implements DataAccess
 	@Override
 	public boolean savePuzzle(Puzzle puzzle)
 	{
+		try
+		{
+			puzzle.validate();
+		} catch(PuzzleValidationException pve)
+		{
+			return false;
+		}
+
 		this.puzzles.add(puzzle);
 		return true;
 	}
@@ -212,7 +221,6 @@ public class StubDB implements DataAccess
 	@Override
 	public void close()
 	{
-		System.out.println("Closed " + dbType + " database " + dbName);
 	}
 
 	private Puzzle findPuzzle(long id)

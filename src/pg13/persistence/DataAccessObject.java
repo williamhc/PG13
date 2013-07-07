@@ -12,6 +12,7 @@ import pg13.models.Category;
 import pg13.models.Cryptogram;
 import pg13.models.Difficulty;
 import pg13.models.Puzzle;
+import pg13.models.PuzzleValidationException;
 import pg13.models.User;
 
 public class DataAccessObject implements DataAccess
@@ -48,6 +49,13 @@ public class DataAccessObject implements DataAccess
 	public boolean savePuzzle(Puzzle puzzle)
 	{
 		String values;
+		try
+		{
+			puzzle.validate();
+		}  catch (PuzzleValidationException pve)
+		{
+			return false;
+		}
 
 		try
 		{

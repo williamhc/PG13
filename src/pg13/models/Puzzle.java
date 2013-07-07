@@ -99,7 +99,9 @@ public abstract class Puzzle
 
 	public void validate() throws PuzzleValidationException
 	{
-
+		if(this.user == null){
+			throw new PuzzleValidationException("Puzzles need an author.");
+		}
 	}
 
 	public long getID()

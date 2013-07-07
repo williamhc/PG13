@@ -484,6 +484,12 @@ public class MainWindow
 		// show the create screen and hide other screens
 		switchToCreateScreen();
 	}
+	
+	public void editPuzzle(Cryptogram puzzle)
+	{
+		cmpCreateScreen.setPuzzle(puzzle);
+		switchToCreateScreen();		
+	}
 
 	private void playPressed()
 	{

@@ -336,8 +336,7 @@ public class PuzzlePropertiesWidget extends Composite
 		}
 		else
 		{
-			msg = MessageConstants.PUZZLE_UNSOLVED;
-			MainWindow.getInstance().showInfoMessage(Constants.PUZZLE_SOLUTION, msg);
+			MainWindow.getInstance().unsolvedPuzzleMessage();
 		}
 
 	}

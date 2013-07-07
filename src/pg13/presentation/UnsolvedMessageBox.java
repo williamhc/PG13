@@ -13,12 +13,12 @@ import pg13.org.eclipse.wb.swt.SWTResourceManager;
 import acceptanceTests.EventLoop;
 import acceptanceTests.Register;
 
-public class SolvedMessageBox extends Dialog
+public class UnsolvedMessageBox extends Dialog
 {
 
 	protected Object result;
 	protected Shell shell;
-	private Label octoRiddler;
+	private Label sadOctocat;
 	private Button okButton;
 
 	/**
@@ -26,7 +26,7 @@ public class SolvedMessageBox extends Dialog
 	 * @param parent
 	 * @param style
 	 */
-	public SolvedMessageBox(Shell parent) {
+	public UnsolvedMessageBox(Shell parent) {
 		super(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		Register.newWindow(this);
 	}
@@ -56,17 +56,17 @@ public class SolvedMessageBox extends Dialog
 	 */
 	private void createContents() {
 		shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-		shell.setImage(SWTResourceManager.getImage(SolvedMessageBox.class, "/junit/swingui/icons/ok.gif"));
+		shell.setImage(org.eclipse.wb.swt.SWTResourceManager.getImage(UnsolvedMessageBox.class, "/junit/swingui/icons/error.gif"));
 		shell.setSize(320, 200);
 		shell.setText(MessageConstants.PUZZLE_SOLVED);
 		shell.setLayout(null);
 		
-		octoRiddler = new Label(shell, SWT.WRAP);
-		octoRiddler.setAlignment(SWT.CENTER);
-		octoRiddler.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		octoRiddler.setBounds(10, 10, 132, 134);
-		octoRiddler.setImage(SWTResourceManager.getImage(SolvedMessageBox.class, "/images/riddlocat.png"));
-		octoRiddler.setFont(SWTResourceManager.getFont("Lucida Grande", 13, SWT.NORMAL));
+		sadOctocat = new Label(shell, SWT.WRAP);
+		sadOctocat.setAlignment(SWT.CENTER);
+		sadOctocat.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		sadOctocat.setBounds(10, 10, 132, 134);
+		sadOctocat.setImage(SWTResourceManager.getImage(SolvedMessageBox.class, "/images/octocatsad.png"));
+		sadOctocat.setFont(SWTResourceManager.getFont("Lucida Grande", 13, SWT.NORMAL));
 		
 		okButton = new Button(shell, SWT.NONE);
 		okButton.setBounds(179, 132, 100, 30);
@@ -84,7 +84,7 @@ public class SolvedMessageBox extends Dialog
 		lblCongratsYouSolved.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		lblCongratsYouSolved.setAlignment(SWT.CENTER);
 		lblCongratsYouSolved.setBounds(148, 20, 156, 101);
-		lblCongratsYouSolved.setText(MessageConstants.SOLVED_PUZZLE_MESSAGE);
+		lblCongratsYouSolved.setText(MessageConstants.UNSOLVED_PUZZLE_MESSAGE);
 		
 	}
 } 

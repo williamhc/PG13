@@ -33,7 +33,7 @@ Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
 // partially complete solution
 Click						PuzzlePropertiesWidgetView			btnCheckSolution
 Package						tests.atrStubs
-Test						MessageBoxMakerStub					lblMessage "Puzzle NOT solved!"
+Test						MessageBoxMakerStub					lblMessage "Nice try but not quite right. Keep on trying to solve it!"
 Package						pg13.presentation
 
 Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "r"
@@ -47,7 +47,7 @@ Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
 // incorrect solution
 Click						PuzzlePropertiesWidgetView			btnCheckSolution
 Package						tests.atrStubs
-Test						MessageBoxMakerStub					lblMessage "Puzzle NOT solved!"
+Test						MessageBoxMakerStub					lblMessage "Nice try but not quite right. Keep on trying to solve it!"
 Package						pg13.presentation
 
 Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "k"
@@ -93,7 +93,7 @@ Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
 // partially complete solution
 Click						PuzzlePropertiesWidgetView			btnCheckSolution
 Package						tests.atrStubs
-Test						MessageBoxMakerStub					lblMessage "Puzzle NOT solved!"
+Test						MessageBoxMakerStub					lblMessage "Nice try but not quite right. Keep on trying to solve it!"
 Package						pg13.presentation
 
 Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "l"
@@ -107,7 +107,7 @@ Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
 // partially complete solution
 Click						PuzzlePropertiesWidgetView			btnCheckSolution
 Package						tests.atrStubs
-Test						MessageBoxMakerStub					lblMessage "Puzzle NOT solved!"
+Test						MessageBoxMakerStub					lblMessage "Nice try but not quite right. Keep on trying to solve it!"
 Package						pg13.presentation
 
 Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "i"

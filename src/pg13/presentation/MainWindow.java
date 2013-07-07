@@ -601,4 +601,9 @@ public class MainWindow
 	{
 		this.messageBoxStrategy.hurrayMessage(shell);
 	}
+
+	public void unsolvedPuzzleMessage()
+	{
+		this.messageBoxStrategy.unsolvedMessage(shell);
+	}
 }

@@ -9,4 +9,6 @@ public interface IMessageBoxStrategy
 	public void infoMessage(Shell shell, String header, String message);
 	
 	public void hurrayMessage(Shell shell);
+
+	void unsolvedMessage(Shell shell);
 }

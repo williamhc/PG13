@@ -51,5 +51,17 @@ public class MessageBoxMakerStub implements IMessageBoxStrategy
 		lblMessage.setText(MessageConstants.SOLVED_PUZZLE_MESSAGE);
 		
 	}
+	
+	@Override
+	public void unsolvedMessage(Shell shell)
+	{
+		if (lblMessage == null)
+		{
+			lblMessage = new Label(shell, SWT.NONE);
+			lblMessage.setVisible(false);
+		}
+		lblMessage.setText(MessageConstants.UNSOLVED_PUZZLE_MESSAGE);
+		
+	}
 
 }

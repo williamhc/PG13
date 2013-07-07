@@ -39,4 +39,11 @@ public class MessageBoxMaker implements IMessageBoxStrategy
 	{
 		new SolvedMessageBox(shell).open();
 	}
+
+	@Override
+	public void unsolvedMessage(Shell shell)
+	{
+		new UnsolvedMessageBox(shell).open();
+		
+	}
 }

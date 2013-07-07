@@ -59,7 +59,7 @@ public class PlayScreen extends Composite
 		cmpSolveScrollable.setExpandHorizontal(true);
 
 		// puzzle solve widget, for now is only cryptogram
-		cmpSolveWidget = new CryptogramSolveWidget(cmpSolveScrollable, SWT.NONE, workingPuzzle);
+		cmpSolveWidget = new CryptogramSolveWidget(cmpSolveScrollable, SWT.NONE, workingPuzzle, "Play");
 		FormData fd_composite = new FormData();
 		fd_composite.bottom = new FormAttachment(100);
 		fd_composite.right = new FormAttachment(100);

@@ -54,10 +54,16 @@ public class MainWindow
 	private ToolItem tltmHome;
 	private ToolItem tltmLogout;
 	private Button btnQuit;
+	
+	// these buttons are here as duplicates of the ToolItems, as
+	// a workaround for ATR, since it cannot interact with ToolItems
+	private Button btnHome;
+	private Button btnMyPuzzles;
+	private Button btnLogout;
 
 	public static MainWindow getInstance()
 	{
-		if (instance == null)
+		if (instance == null || instance.isDisposed())
 		{
 			new MainWindow();
 		}
@@ -67,13 +73,15 @@ public class MainWindow
 
 	public MainWindow()
 	{	
-		if (instance != null)
+		if (instance != null && !instance.isDisposed())
 			throw new RuntimeException("Too many main windows.");
+		
+		instance = this;
+		
 		display = Display.getDefault();
 		Register.newWindow(this);
 		this.messageBoxStrategy = new MessageBoxMaker();
 		createWindow();
-		instance = this;
 	}
 
 	public User getLoggedInUser()
@@ -184,9 +192,7 @@ public class MainWindow
 			@Override
 			public void widgetSelected(SelectionEvent e)
 			{
-				switchToFindScreen();
-				cmpFindScreen.selectMyPuzzles();
-				cmpFindScreen.filterByMyPuzzles();
+				goToMyPuzzles();
 			}
 		});
 
@@ -366,7 +372,7 @@ public class MainWindow
 			@Override
 			public void widgetSelected(SelectionEvent e)
 			{
-				shell.dispose();
+				quit();
 			}
 		});
 		FormData fd_btnQuit = new FormData();
@@ -384,6 +390,40 @@ public class MainWindow
 		lblVersion.setText(Constants.VERSION);
 
 		hideToolbar();
+		
+		// these widgets are here because ATR cannot interact with ToolItems
+		btnHome = new Button(shell, SWT.NONE);
+		btnHome.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e)
+			{
+				switchToWelcomeScreen();
+			}
+		});
+		btnHome.setVisible(false);
+		
+		btnLogout = new Button(shell, SWT.NONE);
+		btnLogout.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e)
+			{
+				logout();
+			}
+		});
+		btnLogout.setVisible(false);
+		
+		btnMyPuzzles = new Button(shell, SWT.NONE);
+		btnMyPuzzles.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e)
+			{
+				goToMyPuzzles();
+			}
+		});
+		btnMyPuzzles.setVisible(false);
 
 		// show the window
 		shell.open();
@@ -532,5 +572,22 @@ public class MainWindow
 	public void setMessageBoxStrategy(IMessageBoxStrategy newStrategy)
 	{
 		this.messageBoxStrategy = newStrategy;
+	}
+	
+	private void goToMyPuzzles() 
+	{
+		switchToFindScreen();
+		cmpFindScreen.selectMyPuzzles();
+		cmpFindScreen.filterByMyPuzzles();
+	}
+	
+	public boolean isDisposed()
+	{
+		return shell.isDisposed();
+	}
+	
+	private void quit()
+	{
+		shell.dispose();
 	}
 }

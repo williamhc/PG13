@@ -13,16 +13,26 @@ import org.eclipse.swt.events.ControlEvent;
 import pg13.models.Cryptogram;
 
 import acceptanceTests.Register;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class CryptogramSolveWidget extends Composite
 {
 	private ArrayList<CryptogramLetterWidget> letterWidgets;
 	private Cryptogram solvingCryptogram;
+	
+	// these widgets are only here as a workaround to allow ATR to interact with the
+	// widgets in the letterWidgets data structure
+	private Text txtLetterWidgetValue;
+	private Text txtLetterWidgetID;
+	private Button btnSubmitLetterWidget;
 
-	public CryptogramSolveWidget(Composite parent, int style, Cryptogram solvingCryptogram)
+	public CryptogramSolveWidget(Composite parent, int style, Cryptogram solvingCryptogram, String windowIdentifier)
 	{
 		super(parent, style);
-		Register.newWindow(this);
+		Register.newWindow(this, "CryptogramSolveWidget" + windowIdentifier);
 
 		this.solvingCryptogram = solvingCryptogram;
 
@@ -36,6 +46,41 @@ public class CryptogramSolveWidget extends Composite
 		});
 		setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		setLayout(new FormLayout());
+		
+		
+		// these widgets are only here as a workaround to allow ATR to interact with the
+		// widgets in the letterWidgets data structure
+		txtLetterWidgetValue = new Text(this, SWT.BORDER);
+		FormData fd_txtLetterWidgetValue = new FormData();
+		fd_txtLetterWidgetValue.top = new FormAttachment(0, 10);
+		fd_txtLetterWidgetValue.left = new FormAttachment(0, 10);
+		txtLetterWidgetValue.setLayoutData(fd_txtLetterWidgetValue);
+		txtLetterWidgetValue.setVisible(false);
+		
+		txtLetterWidgetID = new Text(this, SWT.BORDER);
+		FormData fd_txtLetterWidgetID = new FormData();
+		fd_txtLetterWidgetID.top = new FormAttachment(0, 40);
+		fd_txtLetterWidgetID.left = new FormAttachment(0, 10);
+		txtLetterWidgetID.setLayoutData(fd_txtLetterWidgetID);
+		txtLetterWidgetID.setVisible(false);
+		
+		btnSubmitLetterWidget = new Button(this, SWT.NONE);
+		btnSubmitLetterWidget.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				int letterWidgetID = Integer.parseInt(txtLetterWidgetID.getText());
+				
+				letterWidgets.get(letterWidgetID).setText(txtLetterWidgetValue.getText());
+			}
+		});
+		FormData fd_btnSubmitLetterWidget = new FormData();
+		fd_btnSubmitLetterWidget.top = new FormAttachment(txtLetterWidgetID, 6);
+		fd_btnSubmitLetterWidget.left = new FormAttachment(txtLetterWidgetValue, 0, SWT.LEFT);
+		btnSubmitLetterWidget.setLayoutData(fd_btnSubmitLetterWidget);
+		btnSubmitLetterWidget.setText("Submit");
+		btnSubmitLetterWidget.setVisible(false);
 
 	}
 

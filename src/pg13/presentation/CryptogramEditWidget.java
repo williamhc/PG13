@@ -46,7 +46,7 @@ public class CryptogramEditWidget extends Composite
 		cmpPreviewScrollable.setExpandHorizontal(true);
 
 		// cryptogram preview widget
-		cmpPreview = new CryptogramSolveWidget(cmpPreviewScrollable, SWT.NONE, workingCryptogram);
+		cmpPreview = new CryptogramSolveWidget(cmpPreviewScrollable, SWT.NONE, workingCryptogram, "Edit");
 		FormData fd_cmpPreview = new FormData();
 		fd_cmpPreview.bottom = new FormAttachment(100, -10);
 		fd_cmpPreview.right = new FormAttachment(100, -10);

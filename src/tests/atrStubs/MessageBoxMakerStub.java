@@ -1,7 +1,6 @@
 package tests.atrStubs;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
@@ -10,12 +9,12 @@ import acceptanceTests.Register;
 import pg13.presentation.IMessageBoxStrategy;
 
 public class MessageBoxMakerStub implements IMessageBoxStrategy
-{
+{	
 	Label lblMessage;
 	
 	public MessageBoxMakerStub()
 	{	
-		Register.newWindow(this);		
+		Register.newWindow(this);	
 	}
 
 	@Override

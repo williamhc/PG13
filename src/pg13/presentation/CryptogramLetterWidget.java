@@ -152,4 +152,9 @@ public class CryptogramLetterWidget extends Composite
 
 		}
 	}
+	
+	public void setText(String text)
+	{
+		txtPlaintextChar.setText(text);
+	}
 }

@@ -4,7 +4,12 @@ import pg13.presentation.MainWindow;
 
 public class StubInjector 
 {
-	public void injectMessageBoxMakerStub()
+	public StubInjector()
+	{
+		
+	}
+	
+	public void injectMessageBoxStub()
 	{
 		MainWindow.getInstance().setMessageBoxStrategy(new MessageBoxMakerStub());
 	}

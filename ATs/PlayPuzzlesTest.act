@@ -1,0 +1,46 @@
+Package						pg13.presentation
+
+InvokeMethod        		pg13.app.PG13						startUp
+InvokeMethod				tests.atrStubs.StubInjector			injectMessageBoxStub
+
+// go to the login screen
+Click						MainWindow							btnMainLogin
+
+// select Guest and checked that we're logged in as guest
+SelectComboByIndex			LoginScreen							cmbUsernames 0	
+TestComboValue				LoginScreen							cmbUsernames "Guest"
+Click						LoginScreen							btnLogMeIn	
+Test						MainWindow							lblLoggedInAs "Logged in as Guest"		
+
+// go to the find screen and select the first puzzle to play
+Click						MainWindow							btnPlay
+SelectTableByRowValue 		FindScreen							table "Title" "My first puzzle"
+Click						FindScreen							btnPlaySelectedPuzzle	
+
+// ensure we picked the right puzzle
+Test						PuzzlePropertiesWidgetView			txtPuzzleName "My first puzzle"
+
+// fill in the letters, using the workaround method, because since letterwidgets are
+// stored in a data structure, we cannot communicate to them directly
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "f"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "0"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetValue "a"
+Set							CryptogramSolveWidgetPlay			txtLetterWidgetID "1"
+Click						CryptogramSolveWidgetPlay			btnSubmitLetterWidget
+
+// partially complete solution
+Click						PuzzlePropertiesWidgetView			btnCheckSolution
+Package						tests.atrStubs
+Test						MessageBoxMakerStub					lblMessage "Puzzle NOT solved!"
+Package						pg13.presentation
+
+
+//exit the application
+Click						MainWindow							btnQuit
+
+InvokeMethod        		pg13.app.PG13						shutDown
+
+Close 						MainWindow							shell
+

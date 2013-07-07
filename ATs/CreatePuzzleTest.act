@@ -48,6 +48,11 @@ Test						PuzzlePropertiesWidgetView			txtDescription "This is a Default Puzzle 
 Test						PuzzlePropertiesWidgetView			lblCategoryFixedText "Animals"
 Test						PuzzlePropertiesWidgetView			lblDifficultyFixedText "Easy"
 
+// delete the puzzle
+Click						MainWindow							btnPlay
+SelectTableByRowValue 		FindScreen							table "Title" "Default Puzzle Name"
+Click						FindScreen							btnDelete
+
 //exit the application
 Click						MainWindow							btnQuit
 

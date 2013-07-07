@@ -56,7 +56,7 @@ public class UnsolvedMessageBox extends Dialog
 	 */
 	private void createContents() {
 		shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-		shell.setImage(org.eclipse.wb.swt.SWTResourceManager.getImage(UnsolvedMessageBox.class, "/junit/swingui/icons/error.gif"));
+		shell.setImage(SWTResourceManager.getImage(UnsolvedMessageBox.class, "/junit/swingui/icons/error.gif"));
 		shell.setSize(320, 200);
 		shell.setText(MessageConstants.PUZZLE_SOLVED);
 		shell.setLayout(null);

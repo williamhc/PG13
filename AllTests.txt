@@ -1,18 +1,779 @@
 
-C:\Users\Eric\Documents\GitHub\PG13>REM @echo on
+C:\Users\Eric\Documents\GitHub\PG13>REM @echo off 
 
-C:\Users\Eric\Documents\GitHub\PG13>java junit.textui.TestRunner tests.AllTests
+C:\Users\Eric\Documents\GitHub\PG13>call SetClasspath 
+
+C:\Users\Eric\Documents\GitHub\PG13>REM @echo off 
+
+C:\Users\Eric\Documents\GitHub\PG13>set CLASSPATH=.;bin\;jars\swt.jar;jars\junit.jar;jars\hsqldb.jar;jars\org.eclipse.jface_3.8.102.v20130123-162658.jar;jars\org.eclipse.core.commands_3.6.2.v20130123-162658.jar;jars\org.eclipse.core.runtime_3.8.0.v20120912-155025.jar;jars\org.eclipse.equinox.common_3.6.100.v20120522-1841.jar;jars\atr-1.0.1.jar; 
+
+C:\Users\Eric\Documents\GitHub\PG13>REM @echo on 
+
+C:\Users\Eric\Documents\GitHub\PG13>java junit.textui.TestRunner tests.AllTests 
 .........................................
 .........................................
-...Closed stub database testing
-.Closed stub database testing
-.Closed stub database testing
-.Closed stub database testing
-.Closed stub database testing
+.................-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 
-Time: 0.288
+Starting acceptance tests (ATR3)
 
-OK (89 tests)
+Script C:\Users\Eric\Documents\GitHub\PG13/ATs/CreatePuzzleTest.act
+
+Package                 pg13.presentation
+  
+InvokeMethod            pg13.app.PG13                       startUp
+InvokeMethod            tests.atrStubs.StubInjector         injectMessageBoxStub
+  
+// go to the login screen  
+Click                   MainWindow                          btnMainLogin
+  
+  
+// select Guest and checked that we're logged in as guest  
+SelectComboByIndex      LoginScreen                         cmbUsernames         0
+---------------------------------------------------------------------------------<Guest>
+TestComboValue          LoginScreen                         cmbUsernames         "Guest"
+Click                   LoginScreen                         btnLogMeIn
+Test                    MainWindow                          lblLoggedInAs        "Logged in as Guest"
+  
+//Click create Puzzle button and create me a puzzle  
+Click                   MainWindow                          btnCreate
+  
+Set                     PuzzlePropertiesWidgetEdit          txtPuzzleName        "Default Puzzle Name"
+Test                    PuzzlePropertiesWidgetEdit          txtPuzzleName        "Default Puzzle Name"
+  
+Set                     PuzzlePropertiesWidgetEdit          txtDescription       "This is a Default Puzzle test description"
+Test                    PuzzlePropertiesWidgetEdit          txtDescription       "This is a Default Puzzle test description"
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbCategory          0
+---------------------------------------------------------------------------------<Animals>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbCategory          "Animals"
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbDificulty         0
+---------------------------------------------------------------------------------<Easy>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbDificulty         "Easy"
+  
+Set                     CryptogramEditWidget                txtPlaintext         "This is a test cryptogram"
+Test                    CryptogramEditWidget                txtPlaintext         "This is a test cryptogram"
+  
+Click                   PuzzlePropertiesWidgetEdit          btnSavePuzzle
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Puzzle saved!"
+Package                 pg13.presentation
+  
+// go to the find screen and ensure that the puzzle is there  
+Click                   MainWindow                          btnPlay
+SelectTableByRowValue   FindScreen                          table                "Title"         "Default Puzzle Name"
+Click                   FindScreen                          btnPlaySelectedPuzzle
+Click                   PuzzlePropertiesWidgetView          btnCheckSolution
+  
+//Test play screen is populated correctly  
+Test                    PuzzlePropertiesWidgetView          txtPuzzleName        "Default Puzzle Name"
+Test                    PuzzlePropertiesWidgetView          txtDescription       "This is a Default Puzzle test description"
+Test                    PuzzlePropertiesWidgetView          lblCategoryFixedText "Animals"
+Test                    PuzzlePropertiesWidgetView          lblDifficultyFixedText "Easy"
+  
+// delete the puzzle  
+Click                   MainWindow                          btnPlay
+SelectTableByRowValue   FindScreen                          table                "Title"         "Default Puzzle Name"
+Click                   FindScreen                          btnDelete
+  
+//exit the application  
+Click                   MainWindow                          btnQuit
+  
+InvokeMethod            pg13.app.PG13                       shutDown
+  
+InvokeMethod            tests.DBResetter                    ResetHSQLDB
+  
+Close                   MainWindow                          shell
+				  
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Eric\Documents\GitHub\PG13/ATs/CreatePuzzleTest.act
+
+Tests passed: 12; tests failed: 0; invalid parameters: 0; invalid commands: 0
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Eric\Documents\GitHub\PG13/ATs/FilterPuzzlesTest.act
+
+Package                 pg13.presentation
+  
+InvokeMethod            pg13.app.PG13                       startUp
+InvokeMethod            tests.atrStubs.StubInjector         injectMessageBoxStub
+  
+// go to the sign up screen  
+Click                   MainWindow                          btnMainSignUp
+  
+// create a new user and log in  
+Set                     SignUpScreen                        txtLogIn             "PickyOwen"
+Test                    SignUpScreen                        txtLogIn             "PickyOwen"
+  
+Click                   SignUpScreen                        btnSignMeUp
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Successfully Created a user"
+Package                 pg13.presentation
+  
+Test                    MainWindow                          lblLoggedInAs        "Logged in as PickyOwen"
+  
+//Click create Puzzle button and create first puzzle  
+Click                   MainWindow                          btnCreate
+  
+Set                     PuzzlePropertiesWidgetEdit          txtPuzzleName        "Hard Space Puzzle"
+Test                    PuzzlePropertiesWidgetEdit          txtPuzzleName        "Hard Space Puzzle"
+  
+Set                     PuzzlePropertiesWidgetEdit          txtDescription       "This is a hard puzzle about space."
+Test                    PuzzlePropertiesWidgetEdit          txtDescription       "This is a hard puzzle about space."
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbCategory          10
+---------------------------------------------------------------------------------<Space>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbCategory          "Space"
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbDificulty         2
+---------------------------------------------------------------------------------<Hard>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbDificulty         "Hard"
+  
+Set                     CryptogramEditWidget                txtPlaintext         "PickyOwen likes space."
+Test                    CryptogramEditWidget                txtPlaintext         "PickyOwen likes space."
+  
+Click                   PuzzlePropertiesWidgetEdit          btnSavePuzzle
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Puzzle saved!"
+Package                 pg13.presentation
+  
+//Click create Puzzle button and create second puzzle  
+Click                   MainWindow                          btnCreate
+  
+Set                     PuzzlePropertiesWidgetEdit          txtPuzzleName        "Medium Biology Puzzle"
+Test                    PuzzlePropertiesWidgetEdit          txtPuzzleName        "Medium Biology Puzzle"
+  
+Set                     PuzzlePropertiesWidgetEdit          txtDescription       "This is a medium puzzle about biology."
+Test                    PuzzlePropertiesWidgetEdit          txtDescription       "This is a medium puzzle about biology."
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbCategory          1
+---------------------------------------------------------------------------------<Biology>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbCategory          "Biology"
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbDificulty         1
+---------------------------------------------------------------------------------<Medium>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbDificulty         "Medium"
+  
+Set                     CryptogramEditWidget                txtPlaintext         "PickyOwen likes biology."
+Test                    CryptogramEditWidget                txtPlaintext         "PickyOwen likes biology."
+  
+Click                   PuzzlePropertiesWidgetEdit          btnSavePuzzle
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Puzzle saved!"
+Package                 pg13.presentation
+  
+//Click create Puzzle button and create third puzzle  
+Click                   MainWindow                          btnCreate
+  
+Set                     PuzzlePropertiesWidgetEdit          txtPuzzleName        "Easy Trivia Puzzle"
+Test                    PuzzlePropertiesWidgetEdit          txtPuzzleName        "Easy Trivia Puzzle"
+  
+Set                     PuzzlePropertiesWidgetEdit          txtDescription       "This is an easy puzzle about trivia."
+Test                    PuzzlePropertiesWidgetEdit          txtDescription       "This is an easy puzzle about trivia."
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbCategory          4
+---------------------------------------------------------------------------------<Trivia>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbCategory          "Trivia"
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbDificulty         0
+---------------------------------------------------------------------------------<Easy>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbDificulty         "Easy"
+  
+Set                     CryptogramEditWidget                txtPlaintext         "PickyOwen likes trivia."
+Test                    CryptogramEditWidget                txtPlaintext         "PickyOwen likes trivia."
+  
+Click                   PuzzlePropertiesWidgetEdit          btnSavePuzzle
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Puzzle saved!"
+Package                 pg13.presentation
+  
+//Click create Puzzle button and create fourth puzzle  
+Click                   MainWindow                          btnCreate
+  
+Set                     PuzzlePropertiesWidgetEdit          txtPuzzleName        "Hard History Puzzle"
+Test                    PuzzlePropertiesWidgetEdit          txtPuzzleName        "Hard History Puzzle"
+  
+Set                     PuzzlePropertiesWidgetEdit          txtDescription       "This is a hard puzzle about history."
+Test                    PuzzlePropertiesWidgetEdit          txtDescription       "This is a hard puzzle about history."
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbCategory          6
+---------------------------------------------------------------------------------<History>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbCategory          "History"
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbDificulty         2
+---------------------------------------------------------------------------------<Hard>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbDificulty         "Hard"
+  
+Set                     CryptogramEditWidget                txtPlaintext         "PickyOwen likes history."
+Test                    CryptogramEditWidget                txtPlaintext         "PickyOwen likes history."
+  
+Click                   PuzzlePropertiesWidgetEdit          btnSavePuzzle
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Puzzle saved!"
+Package                 pg13.presentation
+  
+//Click create Puzzle button and create fifth puzzle  
+Click                   MainWindow                          btnCreate
+  
+Set                     PuzzlePropertiesWidgetEdit          txtPuzzleName        "Easy Space Puzzle"
+Test                    PuzzlePropertiesWidgetEdit          txtPuzzleName        "Easy Space Puzzle"
+  
+Set                     PuzzlePropertiesWidgetEdit          txtDescription       "This is an easy puzzle about space."
+Test                    PuzzlePropertiesWidgetEdit          txtDescription       "This is an easy puzzle about space."
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbCategory          10
+---------------------------------------------------------------------------------<Space>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbCategory          "Space"
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbDificulty         0
+---------------------------------------------------------------------------------<Easy>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbDificulty         "Easy"
+  
+Set                     CryptogramEditWidget                txtPlaintext         "PickyOwen likes space."
+Test                    CryptogramEditWidget                txtPlaintext         "PickyOwen likes space."
+  
+Click                   PuzzlePropertiesWidgetEdit          btnSavePuzzle
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Puzzle saved!"
+Package                 pg13.presentation
+  
+  
+  
+// hit the "My Puzzles" button, so that only puzzles created by PickyOwen will be shown.  
+// this way, we know exactly how many to expect from each filter  
+Click                   MainWindow                          btnMyPuzzles
+  
+// test category filters  
+  
+// all categories, should be five  
+SelectComboByIndex      FindScreen                          cmbCategory          0
+---------------------------------------------------------------------------------<All Categories>
+TestComboValue          FindScreen                          cmbCategory          "All Categories"
+  
+SelectTableByRowIndex   FindScreen                          table                0
+TestTableByColumnLabel  FindScreen                          table                "Author"        "PickyOwen"
+SelectTableByRowIndex   FindScreen                          table                1
+TestTableByColumnLabel  FindScreen                          table                "Author"        "PickyOwen"
+SelectTableByRowIndex   FindScreen                          table                2
+TestTableByColumnLabel  FindScreen                          table                "Author"        "PickyOwen"
+SelectTableByRowIndex   FindScreen                          table                3
+TestTableByColumnLabel  FindScreen                          table                "Author"        "PickyOwen"
+SelectTableByRowIndex   FindScreen                          table                4
+TestTableByColumnLabel  FindScreen                          table                "Author"        "PickyOwen"
+  
+// space, should be two  
+SelectComboByIndex      FindScreen                          cmbCategory          11
+---------------------------------------------------------------------------------<Space>
+TestComboValue          FindScreen                          cmbCategory          "Space"
+  
+SelectTableByRowIndex   FindScreen                          table                0
+TestTableByColumnLabel  FindScreen                          table                "Category"      "Space"
+SelectTableByRowIndex   FindScreen                          table                1
+TestTableByColumnLabel  FindScreen                          table                "Category"      "Space"
+  
+// biology, should be one  
+SelectComboByIndex      FindScreen                          cmbCategory          2
+---------------------------------------------------------------------------------<Biology>
+TestComboValue          FindScreen                          cmbCategory          "Biology"
+  
+SelectTableByRowIndex   FindScreen                          table                0
+TestTableByColumnLabel  FindScreen                          table                "Category"      "Biology"
+  
+// trivia, should be one  
+SelectComboByIndex      FindScreen                          cmbCategory          5
+---------------------------------------------------------------------------------<Trivia>
+TestComboValue          FindScreen                          cmbCategory          "Trivia"
+  
+SelectTableByRowIndex   FindScreen                          table                0
+TestTableByColumnLabel  FindScreen                          table                "Category"      "Trivia"
+  
+// history, should be one  
+SelectComboByIndex      FindScreen                          cmbCategory          7
+---------------------------------------------------------------------------------<History>
+TestComboValue          FindScreen                          cmbCategory          "History"
+  
+SelectTableByRowIndex   FindScreen                          table                0
+TestTableByColumnLabel  FindScreen                          table                "Category"      "History"
+  
+SelectComboByIndex      FindScreen                          cmbCategory          0
+---------------------------------------------------------------------------------<All Categories>
+TestComboValue          FindScreen                          cmbCategory          "All Categories"
+  
+// easy, should be two  
+Click                   FindScreen                          btnEasy
+  
+SelectTableByRowIndex   FindScreen                          table                0
+TestTableByColumnLabel  FindScreen                          table                "Difficulty"    "Easy"
+SelectTableByRowIndex   FindScreen                          table                1
+TestTableByColumnLabel  FindScreen                          table                "Difficulty"    "Easy"
+  
+Click                   FindScreen                          btnEasy
+  
+// medium, should be one  
+Click                   FindScreen                          btnMedium
+  
+SelectTableByRowIndex   FindScreen                          table                0
+TestTableByColumnLabel  FindScreen                          table                "Difficulty"    "Medium"
+  
+Click                   FindScreen                          btnMedium
+  
+// hard, should be two  
+Click                   FindScreen                          btnDifficult
+  
+SelectTableByRowIndex   FindScreen                          table                0
+TestTableByColumnLabel  FindScreen                          table                "Difficulty"    "Hard"
+SelectTableByRowIndex   FindScreen                          table                1
+TestTableByColumnLabel  FindScreen                          table                "Difficulty"    "Hard"
+  
+Click                   FindScreen                          btnDifficult
+  
+// log out  
+Click                   MainWindow                          btnLogout
+  
+//exit the application  
+Click                   MainWindow                          btnQuit
+  
+InvokeMethod            pg13.app.PG13                       shutDown
+  
+InvokeMethod            tests.DBResetter                    ResetHSQLDB
+  
+Close                   MainWindow                          shell
+				  
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Eric\Documents\GitHub\PG13/ATs/FilterPuzzlesTest.act
+
+Tests passed: 54; tests failed: 0; invalid parameters: 0; invalid commands: 0
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Eric\Documents\GitHub\PG13/ATs/ModifyPuzzleTest.act
+
+Package                 pg13.presentation
+  
+InvokeMethod            pg13.app.PG13                       startUp
+InvokeMethod            tests.atrStubs.StubInjector         injectMessageBoxStub
+  
+// go to the login screen  
+Click                   MainWindow                          btnMainLogin
+  
+  
+// select Guest and checked that we're logged in as guest  
+SelectComboByIndex      LoginScreen                         cmbUsernames         0
+---------------------------------------------------------------------------------<Guest>
+TestComboValue          LoginScreen                         cmbUsernames         "Guest"
+Click                   LoginScreen                         btnLogMeIn
+Test                    MainWindow                          lblLoggedInAs        "Logged in as Guest"
+  
+//Click create Puzzle button and create a puzzle  
+Click                   MainWindow                          btnCreate
+  
+Set                     PuzzlePropertiesWidgetEdit          txtPuzzleName        "Original Puzzle Name"
+Test                    PuzzlePropertiesWidgetEdit          txtPuzzleName        "Original Puzzle Name"
+  
+Set                     PuzzlePropertiesWidgetEdit          txtDescription       "This description will be modified."
+Test                    PuzzlePropertiesWidgetEdit          txtDescription       "This description will be modified."
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbCategory          0
+---------------------------------------------------------------------------------<Animals>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbCategory          "Animals"
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbDificulty         0
+---------------------------------------------------------------------------------<Easy>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbDificulty         "Easy"
+  
+Set                     CryptogramEditWidget                txtPlaintext         "This plaintext will be modified."
+Test                    CryptogramEditWidget                txtPlaintext         "This plaintext will be modified."
+  
+Click                   PuzzlePropertiesWidgetEdit          btnSavePuzzle
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Puzzle saved!"
+Package                 pg13.presentation
+  
+// go to the find screen and select the puzzle to edit it  
+Click                   MainWindow                          btnPlay
+SelectTableByRowValue   FindScreen                          table                "Title"         "Original Puzzle Name"
+Click                   FindScreen                          btnEdit
+  
+// modify all the fields  
+Set                     PuzzlePropertiesWidgetEdit          txtPuzzleName        "New Puzzle Name"
+Test                    PuzzlePropertiesWidgetEdit          txtPuzzleName        "New Puzzle Name"
+  
+Set                     PuzzlePropertiesWidgetEdit          txtDescription       "This description is much better."
+Test                    PuzzlePropertiesWidgetEdit          txtDescription       "This description is much better."
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbCategory          1
+---------------------------------------------------------------------------------<Biology>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbCategory          "Biology"
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbDificulty         1
+---------------------------------------------------------------------------------<Medium>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbDificulty         "Medium"
+  
+Set                     CryptogramEditWidget                txtPlaintext         "This plaintext is brand new!"
+Test                    CryptogramEditWidget                txtPlaintext         "This plaintext is brand new!"
+  
+Click                   PuzzlePropertiesWidgetEdit          btnSavePuzzle
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Puzzle saved!"
+Package                 pg13.presentation
+  
+// go to the find screen and select the puzzle to edit it  
+Click                   MainWindow                          btnPlay
+SelectTableByRowValue   FindScreen                          table                "Title"         "New Puzzle Name"
+Click                   FindScreen                          btnPlaySelectedPuzzle
+  
+//Test play screen is populated correctly  
+Test                    PuzzlePropertiesWidgetView          txtPuzzleName        "New Puzzle Name"
+Test                    PuzzlePropertiesWidgetView          txtDescription       "This description is much better."
+Test                    PuzzlePropertiesWidgetView          lblCategoryFixedText "Biology"
+Test                    PuzzlePropertiesWidgetView          lblDifficultyFixedText "Medium"
+  
+//exit the application  
+Click                   MainWindow                          btnQuit
+  
+InvokeMethod            pg13.app.PG13                       shutDown
+  
+InvokeMethod            tests.DBResetter                    ResetHSQLDB
+  
+Close                   MainWindow                          shell
+				  
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Eric\Documents\GitHub\PG13/ATs/ModifyPuzzleTest.act
+
+Tests passed: 18; tests failed: 0; invalid parameters: 0; invalid commands: 0
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Eric\Documents\GitHub\PG13/ATs/OwnPuzzlesTest.act
+
+Package                 pg13.presentation
+  
+InvokeMethod            pg13.app.PG13                       startUp
+InvokeMethod            tests.atrStubs.StubInjector         injectMessageBoxStub
+  
+// go to the sign up screen  
+Click                   MainWindow                          btnMainSignUp
+  
+// create a new user and log in  
+Set                     SignUpScreen                        txtLogIn             "TestingSteve"
+Test                    SignUpScreen                        txtLogIn             "TestingSteve"
+  
+Click                   SignUpScreen                        btnSignMeUp
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Successfully Created a user"
+Package                 pg13.presentation
+  
+Test                    MainWindow                          lblLoggedInAs        "Logged in as TestingSteve"
+  
+//Click create Puzzle button and create first puzzle  
+Click                   MainWindow                          btnCreate
+  
+Set                     PuzzlePropertiesWidgetEdit          txtPuzzleName        "First Puzzle"
+Test                    PuzzlePropertiesWidgetEdit          txtPuzzleName        "First Puzzle"
+  
+Set                     PuzzlePropertiesWidgetEdit          txtDescription       "This is a puzzle that TestingSteve owns."
+Test                    PuzzlePropertiesWidgetEdit          txtDescription       "This is a puzzle that TestingSteve owns."
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbCategory          10
+---------------------------------------------------------------------------------<Space>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbCategory          "Space"
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbDificulty         2
+---------------------------------------------------------------------------------<Hard>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbDificulty         "Hard"
+  
+Set                     CryptogramEditWidget                txtPlaintext         "TestingSteve is the best!"
+Test                    CryptogramEditWidget                txtPlaintext         "TestingSteve is the best!"
+  
+Click                   PuzzlePropertiesWidgetEdit          btnSavePuzzle
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Puzzle saved!"
+Package                 pg13.presentation
+  
+//Click create Puzzle button and create second puzzle  
+Click                   MainWindow                          btnCreate
+  
+Set                     PuzzlePropertiesWidgetEdit          txtPuzzleName        "Second Puzzle"
+Test                    PuzzlePropertiesWidgetEdit          txtPuzzleName        "Second Puzzle"
+  
+Set                     PuzzlePropertiesWidgetEdit          txtDescription       "This is a puzzle that TestingSteve owns."
+Test                    PuzzlePropertiesWidgetEdit          txtDescription       "This is a puzzle that TestingSteve owns."
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbCategory          1
+---------------------------------------------------------------------------------<Biology>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbCategory          "Biology"
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbDificulty         1
+---------------------------------------------------------------------------------<Medium>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbDificulty         "Medium"
+  
+Set                     CryptogramEditWidget                txtPlaintext         "TestingSteve is the best!"
+Test                    CryptogramEditWidget                txtPlaintext         "TestingSteve is the best!"
+  
+Click                   PuzzlePropertiesWidgetEdit          btnSavePuzzle
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Puzzle saved!"
+Package                 pg13.presentation
+  
+//Click create Puzzle button and create third puzzle  
+Click                   MainWindow                          btnCreate
+  
+Set                     PuzzlePropertiesWidgetEdit          txtPuzzleName        "Third Puzzle"
+Test                    PuzzlePropertiesWidgetEdit          txtPuzzleName        "Third Puzzle"
+  
+Set                     PuzzlePropertiesWidgetEdit          txtDescription       "This is a puzzle that TestingSteve owns."
+Test                    PuzzlePropertiesWidgetEdit          txtDescription       "This is a puzzle that TestingSteve owns."
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbCategory          4
+---------------------------------------------------------------------------------<Trivia>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbCategory          "Trivia"
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbDificulty         0
+---------------------------------------------------------------------------------<Easy>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbDificulty         "Easy"
+  
+Set                     CryptogramEditWidget                txtPlaintext         "TestingSteve is the best!"
+Test                    CryptogramEditWidget                txtPlaintext         "TestingSteve is the best!"
+  
+Click                   PuzzlePropertiesWidgetEdit          btnSavePuzzle
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Puzzle saved!"
+Package                 pg13.presentation
+  
+//Click create Puzzle button and create fourth puzzle  
+Click                   MainWindow                          btnCreate
+  
+Set                     PuzzlePropertiesWidgetEdit          txtPuzzleName        "Fourth Puzzle"
+Test                    PuzzlePropertiesWidgetEdit          txtPuzzleName        "Fourth Puzzle"
+  
+Set                     PuzzlePropertiesWidgetEdit          txtDescription       "This is a puzzle that TestingSteve owns."
+Test                    PuzzlePropertiesWidgetEdit          txtDescription       "This is a puzzle that TestingSteve owns."
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbCategory          6
+---------------------------------------------------------------------------------<History>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbCategory          "History"
+  
+SelectComboByIndex      PuzzlePropertiesWidgetEdit          cmbDificulty         2
+---------------------------------------------------------------------------------<Hard>
+TestComboValue          PuzzlePropertiesWidgetEdit          cmbDificulty         "Hard"
+  
+Set                     CryptogramEditWidget                txtPlaintext         "TestingSteve is the best!"
+Test                    CryptogramEditWidget                txtPlaintext         "TestingSteve is the best!"
+  
+Click                   PuzzlePropertiesWidgetEdit          btnSavePuzzle
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Puzzle saved!"
+Package                 pg13.presentation
+  
+  
+// hit the "My Puzzles" button, and view only puzzles created by TestingSteve  
+Click                   MainWindow                          btnMyPuzzles
+  
+// there should be exactly four entries in this table,   
+// and they should all have "Author" set to TestingSteve  
+SelectTableByRowIndex   FindScreen                          table                0
+TestTableByColumnLabel  FindScreen                          table                "Author"        "TestingSteve"
+  
+SelectTableByRowIndex   FindScreen                          table                1
+TestTableByColumnLabel  FindScreen                          table                "Author"        "TestingSteve"
+  
+SelectTableByRowIndex   FindScreen                          table                2
+TestTableByColumnLabel  FindScreen                          table                "Author"        "TestingSteve"
+  
+SelectTableByRowIndex   FindScreen                          table                3
+TestTableByColumnLabel  FindScreen                          table                "Author"        "TestingSteve"
+  
+// log out  
+Click                   MainWindow                          btnLogout
+  
+//exit the application  
+Click                   MainWindow                          btnQuit
+  
+InvokeMethod            pg13.app.PG13                       shutDown
+  
+InvokeMethod            tests.DBResetter                    ResetHSQLDB
+  
+Close                   MainWindow                          shell
+				  
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Eric\Documents\GitHub\PG13/ATs/OwnPuzzlesTest.act
+
+Tests passed: 31; tests failed: 0; invalid parameters: 0; invalid commands: 0
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Eric\Documents\GitHub\PG13/ATs/PlayPuzzlesTest.act
+
+Package                 pg13.presentation
+  
+InvokeMethod            pg13.app.PG13                       startUp
+InvokeMethod            tests.atrStubs.StubInjector         injectMessageBoxStub
+  
+// go to the login screen  
+Click                   MainWindow                          btnMainLogin
+  
+// select Guest and checked that we're logged in as guest  
+SelectComboByIndex      LoginScreen                         cmbUsernames         0
+---------------------------------------------------------------------------------<Guest>
+TestComboValue          LoginScreen                         cmbUsernames         "Guest"
+Click                   LoginScreen                         btnLogMeIn
+Test                    MainWindow                          lblLoggedInAs        "Logged in as Guest"
+  
+// go to the find screen and select the first puzzle to play  
+Click                   MainWindow                          btnPlay
+SelectTableByRowValue   FindScreen                          table                "Title"         "My first puzzle"
+Click                   FindScreen                          btnPlaySelectedPuzzle
+  
+// ensure we picked the right puzzle  
+Test                    PuzzlePropertiesWidgetView          txtPuzzleName        "My first puzzle"
+  
+// fill in the letters, using the workaround method, because since letterwidgets are  
+// stored in a data structure, we cannot communicate to them directly  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "f"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "0"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "a"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "1"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+// partially complete solution  
+Click                   PuzzlePropertiesWidgetView          btnCheckSolution
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Nice try but not quite right. Keep on trying to solve it!"
+Package                 pg13.presentation
+  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "r"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "2"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "t"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "3"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+// incorrect solution  
+Click                   PuzzlePropertiesWidgetView          btnCheckSolution
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Nice try but not quite right. Keep on trying to solve it!"
+Package                 pg13.presentation
+  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "k"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "2"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "e"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "3"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+// correct solution  
+Click                   PuzzlePropertiesWidgetView          btnCheckSolution
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Congrats! You solved it! You are the best! Why not try another one?"
+Package                 pg13.presentation
+  
+  
+// go to the find screen and select the next puzzle to play  
+Click                   MainWindow                          btnPlay
+SelectTableByRowValue   FindScreen                          table                "Title"         "another puzzle"
+Click                   FindScreen                          btnPlaySelectedPuzzle
+  
+// ensure we picked the right puzzle  
+Test                    PuzzlePropertiesWidgetView          txtPuzzleName        "another puzzle"
+  
+// fill in the letters, longer puzzle, jumbled order  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "e"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "4"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "t"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "2"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "b"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "0"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "u"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "1"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+// partially complete solution  
+Click                   PuzzlePropertiesWidgetView          btnCheckSolution
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Nice try but not quite right. Keep on trying to solve it!"
+Package                 pg13.presentation
+  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "l"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "7"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "r"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "5"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+// partially complete solution  
+Click                   PuzzlePropertiesWidgetView          btnCheckSolution
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Nice try but not quite right. Keep on trying to solve it!"
+Package                 pg13.presentation
+  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "i"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "8"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "s"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "10"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetValue "f"
+Set                     CryptogramSolveWidgetPlay           txtLetterWidgetID    "6"
+Click                   CryptogramSolveWidgetPlay           btnSubmitLetterWidget
+  
+// correct solution  
+Click                   PuzzlePropertiesWidgetView          btnCheckSolution
+Package                 tests.atrStubs
+Test                    MessageBoxMakerStub                 lblMessage           "Congrats! You solved it! You are the best! Why not try another one?"
+Package                 pg13.presentation
+  
+//exit the application  
+Click                   MainWindow                          btnQuit
+  
+InvokeMethod            pg13.app.PG13                       shutDown
+  
+InvokeMethod            tests.DBResetter                    ResetHSQLDB
+  
+Close                   MainWindow                          shell
+  
+
+-------------------------------------------------------------------------------
+
+Script C:\Users\Eric\Documents\GitHub\PG13/ATs/PlayPuzzlesTest.act
+
+Tests passed: 10; tests failed: 0; invalid parameters: 0; invalid commands: 0
+
+-------------------------------------------------------------------------------
 
 
-C:\Users\Eric\Documents\GitHub\PG13>REM java junit.swingui.TestRunner tests.AllTests
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+Totals for all scripts in directory C:\Users\Eric\Documents\GitHub\PG13
+
+Tests passed125, tests failed  0, invalid parameters  0, invalid commands  0 
+
+Elapsed time: 4.978  seconds
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+C:\Users\Eric\Documents\GitHub\PG13>REM java junit.swingui.TestRunner tests.AllTests 

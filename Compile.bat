@@ -26,4 +26,4 @@ REM javac -d bin\ -cp %classpath% src\srsys\objects\*.java
 REM javac -d bin\ -cp %classpath% src\srsys\persistence\*.java
 
 javac -d bin\ -cp %classpath% src\pg13\app\*.java src\pg13\business\*.java src\pg13\models\*.java src\pg13\org\eclipse\wb\swt\*.java src\pg13\persistence\*.java src\pg13\presentation\*.java 
-javac -d bin\ -cp %classpath% src\tests\*.java src\tests\business\*.java src\tests\models\*.java src\tests\persistence\*.java 
+javac -d bin\ -cp %classpath% src\tests\*.java src\tests\business\*.java src\tests\models\*.java src\tests\persistence\*.java src\tests\integration\*.java src\tests\atrStubs\*.java

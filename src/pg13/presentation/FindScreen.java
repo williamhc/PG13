@@ -73,7 +73,6 @@ public class FindScreen extends Composite
 	private Button btnDifficult;
 	private Button btnMedium;
 	private Button btnAllPuzzles;
-	private Button btnFriendsPuzzles;
 	private Button btnMyPuzzles;
 	private Composite cmpPuzzleFilter;
 	private Composite cmpPuzzleSearch;
@@ -111,7 +110,7 @@ public class FindScreen extends Composite
 		cmpPuzzleFilter.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		cmpPuzzleFilter.setLayout(new FormLayout());
 		FormData fd_cmpPuzzleFilter = new FormData();
-		fd_cmpPuzzleFilter.bottom = new FormAttachment(lblFindAPuzzle, 84, SWT.BOTTOM);
+		fd_cmpPuzzleFilter.bottom = new FormAttachment(lblFindAPuzzle, 70, SWT.BOTTOM);
 		fd_cmpPuzzleFilter.top = new FormAttachment(lblFindAPuzzle, 6);
 		fd_cmpPuzzleFilter.right = new FormAttachment(separator, -10);
 		fd_cmpPuzzleFilter.left = new FormAttachment(0, 10);
@@ -127,20 +126,10 @@ public class FindScreen extends Composite
 		btnAllPuzzles.setText(Constants.ALL_PUZZLES);
 		btnAllPuzzles.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 
-		btnFriendsPuzzles = new Button(cmpPuzzleFilter, SWT.RADIO);
-		btnFriendsPuzzles.setEnabled(false);
-		FormData fd_btnFriendsPuzzles = new FormData();
-		fd_btnFriendsPuzzles.top = new FormAttachment(0, 28);
-		fd_btnFriendsPuzzles.right = new FormAttachment(100, -6);
-		fd_btnFriendsPuzzles.left = new FormAttachment(0, 6);
-		btnFriendsPuzzles.setLayoutData(fd_btnFriendsPuzzles);
-		btnFriendsPuzzles.setText(Constants.FRIENDS_PUZZLES);
-		btnFriendsPuzzles.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-
 		btnMyPuzzles = new Button(cmpPuzzleFilter, SWT.RADIO);
 		FormData fd_btnMyPuzzles = new FormData();
 		fd_btnMyPuzzles.right = new FormAttachment(100, -6);
-		fd_btnMyPuzzles.top = new FormAttachment(0, 50);
+		fd_btnMyPuzzles.top = new FormAttachment(0, 30);
 		fd_btnMyPuzzles.left = new FormAttachment(0, 6);
 		btnMyPuzzles.setLayoutData(fd_btnMyPuzzles);
 		btnMyPuzzles.setText(Constants.MY_PUZZLES);
@@ -599,6 +588,5 @@ public class FindScreen extends Composite
 	{
 		this.btnMyPuzzles.setSelection(true);
 		this.btnAllPuzzles.setSelection(false);
-		this.btnFriendsPuzzles.setSelection(false);
 	}
 }
